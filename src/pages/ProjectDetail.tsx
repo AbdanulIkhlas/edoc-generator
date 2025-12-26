@@ -1,0 +1,192 @@
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, ExternalLink, Github, Figma, Calendar, User } from "lucide-react";
+import MainLayout from "@/layouts/MainLayout";
+import Badge from "@/components/atoms/Badge";
+import { projects } from "@/data/projects";
+
+const ProjectDetail = () => {
+  const { slug } = useParams();
+  const project = projects.find((p) => p.id === slug);
+
+  if (!project) {
+    return (
+      <MainLayout>
+        <div className="py-24 text-center">
+          <h1 className="text-2xl font-heading font-bold text-foreground mb-4">
+            Project not found
+          </h1>
+          <Link to="/projects" className="text-primary">
+            ← Back to projects
+          </Link>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  const statusColors = {
+    live: "bg-green-500/20 text-green-400",
+    "in-progress": "bg-yellow-500/20 text-yellow-400",
+    archived: "bg-muted text-muted-foreground",
+  };
+
+  return (
+    <MainLayout>
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto">
+            {/* Back link */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="mb-8"
+            >
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft size={18} />
+                Back to projects
+              </Link>
+            </motion.div>
+
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-12"
+            >
+              <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-4">
+                <div className="flex items-center gap-1">
+                  <Calendar size={14} />
+                  <span>{project.year}</span>
+                </div>
+                <span className="text-border">•</span>
+                <div className="flex items-center gap-1">
+                  <User size={14} />
+                  <span>{project.role}</span>
+                </div>
+                <span className="text-border">•</span>
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[project.status]}`}>
+                  {project.status}
+                </span>
+              </div>
+
+              <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                {project.title}
+              </h1>
+
+              {/* Links */}
+              <div className="flex items-center gap-4">
+                {project.links.live && (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    <ExternalLink size={16} />
+                    Live Demo
+                  </a>
+                )}
+                {project.links.github && (
+                  <a
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Github size={16} />
+                    Source Code
+                  </a>
+                )}
+                {project.links.figma && (
+                  <a
+                    href={project.links.figma}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Figma size={16} />
+                    Design
+                  </a>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="mb-10"
+            >
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {project.fullDescription}
+              </p>
+            </motion.div>
+
+            {/* Technologies */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mb-10"
+            >
+              <h3 className="text-lg font-heading font-semibold text-foreground mb-4">
+                Technologies
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <Badge key={tech}>{tech}</Badge>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Features */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mb-10"
+            >
+              <h3 className="text-lg font-heading font-semibold text-foreground mb-4">
+                Key Features
+              </h3>
+              <ul className="space-y-3">
+                {project.features.map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Challenges */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="p-6 rounded-2xl bg-card border border-border"
+            >
+              <h3 className="text-lg font-heading font-semibold text-foreground mb-4">
+                Challenges & Solutions
+              </h3>
+              <ul className="space-y-3">
+                {project.challenges.map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="text-primary mt-0.5">→</span>
+                    <span className="text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </MainLayout>
+  );
+};
+
+export default ProjectDetail;
