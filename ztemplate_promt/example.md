@@ -5,7 +5,6 @@ Please generate a complete 5-file eDoc package using the `edoc-generator` [SKILL
 - Primary PDF Template: images/template.pdf [template.pdf](file;file:///e%3A/A%20Main%20Storage/Project/edoc-typing/Automation-create-edoc/images/template.pdf) 
 
 
-
 ### 2 
 Just create the HTML—no need to do the bridging just yet—and make sure it’s neat and consistent with the JSON and the template.pdf.
 
