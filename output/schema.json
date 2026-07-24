@@ -1,6 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Generated schema for Root",
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
         "pasien": {
@@ -20,174 +19,208 @@
                 },
                 "tanggal_lahir_indo": {
                     "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
                 }
             }
         },
-        "data_list": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "tanggal_cppt": {
-                        "type": "string"
-                    },
-                    "tanggal_cppt_indo": {
-                        "type": "string"
-                    },
-                    "jam_cppt": {
-                        "type": "string"
-                    },
-                    "profesional_pemberi_asuhan": {
-                        "type": "string"
-                    },
-                    "profesi": {
-                        "type": "string"
-                    },
-                    "klinik": {
-                        "type": "string"
-                    },
-                    "bangsal": {
-                        "type": "string"
-                    },
-                    "ruang": {
-                        "type": "string"
-                    },
-                    "kelas": {
-                        "type": "string"
-                    },
-                    "igd": {
-                        "type": "string"
-                    },
-                    "pilihan": {
-                        "type": "string"
-                    },
-                    "hasil_asesmen": {
-                        "type": "object",
-                        "properties": {
-                            "catatan_s": {
-                                "type": "string"
-                            },
-                            "catatan_o": {
-                                "type": "string"
-                            },
-                            "catatan_a": {
-                                "type": "string"
-                            },
-                            "catatan_p": {
-                                "type": "string"
-                            }
+        "anamnesis": {
+            "type": "object",
+            "properties": {
+                "keluhan_utama": {
+                    "type": "string"
+                },
+                "riwayat_penyakit": {
+                    "type": "string"
+                }
+            }
+        },
+        "pemeriksaan_fisik": {
+            "type": "object",
+            "properties": {
+                "keadaan_umum": {
+                    "type": "string"
+                },
+                "vital_sign": {
+                    "type": "object",
+                    "properties": {
+                        "td": {
+                            "type": "number"
+                        },
+                        "nadi": {
+                            "type": "number"
+                        },
+                        "suhu": {
+                            "type": "number"
+                        },
+                        "rr": {
+                            "type": "number"
+                        },
+                        "tb": {
+                            "type": "number"
+                        },
+                        "bb": {
+                            "type": "number"
+                        },
+                        "spo2": {
+                            "type": "string"
                         }
-                    },
-                    "hasil_adime": {
-                        "type": "object",
-                        "properties": {
-                            "adime_a": {
-                                "type": "string"
-                            },
-                            "adime_d": {
-                                "type": "string"
-                            },
-                            "adime_i": {
-                                "type": "string"
-                            },
-                            "adime_me": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "hasil_sbar": {
-                        "type": "object",
-                        "properties": {
-                            "sbar_s": {
-                                "type": "string"
-                            },
-                            "sbar_b": {
-                                "type": "string"
-                            },
-                            "sbar_a": {
-                                "type": "string"
-                            },
-                            "sbar_r": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "instruksi_ppa": {
-                        "type": "string"
-                    },
-                    "perawat_harian": {
-                        "type": "string"
-                    },
-                    "tanda_tangan_harian": {
-                        "type": "string"
-                    },
-                    "perawat_menyerahkan": {
-                        "type": "string"
-                    },
-                    "tanda_tangan_menyerahkan": {
-                        "type": "string"
-                    },
-                    "perawat_menerima": {
-                        "type": "string"
-                    },
-                    "tanda_tangan_menerima": {
-                        "type": "string"
-                    },
-                    "apoteker": {
-                        "type": "string"
-                    },
-                    "tanda_tangan_apoteker": {
-                        "type": "string"
-                    },
-                    "ahli_gizi": {
-                        "type": "string"
-                    },
-                    "tanda_tangan_ahli_gizi": {
-                        "type": "string"
-                    },
-                    "verifikasi_dpjp": {
-                        "type": "object",
-                        "properties": {
-                            "tanda_tangan": {
-                                "type": "string"
-                            },
-                            "tanda_tangan_2": {
-                                "type": "string"
-                            },
-                            "nama_dpjp": {
-                                "type": "string"
-                            },
-                            "tanggal_dpjp": {
-                                "type": "string"
-                            },
-                            "tanggal_dpjp_indo": {
-                                "type": "string"
-                            },
-                            "jam_dpjp": {
-                                "type": "string"
-                            },
-                            "all_status_verif": {
-                                "type": "boolean"
-                            },
-                            "status_verif": {
-                                "type": "boolean"
-                            },
-                            "nama_verif": {
-                                "type": "string"
-                            },
-                            "tanggal_verif": {
-                                "type": "string"
-                            },
-                            "tanggal_indo_verif": {
-                                "type": "string"
-                            },
-                            "jam_verif": {
-                                "type": "string"
-                            }
+                    }
+                },
+                "kesadaran": {
+                    "type": "string"
+                },
+                "kepala": {
+                    "type": "string"
+                },
+                "thorax": {
+                    "type": "string"
+                },
+                "abdomen": {
+                    "type": "string"
+                },
+                "ekstremitas": {
+                    "type": "string"
+                }
+            }
+        },
+        "status_lokalis": {
+            "type": "object",
+            "properties": {
+                "catatan": {
+                    "type": "string"
+                }
+            }
+        },
+        "image_canvas": {
+            "type": "object",
+            "properties": {
+                "canvas1": {
+                    "type": "object",
+                    "properties": {
+                        "stroke": {
+                            "type": "string"
+                        },
+                        "image_base64": {
+                            "type": "string"
+                        },
+                        "is_changed": {
+                            "type": "boolean"
                         }
                     }
                 }
             }
+        },
+        "pemeriksaan_penunjang": {
+            "type": "object",
+            "properties": {
+                "laboratorium": {
+                    "type": "string"
+                },
+                "radiologi": {
+                    "type": "string"
+                },
+                "penunjang_lain": {
+                    "type": "string"
+                }
+            }
+        },
+        "diagnosis": {
+            "type": "object",
+            "properties": {
+                "diagnosis_awal": {
+                    "type": "string"
+                },
+                "icd10": {
+                    "type": "string"
+                }
+            }
+        },
+        "rencana": {
+            "type": "object",
+            "properties": {
+                "penegakan_diagnosis": {
+                    "type": "string"
+                },
+                "terapi": {
+                    "type": "string"
+                },
+                "diet": {
+                    "type": "string"
+                },
+                "edukasi": {
+                    "type": "string"
+                },
+                "tindak_lanjut": {
+                    "type": "string"
+                },
+                "tindak_lanjut_pulang": {
+                    "type": "string"
+                },
+                "rencana_asuhan_medis": {
+                    "type": "string"
+                },
+                "rencana_asuhan_medis_lainnya": {
+                    "type": "string"
+                },
+                "dirujuk_ke": {
+                    "type": "string"
+                },
+                "dirujuk_ke_lainnya": {
+                    "type": "string"
+                },
+                "transportasi_pulang": {
+                    "type": "string"
+                },
+                "transportasi_pulang_lainnya": {
+                    "type": "string"
+                }
+            }
+        },
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "dokter": {
+                    "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
+                }
+            }
+        },
+        "laboratorium_freetext": {
+            "type": "string"
+        },
+        "radiologi_freetext": {
+            "type": "string"
+        },
+        "diagnosa_masuk_group": {
+            "type": "string"
+        },
+        "diagnosa_masuk_freetext": {
+            "type": "string"
+        },
+        "diagnosa_masuk_autocomplete": {
+            "type": "array"
+        },
+        "resep_freetext": {
+            "type": "string"
         }
     }
 }
