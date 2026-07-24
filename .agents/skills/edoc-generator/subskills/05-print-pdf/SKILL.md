@@ -396,8 +396,10 @@ $static_label = json_decode($argv[3]);
 ```
 
 ## Critical Rules
-
 1. Exact Kop RS Matching: NEVER alter the Kop RS HTML table structure. Use the exact code provided in Step 2.
 2. Strict HTML Table Layout: DONT using Bootstrap or external layout frameworks. Use HTML <table> elements and custom/inline CSS for page structure.
 3. Property Path Consistency: Ensure property paths under $params-> correspond exactly to key paths generated in output/json.js.
-4. For all variables called to display data, use handler chaining as follows  `<?php echo $params->ttd_data->dokter_stroke ?? "" ?>`
+4. For all variables called to display data, use handler chaining as follows  `<?php echo $params->ttd_data->dokter_stroke ?? "" ?>`.
+5. Firstly, create a `print.php` file in the `./output` directory using this template in its entirety: `.agents\skills\edoc-generator\resources\templates\template_print.php`. Use this full code as the starting template for `print.php` without omitting anything, and use the existing styling; if none exists, create the styling from scratch. For the layout, use a table, and the entire display must match the PHP template exactly; there must be no differences, and it must be neat.
+6. Ensure that all sections are wrapped; all content is enclosed within a row-structured master table (.main-outer-table) with `page-break-inside: auto`. Remove `page-break-inside: avoid` from the large container so that if the content exceeds the boundaries of Page 1, the table rows will break naturally and flow onto Page 2 without leaving the remainder of Page 1 blank.
+7. In short, don’t remove anything from the template; use everything that’s there first, and if there’s anything missing, only then should you add it – don’t remove anything.
