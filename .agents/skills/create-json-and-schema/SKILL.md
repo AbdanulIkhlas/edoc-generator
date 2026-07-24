@@ -4,8 +4,10 @@ description: Membuat atau memperbarui file output/json.js dan output/schema.json
 ---
 
 # JSON DAN SCHEMA GENERATOR
+
 Skill ini bertugas menganalisis template dokumen (PDF maupun gambar) kemudian menghasilkan atau memperbarui struktur data yang digunakan oleh eDoc.
 File yang dihasilkan adalah:
+
 - `output/json.js`
 - `output/schema.json`
 
@@ -14,7 +16,9 @@ Skill ini **bersifat non-destructive**, artinya hanya menambahkan data yang belu
 ---
 
 # TUJUAN
+
 Menghasilkan struktur data yang konsisten antara:
+
 - template dokumen
 - data dummy (`sample`)
 - data kosong (`default`)
@@ -25,15 +29,17 @@ Menghasilkan struktur data yang konsisten antara:
 # INPUT
 
 ## Template PDF
+
 ```
-target/template.pdf
+input/template.pdf
 ```
 
 ## Gambar (Opsional)
+
 ```
-target/image-1.png
-target/image-2.png
-target/image-3.png
+input/image-1.png
+input/image-2.png
+input/image-3.png
 ...
 ```
 
@@ -43,7 +49,9 @@ Apabila gambar tidak tersedia, gunakan PDF sebagai sumber analisis.
 ---
 
 # OUTPUT
+
 Wajib menghasilkan atau memperbarui:
+
 ```
 output/json.js
 output/schema.json
@@ -54,8 +62,10 @@ output/schema.json
 # ALUR KERJA
 
 ## Langkah 1
+
 Analisa seluruh isi dokumen.
 Identifikasi seluruh komponen seperti:
+
 - label
 - field input
 - checkbox
@@ -76,8 +86,10 @@ Identifikasi seluruh komponen seperti:
 ---
 
 ## Langkah 2
+
 Tentukan struktur objek yang paling logis berdasarkan hubungan antar field.
 Contoh:
+
 ```
 Pasien
 
@@ -87,6 +99,7 @@ Pasien
 ```
 
 menjadi
+
 ```json
 pasien: {
     nama: "",
@@ -96,6 +109,7 @@ pasien: {
 ```
 
 Bukan
+
 ```json
 pasien_nama
 pasien_nik
@@ -105,7 +119,9 @@ pasien_umur
 ---
 
 ## Langkah 3
+
 Perbarui file
+
 ```
 output/json.js
 ```
@@ -157,6 +173,7 @@ Skill **TIDAK BOLEH**
 - mengubah value dummy yang sudah ada
 
 Objek yang nyimpan tanda tangan selalu ada di objek `ttd_data` ini sesuai dengan jumlah tanda tangan yang ada di dokumen
+
 ```json
 "ttd_data": {
     "perawat": "Sunarni",
@@ -174,14 +191,10 @@ Di dalam file terdapat variabel
 
 ```javascript
 const data = {
-    sample: {
+  sample: {},
 
-    },
-
-    default: {
-
-    }
-}
+  default: {},
+};
 ```
 
 ---
@@ -197,13 +210,13 @@ Gunakan contoh data yang realistis.
 Contoh
 
 ```javascript
-nama: "Budi Santoso"
+nama: "Budi Santoso";
 
-umur: 30
+umur: 30;
 
-tinggi_badan: 170
+tinggi_badan: 170;
 
-aktif: true
+aktif: true;
 ```
 
 ---
@@ -245,7 +258,7 @@ aktif: false
 Objek
 
 ```javascript
-external_link
+external_link;
 ```
 
 hanya ada pada
@@ -264,12 +277,12 @@ default
 
 # Default Value
 
-|string|`""`|
-|------|------|
-|number|`0`|
-|boolean|`false`|
-|array|`[]`|
-|object|`{}`|
+| string  | `""`    |
+| ------- | ------- |
+| number  | `0`     |
+| boolean | `false` |
+| array   | `[]`    |
+| object  | `{}`    |
 
 ---
 
@@ -277,25 +290,25 @@ default
 
 Gunakan aturan berikut.
 
-|Jenis Field|Tipe|
-|------------|----|
-|Nama|string|
-|Alamat|string|
-|Nomor RM|string|
-|NIK|string|
-|Telepon|string|
-|Tanggal|string|
-|Jam|string|
-|Diagnosis|string|
-|Catatan|string|
-|Checkbox|boolean|
-|Radio Ya/Tidak|boolean|
-|Jumlah|number|
-|Usia|number|
-|Berat Badan|number|
-|Tinggi Badan|number|
-|List Dinamis|array|
-|Tabel Berulang|array object|
+| Jenis Field    | Tipe         |
+| -------------- | ------------ |
+| Nama           | string       |
+| Alamat         | string       |
+| Nomor RM       | string       |
+| NIK            | string       |
+| Telepon        | string       |
+| Tanggal        | string       |
+| Jam            | string       |
+| Diagnosis      | string       |
+| Catatan        | string       |
+| Checkbox       | boolean      |
+| Radio Ya/Tidak | boolean      |
+| Jumlah         | number       |
+| Usia           | number       |
+| Berat Badan    | number       |
+| Tinggi Badan   | number       |
+| List Dinamis   | array        |
+| Tabel Berulang | array object |
 
 Apabila tipe tidak dapat dipastikan, gunakan
 
@@ -352,11 +365,11 @@ menjadi
 
 ```javascript
 riwayat_operasi: [
-    {
-        nama_operasi: "",
-        tanggal_operasi: ""
-    }
-]
+  {
+    nama_operasi: "",
+    tanggal_operasi: "",
+  },
+];
 ```
 
 ---
@@ -390,12 +403,15 @@ dokter: {
 ---
 
 # ATURAN schema.json
+
 Schema harus dihasilkan dari
+
 ```
 data.sample
 ```
 
 dengan ketentuan:
+
 - mengabaikan objek `external_link`
 - schema valid
 - tidak menggunakan `required`
@@ -405,12 +421,15 @@ dengan ketentuan:
 ---
 
 # PENANGANAN FIELD YANG SUDAH ADA
+
 Apabila field sudah terdapat pada
+
 ```
 output/json.js
 ```
 
 maka
+
 - jangan dibuat ulang
 - jangan diubah
 - jangan dipindahkan
@@ -419,7 +438,9 @@ maka
 ---
 
 # PENANGANAN INFORMASI YANG TIDAK JELAS
+
 Apabila tulisan pada PDF atau gambar tidak dapat dibaca dengan jelas:
+
 - gunakan nama field yang paling mendekati konteks
 - jangan membuat field yang tidak memiliki dasar
 - jangan mengarang struktur baru
@@ -427,10 +448,13 @@ Apabila tulisan pada PDF atau gambar tidak dapat dibaca dengan jelas:
 ---
 
 # CONTOH
+
 sebagai contoh json.js dan schema, bisa lihat pada folder `example`
 
 # VALIDASI
+
 Sebelum selesai, pastikan:
+
 - seluruh field pada template sudah terwakili
 - tidak ada field duplikat
 - struktur object logis

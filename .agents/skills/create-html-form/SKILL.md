@@ -42,7 +42,7 @@ Sebelum melakukan perubahan, AI WAJIB menganalisis seluruh sumber berikut.
 ## 1. Template PDF
 
 ```
-target/template.pdf
+input/template.pdf
 ```
 
 ---
@@ -52,9 +52,9 @@ target/template.pdf
 Apabila terdapat gambar
 
 ```
-target/image-1.png
-target/image-2.png
-target/image-3.png
+input/image-1.png
+input/image-2.png
+input/image-3.png
 ...
 ```
 
@@ -167,6 +167,7 @@ AI TIDAK BOLEH:
 - mengganti Bootstrap
 - mengganti Vue
 - mengubah struktur aplikasi
+- tidak perlu membuat kop
 
 Seluruh kode existing harus tetap utuh.
 
@@ -201,19 +202,20 @@ Footer (jika diperlukan)
 Jangan membuat section tanpa Card.
 
 template card bisa menggunakan ini : (bisa dilihat pada `resource/ui_component.md`)
+
 ```html
 <!-- Start Card [Section Name] -->
 <div class="card patient-card shadow-sm mt-5" id="card-[section-id]">
-    <div class="card-header bg-light">
-        <h5 class="mb-0 text-dark">[Section Title]</h5>
+  <div class="card-header bg-light">
+    <h5 class="mb-0 text-dark">[Section Title]</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Place input/form elements here -->
+      </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Place input/form elements here -->
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 <!-- End Card [Section Name] -->
 ```
@@ -226,11 +228,11 @@ Setiap kali AI menambahkan section baru, AI WAJIB menambahkan data navigasi ke:
 
 ```javascript
 data.navSections = [
-    {
-        id: "...",
-        title: "..."
-    }
-]
+  {
+    id: "...",
+    title: "...",
+  },
+];
 ```
 
 Contoh
@@ -341,15 +343,15 @@ AI cukup membuat elemen gambar menggunakan path dummy.
 Contoh
 
 ```html
-<img src="../images/image-1.png">
+<img src="../images/image-1.png" />
 ```
 
-Gunakan penamaan sesuai file pada folder target.
+Gunakan penamaan sesuai file pada folder input.
 
 Contoh
 
 ```
-target/image-1.png
+input/image-1.png
 ```
 
 menjadi
