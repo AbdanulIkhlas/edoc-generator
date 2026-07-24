@@ -14,7 +14,7 @@ This sub-skill handles the creation of `output/print.php`. It constructs a PHP f
 This sub-skill requires access to:
 
 1. **Document Image / PDF**: Located in `images/` (analyzed for visual page structure, margins, table layout, borders, font styles, and signature layout).
-2. **Print Boilerplate Template**: `.agents/skills/edoc-generator/resources/templates/template_print.php`.
+2. The `.output/print.php` file has already been created, so just work on it directly, and make changes only to the section [print.php#L0-333](textBlock;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/output/print.php#L0-333) without any code being removed. use the existing classes.
 3. **Generated Data Sample File**: `output/json.js` (to verify exact property key paths under `$params`).
 4. **Gold Standard Reference Examples (IMPORTANT)**: Read existing `print.php` files inside `.agents/skills/edoc-generator/examples/` to view previously created PDF printouts that can be used as references, while ensuring that the design and layout remain similar to the original image or PDF
 

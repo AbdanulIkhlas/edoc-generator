@@ -14,13 +14,13 @@ This sub-skill handles the creation of `output/index.html`. It constructs a full
 This sub-skill requires access to:
 
 1. **Document Image / PDF**: Located in `images/` (analyzed for visual structure, sections, labels, and form controls).
-2. **Form Boilerplate Template**: `.agents/skills/edoc-generator/resources/templates/template_form.html`.
+2. The `.output/index.html` file has already been created, so just work on it directly, and make changes only to the section [index.html#L35-1600](textBlock;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/output/index.html#L35-1600) without any code being removed
 3. **UI Component Guidelines**: `.agents/skills/edoc-generator/resources/ui_components.md`.
 4. **Generated Data Sample File**: `output/json.js` (for exact `v-model` binding paths).
 5. **Generated Config File**: `output/config.json` (to know active bridging modules).
 6. **Bridging Catalog Docs**: Relevant markdown files inside `.agents/skills/edoc-generator/resources/bridging_docs/`.
 7. **User Prompt / Instructions**: Specific requests regarding partial bridging fields (e.g., "vital_sign cuman berat_badan dan tinggi_badan").
-8. **Gold Standard Reference Examples (IMPORTANT)**: Read existing `index.html` files inside `.agents/skills/edoc-generator/examples/` to mirror real-world implementation, Vue lifecycle scripts, modal structures, and card layouts.
+8. **Gold Standard Reference Examples (IMPORTANT)**: Read existing `index.html` files inside `.agents/skills/edoc-generator/examples/` to mirror real-world implementation, Vue lifecycle scripts, modal structures, and card layouts. Follow the design and layout as shown in the existing examples!!!
 
 ---
 
@@ -123,3 +123,4 @@ First, create an `index.html` file in the `./output` directory using this templa
 2. Never use page tabs
 3. In short, don’t remove anything from the template; use everything that’s there first, and if there’s anything missing, only then should you add it – don’t remove anything.
 4. Just create the entire HTML structure first, based on the PDF or image template and the prompt instructions,
+5. Do not create a new layout or design; follow the examples already in this folder as closely as possible `...\agents\skills\edoc-generator\examples`
