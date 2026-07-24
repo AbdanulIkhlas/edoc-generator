@@ -1,6 +1,6 @@
 # EDOC GENERATOR — SIMRS Electronic Document System
 
-**EDOC GENERATOR** adalah sistem automasi (*Agent Skill Orchestrator*) yang dirancang untuk memproses referensi dokumen medis (gambar/PDF) atau formulir rumah sakit menjadi **Electronic Documents (eDoc)** yang interaktif dan terintegrasi secara otomatis.
+**EDOC GENERATOR** adalah sistem automasi step-by-step yang dirancang untuk memproses referensi dokumen medis (gambar/PDF) atau formulir rumah sakit menjadi **Electronic Documents (eDoc)** yang interaktif dan terintegrasi secara otomatis.
 
 ---
 
