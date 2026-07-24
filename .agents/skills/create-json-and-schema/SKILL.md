@@ -156,6 +156,16 @@ Skill **TIDAK BOLEH**
 - mengubah struktur existing
 - mengubah value dummy yang sudah ada
 
+Objek yang nyimpan tanda tangan selalu ada di objek `ttd_data` ini sesuai dengan jumlah tanda tangan yang ada di dokumen
+```json
+"ttd_data": {
+    "perawat": "Sunarni",
+    "perawat_stroke": "",
+    "dokter": "dr. Sunarno",
+    "dokter_stroke": ""
+},
+```
+
 ---
 
 ## Struktur Dasar
