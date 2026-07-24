@@ -1,0 +1,3 @@
+buatkan [json.js](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/output/json.js) dan [schema.json](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/output/schema.json) berdasarkan pdf ini [template.pdf](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/images/template.pdf)  berdasarkan skill ini [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/02-json-sample/SKILL.md)   [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/03-schema/SKILL.md) .
+
+analisa pdf nya dan buatkan json dan schema nya saja dulu
