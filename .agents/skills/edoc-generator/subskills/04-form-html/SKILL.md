@@ -29,8 +29,7 @@ This sub-skill requires access to:
 ### Step 1: Read UI Guidelines, Boilerplate & Reference Examples
 
 1. Read `.agents/skills/edoc-generator/resources/ui_components.md` to load standard HTML snippets and layout rules.
-2. Read `.agents/skills/edoc-generator/resources/templates/template_form.html` to use as the root container and JS framework baseline.
-3. Read `.agents/skills/edoc-generator/examples/[document_name]/index.html` to mirror real-world implementation, Vue lifecycle scripts, modal structures, and card layouts.
+2. Read `.agents/skills/edoc-generator/examples/[document_name]/index.html` to mirror real-world implementation, Vue lifecycle scripts, modal structures, and card layouts.
 
 ### Step 2: Build HTML Form Sections & Layout
 
@@ -109,14 +108,10 @@ function configNakes1(data) {
 
 ### Step 4: Write Output File
 
-Save the complete HTML document to:
+Edit the complete HTML document to:
 `output/index.html`
 
 ---
-
-## Code Injection & Structural Hook Guidelines
-
-First, create an `index.html` file in the `./output` directory using this template in its entirety: `.agents\skills\edoc-generator\resources\templates\template_form.html` [template_form.html](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/resources/templates/template_form.html). Then, look for these comments in the file: `=== START CONTAINER CODE ===` and `=== END CONTAINER CODE ===`. These mark the boundaries of the code that you can update, edit, or add to; do not remove anything within these boundaries, as they are part of the template. Make your changes only within this section and do not modify any other parts of the template.
 
 # Important Notes
 1. There should be no header KOP in the HTML, and all sections or card-based sections
