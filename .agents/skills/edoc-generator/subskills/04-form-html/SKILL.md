@@ -122,3 +122,4 @@ First, create an `index.html` file in the `./output` directory using this templa
 1. There should be no header KOP in the HTML, and all sections or card-based sections
 2. Never use page tabs
 3. In short, don’t remove anything from the template; use everything that’s there first, and if there’s anything missing, only then should you add it – don’t remove anything.
+4. Just create the entire HTML structure first, based on the PDF or image template and the prompt instructions,
