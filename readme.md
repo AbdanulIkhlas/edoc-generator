@@ -47,17 +47,21 @@ flowchart TD
      > "Jalankan `create-html-form`"
    - **Tips:** Tambahkan informasi spesifik jika diperlukan. Contoh: *"Jalankan `create-html-form`, pada bagian pilihan agama tolong gunakan komponen dropdown, dan pada bagian keluhan gunakan textarea."*
 
-4. **Pembuatan Print PHP**
+4. **Penyesuaian Form Html**
+   - Copy semua hasil dari `create-html-form` dan paste ke file `actual-file/index.html` pada bagian dalam komentar `CONTAINER CODE`, dan copy kembali ke `output/index.html` 
+   (agar bisa di run di local dan liat preview-nya)
+
+5. **Pembuatan Print PHP**
    - Berikan prompt kepada AI Agent:
      > "Jalankan `create-print-php`"
    - Agent akan memperbarui file `output/print.php` dengan layout cetak HTML/PHP yang presisi sesuai dengan referensi dokumen tanpa merusak struktur boilerplate.
 
-5. **Integrasi Bridging SIMRS**
+6. **Integrasi Bridging SIMRS**
    - Panggil bridging satu per satu sesuai dengan kebutuhan dokumen.
    - Referensi bridging dapat dilihat pada file dokumentasi di dalam folder `.agents/skills/bridging-docs`.
    - Ikuti contoh prompting (cara memanggil) yang ada pada file `ztemplate/bridging_anything.md`.
 
-6. **Review & Penyesuaian**
+7. **Review & Penyesuaian**
    - Periksa hasil dari file HTML dan PHP yang di-generate.
    - Perbaiki bagian yang kurang sesuai dengan layout asli atau jika ada fungsionalitas/style yang terlewat agar sesuai dengan UI yang diharapkan.
 
@@ -72,9 +76,12 @@ edoc-generator/
 │   ├── create-html-form/             # Skill untuk generate UI Form Vue 2
 │   ├── create-print-php/             # Skill untuk generate Layout Print
 │   └── bridging-docs/                # Dokumentasi dan Snippet Bridging SIMRS
+├── actual-file/                      # File template form untuk run dilocal
+├── history-documents/                # History dokumen apa saja yang pernah dibuat, bisa jadi referensi
+├── images/                           # Gambar yang dibutuhkan di index.html (jika butuh gambar)
 ├── input/                            # Tempat template dokumen yang akan dikerjakan
 ├── templates/                        # File boilerplate/template dasar (index.html, print.php, dll)
-├── ztemplate/                        # Referensi prompt dan guideline (contoh: bridging_anything.md)
+├── ztemplate-promts/                 # Referensi prompt dan guideline (contoh: bridging_anything.md)
 └── output/                           # Hasil generasi file dari AI Agent
     ├── config.json
     ├── json.js
