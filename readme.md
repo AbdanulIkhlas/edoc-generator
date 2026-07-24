@@ -24,18 +24,18 @@ Berikut adalah langkah-langkah sistematis (Step-by-Step) untuk menjalankan AI Ag
 ```mermaid
 flowchart TD
     Start[Mulai Pembuatan eDoc] --> Step1[1. Persiapan Folder Input]
-    Step1 -->|Copy file dari templates/ ke input/| Step2[2. Pembuatan JSON & Schema]
-    Step2 -->|Jalankan skill create-json-and-schema| Step3[3. Pembuatan Form HTML]
-    Step3 -->|Jalankan skill create-html-form| Step4[4. Pembuatan Print PHP]
-    Step4 -->|Jalankan skill create-print-php| Step5[5. Integrasi Bridging]
-    Step5 -->|Panggil bridging yang diperlukan| Step6[6. Review & Penyesuaian]
+    Step1 -->|Copy folder templates| Step2[2. Pembuatan JSON & Schema]
+    Step2 -->|create-json-and-schema| Step3[3. Pembuatan Form HTML]
+    Step3 -->|create-html-form| Step4[4. Pembuatan Print PHP]
+    Step4 -->|create-print-php| Step5[5. Integrasi Bridging]
+    Step5 -->|Panggil bridging| Step6[6. Review & Penyesuaian]
     Step6 --> Finish[Selesai]
 ```
 
 ### Penjelasan Langkah-Langkah:
 
 1. **Persiapan Folder Input**
-   - Copy semua file yang ada di dalam folder `templates` ke dalam folder `input`. File-file ini akan menjadi dasar dari form HTML dan print PHP yang akan kita buat.
+   - Copy semua file yang ada di dalam folder `templates` ke dalam folder `output`. File-file ini akan menjadi dasar dari form HTML dan print PHP yang akan kita buat.
 
 2. **Pembuatan File JSON dan Schema**
    - Berikan prompt kepada AI Agent:
@@ -72,7 +72,7 @@ edoc-generator/
 │   ├── create-html-form/             # Skill untuk generate UI Form Vue 2
 │   ├── create-print-php/             # Skill untuk generate Layout Print
 │   └── bridging-docs/                # Dokumentasi dan Snippet Bridging SIMRS
-├── input/                            # Tempat meletakkan file template awal untuk dikerjakan
+├── input/                            # Tempat template dokumen yang akan dikerjakan
 ├── templates/                        # File boilerplate/template dasar (index.html, print.php, dll)
 ├── ztemplate/                        # Referensi prompt dan guideline (contoh: bridging_anything.md)
 └── output/                           # Hasil generasi file dari AI Agent
