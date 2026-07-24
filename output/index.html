@@ -765,6 +765,29 @@
                 // === [COMPUTED_HOOK] ===
                 // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
             },
+            watch: {
+                'rencana.rencana_asuhan_medis': function (newVal) {
+                    if (newVal !== 'Lainnya') {
+                        this.rencana.rencana_asuhan_medis_lainnya = "";
+                    } else {
+                        this.rencana.rencana_asuhan_medis_lainnya = "";
+                    }
+                },
+                'rencana.dirujuk_ke': function (newVal) {
+                    if (newVal !== 'Lainnya') {
+                        this.rencana.dirujuk_ke_lainnya = "";
+                    } else {
+                        this.rencana.dirujuk_ke_lainnya = "";
+                    }
+                },
+                'rencana.transportasi_pulang': function (newVal) {
+                    if (newVal !== 'Lainnya') {
+                        this.rencana.transportasi_pulang_lainnya = "";
+                    } else {
+                        this.rencana.transportasi_pulang_lainnya = "";
+                    }
+                }
+            },
             methods: {
                 init: function () {
                     // === [AUTOCOMPLETE_HOOK] ===
@@ -1339,11 +1362,6 @@
                 parameters: [data]
             },
             {
-                label: "Bridging Dokter DPJP [EDIT]",
-                functionName: bridgingDokterDPJP,
-                parameters: [data]
-            },
-            {
                 label: "Bridging Inpatient Information [EDIT]",
                 functionName: bridgingInpatientInformation,
                 parameters: [data, "edit"]
@@ -1371,6 +1389,8 @@
                 parameters: [data]
             },
         ]);
+
+        setSelect2($("#dokter_auto1"), data.ttd_data.dokter, data.ttd_data.dokter);
 
 
 
@@ -2575,7 +2595,7 @@
                         <option value="Menolak Rujuk">Menolak Rujuk</option>
                         <option value="Menghentikan Pengobatan">Menghentikan Pengobatan</option>
                         <option value="Lari">Lari</option>
-                        <option value="Lainnya">Lainnya (Input Teks Direct)</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
                 <!-- Display direct text input field when 'Lainnya' is selected or direct input -->
@@ -3407,7 +3427,6 @@
     <script src="../vendor/cutomLib.js"></script>
     <!-- Tambahkan JSON Data -->
     <script src="json.js"></script>
-    <!-- Tambahkan script Vue Anda di sini -->
     <script>
         init_doc(1, data.sample, 'add');
     </script>
