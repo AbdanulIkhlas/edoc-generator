@@ -49,11 +49,11 @@ Before initiating any task, ensure access to the following workspace resources:
 When an eDoc creation request is triggered:
 
 0. User Input: Image/PDF + Bridging Specs
-1. Call 01-config sub-skill to generates output/config.json
-2. Call 02-json-sample sub-skill generates output/json.js
-3. Call 03-schema sub-skill to generates output/schema.json
-4. Call 04-form-html sub-skill to generates output/index.html
-5. Call 05-print-pdf sub-skill to generates output/print.php
+1. Call 01-config sub-skill [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/01-config/SKILL.md) to generates output/config.json
+2. Call 02-json-sample sub-skill [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/02-json-sample/SKILL.md) generates output/json.js
+3. Call 03-schema sub-skill [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/03-schema/SKILL.md) to generates output/schema.json
+4. Call 04-form-html sub-skill [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/04-form-html/SKILL.md) to generates output/index.html
+5. Call 05-print-pdf sub-skill [SKILL.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/subskills/05-print-pdf/SKILL.md) to generates output/print.php
 
 
 ## Step-by-Step Execution Protocol
@@ -89,8 +89,8 @@ When an eDoc creation request is triggered:
 - Goal: Produce output/index.html.
 - Action: Invoke .agents/skills/edoc-generator/subskills/04-form-html/SKILL.md.
 - Instruction:
-    - Read UI layout directives from resources/ui_components.md.
-    - Use resources/templates/template_form.html as the base boilerplate.
+    - Read UI layout directives from resources/ui_components.md [ui_components.md](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/resources/ui_components.md) 
+    - Use resources/templates/template_form.html [template_form.html](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/resources/templates/template_form.html) as the base boilerplate.
     - Wrap sections using ```<div class="card patient-card"> ```.
     - Use standard custom input-group checkboxes and input-label formatting.
     - Inject Vue 2 two-way bindings (v-model) and bridging script snippets.
@@ -100,15 +100,9 @@ When an eDoc creation request is triggered:
 - Goal: Produce output/print.php.
 - Action: Invoke .agents/skills/edoc-generator/subskills/05-print-pdf/SKILL.md.
 - Instruction:
-    - Use resources/templates/template_print.php as the base boilerplate.
+    - Use resources/templates/template_print.php [template_print.php](file;file:///e%3A/A%20Main%20Storage/Project/FG/edoc-generator/.agents/skills/edoc-generator/resources/templates/template_print.php) as the base boilerplate.
     - Replicate the visual layout of the document in HTML/CSS optimized for PDF printing, keeping it as close as possible to the original PDF or image layout
     - Map dynamic PHP outputs using $params->[key_path].
     - Render static hospital headers ($static_label) and signature images (stroke Base64/URL).
 - Validation: Ensure all variables safely handle empty states with empty() checks or ternary defaults.
 
-
-## Critical Rules & Constraints
-1. Zero Snippet Mutation: Snippets extracted from resources/bridging_docs/*.md (e.g., modal IDs, method names) MUST be injected verbatim into index.html unless explicit field pruning is required.
-2. Selective Field Pruning: When a user requests specific fields from a bridging module (e.g., "vital_sign only BB and TB"), prune all unrequested properties from sample, default, JS binding scripts, and UI modals.
-3. Strict UI Compliance: All form UI generation in Step 4 MUST adhere to component structures defined in resources/ui_components.md.
-4. Output Isolation: All generated files MUST be saved inside the output/ directory unless instructed otherwise.
