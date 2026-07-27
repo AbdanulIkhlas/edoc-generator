@@ -365,6 +365,12 @@ Semirip mungkin dengan template.
 
 ---
 
+# RULES
+1. semua td dari tabel menggunakan valign="top"
+2. Wajib sama persis dengan layout dari template `input/template.pdf`
+
+---
+
 # VALIDASI
 
 Sebelum selesai, pastikan:
