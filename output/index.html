@@ -946,9 +946,9 @@
             data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
 
             data.perawatan_kelas = data.external_link.inpatient_information.nama_kelas || "";
-            data.perawatan_ruang = data.external_link.inpatient_information.nama_bangsal + " - Ruang " + 
-                                    data.external_link.inpatient_information.no_ruang + 
-                                    " - " +  data.external_link.inpatient_information.nama_kelas;
+            data.perawatan_ruang = data.external_link.inpatient_information.nama_bangsal + " - Ruang " +
+                data.external_link.inpatient_information.no_ruang +
+                " - " + data.external_link.inpatient_information.nama_kelas;
 
             // Bridging waktu masuk
             data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
@@ -1613,15 +1613,23 @@
                         <li>
                             Saya mengetahui bahwa saya memiliki kondisi yang membutuhkan perawatan medis,
                             saya mengijinkan dokter dan professional kesehatan lainnya untuk melakukan prosedur
-                            diagnostik dan untuk memberikan pengobatan medis yang diperlukan dalam penilaian profesional mereka.
-                            Dengan ini saya memberikan persetujuan (kecuali yang membutuhkan persetujuan khusus/tertulis)
+                            diagnostik dan untuk memberikan pengobatan medis yang diperlukan dalam penilaian profesional
+                            mereka.
+                            Dengan ini saya memberikan persetujuan (kecuali yang membutuhkan persetujuan
+                            khusus/tertulis)
                             dengan tidak dapat ditarik kembali kepada RUmah Sakit,
-                            dalam memberikan pelayanan medis, pemeriksaan fisik, yang dapat dilakukan oleh dokter atau perawat,
-                            dan melakukan prosedur diagnostik, atau terapi dan tatalaksana sesuai pertimbangan dokter yang
-                            diperlukan atau disarankan pada pelayanan medis untuk saya. Hal ini mencakup seluruh pemeriksaan
-                            dan prosedur diagnostik rutin, termasuk namun tidak terbatas pada x-ray, pemberian dan atau tindakan
-                            kedokteran serta penyuntikan (intramuskular, intravena dan prosedur invasif lainnya) produk farmasi
-                            dan obat-obatan, pemasangan alat medis, dan pengambilan darah untuk pemeriksaan laboratorium atau
+                            dalam memberikan pelayanan medis, pemeriksaan fisik, yang dapat dilakukan oleh dokter atau
+                            perawat,
+                            dan melakukan prosedur diagnostik, atau terapi dan tatalaksana sesuai pertimbangan dokter
+                            yang
+                            diperlukan atau disarankan pada pelayanan medis untuk saya. Hal ini mencakup seluruh
+                            pemeriksaan
+                            dan prosedur diagnostik rutin, termasuk namun tidak terbatas pada x-ray, pemberian dan atau
+                            tindakan
+                            kedokteran serta penyuntikan (intramuskular, intravena dan prosedur invasif lainnya) produk
+                            farmasi
+                            dan obat-obatan, pemasangan alat medis, dan pengambilan darah untuk pemeriksaan laboratorium
+                            atau
                             pemeriksaan patologi yang dibutuhkan untuk pelayanan medis saya.
                         </li>
                         <li class="mt-2">Saya sadar bahwa praktik kedokteran dan bedah bukanlah ilmu pasti dan saya
@@ -1689,7 +1697,8 @@
                     <p>
                         Menyatakan bahwa sesuai Kewajiban Simpan Rahasia Kedokteran dan mengacu pada
                         Peraturan Menteri Kesehatan Republik Indonesia Nomor 24 Tahun 2022 tentang Rekam Medis,
-                        Maka saya menunjuk yang tersebut di bawah ini untuk dapat diberitahukan tentang kondisi kesehatan saya:
+                        Maka saya menunjuk yang tersebut di bawah ini untuk dapat diberitahukan tentang kondisi
+                        kesehatan saya:
                     </p>
 
                     <div class="form-group" v-for="(item, index) in pelepasan_informasi_list" :key="'pelepasan_'+index">
@@ -1813,7 +1822,8 @@
                                         <option value="Tidak">Tidak Menginginkan</option>
                                     </select>
                                     Pelayanan Kerohanian, Sebutkan Agama
-                                    <input type="text" class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="kerohanian_agama"
+                                    <input type="text" class="form-control d-inline-block w-auto mx-1"
+                                        style="vertical-align: middle;" v-model="kerohanian_agama"
                                         :disabled="kerohanian_menginginkan !== 'Ya'" placeholder="Sebutkan agama...">
                                 </p>
                             </div>
@@ -2011,7 +2021,7 @@
                 @update-stroke="ttd_data.petugas_admisi_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
         </div>
         <div class="col-md-4">
-            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id="nakes_auto2" name_input_type="NAKES"
+            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id="nakes_auto2" name_input_type="TEXT"
                 v-model="ttd_data.menyatakan" path_name="ttd_data.menyatakan" :stroke="ttd_data.menyatakan_stroke"
                 path_stroke="ttd_data.menyatakan_stroke" @update-stroke="ttd_data.menyatakan_stroke = $event"
                 @open-ttd-modal="openTTDModalHandler" />
