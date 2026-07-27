@@ -5,75 +5,155 @@
         "pasien": {
             "type": "object",
             "properties": {
-                "nama": { "type": "string" },
-                "no_rm": { "type": "string" },
-                "tanggal_lahir": { "type": "string" },
-                "tanggal_lahir_indo": { "type": "string" },
-                "alamat": { "type": "string" },
-                "telp": { "type": "string" },
-                "kelamin": { "type": "string" },
-                "umur": { "type": "string" }
+                "nama": {
+                    "type": "string"
+                },
+                "no_rm": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                },
+                "telp": {
+                    "type": "string"
+                },
+                "kelamin": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                }
             }
         },
-        "bertindak_atas_nama": { "type": "string" },
-        "pelepasan_informasi_wewenang": { "type": "string" },
+        "bertindak_atas_nama": {
+            "type": "string"
+        },
+        "pelepasan_informasi_wewenang": {
+            "type": "string"
+        },
         "pelepasan_informasi_list": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "nama": { "type": "string" }
+                    "nama": {
+                        "type": "string"
+                    }
                 }
             }
         },
-        "privasi_mengijinkan": { "type": "string" },
+        "privasi_mengijinkan": {
+            "type": "string"
+        },
         "privasi_daftar_keluarga": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "nama": { "type": "string" },
-                    "hubungan": { "type": "string" }
+                    "nama": {
+                        "type": "string"
+                    },
+                    "hubungan": {
+                        "type": "string"
+                    }
                 }
             }
         },
-        "privasi_khusus_menginginkan": { "type": "string" },
+        "privasi_khusus_menginginkan": {
+            "type": "string"
+        },
         "privasi_khusus_list": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "keterangan": { "type": "string" }
+                    "keterangan": {
+                        "type": "string"
+                    }
                 }
             }
         },
-        "kerohanian_menginginkan": { "type": "string" },
-        "kerohanian_agama": { "type": "string" },
-        "barang_pribadi_setuju": { "type": "boolean" },
-        "perawatan_ruang": { "type": "string" },
-        "perawatan_kelas": { "type": "string" },
-        "perawatan_dpjp": { "type": "string" },
-        "perawatan_bersedia_ditempatkan_di": { "type": "string" },
-        "informasi_biaya_dibayar_sendiri": { "type": "boolean" },
-        "informasi_biaya_ditanggung": { "type": "boolean" },
-        "informasi_biaya_ditanggung_text": { "type": "string" },
-        "informasi_biaya_diklaimkan": { "type": "boolean" },
-        "informasi_biaya_diklaimkan_text": { "type": "string" },
-        "informasi_biaya_perkiraan": { "type": "boolean" },
-        "informasi_biaya_perkiraan_text": { "type": "string" },
-        "pengajuan_keluhan_setuju": { "type": "string" },
+        "kerohanian_menginginkan": {
+            "type": "string"
+        },
+        "kerohanian_agama": {
+            "type": "string"
+        },
+        "barang_pribadi_setuju": {
+            "type": "boolean"
+        },
+        "perawatan_ruang": {
+            "type": "string"
+        },
+        "perawatan_kelas": {
+            "type": "string"
+        },
+        "perawatan_dpjp": {
+            "type": "string"
+        },
+        "perawatan_bersedia_ditempatkan_di": {
+            "type": "string"
+        },
+        "informasi_biaya_dibayar_sendiri": {
+            "type": "boolean"
+        },
+        "informasi_biaya_ditanggung": {
+            "type": "boolean"
+        },
+        "informasi_biaya_ditanggung_text": {
+            "type": "string"
+        },
+        "informasi_biaya_diklaimkan": {
+            "type": "boolean"
+        },
+        "informasi_biaya_diklaimkan_text": {
+            "type": "string"
+        },
+        "informasi_biaya_perkiraan": {
+            "type": "boolean"
+        },
+        "informasi_biaya_perkiraan_text": {
+            "type": "string"
+        },
+        "pengajuan_keluhan_setuju": {
+            "type": "string"
+        },
         "ttd_data": {
             "type": "object",
             "properties": {
-                "tanggal": { "type": "string" },
-                "tanggal_indo": { "type": "string" },
-                "jam": { "type": "string" },
-                "saksi_keluarga": { "type": "string" },
-                "saksi_keluarga_stroke": { "type": "string" },
-                "petugas_admisi": { "type": "string" },
-                "petugas_admisi_stroke": { "type": "string" },
-                "penderita_wali": { "type": "string" },
-                "penderita_wali_stroke": { "type": "string" }
+                "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "saksi_keluarga": {
+                    "type": "string"
+                },
+                "saksi_keluarga_stroke": {
+                    "type": "string"
+                },
+                "petugas_admisi": {
+                    "type": "string"
+                },
+                "petugas_admisi_stroke": {
+                    "type": "string"
+                },
+                "penderita_wali": {
+                    "type": "string"
+                },
+                "penderita_wali_stroke": {
+                    "type": "string"
+                }
             }
         }
     }
