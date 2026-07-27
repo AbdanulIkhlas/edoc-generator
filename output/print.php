@@ -393,7 +393,7 @@ function tgl_indo($tanggal)
                                 <tr>
                                     <td>Tanggal Lahir</td>
                                     <td>:</td>
-                                    <td><?php echo $params->pasien->tanggal_lahir_indo ?? ''; ?></td>
+                                    <td><?php echo !empty($params->pasien->tanggal_lahir) ? tgl_indo($params->pasien->tanggal_lahir) : ($params->pasien->tanggal_lahir_indo ?? ''); ?></td>
                                 </tr>
                                 <tr>
                                     <td>Jenis Kelamin</td>
@@ -429,20 +429,54 @@ function tgl_indo($tanggal)
             <td>
                 <table style="width: 100%; margin-bottom: 10px;">
                     <tr>
-                        <td colspan="3" style="padding-bottom: 5px;">Yang bertandatangan di bawah ini, dengan ini bertindak atas nama : <b><?php echo $params->bertindak_atas_nama ?? ''; ?></b> dari :</td>
+                        <td colspan="3" style="padding-bottom: 5px;">Yang bertandatangan di bawah ini :</td>
                     </tr>
                     <tr>
                         <td width="20%">Nama</td>
                         <td width="2%">:</td>
+                        <td><?php echo $params->bertanda_tangan->nama ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Kelamin</td>
+                        <td>:</td>
+                        <td><?php echo $params->bertanda_tangan->kelamin ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Alamat</td>
+                        <td>:</td>
+                        <td><?php echo $params->bertanda_tangan->alamat ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Tempat, Tgl Lahir</td>
+                        <td>:</td>
+                        <td><?php echo ($params->bertanda_tangan->tempat_lahir ?? '') . ', ' . tgl_indo($params->bertanda_tangan->tanggal_lahir ?? ''); ?></td>
+                    </tr>
+                    <tr>
+                        <td>No. Identitas</td>
+                        <td>:</td>
+                        <td><?php echo $params->bertanda_tangan->no_identitas ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>No. Telp</td>
+                        <td>:</td>
+                        <td><?php echo $params->bertanda_tangan->telp ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Pekerjaan</td>
+                        <td>:</td>
+                        <td><?php echo $params->bertanda_tangan->pekerjaan ?? ''; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" style="padding-top: 10px; padding-bottom: 5px;">Dengan ini bertindak atas nama : <b><?php echo $params->bertindak_atas_nama ?? ''; ?></b> dari :</td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>:</td>
                         <td><?php echo $params->pasien->nama ?? ''; ?></td>
                     </tr>
                     <tr>
-                        <td>Umur / Tgl Lahir</td>
-                        <td>:</td>
-                        <td><?php echo ($params->pasien->umur ?? '') . ' / ' . ($params->pasien->tanggal_lahir_indo ?? ''); ?></td>
-                    </tr>
-                    <tr>
-                        <td>L / P *)</td>
+                        <td>Kelamin</td>
                         <td>:</td>
                         <td><?php echo $params->pasien->kelamin ?? ''; ?></td>
                     </tr>
@@ -450,6 +484,16 @@ function tgl_indo($tanggal)
                         <td>Alamat</td>
                         <td>:</td>
                         <td><?php echo $params->pasien->alamat ?? ''; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Tempat, Tgl Lahir</td>
+                        <td>:</td>
+                        <td><?php echo ($params->pasien->tempat_lahir ?? '') . ', ' . tgl_indo($params->pasien->tanggal_lahir ?? ''); ?></td>
+                    </tr>
+                    <tr>
+                        <td>No RM</td>
+                        <td>:</td>
+                        <td><?php echo $params->pasien->no_rm ?? ''; ?></td>
                     </tr>
                     <tr>
                         <td>No. Telp</td>
@@ -503,7 +547,7 @@ function tgl_indo($tanggal)
                 <b>2. PELEPASAN INFORMASI</b>
                 <table style="width: 100%; margin-top: 5px;">
                     <tr>
-                        <td style="text-align: justify;">Saya memahami informasi yang ada di dalam diri saya, termasuk diagnosis hasil laboratorium dan hasil tes diagnostik yang akan digunakan untuk perawatan medis dan RS akan menjamin kerahasiaannya. Saya memberikan wewenang kepada RS untuk memberikan informasi tentang rahasia kedokteran saya bila diperlukan untuk memproses klaim BPJS / Jamkesmas / KIS / Perusahaan / lembaga pemerintahan lainnya*).</td>
+                        <td style="text-align: justify;">Saya memahami informasi yang ada di dalam diri saya, termasuk diagnosis hasil laboratorium dan hasil tes diagnostik yang akan digunakan untuk perawatan medis dan RS akan menjamin kerahasiaannya. Saya memberikan wewenang kepada RS untuk memberikan informasi tentang rahasia kedokteran saya bila diperlukan untuk memproses <b><?php echo $params->informasi_rahasia_kedokteran ?? 'klaim BPJS / Jamkesmas / KIS / Perusahaan / lembaga pemerintahan lainnya'; ?></b> *).</td>
                     </tr>
                     <tr>
                         <td style="text-align: justify; padding-top: 5px;">Saya <b><?php echo strtolower($params->pelepasan_informasi_wewenang ?? ''); ?></b> wewenang kepada RS untuk memberikan tentang data dan informasi kesehatan saya kepada keluarga terdekat saya, yaitu :</td>
@@ -596,9 +640,9 @@ function tgl_indo($tanggal)
                     <tr>
                         <td style="text-align: justify;">Saya <b><?php echo ($params->kerohanian_menginginkan ?? '') === 'Ya' ? 'menginginkan' : 'tidak menginginkan'; ?></b> Pelayanan Kerohanian, 
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php if(($params->kerohanian_menginginkan ?? '') !== 'Ya'): ?> [ V ] Tidak <?php else: ?> [ &nbsp; ] Tidak <?php endif; ?>
+                        <?php if(($params->checkbox_menginginkan_kerohanian ?? '') === 'Tidak'): ?> [ V ] Tidak <?php else: ?> [ &nbsp; ] Tidak <?php endif; ?>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php if(($params->kerohanian_menginginkan ?? '') === 'Ya'): ?> [ V ] Ya, Sebutkan Agama : <?php echo $params->kerohanian_agama ?? ''; ?> <?php else: ?> [ &nbsp; ] Ya, Sebutkan Agama : .............................................. <?php endif; ?>
+                        <?php if(($params->checkbox_menginginkan_kerohanian ?? '') === 'Ya'): ?> [ V ] Ya, Sebutkan Agama : <?php echo $params->kerohanian_agama ?? '..............................................'; ?> <?php else: ?> [ &nbsp; ] Ya, Sebutkan Agama : .............................................. <?php endif; ?>
                         </td>
                     </tr>
                 </table>
@@ -702,7 +746,7 @@ function tgl_indo($tanggal)
                         <td width="33%"></td>
                         <td width="33%"></td>
                         <td width="33%">
-                            Ponorogo, <?php echo $params->ttd_data->tanggal_indo ?? '......................'; ?> jam <?php echo $params->ttd_data->jam ?? '.........'; ?>
+                            Ponorogo, <?php echo !empty($params->ttd_data->tanggal) ? tgl_indo($params->ttd_data->tanggal) : '......................'; ?> jam <?php echo $params->ttd_data->jam ?? '.........'; ?>
                         </td>
                     </tr>
                     <tr>
@@ -722,15 +766,15 @@ function tgl_indo($tanggal)
                             <?php endif; ?>
                         </td>
                         <td style="height: 100px; vertical-align: middle;">
-                            <?php if(!empty($params->ttd_data->penderita_wali_stroke)): ?>
-                                <img src="<?php echo $params->ttd_data->penderita_wali_stroke; ?>" style="height: 100px; width: auto; display: block; margin: 0 auto;">
+                            <?php if(!empty($params->ttd_data->menyatakan_stroke)): ?>
+                                <img src="<?php echo $params->ttd_data->menyatakan_stroke; ?>" style="height: 100px; width: auto; display: block; margin: 0 auto;">
                             <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>( <?php echo !empty($params->ttd_data->saksi_keluarga) ? $params->ttd_data->saksi_keluarga : '.............................................'; ?> )</td>
                         <td>( <?php echo !empty($params->ttd_data->petugas_admisi) ? $params->ttd_data->petugas_admisi : '.............................................'; ?> )</td>
-                        <td>( <?php echo !empty($params->ttd_data->penderita_wali) ? $params->ttd_data->penderita_wali : '.............................................'; ?> )</td>
+                        <td>( <?php echo !empty($params->ttd_data->menyatakan) ? $params->ttd_data->menyatakan : '.............................................'; ?> )</td>
                     </tr>
                 </table>
             </td>

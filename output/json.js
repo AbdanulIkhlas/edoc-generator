@@ -1,16 +1,30 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "Garga",
-            "no_rm": "876754",
+            "nama": "sakura",
+            "no_rm": "111",
             "tanggal_lahir": "2000-08-08",
-            "tanggal_lahir_indo": "8 Agustus 2000",
+            "tempat_lahir": "8 Agustus 2000",
             "alamat": "Sleman",
             "telp": "085647387654",
             "kelamin": "L",
-            "umur": "26 Tahun"
+            "no_identitas": "1234567890",
+            "ruang": "Kelas",
+            "bangsal": "bangsal",
+            "kelas": "10 MIPA 2"
         },
-        "bertindak_atas_nama": "Diri Sendiri",
+        "bertanda_tangan":{
+            "nama": "Rawr",
+            "tempat_lahir": "Jekardah",
+            "tanggal_lahir": "2000-08-08",
+            "alamat": "Sleman",
+            "telp": "085647387654",
+            "kelamin": "Laki-laki",
+            "no_identitas": "1234567890",
+            "pekerjaan": "PNS"
+        },
+        "informasi_rahasia_kedokteran":"",
+        "bertindak_atas_nama": "",
         "pelepasan_informasi_wewenang": "Memberikan",
         "pelepasan_informasi_list": [
             { "nama": "Ahmad" }
@@ -24,6 +38,7 @@ const data = {
             { "keterangan": "Tidak ingin dijenguk orang luar" }
         ],
         "kerohanian_menginginkan": "Ya",
+        "checkbox_menginginkan_kerohanian":"",
         "kerohanian_agama": "Islam",
         "barang_pribadi_setuju": true,
         "perawatan_ruang": "Yudhistira",
@@ -40,14 +55,13 @@ const data = {
         "pengajuan_keluhan_setuju": "SETUJU",
         "ttd_data": {
             "tanggal": "2026-07-24",
-            "tanggal_indo": "24 Juli 2026",
             "jam": "10:30",
             "saksi_keluarga": "Budi",
-            "saksi_keluarga_stroke": "http://192.168.0.201:1201/stroke1.png",
+            "saksi_keluarga_stroke": "",
             "petugas_admisi": "Siti",
-            "petugas_admisi_stroke": "http://192.168.0.201:1201/stroke2.png",
-            "penderita_wali": "Garga",
-            "penderita_wali_stroke": "http://192.168.0.201:1201/stroke3.png"
+            "petugas_admisi_stroke": "",
+            "menyatakan": "Garga",
+            "menyatakan_stroke": ""
         },
         "external_link": {
             "px_data": {
@@ -111,12 +125,26 @@ const data = {
             "nama": "",
             "no_rm": "",
             "tanggal_lahir": "",
-            "tanggal_lahir_indo": "",
+            "tempat_lahir": "",
             "alamat": "",
             "telp": "",
             "kelamin": "",
-            "umur": ""
+            "no_identitas": "",
+            "ruang": "",
+            "bangsal": "",
+            "kelas": ""
         },
+        "bertanda_tangan": {
+            "nama": "",
+            "tempat_lahir": "",
+            "tanggal_lahir": "",
+            "alamat": "",
+            "telp": "",
+            "kelamin": "",
+            "no_identitas": "",
+            "pekerjaan": ""
+        },
+        "informasi_rahasia_kedokteran": "",
         "bertindak_atas_nama": "",
         "pelepasan_informasi_wewenang": "",
         "pelepasan_informasi_list": [],
@@ -125,6 +153,7 @@ const data = {
         "privasi_khusus_menginginkan": "",
         "privasi_khusus_list": [],
         "kerohanian_menginginkan": "",
+        "checkbox_menginginkan_kerohanian": "",
         "kerohanian_agama": "",
         "barang_pribadi_setuju": false,
         "perawatan_ruang": "",
@@ -141,14 +170,13 @@ const data = {
         "pengajuan_keluhan_setuju": "",
         "ttd_data": {
             "tanggal": "",
-            "tanggal_indo": "",
             "jam": "",
             "saksi_keluarga": "",
             "saksi_keluarga_stroke": "",
             "petugas_admisi": "",
             "petugas_admisi_stroke": "",
-            "penderita_wali": "",
-            "penderita_wali_stroke": ""
+            "menyatakan": "",
+            "menyatakan_stroke": ""
         }
     }
 };
