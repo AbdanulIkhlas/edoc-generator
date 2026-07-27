@@ -145,47 +145,47 @@
         },
         template: `
 <div class="row justify-content-center align-items-center">
-<div class="col-md-12">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 text-center" style="height:40px">
-            <p class="mb-0">{{ label }}</p>
-        </div>
-
-        <div class="col-md-12 text-center mb-2">
-            <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
-            <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
-        </div>
-
-        <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
-            <p class="mb-0">{{ localValue }}</p>
-        </div>
-
-        <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
+    <div class="col-md-12">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center" style="height:40px">
+                <p class="mb-0">{{ label }}</p>
             </div>
 
-        <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
-            <button style="min-width: 230px;" type="button"
-            class="btn"
-            :class="{
-                'bg-success text-white': (stroke === '' && localValue === ''),
-                'bg-warning text-black': (stroke !== '' || localValue !== '')
-            }"
-            data-toggle="modal"
-            data-target="#tandaTanganModal"
-            @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            &nbsp;&nbsp;
-            {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
-            </button>
-        </div>
+            <div class="col-md-12 text-center mb-2">
+                <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+            </div>
 
-        <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
-            <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
-            <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
-            <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+            <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
+                <p class="mb-0">{{ localValue }}</p>
+            </div>
+
+            <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
+                </div>
+
+            <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
+                <button style="min-width: 230px;" type="button"
+                class="btn"
+                :class="{
+                    'bg-success text-white': (stroke === '' && localValue === ''),
+                    'bg-warning text-black': (stroke !== '' || localValue !== '')
+                }"
+                data-toggle="modal"
+                data-target="#tandaTanganModal"
+                @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
+                </button>
+            </div>
+
+            <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
+                <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
+                <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
+                <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+            </div>
         </div>
     </div>
-</div>
 </div>
 `,
     });
@@ -213,63 +213,24 @@
             },
         },
         template: `
-            <div 
-                class="floating-nav-container" 
-                @mouseenter="isHovered = true" 
-                @mouseleave="isHovered = false"
-            >
-            <ul class="nav-list" :class="{ 'show': isHovered }">
-                <li v-for="section in sections" :key="section.id">
-                    <a :href="'#' + section.id" @click="scrollToSection(section.id)">
-                        {{ section.title }}
-                    </a>
-                </li>
-            </ul>
-            </div>
-        `,
+                <div 
+                    class="floating-nav-container" 
+                    @mouseenter="isHovered = true" 
+                    @mouseleave="isHovered = false"
+                >
+                <ul class="nav-list" :class="{ 'show': isHovered }">
+                    <li v-for="section in sections" :key="section.id">
+                        <a :href="'#' + section.id" @click="scrollToSection(section.id)">
+                            {{ section.title }}
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            `,
     });
 
     // === [CONFIG_AUTOCOMPLETE_HOOK] ===
     // AI will add or create the autocomplete configuration here
-    function configDiagnosaRujukan(data) {
-        return {
-        element: "#icdx_auto_rujukan",
-        url: "/api/emr/autocomplete?source_name=diagnosa",
-        markup_template: function (repo) {
-            return `<b>${repo.icd_x}</b> | ${repo.deskripsi}`;
-        },
-        selection_template: function (repo) {
-            var res = "";
-            if (repo.icd_x != undefined) {
-            DIAGNOSA_TMP_RUJUKAN = [
-                { icd_x: repo.icd_x, nama_sebab_sakit: repo.deskripsi, deskripsi: "" },
-            ];
-            res = repo.icd_x + " - " + repo.deskripsi;
-            }
-            return res;
-        },
-        };
-    }
-
-    function configDiagnosaRujukanBalik(data) {
-        return {
-        element: "#icdx_auto_rujukan_balik",
-        url: "/api/emr/autocomplete?source_name=diagnosa",
-        markup_template: function (repo) {
-            return `<b>${repo.icd_x}</b> | ${repo.deskripsi}`;
-        },
-        selection_template: function (repo) {
-            var res = "";
-            if (repo.icd_x != undefined) {
-            DIAGNOSA_TMP_RUJUKAN_BALIK = [
-                { icd_x: repo.icd_x, nama_sebab_sakit: repo.deskripsi, deskripsi: "" },
-            ];
-            res = repo.icd_x + " - " + repo.deskripsi;
-            }
-            return res;
-        },
-        };
-    }
     function configDokter1(data) {
         return {
             element: "#dokter_auto1",
@@ -312,8 +273,34 @@
                 // tulis format string untuk label autocomplete
                 var res = "";
                 if (repo.id != "") {
-                    res = repo.nama || data.ttd_data.perawat;
-                    data.ttd_data.perawat = res;
+                    res = repo.nama || data.ttd_data.petugas_admisi;
+                    data.ttd_data.petugas_admisi = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function configNakes2(data) {
+        return {
+            element: "#nakes_auto2",
+            url: "/api/emr/autocomplete?source_name=nakes",
+            allowClear: true,
+            query_params: {
+                status: "",
+                id_profesi_nakes: "",
+            },
+
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.ttd_data.menyatakan;
+                    data.ttd_data.menyatakan = res;
                 }
 
                 return res;
@@ -433,6 +420,14 @@
         // AI will add the latest ID and title section here
         data.navSections = [
             { id: "pasien-info", title: "Informasi Pasien" },
+            { id: "perawatan-pengobatan", title: "Perawatan & Pengobatan" },
+            { id: "pelepasan-informasi", title: "Pelepasan Informasi" },
+            { id: "privasi", title: "Privasi" },
+            { id: "kerohanian", title: "Kerohanian" },
+            { id: "barang-pribadi", title: "Barang Pribadi" },
+            { id: "perawatan-dpjp", title: "Perawatan DPJP" },
+            { id: "informasi-biaya", title: "Informasi Biaya" },
+            { id: "pengajuan-keluhan", title: "Pengajuan Keluhan" },
             { id: "save-doc", title: "Simpan" },
         ];
 
@@ -442,18 +437,9 @@
 
         // === [SETUPINDEXEXPAND_HOOK] ===
         // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
-        setupIndexExpand(data, "index_expand_diagnosa_rujukan", "diagnosa_list_rujukan");
-        setupIndexExpand(data, "index_expand_diagnosa_rujukan_balik", "diagnosa_list_rujukan_balik");
 
         // === [OTHER_VARIABLE_BRIDGING_HOOK] ===
         // AI will append or add additional variables from the bridging here
-        data.backup_diagnosa_rujukan = [];
-        data.backup_diagnosa_rujukan_check_all = false;
-        data.is_saving_diag_rujukan = false;
-
-        data.backup_diagnosa_rujukan_balik = [];
-        data.backup_diagnosa_rujukan_balik_check_all = false;
-        data.is_saving_diag_rujukan_balik = false;
 
         var app = new Vue({
             el: "#formadd",
@@ -467,20 +453,6 @@
 
                 // === [MOUNTED_HOOK] ===
                 // AI will add the mounted code from bridging_docs here
-                $('#hasilDiagModalRujukan').on('hidden.bs.modal', () => {
-                    if (!this.is_saving_diag_rujukan && this.backup_diagnosa_rujukan.length > 0) {
-                        this.index_expand_diagnosa_rujukan = JSON.parse(JSON.stringify(this.backup_diagnosa_rujukan));
-                        this.index_expand_diagnosa_rujukan_check_all = this.backup_diagnosa_rujukan_check_all;
-                    }
-                    this.is_saving_diag_rujukan = false;
-                });
-                $('#hasilDiagModalRujukanBalik').on('hidden.bs.modal', () => {
-                    if (!this.is_saving_diag_rujukan_balik && this.backup_diagnosa_rujukan_balik.length > 0) {
-                        this.index_expand_diagnosa_rujukan_balik = JSON.parse(JSON.stringify(this.backup_diagnosa_rujukan_balik));
-                        this.index_expand_diagnosa_rujukan_balik_check_all = this.backup_diagnosa_rujukan_balik_check_all;
-                    }
-                    this.is_saving_diag_rujukan_balik = false;
-                });
 
             },
             computed: {
@@ -490,31 +462,53 @@
             watch: {
                 // === [WATCH_HOOK] ===
                 // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
-                'rujukan_balik.pengobatan_dengan_obat': function (newVal) {
-                    if (!newVal) {
-                        this.rujukan_balik.pengobatan_dengan_obat_text = "";
+                'bertindak_atas_nama': function (newVal) {
+                    if (newVal === 'Diri Sendiri') {
+                        const ext_patient = this.external_link.px_data;
+                        this.bertanda_tangan.nama = ext_patient.nama || "";
+                        this.bertanda_tangan.alamat = ext_patient.alamat || "";
+                        this.bertanda_tangan.tempat_lahir = ext_patient.tempat_lahir || "";
+                        this.bertanda_tangan.pekerjaan = ext_patient.pekerjaan || "";
+                        this.bertanda_tangan.tanggal_lahir = ext_patient.tanggal_lahir || "";
+                        this.bertanda_tangan.no_identitas = ext_patient.no_identitas || "";
+                        this.bertanda_tangan.kelamin = showKelamin(ext_patient.kelamin);
+                        this.ttd_data.menyatakan = ext_patient.nama || "";
+                        this.ttd_data.menyatakan_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
+                    } else {
+                        this.bertanda_tangan.nama = "";
+                        this.bertanda_tangan.alamat = "";
+                        this.bertanda_tangan.tempat_lahir = "";
+                        this.bertanda_tangan.pekerjaan = "";
+                        this.bertanda_tangan.tanggal_lahir = "";
+                        this.bertanda_tangan.no_identitas = "";
+                        this.bertanda_tangan.kelamin = "";
+                        this.ttd_data.menyatakan = "";
+                        this.ttd_data.menyatakan_stroke = "";
                     }
                 },
-                'rujukan_balik.kontrol_kembali': function (newVal) {
-                    if (!newVal) {
-                        this.rujukan_balik.kontrol_kembali_tanggal = "";
+                'kerohanian_menginginkan': function (newVal) {
+                    if (newVal !== 'Ya') {
+                        this.kerohanian_agama = '';
                     }
                 },
-                'rujukan_balik.lain_lain': function (newVal) {
-                    if (!newVal) {
-                        this.rujukan_balik.lain_lain_text = "";
-                    }
-                }
+                'informasi_biaya_ditanggung': function (newVal) {
+                    this.informasi_biaya_ditanggung_text = '';
+                },
+                'informasi_biaya_diklaimkan': function (newVal) {
+                    this.informasi_biaya_diklaimkan_text = '';
+                },
+                'informasi_biaya_perkiraan': function (newVal) {
+                    this.informasi_biaya_perkiraan_text = '';
+                },
             },
             methods: {
                 init: function () {
                     // === [AUTOCOMPLETE_HOOK] ===
                     // AI will add autocomplete here
-                    autocomplete(configDiagnosaRujukan(data));
-                    autocomplete(configDiagnosaRujukanBalik(data));
                     autocomplete(configRuang(data));
                     autocomplete(configDokter1(data));
                     autocomplete(configNakes1(data));
+                    autocomplete(configNakes2(data));
                     this.setupSignature(data);
 
                     $('#ruang_auto').on('select2:clearing', function (e) {
@@ -535,8 +529,6 @@
                 saveDoc: function () {
                     // === [SAVE_ACTION_HOOK] ===
                     // AI will add a step when saving the document here (example: this.diagnosis_group = combineDiagnoses(this.diagnosis_freetext, this.diagnosis_list_autocomplete))
-                    this.rujukan.diagnosa_group = combineDiagnoses(this.rujukan.diagnosa_freetext, this.rujukan.diagnosa_list_autocomplete);
-                    this.rujukan_balik.diagnosa_group = combineDiagnoses(this.rujukan_balik.diagnosa_freetext, this.rujukan_balik.diagnosa_list_autocomplete);
 
                     var json = {
                         document_history_list_id: doc_id /* built in variable from edoc */,
@@ -833,63 +825,6 @@
                 },
                 // === [METHOD_HOOK] ===
                 // AI will add a bridging method or another additional method here
-                backupDiagRujukanData: function () {
-                    this.backup_diagnosa_rujukan = JSON.parse(JSON.stringify(this.index_expand_diagnosa_rujukan));
-                    this.backup_diagnosa_rujukan_check_all = this.index_expand_diagnosa_rujukan_check_all;
-                    this.is_saving_diag_rujukan = false;
-                },
-                saveDiagRujukan: function(){
-                    this.is_saving_diag_rujukan = true;
-                    this.rujukan.diagnosa_freetext = "";
-                    let no = 1;
-
-                    this.index_expand_diagnosa_rujukan.forEach((v,i) => {
-                        v.forEach((x,j) => {
-                            if(x.selected){
-                                const diag = this.external_link.diagnosa_list_rujukan[i].layanan[j];
-                                this.rujukan.diagnosa_freetext += `${no}. ${diag.icd_x} - ${diag.nama_sebab_sakit} ${diag.deskripsi ? "- " + diag.deskripsi : ""}\n`;
-                                no++;
-                            }
-                        })
-                    })
-
-                    $('#hasilDiagModalRujukan').modal('hide');
-                },
-                addDiagnosaRujukan: function () {
-                    this.rujukan.diagnosa_list_autocomplete.push(...DIAGNOSA_TMP_RUJUKAN)
-                },
-                delDiagnosaRujukan: function (i) {
-                    if (i > -1) this.rujukan.diagnosa_list_autocomplete.splice(i, 1);
-                },
-
-                backupDiagRujukanBalikData: function () {
-                    this.backup_diagnosa_rujukan_balik = JSON.parse(JSON.stringify(this.index_expand_diagnosa_rujukan_balik));
-                    this.backup_diagnosa_rujukan_balik_check_all = this.index_expand_diagnosa_rujukan_balik_check_all;
-                    this.is_saving_diag_rujukan_balik = false;
-                },
-                saveDiagRujukanBalik: function(){
-                    this.is_saving_diag_rujukan_balik = true;
-                    this.rujukan_balik.diagnosa_freetext = "";
-                    let no = 1;
-
-                    this.index_expand_diagnosa_rujukan_balik.forEach((v,i) => {
-                        v.forEach((x,j) => {
-                            if(x.selected){
-                                const diag = this.external_link.diagnosa_list_rujukan_balik[i].layanan[j];
-                                this.rujukan_balik.diagnosa_freetext += `${no}. ${diag.icd_x} - ${diag.nama_sebab_sakit} ${diag.deskripsi ? "- " + diag.deskripsi : ""}\n`;
-                                no++;
-                            }
-                        })
-                    })
-
-                    $('#hasilDiagModalRujukanBalik').modal('hide');
-                },
-                addDiagnosaRujukanBalik: function () {
-                    this.rujukan_balik.diagnosa_list_autocomplete.push(...DIAGNOSA_TMP_RUJUKAN_BALIK)
-                },
-                delDiagnosaRujukanBalik: function (i) {
-                    if (i > -1) this.rujukan_balik.diagnosa_list_autocomplete.splice(i, 1);
-                },
             },
         });
     }
@@ -917,18 +852,13 @@
                 functionName: bridgingInpatientInformation,
                 parameters: [data]
             },
-            // === [BRIDGING_INIT_ADD_HOOK] ===
-            // AI will call the bridging init function here
             {
-                label: "Bridging List Diagnosis Rujukan",
-                functionName: bridgingListDiagnosisRujukan,
+                label: "Bridging Penjamin",
+                functionName: bridgingPatientInfoData,
                 parameters: [data]
             },
-            {
-                label: "Bridging List Diagnosis Rujukan Balik",
-                functionName: bridgingListDiagnosisRujukanBalik,
-                parameters: [data]
-            }
+            // === [BRIDGING_INIT_ADD_HOOK] ===
+            // AI will call the bridging init function here
         ]);
 
 
@@ -950,16 +880,6 @@
             },
             // === [BRIDGING_INIT_EDIT_HOOK] ===
             // AI will call the bridging init function here
-            {
-                label: "Bridging List Diagnosis Rujukan [EDIT]",
-                functionName: bridgingListDiagnosisRujukan,
-                parameters: [data]
-            },
-            {
-                label: "Bridging List Diagnosis Rujukan Balik [EDIT]",
-                functionName: bridgingListDiagnosisRujukanBalik,
-                parameters: [data]
-            }
         ]);
 
 
@@ -968,35 +888,18 @@
 
     // === [BRIDGING_FUNCTION_HOOK] ===
     // AI will add the bridging function here
-    function bridgingListDiagnosisRujukan(data) {
-        if (data.external_link.diagnosa_list_rujukan.length === 1) {
-        let hasilDiagnosa = "";
-        let counter = 1;
-        data.external_link.diagnosa_list_rujukan[0].layanan.forEach((v) => {
-            hasilDiagnosa += `${counter}. ${v.icd_x} - ${v.nama_sebab_sakit} ${v.deskripsi ? "- " + v.deskripsi : ""}\n`;
-            counter++;
-        });
-        data.rujukan.diagnosa_freetext = hasilDiagnosa;
-        }
-    }
-
-    function bridgingListDiagnosisRujukanBalik(data) {
-        if (data.external_link.diagnosa_list_rujukan_balik.length === 1) {
-        let hasilDiagnosa = "";
-        let counter = 1;
-        data.external_link.diagnosa_list_rujukan_balik[0].layanan.forEach((v) => {
-            hasilDiagnosa += `${counter}. ${v.icd_x} - ${v.nama_sebab_sakit} ${v.deskripsi ? "- " + v.deskripsi : ""}\n`;
-            counter++;
-        });
-        data.rujukan_balik.diagnosa_freetext = hasilDiagnosa;
-        }
-    }
-
     function setupAuto(data) {
         // Sesuaikan data disini
         data.ttd_data.jam = timeNow().time; // Jam sekarang
         data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
         data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
+    }
+
+    function bridgingPatientInfoData(data) {
+        const ext_patient_info_data = data.external_link.patient_info_data;
+
+        data.pasien.penjamin = ext_patient_info_data.cara_bayar || "-";
+
     }
 
     function bridgingPatientData(data) {
@@ -1008,12 +911,9 @@
         data.pasien.alamat = ext_patient.alamat || "";
         data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
         data.pasien.pekerjaan = ext_patient.pekerjaan || "";
-        data.pasien.agama = ext_patient.agama || "";
-        data.pasien.pendidikan = ext_patient.pendidikan || "";
         data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
+        data.pasien.no_identitas = ext_patient.no_identitas || "";
         data.pasien.kelamin = showKelamin(ext_patient.kelamin);
-        data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
         // untuk tanda tangan pasien image
         // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
@@ -1044,7 +944,11 @@
             data.pasien.ruang = data.external_link.inpatient_information.no_ruang || "";
             data.pasien.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
             data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
-            setSelect2($("#ruang_auto"), ruang, ruang);
+
+            data.perawatan_kelas = data.external_link.inpatient_information.nama_kelas || "";
+            data.perawatan_ruang = data.external_link.inpatient_information.nama_bangsal + " - Ruang " + 
+                                    data.external_link.inpatient_information.no_ruang + 
+                                    " - " +  data.external_link.inpatient_information.nama_kelas;
 
             // Bridging waktu masuk
             data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
@@ -1561,393 +1465,558 @@
 <form id="formadd" class="form-label-left input_mask col-md-12">
 
     <!-- uncomment floating nav tag ini jika memang floating navbar dibutuhkan -->
-    <!-- <floating-nav :sections="navSections"></floating-nav> -->
+    <floating-nav :sections="navSections"></floating-nav>
 
     <div class="row my-4">
         <div class="col-12 d-flex align-items-center justify-content-center">
-            <h4 class="text-center"><b>SURAT RUJUKAN</b></h4>
+            <h4 class="text-center"><b>Persetujuan Umum</b></h4>
         </div>
     </div>
 
-    <!-- Start Card Rujukan Peserta -->
-    <div class="card patient-card shadow-sm mt-5" id="card-rujukan">
+    <!-- Pasien Info Data -->
+    <div class="card patient-card shadow-sm" id="pasien-info">
         <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">SURAT RUJUKAN PESERTA</h5>
+            <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
         </div>
         <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <p class="mb-1">Yang bertandatangan di bawah ini :</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6 border-right">
-                    <div class="form-group">
-                        <label for="rujukan_no_rujukan" class="form-check-label"><b>No. Rujukan</b></label>
-                        <input id="rujukan_no_rujukan" type="text" class="form-control"
-                            v-model="rujukan.no_rujukan" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_kode_rs" class="form-check-label"><b>Kode RS</b></label>
-                        <input id="rujukan_kode_rs" type="text" class="form-control" v-model="rujukan.kode_rs" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_kepada_yth" class="form-check-label"><b>Kepada Yth.</b></label>
-                        <input id="rujukan_kepada_yth" type="text" class="form-control"
-                            v-model="rujukan.kepada_yth" />
+                    <div class="mb-3">
+                        <p class="data-label">Nama</p>
+                        <input id="bertanda_tangan_nama" type="text" class="data-value"
+                            v-model="bertanda_tangan.nama" />
                     </div>
                     <div class="mb-3">
-                        <p class="form-check-label"><b>Nama</b></p>
-                        <input id="pasien_nama" type="text" class="form-control" v-model="pasien.nama" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_no_kartu_bpjs" class="form-check-label"><b>No. Kartu BPJS</b></label>
-                        <input id="rujukan_no_kartu_bpjs" type="text" class="form-control"
-                            v-model="rujukan.no_kartu_bpjs" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_diagnosa" class="mb-0 form-check-label">
-                            <b>Diagnosa</b>
-                            <button
-                                v-if="external_link?.diagnosa_list_rujukan?.length > 1"
-                                type="button"
-                                title="Riwayat diagnosa"
-                                data-toggle="modal"
-                                data-target="#hasilDiagModalRujukan"
-                                class="btn btn-info btn-sm"
-                                @click="backupDiagRujukanData"
-                            >
-                                Pilih hasil diagnosis
-                            </button>
-                        </label>
-                        <textarea
-                            type="text"
-                            style="white-space: pre-wrap"
-                            class="form-control"
-                            v-model="rujukan.diagnosa_freetext"
-                            id="rujukan_diagnosa"
-                        ></textarea>
-                    </div>
-                    <div class="col-md-12 p-0 mt-2">
-                        <div class="row mb-2 justify-content-center">
-                        <div class="col-md-8 pr-0">
-                            <select
-                            class="form-control"
-                            id="icdx_auto_rujukan"
-                            name="icdx_tmp_rujukan"
-                            style="width: 100%"
-                            ></select>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <button
-                            type="button"
-                            style="width: 100%; height: 100%"
-                            @click="addDiagnosaRujukan()"
-                            class="btn btn-sm btn-success"
-                            >
-                            <i class="fa fa-plus"></i>
-                            Tambah Data
-                            </button>
-                        </div>
-                        </div>
-                    </div>
-                    <div
-                        class="col-md-12 p-0"
-                        v-for="(item, key) in rujukan.diagnosa_list_autocomplete"
-                        :key="key"
-                    >
-                        <div class="row mb-2">
-                        <div class="col-md-10">
-                            <div class="">
-                            {{key+1}}.&nbsp;{{item.icd_x}}&nbsp;-&nbsp;{{item.nama_sebab_sakit}}
-                            <span v-if='item.nama_sebab_sakit == "Belum diketahui"'
-                                >&nbsp;-&nbsp;{{item.deskripsi}}</span
-                            >
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <button
-                            type="button"
-                            @click="delDiagnosaRujukan(key)"
-                            class="btn btn-sm btn-danger"
-                            >
-                            <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="rujukan_rumah_sakit" class="form-check-label"><b>Rumah Sakit</b></label>
-                        <input id="rujukan_rumah_sakit" type="text" class="form-control"
-                            v-model="rujukan.rumah_sakit" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_kabupaten_kota" class="form-check-label"><b>Kabupaten/Kota</b></label>
-                        <input id="rujukan_kabupaten_kota" type="text" class="form-control"
-                            v-model="rujukan.kabupaten_kota" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_rsu" class="form-check-label"><b>RSU</b></label>
-                        <input id="rujukan_rsu" type="text" class="form-control" v-model="rujukan.rsu" />
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="pasien_umur" class="form-check-label"><b>Umur</b></label>
-                                <div class="input-group">
-                                    <input id="pasien_umur" type="number" class="form-control"
-                                        v-model.number="pasien.umur" />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Tahun</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="pasien_jenis_kelamin" class="form-check-label"><b>Jenis Kelamin</b></label>
-                                <select id="pasien_jenis_kelamin" class="form-control"
-                                    v-model="pasien.kelamin">
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_status" class="form-check-label">
-                            <b>Status (Utama/Tanggungan)</b>
-                        </label>
-                        <select id="rujukan_status" class="form-control" v-model="rujukan.status">
+                        <p class="data-label">Kelamin</p>
+                        <select class="form-control w-25" v-model="bertanda_tangan.kelamin">
                             <option value="" disabled selected>Pilih</option>
-                            <option value="Utama">Utama</option>
-                            <option value="Tanggungan">Tanggungan</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <p class="data-label">Alamat</p>
+                        <input id="bertanda_tangan_alamat" type="text" class="data-value"
+                            v-model="bertanda_tangan.alamat" />
+                    </div>
 
-                    <div class="form-group">
-                        <label for="rujukan_telah_diberikan" class="form-check-label"><b>Telah Diberikan</b></label>
-                        <textarea id="rujukan_telah_diberikan" class="form-control"
-                            v-model="rujukan.telah_diberikan"></textarea>
+                    <div class="mb-3">
+                        <p class="data-label">Pekerjaan</p>
+                        <input id="bertanda_tangan_pekerjaan" type="text" class="data-value"
+                            v-model="bertanda_tangan.pekerjaan" />
+                    </div>
+                    <!-- <div class="mb-3">
+                        <p class="data-label">Ruang</p>
+                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
+                    </div> -->
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="bertanda_tangan_no_rm" type="text" class="data-value"
+                            v-model="bertanda_tangan.tempat_lahir" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Lahir</p>
+                        <input id="bertanda_tangan_tanggal_lahir_indo" type="date" class="data-value"
+                            v-model="bertanda_tangan.tanggal_lahir" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">No. Identitas</p>
+                        <input id="bertanda_tangan_no_identitas" type="text" class="data-value"
+                            v-model="bertanda_tangan.no_identitas" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">No Telp</p>
+                        <input id="bertanda_tangan_telp" type="text" class="data-value"
+                            v-model="bertanda_tangan.telp" />
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
+            <hr>
+            <div class="row mb-3">
+                <div class="col-md-12 d-flex">
+                    <p class="mb-1 mt-2 pr-3">Dengan ini bertindak atas nama : </p>
+                    <select class="form-control w-25" v-model="bertindak_atas_nama">
+                        <option value="" selected disabled>Pilih</option>
+                        <option value="Diri Sendiri">Diri Sendiri</option>
+                        <option value="Suami">Suami</option>
+                        <option value="Istri">Istri</option>
+                        <option value="Anak">Anak</option>
+                        <option value="Ibu">Ibu</option>
+                        <option value="Ayah">Ayah</option>
+                        <option value="Saudara">Saudara</option>
+                    </select>
+                    <p class="mt-2 mb-0 pl-3">dari :</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="input-group col-md-12 mt-2 mb-5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Tanggal</span>
-                        </div>
-                        <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal_rujukan_peserta"  />
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Jam</span>
-                        </div>
-                        <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam_rujukan_peserta" />
+            </div>
+            <div class="row">
+                <div class="col-md-6 border-right">
+                    <div class="mb-3">
+                        <p class="data-label">Nama</p>
+                        <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
                     </div>
-                    <ttd-section mode="IMAGE" label="Salam Sejawat" select_id="nakes_auto1" name_input_type="NAKES" v-model="ttd_data.perawat"
-                        path_name="ttd_data.perawat" :stroke="ttd_data.perawat_stroke" path_stroke="ttd_data.perawat_stroke"
-                        @update-stroke="ttd_data.perawat_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+                    <div class="mb-3">
+                        <p class="data-label">Kelamin</p>
+                        <input id="pasien_kelamin" type="text" class="data-value" v-model="pasien.kelamin" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Alamat</p>
+                        <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.tempat_lahir" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="data-label">No RM</p>
+                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.no_rm" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Lahir</p>
+                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
+                            v-model="pasien.tanggal_lahir"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">No Telp</p>
+                        <input id="pasien_telp" type="text" class="data-value" v-model="pasien.telp" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Penjamin</p>
+                        <input id="pasien_penjamin" type="text" class="data-value" v-model="pasien.penjamin" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Card Rujukan Peserta -->
+    <!-- Pasien Info Data -->
 
-    <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem; margin-top:50px" />
-
-    <!-- Start Card Rujukan Balik -->
-    <div class="card patient-card shadow-sm mt-5" id="card-rujukan-balik">
+    <!-- 1. PERAWATAN DAN PENGOBATAN -->
+    <div class="card shadow-sm mt-4" id="perawatan-pengobatan">
         <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">SURAT RUJUKAN BALIK</h5>
+            <h5 class="mb-0 text-dark">1. PERAWATAN DAN PENGOBATAN</h5>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6 border-right">
-                    <div class="form-group">
-                        <label for="rujukan_balik_no_rujukan" class="form-check-label"><b>No. Rujukan</b></label>
-                        <input id="rujukan_balik_no_rujukan" type="text" class="form-control"
-                            v-model="rujukan_balik.no_rujukan" />
+                <div class="col-md-12">
+                    <ol type="a" class="pl-3 mb-0">
+                        <li>
+                            Saya mengetahui bahwa saya memiliki kondisi yang membutuhkan perawatan medis,
+                            saya mengijinkan dokter dan professional kesehatan lainnya untuk melakukan prosedur
+                            diagnostik dan untuk memberikan pengobatan medis yang diperlukan dalam penilaian profesional mereka.
+                            Dengan ini saya memberikan persetujuan (kecuali yang membutuhkan persetujuan khusus/tertulis)
+                            dengan tidak dapat ditarik kembali kepada RUmah Sakit,
+                            dalam memberikan pelayanan medis, pemeriksaan fisik, yang dapat dilakukan oleh dokter atau perawat,
+                            dan melakukan prosedur diagnostik, atau terapi dan tatalaksana sesuai pertimbangan dokter yang
+                            diperlukan atau disarankan pada pelayanan medis untuk saya. Hal ini mencakup seluruh pemeriksaan
+                            dan prosedur diagnostik rutin, termasuk namun tidak terbatas pada x-ray, pemberian dan atau tindakan
+                            kedokteran serta penyuntikan (intramuskular, intravena dan prosedur invasif lainnya) produk farmasi
+                            dan obat-obatan, pemasangan alat medis, dan pengambilan darah untuk pemeriksaan laboratorium atau
+                            pemeriksaan patologi yang dibutuhkan untuk pelayanan medis saya.
+                        </li>
+                        <li class="mt-2">Saya sadar bahwa praktik kedokteran dan bedah bukanlah ilmu pasti dan saya
+                            mengakui bahwa tidak ada jaminan atau hasil apapun, terhadap perawatan prosedur atau
+                            pemeriksaan apapun yang dilakukan kepada saya.</li>
+                        <li class="mt-2">Saya mengerti dan memahami bahwa :
+                            <ol type="1" class="pl-4 mt-1">
+                                <li>Saya memiliki hak untuk mengajukan pertanyaan tentang pengobatan yang diusulkan
+                                    (termasuk identitas setiap orang yang memberikan atau mengamati pengobatan) setiap
+                                    saat.</li>
+                                <li class="mt-1">Saya mengerti dan memahami bahwa saya memiliki hak untuk persetujuan
+                                    atau menolak persetujuan, untuk setiap prosedur / terapi.</li>
+                                <li class="mt-1">Saya mengerti bahwa banyak dokter pada staf medis rumah sakit yang
+                                    bukan karyawan tetap staf tamu yang telah diberikan hak untuk menggunakan fasilitas
+                                    untuk perawatan dan pengobatan pasien mereka.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. PELEPASAN INFORMASI -->
+    <div class="card shadow-sm mt-4" id="pelepasan-informasi">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">2. PELEPASAN INFORMASI</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya memahami informasi yang ada di dalam diri saya, termasuk diagnosis hasil
+                            laboratorium dan hasil tes diagnostik yang akan digunakan untuk perawatan
+                            medis dan RS akan menjamin kerahasiaannya.
+                            Saya memberikan wewenang kepada RS untuk memberikan informasi tentang
+                            rahasia kedokteran saya bila diperlukan untuk memproses
+                            <select class="form-control d-inline-block w-auto" style="vertical-align: middle;"
+                                v-model="informasi_rahasia_kedokteran">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="klaim BPJS">klaim BPJS</option>
+                                <option value="Jamkesmas">Jamkesmas</option>
+                                <option value="KIS">KIS</option>
+                                <option value="Perusahaan">Perusahaan</option>
+                                <option value="Lembaga Pemerintahan Lainnya">Lembaga Pemerintahan Lainnya</option>
+                            </select>
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="rujukan_balik_kode_rs" class="form-check-label"><b>Kode RS</b></label>
-                        <input id="rujukan_balik_kode_rs" type="text" class="form-control"
-                            v-model="rujukan_balik.kode_rs" />
+
+
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;"
+                                v-model="pelepasan_informasi_wewenang">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="Memberikan">memberikan</option>
+                                <option value="Tidak Memberikan">tidak memberikan</option>
+                            </select>
+                            wewenang kepada RS untuk memberikan tentang data dan informasi kesehatan saya kepada
+                            keluarga terdekat saya, yaitu:
+                        </p>
                     </div>
-                    <div class="form-group">
-                        <label for="rujukan_balik_rumah_sakit" class="form-check-label"><b>Rumah Sakit</b></label>
-                        <input id="rujukan_balik_rumah_sakit" type="text" class="form-control"
-                            v-model="rujukan_balik.rumah_sakit" />
-                    </div>
-                    <div class="form-group">
-                        <label for="rujukan_balik_diagnosa" class="col-form-label pb-0 form-check-label">
-                            <span class="pt-2"><b>DIAGNOSIS</b></span>
-                            <button
-                                type="button"
-                                title="Diagnosa"
-                                data-toggle="modal"
-                                data-target="#hasilDiagModalRujukanBalik"
-                                class="btn btn-info btn-sm"
-                                v-if="external_link?.diagnosa_list_rujukan_balik?.length > 1"
-                                @click="backupDiagRujukanBalikData"
-                            >
-                                Hasil Diagnosa
-                            </button>
-                        </label>
-                        <textarea
-                            type="text"
-                            id="rujukan_balik_diagnosa"
-                            class="form-control mt-2"
-                            v-model="rujukan_balik.diagnosa_freetext"
-                        ></textarea>
-                        
-                        <div class="row mt-2">
-                            <div class="col-md-8">
-                                <select
-                                id="icdx_auto_rujukan_balik"
-                                class="form-control"
-                                style="width:100%;"
-                                ></select>
+                    <p>
+                        Menyatakan bahwa sesuai Kewajiban Simpan Rahasia Kedokteran dan mengacu pada
+                        Peraturan Menteri Kesehatan Republik Indonesia Nomor 24 Tahun 2022 tentang Rekam Medis,
+                        Maka saya menunjuk yang tersebut di bawah ini untuk dapat diberitahukan tentang kondisi kesehatan saya:
+                    </p>
+
+                    <div class="form-group" v-for="(item, index) in pelepasan_informasi_list" :key="'pelepasan_'+index">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ index + 1 }}.</span>
                             </div>
-                            <div class="col-md-4">
-                                <p class="text-left" style="margin-top: 3px">
-                                <button
-                                    type="button"
-                                    @click="addDiagnosaRujukanBalik()"
-                                    class="btn btn-sm btn-success w-100"
-                                >
-                                    <i class="fa fa-plus"></i> Tambah</button
-                                >&ensp;
+                            <input type="text" class="form-control" placeholder="Nama" v-model="item.nama">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button"
+                                    @click="pelepasan_informasi_list.splice(index, 1)"><i
+                                        class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-primary mb-2"
+                        @click="pelepasan_informasi_list.push({nama: ''})"><i class="fa fa-plus"></i> Tambah
+                        Orang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PRIVASI -->
+    <div class="card shadow-sm mt-4" id="privasi">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">3. PRIVASI</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;"
+                                v-model="privasi_mengijinkan">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="Mengijinkan">mengijinkan</option>
+                                <option value="Tidak Mengijinkan">tidak mengijinkan</option>
+                            </select>
+                            Rumah Sakit memberikan akses bagi keluarga dan handai taulan serta orang-orang yang akan
+                            menengok / menemui saya:
+                        </p>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6 font-weight-bold">Nama</div>
+                        <div class="col-md-6 font-weight-bold">Hubungan dengan pasien</div>
+                    </div>
+                    <div class="row mb-2" v-for="(item, index) in privasi_daftar_keluarga"
+                        :key="'privasi_keluarga_'+index">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span>
+                                </div>
+                                <input type="text" class="form-control" v-model="item.nama" placeholder="Nama">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" v-model="item.hubungan" placeholder="Hubungan">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-danger" type="button"
+                                @click="privasi_daftar_keluarga.splice(index, 1)"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-primary mb-4"
+                        @click="privasi_daftar_keluarga.push({nama: '', hubungan: ''})"><i class="fa fa-plus"></i>
+                        Tambah Orang</button>
+
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;"
+                                v-model="privasi_khusus_menginginkan">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="Menginginkan">menginginkan</option>
+                                <option value="Tidak Menginginkan">tidak menginginkan</option>
+                            </select>
+                            privasi khusus, Sebutkan bila ada permintaan privasi khusus :
+                        </p>
+                    </div>
+
+                    <div class="form-group" v-for="(item, index) in privasi_khusus_list" :key="'privasi_khusus_'+index">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sebutkan privasi khusus"
+                                v-model="item.keterangan">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button"
+                                    @click="privasi_khusus_list.splice(index, 1)"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        @click="privasi_khusus_list.push({keterangan: ''})"><i class="fa fa-plus"></i> Tambah Privasi
+                        Khusus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. KEROHANIAN -->
+    <div class="card shadow-sm mt-4" id="kerohanian">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">4. KEROHANIAN</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="line-height: 2.2;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="mb-3">
+                                    Saya
+                                    <select class="form-control d-inline-block w-auto mx-1"
+                                        style="vertical-align: middle;" v-model="kerohanian_menginginkan">
+                                        <option value="" selected disabled>Pilih</option>
+                                        <option value="Ya">Menginginkan</option>
+                                        <option value="Tidak">Tidak Menginginkan</option>
+                                    </select>
+                                    Pelayanan Kerohanian, Sebutkan Agama
+                                    <input type="text" class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="kerohanian_agama"
+                                        :disabled="kerohanian_menginginkan !== 'Ya'" placeholder="Sebutkan agama...">
                                 </p>
                             </div>
                         </div>
-
-                        <div class="col-md-12 mt-2 p-0">
-                            <div
-                            class="row"
-                            v-for="(item, key) in rujukan_balik.diagnosa_list_autocomplete"
-                            :key="key"
-                            >
-                            <div class="col-sm-1 text-left mt-2">{{ key + 1 }}</div>
-                            <div class="col-sm-10 mt-2 p-0">
-                                {{ item.icd_x }} - {{ item.nama_sebab_sakit }} | {{ item.deskripsi }}
-                            </div>
-                            <div class="col-sm-1 mt-2 text-right">
-                                <button
-                                type="button"
-                                @click="delDiagnosaRujukanBalik(key)"
-                                class="btn btn-sm btn-danger"
-                                >
-                                <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="rujukan_balik_terapi" class="form-check-label"><b>Terapi</b></label>
-                        <textarea id="rujukan_balik_terapi" class="form-control"
-                            v-model="rujukan_balik.terapi"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-check-label mb-2"><b>Tindak Lanjut yang Dianjurkan</b></label>
-                    <div class="input-group"
-                        style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="chk_obat" type="checkbox"
-                                    v-model="rujukan_balik.pengobatan_dengan_obat" />
-                            </div>
-                        </div>
-                        <label for="chk_obat" class="form-check-label"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                            Pengobatan dengan obat-obatan
-                        </label>
-                        <input type="text" class="form-control" v-model="rujukan_balik.pengobatan_dengan_obat_text"
-                            :disabled="!rujukan_balik.pengobatan_dengan_obat" />
-                    </div>
-
-                    <div class="input-group"
-                        style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="chk_rawat" type="checkbox" v-model="rujukan_balik.perlu_rawat_inap" />
-                            </div>
-                        </div>
-                        <label for="chk_rawat" class="form-check-label"
-                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                            Perlu rawat inap
-                        </label>
-                    </div>
-
-                    <div class="input-group"
-                        style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="chk_kontrol" type="checkbox" v-model="rujukan_balik.kontrol_kembali" />
-                            </div>
-                        </div>
-                        <label for="chk_kontrol" class="form-check-label"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                            Kontrol kembali RS tanggal
-                        </label>
-                        <input type="date" class="form-control" v-model="rujukan_balik.kontrol_kembali_tanggal"
-                            :disabled="!rujukan_balik.kontrol_kembali" />
-                    </div>
-
-                    <div class="input-group"
-                        style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="chk_konsultasi" type="checkbox"
-                                    v-model="rujukan_balik.konsultasi_selesai" />
-                            </div>
-                        </div>
-                        <label for="chk_konsultasi" class="form-check-label"
-                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                            Konsultasi selesai
-                        </label>
-                    </div>
-
-                    <div class="input-group"
-                        style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="chk_lain" type="checkbox" v-model="rujukan_balik.lain_lain" />
-                            </div>
-                        </div>
-                        <label for="chk_lain" class="form-check-label"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                            Lain - lain
-                        </label>
-                        <input type="text" class="form-control" v-model="rujukan_balik.lain_lain_text"
-                            :disabled="!rujukan_balik.lain_lain" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group col-md-12 mt-2 mb-5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Tanggal</span>
-                        </div>
-                        <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal_rujukan_balik" />
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Jam</span>
-                        </div>
-                        <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam_rujukan_balik" />
-                    </div>
-                    <ttd-section mode="IMAGE" label="Dokter Rumah Sakit" select_id="dokter_auto1" name_input_type="NAKES"
-                        v-model="ttd_data.dokter" path_name="ttd_data.dokter" :stroke="ttd_data.dokter_stroke"
-                        path_stroke="ttd_data.dokter_stroke" @update-stroke="ttd_data.dokter_stroke = $event"
-                        @open-ttd-modal="openTTDModalHandler" />
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Card Rujukan Balik -->
+
+    <!-- 5. BARANG PRIBADI -->
+    <div class="card shadow-sm mt-4" id="barang-pribadi">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">5. BARANG PRIBADI</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    Saya menyatakan bahwa Rumah Sakit telah menyarankan untuk tidak
+                    membawa barang-barang berharga (seperti perhiasan, elektronik, dll.).
+                    Dalam hal barang-barang berharga tersebut tetap dibawa ke lingkungan
+                    Rumah Sakit oleh saya atau pihak manapun,
+                    maka Rumah Sakit tidak akan bertanggung jawab atas kehilangan,
+                    kerusakan atau pencurian atas barang berharga tersebut
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. PERAWATAN DAN DPJP -->
+    <div class="card shadow-sm mt-4" id="perawatan-dpjp">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">6. PERAWATAN DAN DOKTER PENANGGUNG JAWAB PERAWATAN (DPJP)</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row align-items-center">
+                        <label class="col-auto col-form-label">Saya Setuju dirawat di ruang :</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" v-model="perawatan_ruang">
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-auto col-form-label">Dan memilih DPJP :</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="dokter_auto1" name="dpjp_tmp"
+                                style="width: 100%;"></select>
+                        </div>
+                        <label class="col-auto col-form-label">Kelas :</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="perawatan_kelas">
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-auto col-form-label">Bila ruang perawatan penuh, Saya bersedia ditempatkan di
+                            :</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. INFORMASI BIAYA -->
+    <div class="card shadow-sm mt-4" id="informasi-biaya">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">7. INFORMASI BIAYA</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Saya telah memahami tentang informasi biaya pengobatan atau biaya tindakan yang dijelaskan oleh
+                        petugas Rumah Sakit.</p>
+                    <p>Saya menyatakan bahwa seluruh biaya perawatan saya akan :</p>
+
+                    <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="biaya_dibayar_sendiri"
+                                    v-model="informasi_biaya_dibayar_sendiri">
+                            </div>
+                        </div>
+                        <label class="form-check-label" for="biaya_dibayar_sendiri"
+                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                            dibayar sendiri
+                        </label>
+                    </div>
+
+                    <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="biaya_ditanggung" v-model="informasi_biaya_ditanggung">
+                            </div>
+                        </div>
+                        <label class="form-check-label" for="biaya_ditanggung"
+                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">ditanggung
+                            oleh</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_ditanggung_text"
+                            :disabled="!informasi_biaya_ditanggung">
+                    </div>
+
+                    <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="biaya_diklaimkan" v-model="informasi_biaya_diklaimkan">
+                            </div>
+                        </div>
+                        <label class="form-check-label" for="biaya_diklaimkan"
+                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">diklaimkan
+                            ke asuransi/perusahaan</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_diklaimkan_text"
+                            :disabled="!informasi_biaya_diklaimkan">
+                    </div>
+
+                    <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="biaya_perkiraan" v-model="informasi_biaya_perkiraan">
+                            </div>
+                        </div>
+                        <label class="form-check-label" for="biaya_perkiraan"
+                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">perkiraan
+                            biaya kurang lebih Rp.</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_perkiraan_text"
+                            :disabled="!informasi_biaya_perkiraan">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. PENGAJUAN KELUHAN -->
+    <div class="card shadow-sm mt-4" id="pengajuan-keluhan">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">8. PENGAJUAN KELUHAN</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Saya telah menerima informasi tentang tata cara mengajukan dan mengatasi keluhan terkait
+                        pelayanan medik yang diberikan dan saya setuju untuk mengikuti tata cara pengajuan keluhan
+                        sesuai prosedur yang ada.</p>
+
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya telah membaca dan sepenuhnya
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;"
+                                v-model="pengajuan_keluhan_setuju">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="SETUJU">SETUJU</option>
+                                <option value="TIDAK SETUJU">TIDAK SETUJU</option>
+                            </select>
+                            dengan setiap pernyataan yang terdapat dalam formulir ini dan menandatanganinya dengan
+                            kesadaran penuh dan tanpa paksaan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem" />
+
+    <div class="row mt-5 justify-content-end">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="input-group col-md-12 mt-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Tanggal</span>
+                    </div>
+                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Jam</span>
+                    </div>
+                    <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <ttd-section mode="CANVAS" label="Saksi Keluarga" select_id="saksi_auto" name_input_type="TEXT"
+                v-model="ttd_data.saksi_keluarga" path_name="ttd_data.saksi_keluarga"
+                :stroke="ttd_data.saksi_keluarga_stroke" path_stroke="ttd_data.saksi_keluarga_stroke"
+                @update-stroke="ttd_data.saksi_keluarga_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+        </div>
+        <div class="col-md-4">
+            <ttd-section mode="IMAGE" label="Petugas Admisi" select_id="nakes_auto1" name_input_type="NAKES"
+                v-model="ttd_data.petugas_admisi" path_name="ttd_data.petugas_admisi"
+                :stroke="ttd_data.petugas_admisi_stroke" path_stroke="ttd_data.petugas_admisi_stroke"
+                @update-stroke="ttd_data.petugas_admisi_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+        </div>
+        <div class="col-md-4">
+            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id="nakes_auto2" name_input_type="NAKES"
+                v-model="ttd_data.menyatakan" path_name="ttd_data.menyatakan" :stroke="ttd_data.menyatakan_stroke"
+                path_stroke="ttd_data.menyatakan_stroke" @update-stroke="ttd_data.menyatakan_stroke = $event"
+                @open-ttd-modal="openTTDModalHandler" />
+        </div>
+    </div>
 
     <div class="form-group row mt-5 text-center">
         <div class="col-md-12">
@@ -2023,8 +2092,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control"
-                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -2037,8 +2106,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -2049,146 +2117,6 @@
 
     <!-- === [BRIDGING_MODALS_HOOK] === -->
     <!-- AI will insert modal HTML here -->
-
-    <!--START DIAGNOSA RUJUKAN MODAL-->
-    <div class="modal fade" id="hasilDiagModalRujukan" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Hasil Diagnosa Rujukan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <!--Looping Jenis kunjungan-->
-                        <div class="mb-3" v-for="(jenisLayanan, i) in external_link.diagnosa_list_rujukan" :key="i">
-                            <h6>
-                                <u>{{jenisLayanan.jenis}} {{jenisLayanan.tanggal}} {{jenisLayanan.jam}}</u>
-                            </h6>
-                            <!--Looping nama layanan-->
-                            <div v-for="(DiagUtamaItem, j) in jenisLayanan.layanan" :key="j" class="mb-1 mx-2">
-                                <div class="col-12 row justify-content-between px-3 rounded border-bottom font-weight-bold"
-                                    :class="{'bg-primary':index_expand_diagnosa_rujukan[i][j].expand, 'bg-light': !index_expand_diagnosa_rujukan[i][j].expand }">
-                                    <a class="nav-link col"
-                                        :class="{'text-white':index_expand_diagnosa_rujukan[i][j].expand}"
-                                        href="javascript:;" data-toggle="collapse" role="button"
-                                        :aria-expanded="index_expand_diagnosa_rujukan[i][j].expand"
-                                        @click.prevent="navCollapse(i, j, 'index_expand_diagnosa_rujukan')">
-                                        <span class="nav-link-text">{{DiagUtamaItem.icd_x}} - {{DiagUtamaItem.nama_sebab_sakit}} - {{DiagUtamaItem.deskripsi}}</span>
-                                    </a>
-                                    <div class="nav-link">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                :id="'customCheckDiagUtama'+i+j"
-                                                @change="checkAllBridgingList('index_expand_diagnosa_rujukan', true)"
-                                                v-model="index_expand_diagnosa_rujukan[i][j].selected" />
-                                            <label class="custom-control-label" :for="'customCheckDiagUtama'+i+j"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="DiagUtamaItem.icd_x" class="col-12 border rounded row collapse"
-                                    :class="{ show : index_expand_diagnosa_rujukan[i][j].expand }">
-                                    <p class="nav-link mb-0">
-                                        Hasil:
-                                        <span v-html="DiagUtamaItem.icd_x"></span>
-                                        <br />
-                                        {{DiagUtamaItem.icd_x}} - {{DiagUtamaItem.nama_sebab_sakit}} - {{DiagUtamaItem.deskripsi}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="input-group mb-0" style="display: flex; flex-wrap: nowrap; align-items: stretch; width: fit-content; height: 38px">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="checkAllButtonDiagnosisRujukan" type="checkbox" @change="checkAllBridgingList('index_expand_diagnosa_rujukan')" v-model="index_expand_diagnosa_rujukan_check_all" />
-                            </div>
-                        </div>
-                        <label for="checkAllButtonDiagnosisRujukan" class="form-check-label font-weight-bold rounded-right" style="padding: 0.375rem 0.75rem; border: 1px solid #ced4da; display: flex; align-items: center; font-size: 16px">
-                            Pilih semua
-                        </label>
-                    </div>
-                    <button type="button" class="btn btn-primary mb-0" @click="saveDiagRujukan">Simpan</button>
-                    <button type="button" class="btn btn-secondary mb-0" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--END DIAGNOSA RUJUKAN MODAL-->
-
-    <!--START DIAGNOSA RUJUKAN BALIK MODAL-->
-    <div class="modal fade" id="hasilDiagModalRujukanBalik" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Hasil Diagnosa Rujukan Balik</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <!--Looping Jenis kunjungan-->
-                        <div class="mb-3" v-for="(jenisLayanan, i) in external_link.diagnosa_list_rujukan_balik" :key="i">
-                            <h6>
-                                <u>{{jenisLayanan.jenis}} {{jenisLayanan.tanggal}} {{jenisLayanan.jam}}</u>
-                            </h6>
-                            <!--Looping nama layanan-->
-                            <div v-for="(DiagUtamaItem, j) in jenisLayanan.layanan" :key="j" class="mb-1 mx-2">
-                                <div class="col-12 row justify-content-between px-3 rounded border-bottom font-weight-bold"
-                                    :class="{'bg-primary':index_expand_diagnosa_rujukan_balik[i][j].expand, 'bg-light': !index_expand_diagnosa_rujukan_balik[i][j].expand }">
-                                    <a class="nav-link col"
-                                        :class="{'text-white':index_expand_diagnosa_rujukan_balik[i][j].expand}"
-                                        href="javascript:;" data-toggle="collapse" role="button"
-                                        :aria-expanded="index_expand_diagnosa_rujukan_balik[i][j].expand"
-                                        @click.prevent="navCollapse(i, j, 'index_expand_diagnosa_rujukan_balik')">
-                                        <span class="nav-link-text">{{DiagUtamaItem.icd_x}} - {{DiagUtamaItem.nama_sebab_sakit}} - {{DiagUtamaItem.deskripsi}}</span>
-                                    </a>
-                                    <div class="nav-link">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                :id="'customCheckDiagMasuk'+i+j"
-                                                @change="checkAllBridgingList('index_expand_diagnosa_rujukan_balik', true)"
-                                                v-model="index_expand_diagnosa_rujukan_balik[i][j].selected" />
-                                            <label class="custom-control-label" :for="'customCheckDiagMasuk'+i+j"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="DiagUtamaItem.icd_x" class="col-12 border rounded row collapse"
-                                    :class="{ show : index_expand_diagnosa_rujukan_balik[i][j].expand }">
-                                    <p class="nav-link mb-0">
-                                        Hasil:
-                                        <span v-html="DiagUtamaItem.icd_x"></span>
-                                        <br />
-                                        {{DiagUtamaItem.icd_x}} - {{DiagUtamaItem.nama_sebab_sakit}} - {{DiagUtamaItem.deskripsi}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="input-group mb-0" style="display: flex; flex-wrap: nowrap; align-items: stretch; width: fit-content; height: 38px">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="checkAllButtonDiagnosisRujukanBalik" type="checkbox" @change="checkAllBridgingList('index_expand_diagnosa_rujukan_balik')" v-model="index_expand_diagnosa_rujukan_balik_check_all" />
-                            </div>
-                        </div>
-                        <label for="checkAllButtonDiagnosisRujukanBalik" class="form-check-label font-weight-bold rounded-right" style="padding: 0.375rem 0.75rem; border: 1px solid #ced4da; display: flex; align-items: center; font-size: 16px">
-                            Pilih semua
-                        </label>
-                    </div>
-                    <button type="button" class="btn btn-primary mb-0" @click="saveDiagRujukanBalik">Simpan</button>
-                    <button type="button" class="btn btn-secondary mb-0" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--END DIAGNOSA RUJUKAN BALIK MODAL-->
 
 </form>
     <!-- === END CONTAINER CODE === -->
