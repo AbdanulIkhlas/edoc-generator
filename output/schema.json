@@ -1,0 +1,176 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "no_rm": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "kelamin": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
+                },
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
+                },
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "tanggal_masuk_indo": {
+                    "type": "string"
+                },
+                "jam_masuk": {
+                    "type": "string"
+                }
+            }
+        },
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "kota": {
+                    "type": "string"
+                },
+                "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "perawat": {
+                    "type": "string"
+                },
+                "perawat_stroke": {
+                    "type": "string"
+                },
+                "dokter": {
+                    "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
+                },
+                "dokter_rumah_sakit": {
+                    "type": "string"
+                },
+                "dokter_rumah_sakit_stroke": {
+                    "type": "string"
+                }
+            }
+        },
+        "rujukan": {
+            "type": "object",
+            "properties": {
+                "no_rujukan": {
+                    "type": "string"
+                },
+                "kode_rs": {
+                    "type": "string"
+                },
+                "rumah_sakit": {
+                    "type": "string"
+                },
+                "kabupaten_kota": {
+                    "type": "string"
+                },
+                "kepada_yth": {
+                    "type": "string"
+                },
+                "rsu": {
+                    "type": "string"
+                },
+                "no_kartu_bpjs": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "diagnosa": {
+                    "type": "string"
+                },
+                "telah_diberikan": {
+                    "type": "string"
+                }
+            }
+        },
+        "rujukan_balik": {
+            "type": "object",
+            "properties": {
+                "no_rujukan": {
+                    "type": "string"
+                },
+                "kode_rs": {
+                    "type": "string"
+                },
+                "rumah_sakit": {
+                    "type": "string"
+                },
+                "diagnosa": {
+                    "type": "string"
+                },
+                "terapi": {
+                    "type": "string"
+                },
+                "pengobatan_dengan_obat": {
+                    "type": "boolean"
+                },
+                "pengobatan_dengan_obat_text": {
+                    "type": "string"
+                },
+                "perlu_rawat_inap": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali_tanggal": {
+                    "type": "string"
+                },
+                "konsultasi_selesai": {
+                    "type": "boolean"
+                },
+                "lain_lain": {
+                    "type": "boolean"
+                },
+                "lain_lain_text": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

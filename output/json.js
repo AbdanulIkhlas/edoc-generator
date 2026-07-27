@@ -27,7 +27,36 @@ const data = {
             "perawat": "Sunarni",
             "perawat_stroke": "",
             "dokter": "dr. Sunarno",
-            "dokter_stroke": ""
+            "dokter_stroke": "",
+            "dokter_rumah_sakit": "dr. Budiman",
+            "dokter_rumah_sakit_stroke": ""
+        },
+        "rujukan": {
+            "no_rujukan": "RJ-001",
+            "kode_rs": "KRS-123",
+            "rumah_sakit": "RS Yasyfin Darussalam Gontor",
+            "kabupaten_kota": "Ponorogo",
+            "kepada_yth": "dr. Andi",
+            "rsu": "RSUD Dr. Harjono",
+            "no_kartu_bpjs": "000123456789",
+            "status": "Utama",
+            "diagnosa": "Demam Berdarah Dengue",
+            "telah_diberikan": "Paracetamol"
+        },
+        "rujukan_balik": {
+            "no_rujukan": "RJB-001",
+            "kode_rs": "KRS-123",
+            "rumah_sakit": "RSUD Dr. Harjono",
+            "diagnosa": "Demam Berdarah Dengue",
+            "terapi": "Perawatan Intensif",
+            "pengobatan_dengan_obat": true,
+            "pengobatan_dengan_obat_text": "Amoxicillin",
+            "perlu_rawat_inap": false,
+            "kontrol_kembali": true,
+            "kontrol_kembali_tanggal": "2026-08-01",
+            "konsultasi_selesai": false,
+            "lain_lain": false,
+            "lain_lain_text": ""
         },
         "external_link": {
             "px_data": {
@@ -114,7 +143,36 @@ const data = {
             "perawat": "",
             "perawat_stroke": "",
             "dokter": "",
-            "dokter_stroke": ""
+            "dokter_stroke": "",
+            "dokter_rumah_sakit": "",
+            "dokter_rumah_sakit_stroke": ""
+        },
+        "rujukan": {
+            "no_rujukan": "",
+            "kode_rs": "",
+            "rumah_sakit": "",
+            "kabupaten_kota": "",
+            "kepada_yth": "",
+            "rsu": "",
+            "no_kartu_bpjs": "",
+            "status": "",
+            "diagnosa": "",
+            "telah_diberikan": ""
+        },
+        "rujukan_balik": {
+            "no_rujukan": "",
+            "kode_rs": "",
+            "rumah_sakit": "",
+            "diagnosa": "",
+            "terapi": "",
+            "pengobatan_dengan_obat": false,
+            "pengobatan_dengan_obat_text": "",
+            "perlu_rawat_inap": false,
+            "kontrol_kembali": false,
+            "kontrol_kembali_tanggal": "",
+            "konsultasi_selesai": false,
+            "lain_lain": false,
+            "lain_lain_text": ""
         }
     }
 }
