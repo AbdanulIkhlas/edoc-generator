@@ -120,8 +120,14 @@
                 "status": {
                     "type": "string"
                 },
-                "diagnosa": {
+                "diagnosa_group": {
                     "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
                 },
                 "telah_diberikan": {
                     "type": "string"
@@ -140,8 +146,14 @@
                 "rumah_sakit": {
                     "type": "string"
                 },
-                "diagnosa": {
+                "diagnosa_group": {
                     "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
                 },
                 "terapi": {
                     "type": "string"

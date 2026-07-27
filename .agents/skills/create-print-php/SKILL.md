@@ -232,7 +232,39 @@ Gunakan null coalescing (`?? ""`) apabila memungkinkan agar aman ketika data kos
 Selalu gunakan helper berikut.
 
 ```php
-function tgl_indo(...)
+function tgl_indo($tanggal)
+{
+    if (empty($tanggal) || $tanggal === '0000-00-00') {
+        return '';
+    }
+
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    $timestamp = strtotime($tanggal);
+
+    if ($timestamp === false) {
+        return '';
+    }
+
+    $hari = date('j', $timestamp);   // tanpa leading zero
+    $bulan_ke = date('n', $timestamp);
+    $tahun = date('Y', $timestamp);
+
+    return $hari . ' ' . $bulan[$bulan_ke] . ' ' . $tahun;
+}
 ```
 
 Kemudian panggil seperti berikut.
@@ -368,6 +400,10 @@ Semirip mungkin dengan template.
 # RULES
 1. semua td dari tabel menggunakan valign="top"
 2. Wajib sama persis dengan layout dari template `input/template.pdf`
+3. Buat yang rapi dan mengisi semua space kosong
+4. Layouting menggunakan tabel dan styling menggunakan style yang sudah ada seperti `table-bordered` dan `table-borderless`
+5. Gunakan  font size 12pt untuk body dan 14pt untuk title dan header
+6. Jangan menggunakan Bold tambahan, sesuaikan dengan template pdf nya saja
 
 ---
 

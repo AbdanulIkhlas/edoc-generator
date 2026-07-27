@@ -5,6 +5,40 @@ $params = json_decode($argv[1]);
 $base_url = $argv[2]; // Base_url
 $title = "Title";
 $static_label = json_decode($argv[3]);
+
+function tgl_indo($tanggal)
+{
+    if (empty($tanggal) || $tanggal === '0000-00-00') {
+        return '';
+    }
+
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    $timestamp = strtotime($tanggal);
+
+    if ($timestamp === false) {
+        return '';
+    }
+
+    $hari = date('j', $timestamp);   // tanpa leading zero
+    $bulan_ke = date('n', $timestamp);
+    $tahun = date('Y', $timestamp);
+
+    return $hari . ' ' . $bulan[$bulan_ke] . ' ' . $tahun;
+}
 ?>
 
 <!DOCTYPE html>

@@ -41,14 +41,18 @@ const data = {
             "rsu": "RSUD Dr. Harjono",
             "no_kartu_bpjs": "000123456789",
             "status": "Utama",
-            "diagnosa": "Demam Berdarah Dengue",
+            "diagnosa_group": "",
+            "diagnosa_freetext": "Demam Berdarah Dengue",
+            "diagnosa_list_autocomplete": [],
             "telah_diberikan": "Paracetamol"
         },
         "rujukan_balik": {
             "no_rujukan": "RJB-001",
             "kode_rs": "KRS-123",
             "rumah_sakit": "RSUD Dr. Harjono",
-            "diagnosa": "Demam Berdarah Dengue",
+            "diagnosa_group": "",
+            "diagnosa_freetext": "Demam Berdarah Dengue",
+            "diagnosa_list_autocomplete": [],
             "terapi": "Perawatan Intensif",
             "pengobatan_dengan_obat": true,
             "pengobatan_dengan_obat_text": "Amoxicillin",
@@ -113,7 +117,101 @@ const data = {
                 "id_profesi": 1,
                 "nama_profesi": "Dokter",
                 "ttd_image": "000002_682b2a74c336d.png"
-            }
+            },
+            "diagnosa_list_rujukan": [
+                {
+                    "no_register": "2202230010",
+                    "id_pasien": "00206957",
+                    "id_pendaftaran": 10,
+                    "id_layanan_pendaftaran": 1652,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2022-03-01",
+                    "jam": "09:27:15",
+                    "layanan": [
+                        {
+                            "id_diagnosa": 823,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Sementara",
+                            "primer": "Primer"
+                        },
+                        {
+                            "id_diagnosa": 826,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "BP",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Akhir",
+                            "primer": "Primer"
+                        }
+                    ]
+                }
+            ],
+            "diagnosa_list_rujukan_balik": [
+                {
+                    "no_register": "2202230010",
+                    "id_pasien": "00206957",
+                    "id_pendaftaran": 10,
+                    "id_layanan_pendaftaran": 1652,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2022-03-01",
+                    "jam": "09:27:15",
+                    "layanan": [
+                        {
+                            "id_diagnosa": 823,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Sementara",
+                            "primer": "Primer"
+                        },
+                        {
+                            "id_diagnosa": 826,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "BP",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Akhir",
+                            "primer": "Primer"
+                        }
+                    ]
+                }
+            ]
         }
     },
     "default": {
@@ -156,14 +254,18 @@ const data = {
             "rsu": "",
             "no_kartu_bpjs": "",
             "status": "",
-            "diagnosa": "",
+            "diagnosa_group": "",
+            "diagnosa_freetext": "",
+            "diagnosa_list_autocomplete": [],
             "telah_diberikan": ""
         },
         "rujukan_balik": {
             "no_rujukan": "",
             "kode_rs": "",
             "rumah_sakit": "",
-            "diagnosa": "",
+            "diagnosa_group": "",
+            "diagnosa_freetext": "",
+            "diagnosa_list_autocomplete": [],
             "terapi": "",
             "pengobatan_dengan_obat": false,
             "pengobatan_dengan_obat_text": "",

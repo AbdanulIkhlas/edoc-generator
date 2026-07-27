@@ -5,6 +5,40 @@ $params = json_decode($argv[1]);
 $base_url = $argv[2]; // Base_url
 $title = "Title";
 $static_label = json_decode($argv[3]);
+
+function tgl_indo($tanggal)
+{
+    if (empty($tanggal) || $tanggal === '0000-00-00') {
+        return '';
+    }
+
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    $timestamp = strtotime($tanggal);
+
+    if ($timestamp === false) {
+        return '';
+    }
+
+    $hari = date('j', $timestamp);   // tanpa leading zero
+    $bulan_ke = date('n', $timestamp);
+    $tahun = date('Y', $timestamp);
+
+    return $hari . ' ' . $bulan[$bulan_ke] . ' ' . $tahun;
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +66,7 @@ $static_label = json_decode($argv[3]);
     }
 
     body {
-        font: 14pt times new roman;
+        font: 12pt times new roman;
         size: f4;
         padding-bottom: 10px;
     }
@@ -326,9 +360,307 @@ $static_label = json_decode($argv[3]);
     /* AI will add additional styles here */
 </style>
 
-<body>
+<body style="font-size: 12pt;">
     <!-- === [EMR_DATA_DISPLAY_HOOK] === -->
     <!-- AI will insert the main HTML structure and data binding here -->
+    <table style="width: 100%; border: 1px solid black; margin-bottom: 20px; page-break-inside: auto;" class="table-borderless">
+        <tr>
+            <td style="vertical-align: top; padding: 10px;">
+                <table style="width: 100%;">
+                    <tr style="padding-bottom: 5px; padding-top: 5px;">
+                        <td width="20%" style="vertical-align: middle; text-align: center;">
+                            <img style="width: 100px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
+                        </td>
+                        <td width="80%" style="vertical-align: middle; text-align: center;">
+                            <h4 style="margin: 0; font-size: 14pt; font-weight: bold;"><?php echo $static_label->hospital_name ?? "RS Yasyfin Darussalam Gontor"; ?></h4>
+                            <div style="font-size: 12pt; line-height: 1.3; margin-top: 5px;">
+                                <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : "Jl. Dukuh Gontor II, Desa Gontor, Kec. Mlarak<br>Kab. Ponorogo, Jawa Timur 63472<br>"; ?>
+                                <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email . "<br>" : "Email: rsyasyfin@gontor.ac.id<br>"; ?>
+                                <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . " Fax. 0352 3597038" : "Telp. 0352 3591202 Fax. 0352 3597038"; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 14pt; font-weight: bold;">SURAT RUJUKAN PESERTA</h4>
+
+                <table style="width: 100%; border: 1px solid black; margin-bottom: 10px;" class="table-borderless">
+                    <tr>
+                        <td style="width: 20%; padding: 5px; vertical-align: top;">No.Rujukan</td>
+                        <td style="width: 2%; padding: 5px; vertical-align: top;">:</td>
+                        <td style="padding: 5px; vertical-align: top;"></td>
+                        <td style="width: 15%; padding: 5px; vertical-align: top;"></td>
+                        <td style="width: 20%; padding: 5px; vertical-align: top;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px; vertical-align: top;">Rumah Sakit</td>
+                        <td style="padding: 5px; vertical-align: top;">:</td>
+                        <td style="padding: 5px; vertical-align: top; font-weight: bold;"><?php echo $params->rujukan->rumah_sakit ?? ""; ?></td>
+                        <td style="padding: 5px; vertical-align: top;">Kode RS :</td>
+                        <td style="padding: 5px; vertical-align: top;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px; vertical-align: top;">Kabupaten/ Kota</td>
+                        <td style="padding: 5px; vertical-align: top;">:</td>
+                        <td style="padding: 5px; vertical-align: top; font-weight: bold;"><?php echo $params->rujukan->kabupaten_kota ?? ""; ?></td>
+                        <td style="padding: 5px; vertical-align: top;"></td>
+                        <td style="padding: 5px; vertical-align: top;"></td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Kepada Yth.</td>
+                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 5px; vertical-align: top;">RSU</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->rsu ?? ""; ?></td>
+                    </tr>
+                </table>
+
+                <div style="margin-bottom: 10px; font-size: 12pt;">
+                    Mohon pemeriksaan dan penanganan lebih lanjut penderita :
+                </div>
+
+                <table style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Nama</td>
+                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="width: 35%; padding-bottom: 5px; vertical-align: top;"><?php echo $params->pasien->nama ?? ""; ?></td>
+                        <td style="width: 10%; padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Umur</td>
+                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top; text-align: center;"><?php echo $params->pasien->umur ?? ""; ?></td>
+                        <td style="width: 10%; padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Tahun</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 5px; vertical-align: top;">No.Kartu BPJS</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->no_kartu_bpjs ?? ""; ?></td>
+                        <td style="padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Status</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td colspan="2" style="padding-bottom: 5px; vertical-align: top;">
+                            <?php 
+                            $status = $params->rujukan->status ?? ""; 
+                            $is_utama = $status == "Utama";
+                            $is_tanggungan = $status == "Tanggungan";
+                            $kelamin = $params->pasien->kelamin ?? "";
+                            $is_l = in_array(strtolower($kelamin), ['l', 'laki-laki']);
+                            $is_p = in_array(strtolower($kelamin), ['p', 'perempuan']);
+                            ?>
+                            <span style="border: 1px solid black; padding: 0 5px; margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_utama || $is_tanggungan) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_utama ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Utama</span>/<span style="<?= $is_tanggungan ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Tanggungan</span>
+                            <span style="border: 1px solid black; padding: 0 5px; margin-left: 10px; margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_l || $is_p) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_l ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">L</span>/<span style="<?= $is_p ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">P</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Diagnosa</td>
+                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">
+                            <?php echo nl2br($params->rujukan->diagnosa_group ?? ""); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">Telah diberikan</td>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">
+                            <?php echo nl2br($params->rujukan->telah_diberikan ?? ""); ?>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="margin-bottom: 20px; font-size: 12pt;">
+                    Demikian atas bantuanya, diucapkan terima kasih.
+                </div>
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 40%; vertical-align: top;"></td>
+                        <td style="width: 60%; text-align: center; vertical-align: top;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
+                                    <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
+                                        <?= isset($params->ttd_data->tanggal_rujukan_peserta) && !empty($params->ttd_data->tanggal_rujukan_peserta) ? tgl_indo($params->ttd_data->tanggal_rujukan_peserta) : "" ?>,
+                                        <?= isset($params->ttd_data->jam_rujukan_peserta) && !empty($params->ttd_data->jam_rujukan_peserta) ? ' Jam ' . tgl_indo($params->ttd_data->jam_rujukan_peserta) . ' WIB' : "" ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; padding-top: 5px; vertical-align: top;">Salam Sejawat</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; height: 80px; vertical-align: middle;">
+                                        <?php if (!empty($params->ttd_data->perawat_stroke)): ?>
+                                            <img src="<?php echo $params->ttd_data->perawat_stroke; ?>" style="height:80px; width:auto; display:block; margin:0 auto;">
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; vertical-align: top;">
+                                        ( <?php echo $params->ttd_data->perawat ?? "...................................."; ?> )
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; border: 1px solid black; margin-bottom: 20px; page-break-inside: auto;" class="table-borderless">
+        <tr>
+            <td style="vertical-align: top; padding: 10px;">
+                <table style="width: 100%;">
+                    <tr style="padding-bottom: 5px; padding-top: 5px;">
+                        <td width="20%" style="vertical-align: middle; text-align: center;">
+                            <img style="width: 100px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
+                        </td>
+                        <td width="80%" style="vertical-align: middle; text-align: center;">
+                            <h4 style="margin: 0; font-size: 14pt; font-weight: bold;"><?php echo $static_label->hospital_name ?? "RS Yasyfin Darussalam Gontor"; ?></h4>
+                            <div style="font-size: 12pt; line-height: 1.3; margin-top: 5px;">
+                                <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : "Jl. Dukuh Gontor II, Desa Gontor, Kec. Mlarak<br>Kab. Ponorogo, Jawa Timur 63472<br>"; ?>
+                                <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email . "<br>" : "Email: rsyasyfin@gontor.ac.id<br>"; ?>
+                                <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . " Fax. 0352 3597038" : "Telp. 0352 3591202 Fax. 0352 3597038"; ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 14pt; font-weight: bold;">SURAT RUJUKAN BALIK</h4>
+
+                <table style="width: 100%; border: 1px solid black; margin-bottom: 10px;" class="table-borderless">
+                    <tr>
+                        <td style="width: 20%; padding: 5px; vertical-align: top;">No.Rujukan</td>
+                        <td style="width: 2%; padding: 5px; vertical-align: top;">:</td>
+                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->no_rujukan ?? ""; ?></td>
+                        <td style="width: 15%; padding: 5px; vertical-align: top;"></td>
+                        <td style="width: 20%; padding: 5px; vertical-align: top;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px; vertical-align: top;">Rumah Sakit</td>
+                        <td style="padding: 5px; vertical-align: top;">:</td>
+                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->rumah_sakit ?? ""; ?></td>
+                        <td style="padding: 5px; vertical-align: top;">Kode RS :</td>
+                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->kode_rs ?? ""; ?></td>
+                    </tr>
+                </table>
+
+                <div style="margin-bottom: 10px; font-size: 12pt;">
+                    Teman Sejawat Yth.<br>
+                    Mohon Kontrol selanjutnya penderita :
+                </div>
+
+                <table style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Nama</td>
+                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->pasien->nama ?? ""; ?></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 5px; vertical-align: top;">Diagnosa</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; vertical-align: top;">
+                            <?php echo nl2br($params->rujukan_balik->diagnosa_group ?? ""); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">Terapi</td>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">:</td>
+                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">
+                            <?php echo nl2br($params->rujukan_balik->terapi ?? ""); ?>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="margin-bottom: 10px; font-size: 12pt;">
+                    Tindak lanjut yang dianjurkan
+                </div>
+
+                <table style="width: 100%; margin-bottom: 20px;">
+                    <tr>
+                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
+                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->pengobatan_dengan_obat ?? false) ? "✓" : "&nbsp;"; ?></span>
+                        </td>
+                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
+                            Pengobatan dengan obat-obatan :<br>
+                            <span style="display: inline-block; width: 90%; min-height: 20px;"><?= $params->rujukan_balik->pengobatan_dengan_obat_text ?? ""; ?></span>
+                        </td>
+                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
+                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->perlu_rawat_inap ?? false) ? "✓" : "&nbsp;"; ?></span>
+                        </td>
+                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
+                            Perlu rawat inap
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
+                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->kontrol_kembali ?? false) ? "✓" : "&nbsp;"; ?></span>
+                        </td>
+                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
+                            Kontrol kembali RS tanggal :<br>
+                            <span style="display: inline-block; width: 90%; min-height: 20px;">
+                                <?= !empty($params->rujukan_balik->kontrol_kembali_tanggal) ? tgl_indo($params->rujukan_balik->kontrol_kembali_tanggal) : ""; ?>
+                            </span>
+                        </td>
+                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
+                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->konsultasi_selesai ?? false) ? "✓" : "&nbsp;"; ?></span>
+                        </td>
+                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
+                            Konsultasi Selesai
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
+                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->lain_lain ?? false) ? "✓" : "&nbsp;"; ?></span>
+                        </td>
+                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
+                            Lain - lain :<br>
+                            <span style="display: inline-block; width: 90%; min-height: 20px;"><?= $params->rujukan_balik->lain_lain_text ?? ""; ?></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 40%; vertical-align: top;"></td>
+                        <td style="width: 60%; text-align: center; vertical-align: top;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
+                                    <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
+                                        <?= isset($params->ttd_data->tanggal_rujukan_balik) && !empty($params->ttd_data->tanggal_rujukan_balik) ? tgl_indo($params->ttd_data->tanggal_rujukan_balik) : "" ?>,
+                                        <?= isset($params->ttd_data->jam_rujukan_balik) && !empty($params->ttd_data->jam_rujukan_balik) ? ' Jam ' . tgl_indo($params->ttd_data->jam_rujukan_balik) . ' WIB' : "" ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; padding-top: 5px; vertical-align: top;">Dokter Rumah Sakit</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; height: 80px; vertical-align: middle;">
+                                        <?php if (!empty($params->ttd_data->dokter_stroke)): ?>
+                                            <img src="<?php echo $params->ttd_data->dokter_stroke; ?>" style="height:80px; width:auto; display:block; margin:0 auto;">
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; vertical-align: top;">
+                                        ( <?php echo $params->ttd_data->dokter ?? "...................................."; ?> )
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
