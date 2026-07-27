@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulir PPI </title>
+
+    <!-- Tambahkan Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <!-- Tambahkan pustaka Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Tambahkan SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+</head>
+
+<body>
+    <!-- === START CONTAINER CODE === -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -238,14 +271,40 @@
                 // tulis format string untuk label autocomplete
                 var res = "";
                 if (repo.id != "") {
-                    res = repo.nama || data.ttd_data.perawat;
-                    data.ttd_data.perawat = res;
+                    res = repo.nama || data.ttd_data.petugas_admisi;
+                    data.ttd_data.petugas_admisi = res;
                 }
 
                 return res;
             },
         };
     }
+
+    function configNakes2(data) {
+            return {
+                element: "#nakes_auto2",
+                url: "/api/emr/autocomplete?source_name=nakes",
+                allowClear: true,
+                query_params: {
+                    status: "",
+                    id_profesi_nakes: "",
+                },
+
+                markup_template: function (repo) {
+                    return `<b>${repo.nama}</b>`;
+                },
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.ttd_data.menyatakan;
+                        data.ttd_data.menyatakan = res;
+                    }
+
+                    return res;
+                },
+            };
+        }
 
     function configRuang(data) {
         return {
@@ -359,6 +418,14 @@
         // AI will add the latest ID and title section here
         data.navSections = [
             { id: "pasien-info", title: "Informasi Pasien" },
+            { id: "perawatan-pengobatan", title: "Perawatan & Pengobatan" },
+            { id: "pelepasan-informasi", title: "Pelepasan Informasi" },
+            { id: "privasi", title: "Privasi" },
+            { id: "kerohanian", title: "Kerohanian" },
+            { id: "barang-pribadi", title: "Barang Pribadi" },
+            { id: "perawatan-dpjp", title: "Perawatan DPJP" },
+            { id: "informasi-biaya", title: "Informasi Biaya" },
+            { id: "pengajuan-keluhan", title: "Pengajuan Keluhan" },
             { id: "save-doc", title: "Simpan" },
         ];
 
@@ -393,6 +460,40 @@
             watch: {
                 // === [WATCH_HOOK] ===
                 // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
+                'bertindak_atas_nama': function (newVal) {
+                    if (newVal === 'Diri Sendiri') {
+                        const ext_patient = this.external_link.px_data;
+                        this.bertanda_tangan.nama = ext_patient.nama || "";
+                        this.bertanda_tangan.alamat = ext_patient.alamat || "";
+                        this.bertanda_tangan.tempat_lahir = ext_patient.tempat_lahir || "";
+                        this.bertanda_tangan.pekerjaan = ext_patient.pekerjaan || "";
+                        this.bertanda_tangan.tanggal_lahir = ext_patient.tanggal_lahir || "";
+                        this.bertanda_tangan.no_identitas = ext_patient.no_identitas || "";
+                        this.bertanda_tangan.kelamin = showKelamin(ext_patient.kelamin);
+                    } else {
+                        this.bertanda_tangan.nama = "";
+                        this.bertanda_tangan.alamat = "";
+                        this.bertanda_tangan.tempat_lahir = "";
+                        this.bertanda_tangan.pekerjaan = "";
+                        this.bertanda_tangan.tanggal_lahir = "";
+                        this.bertanda_tangan.no_identitas = "";
+                        this.bertanda_tangan.kelamin = "";
+                    }
+                },
+                'checkbox_menginginkan_kerohanian': function (newVal) {
+                    if (newVal !== 'Ya') {
+                        this.kerohanian_agama = '';
+                    }
+                },
+                'informasi_biaya_ditanggung': function (newVal) {
+                    this.informasi_biaya_ditanggung_text = '';
+                },
+                'informasi_biaya_diklaimkan': function (newVal) {
+                    this.informasi_biaya_diklaimkan_text = '';
+                },
+                'informasi_biaya_perkiraan': function (newVal) {
+                    this.informasi_biaya_perkiraan_text = '';
+                },
             },
             methods: {
                 init: function () {
@@ -401,6 +502,7 @@
                     autocomplete(configRuang(data));
                     autocomplete(configDokter1(data));
                     autocomplete(configNakes1(data));
+                    autocomplete(configNakes2(data));
                     this.setupSignature(data);
 
                     $('#ruang_auto').on('select2:clearing', function (e) {
@@ -748,7 +850,7 @@
             // AI will call the bridging init function here
         ]);
 
-
+        
 
     }
 
@@ -769,7 +871,7 @@
             // AI will call the bridging init function here
         ]);
 
-
+        
 
     }
 
@@ -791,12 +893,9 @@
         data.pasien.alamat = ext_patient.alamat || "";
         data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
         data.pasien.pekerjaan = ext_patient.pekerjaan || "";
-        data.pasien.agama = ext_patient.agama || "";
-        data.pasien.pendidikan = ext_patient.pendidikan || "";
         data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
+        data.pasien.no_identitas = ext_patient.no_identitas || "";
         data.pasien.kelamin = showKelamin(ext_patient.kelamin);
-        data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
         // untuk tanda tangan pasien image
         // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
@@ -827,6 +926,9 @@
             data.pasien.ruang = data.external_link.inpatient_information.no_ruang || "";
             data.pasien.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
             data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
+
+            data.perawatan_kelas = data.external_link.inpatient_information.nama_kelas || "";
+            data.perawatan_ruang = data.external_link.inpatient_information.no_ruang || "";
             setSelect2($("#ruang_auto"), ruang, ruang);
 
             // Bridging waktu masuk
@@ -1344,7 +1446,7 @@
 <form id="formadd" class="form-label-left input_mask col-md-12">
 
     <!-- uncomment floating nav tag ini jika memang floating navbar dibutuhkan -->
-    <!-- <floating-nav :sections="navSections"></floating-nav> -->
+    <floating-nav :sections="navSections"></floating-nav>
 
     <div class="row my-4">
         <div class="col-12 d-flex align-items-center justify-content-center">
@@ -1360,8 +1462,63 @@
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-12">
-                    <p class="mb-1">Yang bertandatangan di bawah ini, dengan ini bertindak atas nama :</p>
+                    <p class="mb-1">Yang bertandatangan di bawah ini :</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 border-right">
+                    <div class="mb-3">
+                        <p class="data-label">Nama</p>
+                        <input id="bertanda_tangan_nama" type="text" class="data-value" v-model="bertanda_tangan.nama" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Kelamin</p>
+                        <select class="form-control w-25" v-model="bertanda_tangan.kelamin">
+                            <option value="" disabled selected>Pilih</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Alamat</p>
+                        <input id="bertanda_tangan_alamat" type="text" class="data-value" v-model="bertanda_tangan.alamat" />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <p class="data-label">Pekerjaan</p>
+                        <input id="bertanda_tangan_pekerjaan" type="text" class="data-value" v-model="bertanda_tangan.pekerjaan" />
+                    </div>
+                    <!-- <div class="mb-3">
+                        <p class="data-label">Ruang</p>
+                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
+                    </div> -->
+                </div>
+            
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="bertanda_tangan_no_rm" type="text" class="data-value" v-model="bertanda_tangan.tempat_lahir" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Lahir</p>
+                        <input id="bertanda_tangan_tanggal_lahir_indo" type="date" class="data-value" v-model="bertanda_tangan.tanggal_lahir"/>
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">No. Identitas</p>
+                        <input id="bertanda_tangan_no_identitas" type="text" class="data-value" v-model="bertanda_tangan.no_identitas" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">No Telp</p>
+                        <input id="bertanda_tangan_telp" type="text" class="data-value" v-model="bertanda_tangan.telp" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <div class="col-md-12 d-flex">
+                    <p class="mb-1 mt-2 pr-3">Dengan ini bertindak atas nama : </p>
                     <select class="form-control w-25" v-model="bertindak_atas_nama">
+                        <option value="" selected disabled>Pilih</option>
                         <option value="Diri Sendiri">Diri Sendiri</option>
                         <option value="Suami">Suami</option>
                         <option value="Istri">Istri</option>
@@ -1370,7 +1527,7 @@
                         <option value="Ayah">Ayah</option>
                         <option value="Saudara">Saudara</option>
                     </select>
-                    <p class="mt-2 mb-0">dari :</p>
+                    <p class="mt-2 mb-0 pl-3">dari :</p>
                 </div>
             </div>
             <div class="row">
@@ -1388,12 +1545,8 @@
                         <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
                     </div>
                     <div class="mb-3">
-                        <p class="data-label">No Telp</p>
-                        <input id="pasien_telp" type="text" class="data-value" v-model="pasien.telp" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Ruang</p>
-                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.tempat_lahir" />
                     </div>
                 </div>
 
@@ -1409,9 +1562,8 @@
                             @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
                     </div>
                     <div class="mb-3">
-                        <p class="data-label">Umur</p>
-                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" style="width:9%" />
-                        <span>Tahun</span>
+                        <p class="data-label">No Telp</p>
+                        <input id="pasien_telp" type="text" class="data-value" v-model="pasien.telp" />
                     </div>
                 </div>
             </div>
@@ -1427,23 +1579,17 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <p>a. Saya mengetahui bahwa saya memiliki kondisi yang membutuhkan perawatan medis, saya mengijinkan
-                        dokter dan professional kesehatan lainnya untuk melakukan prosedur diagnostik dan untuk
-                        memberikan pengobatan medis yang diperlukan dalam penilaian profesional mereka. Prosedur
-                        diagnostik dan perawatan medis termasuk tetapi tidak terbatas pada elektro kardiograms, x-ray,
-                        tes darah, terapi fisik, pasang infus, pasang NGT, pasang kateter, test darah dan pemberian
-                        obat, injeksi (IM, SC).</p>
-                    <p>b. Saya sadar bahwa praktik kedokteran dan bedah bukanlah ilmu pasti dan saya mengakui bahwa
-                        tidak ada jaminan atau hasil apapun, terhadap perawatan prosedur atau pemeriksaan apapun yang
-                        dilakukan kepada saya.</p>
-                    <p>c. Saya mengerti dan memahami bahwa :<br>
-                        1. Saya memiliki hak untuk mengajukan pertanyaan tentang pengobatan yang diusulkan (termasuk
-                        identitas setiap orang yang memberikan atau mengamati pengobatan) setiap saat.<br>
-                        2. Saya mengerti dan memahami bahwa saya memiliki hak untuk persetujuan atau menolak
-                        persetujuan, untuk setiap prosedur / terapi.<br>
-                        3. Saya mengerti bahwa banyak dokter pada staf medis rumah sakit yang bukan karyawan tetap staf
-                        tamu yang telah diberikan hak untuk menggunakan fasilitas untuk perawatan dan pengobatan pasien
-                        mereka.</p>
+                    <ol type="a" class="pl-3 mb-0">
+                        <li>Saya mengetahui bahwa saya memiliki kondisi yang membutuhkan perawatan medis, saya mengijinkan dokter dan professional kesehatan lainnya untuk melakukan prosedur diagnostik dan untuk memberikan pengobatan medis yang diperlukan dalam penilaian profesional mereka. Prosedur diagnostik dan perawatan medis termasuk tetapi tidak terbatas pada elektro kardiograms, x-ray, tes darah, terapi fisik, pasang infus, pasang NGT, pasang kateter, test darah dan pemberian obat, injeksi (IM, SC).</li>
+                        <li class="mt-2">Saya sadar bahwa praktik kedokteran dan bedah bukanlah ilmu pasti dan saya mengakui bahwa tidak ada jaminan atau hasil apapun, terhadap perawatan prosedur atau pemeriksaan apapun yang dilakukan kepada saya.</li>
+                        <li class="mt-2">Saya mengerti dan memahami bahwa :
+                            <ol type="1" class="pl-4 mt-1">
+                                <li>Saya memiliki hak untuk mengajukan pertanyaan tentang pengobatan yang diusulkan (termasuk identitas setiap orang yang memberikan atau mengamati pengobatan) setiap saat.</li>
+                                <li class="mt-1">Saya mengerti dan memahami bahwa saya memiliki hak untuk persetujuan atau menolak persetujuan, untuk setiap prosedur / terapi.</li>
+                                <li class="mt-1">Saya mengerti bahwa banyak dokter pada staf medis rumah sakit yang bukan karyawan tetap staf tamu yang telah diberikan hak untuk menggunakan fasilitas untuk perawatan dan pengobatan pasien mereka.</li>
+                            </ol>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -1457,27 +1603,38 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <p>Saya memahami informasi yang ada di dalam diri saya, termasuk diagnosis hasil laboratorium dan
-                        hasil tes diagnostik yang akan digunakan untuk perawatan medis dan RS akan menjamin
-                        kerahasiaannya. Saya memberikan wewenang kepada RS untuk memberikan informasi tentang rahasia
-                        kedokteran saya bila diperlukan untuk memproses klaim BPJS / Jamkesmas / KIS / Perusahaan /
-                        lembaga pemerintahan lainnya*).</p>
-
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Saya</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" v-model="pelepasan_informasi_wewenang">
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya memahami informasi yang ada di dalam diri saya, termasuk diagnosis hasil
+                            laboratorium dan hasil tes diagnostik yang akan digunakan untuk perawatan
+                            medis dan RS akan menjamin kerahasiaannya.
+                            Saya memberikan wewenang kepada RS untuk memberikan informasi tentang
+                            rahasia kedokteran saya bila diperlukan untuk memproses 
+                            <select class="form-control d-inline-block w-auto" style="vertical-align: middle;" v-model="informasi_rahasia_kedokteran">
+                                <option value="" selected disabled>Pilih</option>
+                                <option value="klaim BPJS">klaim BPJS</option>
+                                <option value="Jamkesmas">Jamkesmas</option>
+                                <option value="KIS">KIS</option>
+                                <option value="Perusahaan">Perusahaan</option>
+                                <option value="Lembaga Pemerintahan Lainnya">Lembaga Pemerintahan Lainnya</option>
+                            </select>
+                        </p>
+                    </div>
+                    
+                    
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya 
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="pelepasan_informasi_wewenang">
+                                <option value="" selected disabled>Pilih</option>
                                 <option value="Memberikan">memberikan</option>
                                 <option value="Tidak Memberikan">tidak memberikan</option>
                             </select>
-                        </div>
-                        <label class="col-auto col-form-label">wewenang kepada RS untuk memberikan tentang data dan
-                            informasi kesehatan saya kepada keluarga terdekat saya, yaitu :</label>
+                            wewenang kepada RS untuk memberikan tentang data dan informasi kesehatan saya kepada keluarga terdekat saya, yaitu:
+                        </p>
                     </div>
-                    <p>Menyatakan bahwa sesuai Kewajiban Simpan Rahasia Kedokteran dan mengacu pada Peraturan Menteri
-                        Kesehatan Republik Indonesia Nomor 36/MENKES/PERIII/2008, Maka saya menunjuk yang tersebut di
-                        bawah ini untuk dapat diberitahukan tentang kondisi kesehatan saya:</p>
-
+                    <p>Menyatakan bahwa sesuai Kewajiban Simpan Rahasia Kedokteran dan mengacu pada Peraturan Menteri Kesehatan Republik Indonesia Nomor 36/MENKES/PERIII/2008, Maka saya menunjuk yang tersebut di bawah ini untuk dapat diberitahukan tentang kondisi kesehatan saya:</p>
+                    
                     <div class="form-group" v-for="(item, index) in pelepasan_informasi_list" :key="'pelepasan_'+index">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
@@ -1485,15 +1642,12 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Nama" v-model="item.nama">
                             <div class="input-group-append">
-                                <button class="btn btn-danger" type="button"
-                                    @click="pelepasan_informasi_list.splice(index, 1)"><i
-                                        class="fa fa-trash"></i></button>
+                                <button class="btn btn-danger" type="button" @click="pelepasan_informasi_list.splice(index, 1)"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-primary mt-2"
-                        @click="pelepasan_informasi_list.push({nama: ''})"><i class="fa fa-plus"></i> Tambah
-                        Orang</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary mb-2" @click="pelepasan_informasi_list.push({nama: ''})"><i
+                            class="fa fa-plus"></i> Tambah Orang</button>
                 </div>
             </div>
         </div>
@@ -1507,28 +1661,26 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Saya</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" v-model="privasi_mengijinkan">
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya 
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="privasi_mengijinkan">
+                                <option value="" selected disabled>Pilih</option>
                                 <option value="Mengijinkan">mengijinkan</option>
                                 <option value="Tidak Mengijinkan">tidak mengijinkan</option>
                             </select>
-                        </div>
-                        <label class="col-auto col-form-label">Rumah Sakit memberikan akses bagi keluarga dan handai
-                            taulan serta orang-orang yang akan menengok / menemui saya:</label>
+                            Rumah Sakit memberikan akses bagi keluarga dan handai taulan serta orang-orang yang akan menengok / menemui saya:
+                        </p>
                     </div>
-
+                    
                     <div class="row mb-2">
                         <div class="col-md-6 font-weight-bold">Nama</div>
                         <div class="col-md-6 font-weight-bold">Hubungan dengan pasien</div>
                     </div>
-                    <div class="row mb-2" v-for="(item, index) in privasi_daftar_keluarga"
-                        :key="'privasi_keluarga_'+index">
+                    <div class="row mb-2" v-for="(item, index) in privasi_daftar_keluarga" :key="'privasi_keluarga_'+index">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span>
-                                </div>
+                                <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span></div>
                                 <input type="text" class="form-control" v-model="item.nama" placeholder="Nama">
                             </div>
                         </div>
@@ -1536,41 +1688,33 @@
                             <input type="text" class="form-control" v-model="item.hubungan" placeholder="Hubungan">
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-danger" type="button"
-                                @click="privasi_daftar_keluarga.splice(index, 1)"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-danger" type="button" @click="privasi_daftar_keluarga.splice(index, 1)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-primary mb-4"
-                        @click="privasi_daftar_keluarga.push({nama: '', hubungan: ''})"><i class="fa fa-plus"></i>
-                        Tambah Orang</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary mb-4" @click="privasi_daftar_keluarga.push({nama: '', hubungan: ''})"><i class="fa fa-plus"></i> Tambah Orang</button>
 
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Saya</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" v-model="privasi_khusus_menginginkan">
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya 
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="privasi_khusus_menginginkan">
+                                <option value="" selected disabled>Pilih</option>
                                 <option value="Menginginkan">menginginkan</option>
                                 <option value="Tidak Menginginkan">tidak menginginkan</option>
                             </select>
-                        </div>
-                        <label class="col-auto col-form-label">privasi khusus, Sebutkan bila ada permintaan privasi
-                            khusus :</label>
+                            privasi khusus, Sebutkan bila ada permintaan privasi khusus :
+                        </p>
                     </div>
 
                     <div class="form-group" v-for="(item, index) in privasi_khusus_list" :key="'privasi_khusus_'+index">
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Sebutkan privasi khusus"
-                                v-model="item.keterangan">
+                            <div class="input-group-prepend"><span class="input-group-text">{{ index + 1 }}.</span></div>
+                            <input type="text" class="form-control" placeholder="Sebutkan privasi khusus" v-model="item.keterangan">
                             <div class="input-group-append">
-                                <button class="btn btn-danger" type="button"
-                                    @click="privasi_khusus_list.splice(index, 1)"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-danger" type="button" @click="privasi_khusus_list.splice(index, 1)"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        @click="privasi_khusus_list.push({keterangan: ''})"><i class="fa fa-plus"></i> Tambah Privasi
-                        Khusus</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary" @click="privasi_khusus_list.push({keterangan: ''})"><i class="fa fa-plus"></i> Tambah Privasi Khusus</button>
                 </div>
             </div>
         </div>
@@ -1584,21 +1728,47 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Saya</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" v-model="kerohanian_menginginkan">
-                                <option value="Ya">Menginginkan</option>
-                                <option value="Tidak">Tidak Menginginkan</option>
-                            </select>
-                        </div>
-                        <label class="col-auto col-form-label">Pelayanan Kerohanian,</label>
-                    </div>
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label ml-4">Ya, Sebutkan Agama :</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" v-model="kerohanian_agama"
-                                :disabled="kerohanian_menginginkan !== 'Ya'">
+                    <div style="line-height: 2.2;">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p class="mb-3">
+                                    Saya
+                                    <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;"
+                                        v-model="kerohanian_menginginkan">
+                                        <option value="" selected disabled>Pilih</option>
+                                        <option value="Ya">Menginginkan</option>
+                                        <option value="Tidak">Tidak Menginginkan</option>
+                                    </select>
+                                    Pelayanan Kerohanian,
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="checkbox_menginginkan_kerohanian_tidak" v-model="checkbox_menginginkan_kerohanian">
+                                        </div>
+                                    </div>
+                                    <label class="form-check-label" for="checkbox_menginginkan_kerohanian_tidak"
+                                        style="flex-grow: 1; padding: 0rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                        Tidak
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="checkbox_menginginkan_kerohanian_ya"
+                                                v-model="checkbox_menginginkan_kerohanian" true-value="Ya" false-value="">
+                                        </div>
+                                        <label class="input-group-text bg-white" for="checkbox_menginginkan_kerohanian_ya" style="cursor: pointer; border-left: 0;">
+                                            Ya, Sebutkan Agama 
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" v-model="kerohanian_agama" :disabled="checkbox_menginginkan_kerohanian !== 'Ya'">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1614,20 +1784,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="input-group" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="barang_pribadi_setuju" type="checkbox" v-model="barang_pribadi_setuju" />
-                            </div>
-                        </div>
-                        <label for="barang_pribadi_setuju" class="form-check-label"
-                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                            Saya Setuju untuk tidak membawa barang-barang berharga yang tidak diperlukan, seperti
-                            perhiasan,Elekronik, dll. Selama Perawatan di RS Yasyfin Darussalam Gontor. Saya memahami
-                            dan menyetujui bahwa apabila saya membawanya, Maka RS Yasyfin Darussalam Gontor tidak
-                            bertanggung jawab terhadap kehilangan, kerusakan, dan pencurian.
-                        </label>
-                    </div>
+                    Saya Setuju untuk tidak membawa barang-barang berharga yang tidak diperlukan, seperti perhiasan,Elekronik, dll. Selama
+                    Perawatan di RS Yasyfin Darussalam Gontor. Saya memahami dan menyetujui bahwa apabila saya membawanya, Maka RS Yasyfin
+                    Darussalam Gontor tidak bertanggung jawab terhadap kehilangan, kerusakan, dan pencurian.
                 </div>
             </div>
         </div>
@@ -1650,7 +1809,7 @@
                     <div class="form-group row align-items-center">
                         <label class="col-auto col-form-label">Dan memilih DPJP :</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" v-model="perawatan_dpjp">
+                            <select class="form-control" id="dokter_auto1" name="dpjp_tmp" style="width: 100%;"></select>
                         </div>
                         <label class="col-auto col-form-label">Kelas :</label>
                         <div class="col-sm-3">
@@ -1658,10 +1817,9 @@
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Bila ruang perawatan penuh, Saya bersedia ditempatkan di
-                            :</label>
+                        <label class="col-auto col-form-label">Bila ruang perawatan penuh, Saya bersedia ditempatkan di :</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" v-model="perawatan_bersedia_ditempatkan_di">
+                            <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%;"></select>
                         </div>
                     </div>
                 </div>
@@ -1677,34 +1835,28 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <p>Saya telah memahami tentang informasi biaya pengobatan atau biaya tindakan yang dijelaskan oleh
-                        petugas Rumah Sakit.</p>
+                    <p>Saya telah memahami tentang informasi biaya pengobatan atau biaya tindakan yang dijelaskan oleh petugas Rumah Sakit.</p>
                     <p>Saya menyatakan bahwa seluruh biaya perawatan saya akan :</p>
-
+                    
                     <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" id="biaya_dibayar_sendiri"
-                                    v-model="informasi_biaya_dibayar_sendiri">
+                                <input type="checkbox" id="biaya_dibayar_sendiri" v-model="informasi_biaya_dibayar_sendiri">
                             </div>
                         </div>
-                        <label class="form-check-label" for="biaya_dibayar_sendiri"
-                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                        <label class="form-check-label" for="biaya_dibayar_sendiri" style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
                             dibayar sendiri
                         </label>
                     </div>
-
+                    
                     <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <input type="checkbox" id="biaya_ditanggung" v-model="informasi_biaya_ditanggung">
                             </div>
                         </div>
-                        <label class="form-check-label" for="biaya_ditanggung"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">ditanggung
-                            oleh</label>
-                        <input type="text" class="form-control" v-model="informasi_biaya_ditanggung_text"
-                            :disabled="!informasi_biaya_ditanggung">
+                        <label class="form-check-label" for="biaya_ditanggung" style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">ditanggung oleh</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_ditanggung_text" :disabled="!informasi_biaya_ditanggung">
                     </div>
 
                     <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
@@ -1713,11 +1865,8 @@
                                 <input type="checkbox" id="biaya_diklaimkan" v-model="informasi_biaya_diklaimkan">
                             </div>
                         </div>
-                        <label class="form-check-label" for="biaya_diklaimkan"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">diklaimkan
-                            ke asuransi/perusahaan</label>
-                        <input type="text" class="form-control" v-model="informasi_biaya_diklaimkan_text"
-                            :disabled="!informasi_biaya_diklaimkan">
+                        <label class="form-check-label" for="biaya_diklaimkan" style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">diklaimkan ke asuransi/perusahaan</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_diklaimkan_text" :disabled="!informasi_biaya_diklaimkan">
                     </div>
 
                     <div class="input-group mb-2" style="display: flex; flex-wrap: nowrap; align-items: stretch;">
@@ -1726,11 +1875,8 @@
                                 <input type="checkbox" id="biaya_perkiraan" v-model="informasi_biaya_perkiraan">
                             </div>
                         </div>
-                        <label class="form-check-label" for="biaya_perkiraan"
-                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">perkiraan
-                            biaya kurang lebih Rp.</label>
-                        <input type="text" class="form-control" v-model="informasi_biaya_perkiraan_text"
-                            :disabled="!informasi_biaya_perkiraan">
+                        <label class="form-check-label" for="biaya_perkiraan" style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; background-color: #f8f9fa;">perkiraan biaya kurang lebih Rp.</label>
+                        <input type="text" class="form-control" v-model="informasi_biaya_perkiraan_text" :disabled="!informasi_biaya_perkiraan">
                     </div>
                 </div>
             </div>
@@ -1745,25 +1891,19 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <p>Saya telah menerima informasi tentang tata cara mengajukan dan mengatasi keluhan terkait
-                        pelayanan medik yang diberikan dan saya setuju untuk mengikuti tata cara pengajuan keluhan
-                        sesuai prosedur yang ada.</p>
-
-                    <div class="form-group row align-items-center">
-                        <label class="col-auto col-form-label">Saya telah membaca dan sepenuhnya</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" v-model="pengajuan_keluhan_setuju">
+                    <p>Saya telah menerima informasi tentang tata cara mengajukan dan mengatasi keluhan terkait pelayanan medik yang diberikan dan saya setuju untuk mengikuti tata cara pengajuan keluhan sesuai prosedur yang ada.</p>
+                    
+                    <div style="line-height: 2.2;">
+                        <p class="mb-3">
+                            Saya telah membaca dan sepenuhnya 
+                            <select class="form-control d-inline-block w-auto mx-1" style="vertical-align: middle;" v-model="pengajuan_keluhan_setuju">
+                                <option value="" selected disabled>Pilih</option>
                                 <option value="SETUJU">SETUJU</option>
                                 <option value="TIDAK SETUJU">TIDAK SETUJU</option>
                             </select>
-                        </div>
-                        <label class="col-auto col-form-label">dengan setiap pernyataan yang terdapat dalam formulir ini
-                            dan menandatanganinya dengan kesadaran penuh dan tanpa paksaan.</label>
+                            dengan setiap pernyataan yang terdapat dalam formulir ini dan menandatanganinya dengan kesadaran penuh dan tanpa paksaan.
+                        </p>
                     </div>
-
-                    <p class="mt-2 text-muted small">*) Coret yang tidak perlu<br>**) Bila pasien tidak kompeten atau
-                        tidak mau menerima informasi, maka wali atau seseorang yang diberi hak untuk menyetujui tindakan
-                        terhadap pasien tersebut</p>
                 </div>
             </div>
         </div>
@@ -1778,8 +1918,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Tanggal</span>
                     </div>
-                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
-                        @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
+                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal" />
                     <div class="input-group-prepend">
                         <span class="input-group-text">Jam</span>
                     </div>
@@ -1792,21 +1931,21 @@
     <div class="row mt-5">
         <div class="col-md-4">
             <ttd-section mode="CANVAS" label="Saksi Keluarga" select_id="saksi_auto" name_input_type="TEXT"
-                v-model="ttd_data.saksi_keluarga" path_name="ttd_data.saksi_keluarga"
-                :stroke="ttd_data.saksi_keluarga_stroke" path_stroke="ttd_data.saksi_keluarga_stroke"
-                @update-stroke="ttd_data.saksi_keluarga_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+                v-model="ttd_data.saksi_keluarga" path_name="ttd_data.saksi_keluarga" :stroke="ttd_data.saksi_keluarga_stroke"
+                path_stroke="ttd_data.saksi_keluarga_stroke" @update-stroke="ttd_data.saksi_keluarga_stroke = $event"
+                @open-ttd-modal="openTTDModalHandler" />
         </div>
         <div class="col-md-4">
-            <ttd-section mode="CANVAS" label="Petugas Admisi" select_id="petugas_auto" name_input_type="TEXT"
-                v-model="ttd_data.petugas_admisi" path_name="ttd_data.petugas_admisi"
-                :stroke="ttd_data.petugas_admisi_stroke" path_stroke="ttd_data.petugas_admisi_stroke"
-                @update-stroke="ttd_data.petugas_admisi_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+            <ttd-section mode="IMAGE" label="Petugas Admisi" select_id="nakes_auto1" name_input_type="NAKES"
+                v-model="ttd_data.petugas_admisi" path_name="ttd_data.petugas_admisi" :stroke="ttd_data.petugas_admisi_stroke"
+                path_stroke="ttd_data.petugas_admisi_stroke" @update-stroke="ttd_data.petugas_admisi_stroke = $event"
+                @open-ttd-modal="openTTDModalHandler" />
         </div>
         <div class="col-md-4">
-            <ttd-section mode="CANVAS" label="Penderita / Wali **)" select_id="penderita_auto" name_input_type="TEXT"
-                v-model="ttd_data.penderita_wali" path_name="ttd_data.penderita_wali"
-                :stroke="ttd_data.penderita_wali_stroke" path_stroke="ttd_data.penderita_wali_stroke"
-                @update-stroke="ttd_data.penderita_wali_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id="nakes_auto2" name_input_type="NAKES"
+                v-model="ttd_data.menyatakan" path_name="ttd_data.menyatakan" :stroke="ttd_data.menyatakan_stroke"
+                path_stroke="ttd_data.menyatakan_stroke" @update-stroke="ttd_data.menyatakan_stroke = $event"
+                @open-ttd-modal="openTTDModalHandler" />
         </div>
     </div>
 
@@ -1884,8 +2023,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
-                                            style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control"
+                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -1898,7 +2037,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -1911,3 +2051,16 @@
     <!-- AI will insert modal HTML here -->
 
 </form>
+    <!-- === END CONTAINER CODE === -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../vendor/cutomLib.js"></script>
+    <!-- Tambahkan JSON Data -->
+    <script src="json.js"></script>
+    <!-- Tambahkan script Vue Anda di sini -->
+    <script>
+        init_doc(1, data.sample, 'add');
+    </script>
+</body>
+
+</html>

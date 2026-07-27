@@ -179,4 +179,4 @@ const data = {
             "menyatakan_stroke": ""
         }
     }
-};
+}
