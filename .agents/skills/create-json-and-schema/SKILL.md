@@ -437,6 +437,14 @@ maka
 
 ---
 
+# ATURAN KHUSUS
+
+## Field Tanggal Indo
+Sistem eDoc saat ini sudah **TIDAK MENGGUNAKAN** field tanggal dengan embel-embel `_indo` di JSON (seperti `tanggal_indo`, `tanggal_lahir_indo`, `tanggal_masuk_indo`, dsb). 
+Oleh karena itu, AI **TIDAK PERLU** lagi membuat key/field khusus untuk menyimpan format tanggal Indo di dalam objek manapun pada `output/json.js`. Cukup sediakan field dasar tanggalnya saja (misal `tanggal`, `tanggal_lahir`, `tanggal_masuk`).
+
+---
+
 # PENANGANAN INFORMASI YANG TIDAK JELAS
 
 Apabila tulisan pada PDF atau gambar tidak dapat dibaca dengan jelas:
@@ -466,3 +474,4 @@ Sebelum selesai, pastikan:
 - schema tidak memiliki `required`
 - file JSON valid
 - file JavaScript valid
+- tidak ada pembuatan field khusus `_indo` (seperti `tanggal_indo`) untuk format tanggal

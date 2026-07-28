@@ -779,7 +779,6 @@
         // Sesuaikan data disini
         data.ttd_data.jam = timeNow().time; // Jam sekarang
         data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
-        data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
     }
 
     function bridgingPatientData(data) {
@@ -794,7 +793,6 @@
         data.pasien.agama = ext_patient.agama || "";
         data.pasien.pendidikan = ext_patient.pendidikan || "";
         data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
         data.pasien.kelamin = showKelamin(ext_patient.kelamin);
         data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
@@ -831,9 +829,6 @@
 
             // Bridging waktu masuk
             data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
-            data.pasien.tanggal_masuk_indo = dateTimeParse(
-                data.external_link.inpatient_information.waktu_masuk
-            ).dateWithMonthName;
             data.pasien.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
         }
     }
@@ -1398,8 +1393,7 @@
                     <div class="mb-3">
                         <p class="data-label">Tanggal Lahir</p>
                         <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_lahir"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                            v-model="pasien.tanggal_lahir" />
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Tempat Lahir</p>
@@ -1413,8 +1407,7 @@
                     <div class="mb-3">
                         <p class="data-label">Tanggal Masuk</p>
                         <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_masuk"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_masuk_indo')" />
+                            v-model="pasien.tanggal_masuk" />
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Jam Masuk</p>
@@ -1435,8 +1428,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Tanggal</span>
                     </div>
-                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
-                        @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
+                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal" />
                     <div class="input-group-prepend">
                         <span class="input-group-text">Jam</span>
                     </div>

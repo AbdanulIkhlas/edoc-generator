@@ -393,6 +393,18 @@ AI tidak boleh membuat nama field baru apabila field sudah tersedia.
 
 ---
 
+# ATURAN KHUSUS
+
+## 1. Input Tanggal
+Untuk input tanggal, **TIDAK PERLU** lagi menambahkan attribute atau event seperti `onchange="tanggal_indo(...)"` karena sistem sudah tidak menggunakan format tanggal_indo pada form.
+
+## 2. Pemeriksaan Fisik & Vital Sign (Tekanan Darah)
+Jika di dalam dokumen (template) terdapat bagian Pemeriksaan Fisik atau Vital Sign yang menanyakan **Tekanan Darah (TD)**, maka AI **WAJIB** membuat **2 (dua)** field input yang terpisah untuk:
+- Tensi Sistole
+- Tensi Diastole
+
+---
+
 # SCRIPT
 
 Bagian `<script>` merupakan bagian yang sangat penting.
@@ -442,4 +454,6 @@ Sebelum selesai, pastikan:
 - gambar menggunakan path `../images/image-x.png`
 - struktur mengikuti template PDF/gambar
 - seluruh binding sesuai dengan `output/json.js`
+- tidak ada penggunaan `onchange="tanggal_indo(...)"` pada input tanggal
+- field Tekanan Darah (TD) pada vital sign telah dipisah menjadi Tensi Sistole dan Tensi Diastole
 - referensi pada folder `example/` telah dijadikan acuan untuk menjaga konsistensi struktur dan tampilan
