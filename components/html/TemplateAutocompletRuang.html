@@ -1,0 +1,76 @@
+<script>
+    function configRuang(data) {
+        return {
+            element: "#ruang_auto",
+            url: "/api/emr/autocomplete?source_name=ruang_kelas",
+            markup_template: function (repo) {
+                return `<b>${repo.nama_bangsal}</b> - Ruang ${repo.nama_ruang}  <small>(${repo.nama_kelas})</small>`;
+            },
+            allowClear: true,
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+
+                // Previous Code : Bug when edit doc
+                // data.pasien.ruang = repo.nama
+                var data_test = {
+                    nama_bangsal: repo.nama_bangsal || data.bangsal,
+                    nama_ruang: repo.nama_ruang || data.ruang,
+                    nama_kelas: repo.nama_kelas || data.kelas,
+                }; // res = repo.nama ;
+
+                data.bangsal = data_test.nama_bangsal;
+                data.ruang = data_test.nama_ruang;
+                data.kelas = data_test.nama_kelas;
+
+                // data.ruangan = data.bangsal + " - Ruang " + data.ruang + " - " + data.kelas
+
+                if (repo.text === "Pilih" && repo.id === "" && data_test.nama_bangsal === "" && data_test.nama_ruang === "" && data_test.nama_kelas === "") {
+                    data.pasien.bangsal = "";
+                    data.pasien.ruang = "";
+                    data.pasien.kelas = "";
+
+                    // data.ruangan = "";
+                    return "Pilih Ruangan"
+                } else {
+                    return `${data_test.nama_bangsal} - Ruang ${data_test.nama_ruang} - ${data_test.nama_kelas}`;
+                }
+                // return `${data_test.nama_bangsal} - Ruang ${data_test.nama_ruang} - ${data_test.nama_kelas}`;
+            },
+        };
+    }
+
+    $('#ruang_auto').on('select2:clearing', function (e) {
+        data.pasien.bangsal = "";
+        data.pasien.ruang = "";
+        data.pasien.kelas = "";
+        // data.ruangan = "";
+    });
+
+    function bridgingInpatientInformation(data, operation = "add") {
+        if (operation === "edit") {
+            // Bridging ruangan
+            setSelect2($('#ruang_auto'), data.ruangan, data.ruangan);
+        } else {
+            // Bridging ruangan
+            const ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
+            data.kelas = data.external_link.inpatient_information.nama_kelas || "";
+
+            data.ruangan = data.bangsal + " - Ruang " + data.ruang + " - " + data.kelas
+            setSelect2($('#ruang_auto'), data.ruangan, data.ruangan);
+
+            // Bridging waktu masuk
+            data.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
+            data.tanggal_masuk_indo = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).dateWithMonthName;
+            data.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
+        }
+    }
+
+    bridgingInpatientInformation(data);
+    bridgingInpatientInformation(data, "edit");
+</script>
+<html>
+<select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%;"></select>
+
+</html>

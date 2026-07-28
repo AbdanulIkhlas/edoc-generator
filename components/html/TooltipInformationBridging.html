@@ -1,0 +1,33 @@
+<script>
+    init: function () {
+        this.setupTooltip();
+    },
+
+    methods: {
+        // ... existing methods ...
+        setupTooltip: function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Prevent icon click from triggering label action
+            $('#info_alergi').on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+        },
+    },
+</script>
+
+<html>
+    <div class="mb-3">
+        <div style="display: flex; justify-content: start; gap: 6px; align-items: center; margin-bottom: 0px;">
+            <label for="riwayat_alergi" class="form-check-label" style="margin-bottom: 0;">
+                <b>Kesadaran Umum : </b>
+            </label>
+            <i id="kesadaran_umum" class="fa fa-info-circle" style="color: #17a2b8; cursor: pointer;" data-toggle="tooltip"
+                data-placement="top" data-trigger="hover click" title="Riwayat alergi dari bridging vital sign terbaru">
+            </i>
+        </div>
+        <input id="riwayat_alergi" type="text" class="form-control" v-model="vital_sign.alergi" />
+    </div>
+</html>

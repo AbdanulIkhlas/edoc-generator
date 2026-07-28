@@ -1,114 +1,149 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
-    integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript" charset="utf-8">
-    // Global variable here
-    const URL_IMAGE_SEVER_LOCAL = "http://192.168.0.201:1201/";  // Sesuaikan
-    const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
-    const IP_WG = "11.11.17.4"; // Sesuaikan
+<!DOCTYPE html>
+<html lang="en">
 
-    // === COMPONENT_HOOKS ===
-    // AI Will inject component function here
-    Vue.component("ttd-section", {
-        props: {
-            mode: String,
-            drawer_name: String,
-            label: String,
-            value: String,
-            path_name: String,
-            stroke: String,
-            path_stroke: String,
-            name_input_type: String,
-            select_id: String,
-        },
-        mounted() {
-            $(`#${this.select_id}`).on("select2:select", (e) => {
-                const selected = e.params.data;
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulir PPI </title>
 
-                if (selected) {
-                    const url = selected.ttd_image ? this.getImageUrl() + selected.ttd_image : "";
-                    this.onChangeTTD(url);
-                }
-            });
+    <!-- Tambahkan Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <!-- Tambahkan pustaka Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Tambahkan SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
-            $(`#${this.select_id}`).on("select2:clearing", (e) => {
-                this.localValue = "";
-                this.updateStrokeBaru("");
-            });
+    <style></style>
+</head>
 
-            setSelect2(`#${this.select_id}`, this.value, this.value);
-        },
-        methods: {
-            getImageUrl() {
-                return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+<body>
+    <!-- === START CONTAINER CODE === -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" charset="utf-8">
+        // Global variable here
+        const URL_IMAGE_SEVER_LOCAL = "http://192.168.0.201:1201/";  // Sesuaikan
+        const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
+        const IP_WG = "11.11.17.4"; // Sesuaikan
+
+        // === COMPONENT_HOOKS ===
+        // AI Will inject component function here
+        Vue.component("ttd-section", {
+            props: {
+                mode: String,
+                drawer_name: String,
+                label: String,
+                value: String,
+                path_name: String,
+                stroke: String,
+                path_stroke: String,
+                name_input_type: String,
+                select_id: String,
             },
-            showImageUrl(url) {
-                if (!url || typeof url !== "string" || url.trim() === "") {
-                    console.warn("URL tidak valid atau kosong. Mengembalikan string kosong.");
-                    return "";
-                }
+            mounted() {
+                $(`#${this.select_id}`).on("select2:select", (e) => {
+                    const selected = e.params.data;
 
-                try {
-                    // 2. Gunakan objek URL untuk mendapatkan pathname
-                    const urlObject = new URL(url);
-                    const pathname = urlObject.pathname.startsWith("/")
-                        ? urlObject.pathname.substring(1)
-                        : urlObject.pathname;
-                    const result = this.getImageUrl() + pathname + urlObject.search;
-                    return result;
-                } catch (e) {
-                    console.error("Gagal memproses URL:", e);
-                    // Mengembalikan URL asli jika terjadi kesalahan
-                    return url;
-                }
-            },
-            handleOpenTTDModal({ path_stroke, path_name, mode, label, name_input_type }) {
-                this.$emit("open-ttd-modal", {
-                    path_stroke,
-                    path_name,
-                    label,
-                    name_input_type,
-                    mode_ttd: mode,
-                });
-            },
-            onChangeTTD(url = "") {
-                if (this.mode === "IMAGE" && this.name_input_type === "TEXT") return;
-
-                clearTimeout(this.debounceTimer);
-                this.debounceTimer = setTimeout(() => {
-                    if (this.localValue) {
-                        let stroke = "";
-
-                        if (this.mode === "QRCODE") {
-                            stroke = generatorQr(this.localValue);
-                        } else if (this.mode === "IMAGE") {
-                            stroke = url;
-                        } else {
-                            return;
-                        }
-
-                        this.updateStrokeBaru(stroke);
-                    } else {
-                        this.updateStrokeBaru("");
+                    if (selected) {
+                        const url = selected.ttd_image ? this.getImageUrl() + selected.ttd_image : "";
+                        this.onChangeTTD(url);
                     }
-                }, 500); // delay 500 ms
+                });
+
+                $(`#${this.select_id}`).on("select2:clearing", (e) => {
+                    this.localValue = "";
+                    this.updateStrokeBaru("");
+                });
+
+                setSelect2(`#${this.select_id}`, this.value, this.value);
             },
-            updateStrokeBaru(url) {
-                // Memberi tahu parent untuk update stroke
-                this.$emit("update-stroke", url);
-            },
-        },
-        computed: {
-            localValue: {
-                get() {
-                    return this.value;
+            methods: {
+                getImageUrl() {
+                    return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
                 },
-                set(val) {
-                    this.$emit("input", val);
+                showImageUrl(url) {
+                    if (!url || typeof url !== "string" || url.trim() === "") {
+                        console.warn("URL tidak valid atau kosong. Mengembalikan string kosong.");
+                        return "";
+                    }
+
+                    try {
+                        // 2. Gunakan objek URL untuk mendapatkan pathname
+                        const urlObject = new URL(url);
+                        const pathname = urlObject.pathname.startsWith("/")
+                            ? urlObject.pathname.substring(1)
+                            : urlObject.pathname;
+                        const result = this.getImageUrl() + pathname + urlObject.search;
+                        return result;
+                    } catch (e) {
+                        console.error("Gagal memproses URL:", e);
+                        // Mengembalikan URL asli jika terjadi kesalahan
+                        return url;
+                    }
+                },
+                handleOpenTTDModal({ path_stroke, path_name, mode, label, name_input_type }) {
+                    this.$emit("open-ttd-modal", {
+                        path_stroke,
+                        path_name,
+                        label,
+                        name_input_type,
+                        mode_ttd: mode,
+                    });
+                },
+                onChangeTTD(url = "") {
+                    if (this.mode === "IMAGE" && this.name_input_type === "TEXT") return;
+
+                    clearTimeout(this.debounceTimer);
+                    this.debounceTimer = setTimeout(() => {
+                        if (this.localValue) {
+                            let stroke = "";
+
+                            if (this.mode === "QRCODE") {
+                                stroke = generatorQr(this.localValue);
+                            } else if (this.mode === "IMAGE") {
+                                stroke = url;
+                            } else {
+                                return;
+                            }
+
+                            this.updateStrokeBaru(stroke);
+                        } else {
+                            this.updateStrokeBaru("");
+                        }
+                    }, 500); // delay 500 ms
+                },
+                updateStrokeBaru(url) {
+                    // Memberi tahu parent untuk update stroke
+                    this.$emit("update-stroke", url);
                 },
             },
-        },
-        template: `
+            computed: {
+                localValue: {
+                    get() {
+                        return this.value;
+                    },
+                    set(val) {
+                        this.$emit("input", val);
+                    },
+                },
+            },
+            template: `
 <div class="row justify-content-center align-items-center">
     <div class="col-md-12">
         <div class="row justify-content-center align-items-center">
@@ -153,31 +188,31 @@
     </div>
 </div>
 `,
-    });
+        });
 
-    Vue.component("floating-nav", {
-        props: {
-            sections: {
-                type: Array,
-                required: true,
+        Vue.component("floating-nav", {
+            props: {
+                sections: {
+                    type: Array,
+                    required: true,
+                },
             },
-        },
-        data: function () {
-            return {
-                isHovered: false,
-            };
-        },
-        methods: {
-            scrollToSection: function (id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    // Mencegah perilaku default dan melakukan smooth scroll
-                    event.preventDefault();
-                    element.scrollIntoView({ behavior: "smooth" });
-                }
+            data: function () {
+                return {
+                    isHovered: false,
+                };
             },
-        },
-        template: `
+            methods: {
+                scrollToSection: function (id) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        // Mencegah perilaku default dan melakukan smooth scroll
+                        event.preventDefault();
+                        element.scrollIntoView({ behavior: "smooth" });
+                    }
+                },
+            },
+            template: `
                 <div 
                     class="floating-nav-container" 
                     @mouseenter="isHovered = true" 
@@ -192,1372 +227,1632 @@
                 </ul>
                 </div>
             `,
-    });
+        });
 
-    // === [CONFIG_AUTOCOMPLETE_HOOK] ===
-    // AI will add or create the autocomplete configuration here
-    function configDokter1(data) {
-        return {
-            element: "#dokter_auto1",
-            url: "/api/emr/autocomplete?source_name=dokter",
-            allowClear: true,
-            query_params: {
-                status: "",
-                spesialisasi: "",
-            },
-            markup_template: function (repo) {
-                return `<b>${repo.nama}</b>`;
-            },
-            selection_template: function (repo) {
-                // tulis format string untuk label autocomplete
-                var res = "";
-                if (repo.id != "") {
-                    res = repo.nama || data.ttd_data.dokter;
-                    data.ttd_data.dokter = res;
-                }
+        // === [CONFIG_AUTOCOMPLETE_HOOK] ===
+        // AI will add or create the autocomplete configuration here
+        function configDokter1(data) {
+            return {
+                element: "#dokter_auto1",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                allowClear: true,
+                query_params: {
+                    status: "",
+                    spesialisasi: "",
+                },
+                markup_template: function (repo) {
+                    return `<b>${repo.nama}</b>`;
+                },
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.ttd_data.dokter;
+                        data.ttd_data.dokter = res;
+                    }
 
-                return res;
-            },
-        };
-    }
+                    return res;
+                },
+            };
+        }
 
-    function configNakes1(data) {
-        return {
-            element: "#nakes_auto1",
-            url: "/api/emr/autocomplete?source_name=nakes",
-            allowClear: true,
-            query_params: {
-                status: "",
-                id_profesi_nakes: "",
-            },
+        function configNakes1(data) {
+            return {
+                element: "#nakes_auto1",
+                url: "/api/emr/autocomplete?source_name=nakes",
+                allowClear: true,
+                query_params: {
+                    status: "",
+                    id_profesi_nakes: "",
+                },
 
-            markup_template: function (repo) {
-                return `<b>${repo.nama}</b>`;
-            },
-            selection_template: function (repo) {
-                // tulis format string untuk label autocomplete
-                var res = "";
-                if (repo.id != "") {
-                    res = repo.nama || data.ttd_data.perawat;
-                    data.ttd_data.perawat = res;
-                }
+                markup_template: function (repo) {
+                    return `<b>${repo.nama}</b>`;
+                },
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.ttd_data.perawat;
+                        data.ttd_data.perawat = res;
+                    }
 
-                return res;
-            },
-        };
-    }
+                    return res;
+                },
+            };
+        }
 
-    function configRuang(data) {
-        return {
-            element: "#ruang_auto",
-            url: "/api/emr/autocomplete?source_name=ruang",
-            markup_template: function (repo) {
-                return `<b>${repo.nama_bangsal}</b> - Ruang ${repo.nama_ruang}  <small>(${repo.nama_kelas})</small>`;
-            },
-            allowClear: true,
-            selection_template: function (repo) {
-                // tulis format string untuk label autocomplete
+        function configRuang(data) {
+            return {
+                element: "#ruang_auto",
+                url: "/api/emr/autocomplete?source_name=ruang",
+                markup_template: function (repo) {
+                    return `<b>${repo.nama_bangsal}</b> - Ruang ${repo.nama_ruang}  <small>(${repo.nama_kelas})</small>`;
+                },
+                allowClear: true,
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
 
-                // Previous Code : Bug when edit doc
-                // data.pasien.ruang = repo.nama
-                var data_test = {
-                    nama_bangsal: repo.nama_bangsal || data.pasien.bangsal,
-                    nama_ruang: repo.nama_ruang || data.pasien.ruang,
-                    nama_kelas: repo.nama_kelas || data.pasien.kelas,
-                }; // res = repo.nama ;
+                    // Previous Code : Bug when edit doc
+                    // data.pasien.ruang = repo.nama
+                    var data_test = {
+                        nama_bangsal: repo.nama_bangsal || data.pasien.bangsal,
+                        nama_ruang: repo.nama_ruang || data.pasien.ruang,
+                        nama_kelas: repo.nama_kelas || data.pasien.kelas,
+                    }; // res = repo.nama ;
 
-                data.pasien.bangsal = data_test.nama_bangsal;
-                data.pasien.ruang = data_test.nama_ruang;
-                data.pasien.kelas = data_test.nama_kelas;
+                    data.pasien.bangsal = data_test.nama_bangsal;
+                    data.pasien.ruang = data_test.nama_ruang;
+                    data.pasien.kelas = data_test.nama_kelas;
 
-                if (repo.text === "Pilih" && repo.id === "" && data_test.nama_bangsal === "" && data_test.nama_ruang === "" && data_test.nama_kelas === "") {
-                    data.pasien.bangsal = "";
-                    data.pasien.ruang = "";
-                    data.pasien.kelas = "";
-
-                    return "Pilih Ruangan"
-                } else {
-                    return `${data_test.nama_bangsal} - Ruang ${data_test.nama_ruang} - ${data_test.nama_kelas}`;
-                }
-            },
-        };
-    }
-
-    function configTTDModalDokter(data) {
-        return {
-            element: "#dokter_ttd_modal_auto",
-            url: "/api/emr/autocomplete?source_name=dokter",
-            // biar bisa ngetik dan search di modal
-            dropdownParent: "#tandaTanganModal",
-            allowClear: true,
-            query_params: {
-                status: "",
-                spesialisasi: "",
-            },
-            markup_template: function (repo) {
-                return `<b>${repo.nama}</b>`;
-            },
-            selection_template: function (repo) {
-                // tulis format string untuk label autocomplete
-                var res = "";
-                if (repo.id != "") {
-                    res = repo.nama || data.tmp_modal_ttd.name;
-                    data.tmp_modal_ttd.name = res;
-                }
-
-                return res;
-            },
-        };
-    }
-
-    function configTTDModalNakes(data) {
-        return {
-            element: "#nakes_ttd_modal_auto",
-            url: "/api/emr/autocomplete?source_name=nakes",
-            // biar bisa ngetik dan search di modal
-            dropdownParent: "#tandaTanganModal",
-            allowClear: true,
-            query_params: {
-                status: "",
-                id_profesi_nakes: "",
-            },
-
-            markup_template: function (repo) {
-                return `<b>${repo.nama}</b>`;
-            },
-            selection_template: function (repo) {
-                // tulis format string untuk label autocomplete
-                var res = "";
-                if (repo.id != "") {
-                    res = repo.nama || data.tmp_modal_ttd.name;
-                    data.tmp_modal_ttd.name = res;
-                }
-
-                return res;
-            },
-        };
-    }
-
-    function init_doc(doc_id, data, operation) {
-        // Temporary state or variable here
-        data.drawings = {
-            ttd_1: { brushSize: 2, brushColor: "#000000", isDrawing: false, isErasing: false, lastX: 0, lastY: 0 },
-        };
-
-        data.tmp_modal_ttd = {
-            name: "",
-            title: "",
-            label: "",
-            mode: "",
-            mode_ttd: "",
-            path_name: "",
-            path_stroke: "",
-            name_input_type: "",
-        };
-
-        // === [NAV_SECTIONS_HOOK] ===
-        // AI will add the latest ID and title section here
-        data.navSections = [
-            { id: "pasien-info", title: "Informasi Pasien" },
-            { id: "save-doc", title: "Simpan" },
-        ];
-
-        // === [BRIDGING_SORTING_HOOK] ===
-        // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
-
-
-        // === [SETUPINDEXEXPAND_HOOK] ===
-        // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
-
-        // === [OTHER_VARIABLE_BRIDGING_HOOK] ===
-        // AI will append or add additional variables from the bridging here
-
-        var app = new Vue({
-            el: "#formadd",
-            data: data,
-            mounted: function () {
-                this.init();
-
-                this.$nextTick(() => {
-                    document.querySelectorAll("textarea").forEach(autoGrow);
-                });
-
-                // === [MOUNTED_HOOK] ===
-                // AI will add the mounted code from bridging_docs here
-
-            },
-            computed: {
-                // === [COMPUTED_HOOK] ===
-                // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
-            },
-            watch: {
-                // === [WATCH_HOOK] ===
-                // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
-            },
-            methods: {
-                init: function () {
-                    // === [AUTOCOMPLETE_HOOK] ===
-                    // AI will add autocomplete here
-                    autocomplete(configRuang(data));
-                    autocomplete(configDokter1(data));
-                    autocomplete(configNakes1(data));
-                    this.setupSignature(data);
-
-                    $('#ruang_auto').on('select2:clearing', function (e) {
+                    if (repo.text === "Pilih" && repo.id === "" && data_test.nama_bangsal === "" && data_test.nama_ruang === "" && data_test.nama_kelas === "") {
                         data.pasien.bangsal = "";
                         data.pasien.ruang = "";
                         data.pasien.kelas = "";
-                    });
 
-                    if (operation === "add") {
-                        // === [BRIDGING_HOOK] ===
-                        // AI will add the init_doc_add here
-                        init_doc_add(data);
-                    }
-                    if (operation === "edit") {
-                        init_doc_edit(data);
-                    }
-                },
-                saveDoc: function () {
-                    // === [SAVE_ACTION_HOOK] ===
-                    // AI will add a step when saving the document here (example: this.diagnosis_group = combineDiagnoses(this.diagnosis_freetext, this.diagnosis_list_autocomplete))
-
-                    var json = {
-                        document_history_list_id: doc_id /* built in variable from edoc */,
-                        patient_id: EMRDATA.patient_id,
-                        reg_number: EMRDATA.reg_number,
-                        document: EMRDATA.document_code,
-                        document_title: EMRDATA.document_name,
-                        label: "Poliklinik",
-                        note: "",
-                        data: sanitizeData(data, '`'),
-                    };
-
-                    /* built in function from edoc */
-                    save_emr_data(json);
-                },
-                checkData: function () {
-                    /* built in function from edoc */
-                    preview_emr_data(data);
-                },
-                onChDateDynamic: function (dateData, jsonPath) {
-                    // @change="onChDateDynamic($event, 'penatalaksanaan.tanggal_indo')">
-                    let obj = this;
-                    jsonPathSplit = jsonPath.split(".");
-                    for (i = 0; i < jsonPathSplit.length - 1; i++) {
-                        obj = obj[jsonPathSplit[i]];
-                    }
-                    if (dateData.target.value != "") {
-                        obj[jsonPathSplit[i]] = dateParse(new Date(dateData.target.value));
+                        return "Pilih Ruangan"
                     } else {
-                        obj[jsonPathSplit[i]] = "";
+                        return `${data_test.nama_bangsal} - Ruang ${data_test.nama_ruang} - ${data_test.nama_kelas}`;
                     }
                 },
-                setupSignature: function (data) {
-                    $('[data-bs-toggle="tooltip"]').tooltip();
-                    // Start setup Coretan Canvas
-                    // const canvas1 = this.$refs["ttd_1"];
-                    // this.addCanvasListeners("ttd_1", canvas1);
+            };
+        }
+
+        function configTTDModalDokter(data) {
+            return {
+                element: "#dokter_ttd_modal_auto",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                // biar bisa ngetik dan search di modal
+                dropdownParent: "#tandaTanganModal",
+                allowClear: true,
+                query_params: {
+                    status: "",
+                    spesialisasi: "",
+                },
+                markup_template: function (repo) {
+                    return `<b>${repo.nama}</b>`;
+                },
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.tmp_modal_ttd.name;
+                        data.tmp_modal_ttd.name = res;
+                    }
+
+                    return res;
+                },
+            };
+        }
+
+        function configTTDModalNakes(data) {
+            return {
+                element: "#nakes_ttd_modal_auto",
+                url: "/api/emr/autocomplete?source_name=nakes",
+                // biar bisa ngetik dan search di modal
+                dropdownParent: "#tandaTanganModal",
+                allowClear: true,
+                query_params: {
+                    status: "",
+                    id_profesi_nakes: "",
+                },
+
+                markup_template: function (repo) {
+                    return `<b>${repo.nama}</b>`;
+                },
+                selection_template: function (repo) {
+                    // tulis format string untuk label autocomplete
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.tmp_modal_ttd.name;
+                        data.tmp_modal_ttd.name = res;
+                    }
+
+                    return res;
+                },
+            };
+        }
+
+        function init_doc(doc_id, data, operation) {
+            // Temporary state or variable here
+            data.drawings = {
+                ttd_1: { brushSize: 2, brushColor: "#000000", isDrawing: false, isErasing: false, lastX: 0, lastY: 0 },
+            };
+
+            data.tmp_modal_ttd = {
+                name: "",
+                title: "",
+                label: "",
+                mode: "",
+                mode_ttd: "",
+                path_name: "",
+                path_stroke: "",
+                name_input_type: "",
+            };
+
+            // === [NAV_SECTIONS_HOOK] ===
+            // AI will add the latest ID and title section here
+            data.navSections = [
+                { id: "pasien-info", title: "Informasi Pasien" },
+                { id: "card-lembar-kuasa", title: "Lembar Kuasa" },
+                { id: "card-persetujuan-penanggung-jawab", title: "Persetujuan Rawat Inap" },
+                { id: "card-persetujuan-pernyataan", title: "Pernyataan Persetujuan" },
+                { id: "save-doc", title: "Simpan" },
+            ];
+
+            // === [BRIDGING_SORTING_HOOK] ===
+            // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
+
+
+            // === [SETUPINDEXEXPAND_HOOK] ===
+            // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
+
+            // === [OTHER_VARIABLE_BRIDGING_HOOK] ===
+            // AI will append or add additional variables from the bridging here
+
+            var app = new Vue({
+                el: "#formadd",
+                data: data,
+                mounted: function () {
+                    this.init();
 
                     this.$nextTick(() => {
-                        const canvas1 = this.$refs["ttd_1"];
+                        document.querySelectorAll("textarea").forEach(autoGrow);
+                    });
 
-                        if (!canvas1) {
-                            console.warn("[setupSignature] canvas ttd_1 tidak ditemukan");
-                            return;
+                    // === [MOUNTED_HOOK] ===
+                    // AI will add the mounted code from bridging_docs here
+
+                },
+                computed: {
+                    // === [COMPUTED_HOOK] ===
+                    // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
+                },
+                watch: {
+                    // === [WATCH_HOOK] ===
+                    // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
+                    'perawatan.pilihan_kelas'(newVal) {
+                        if (newVal !== 'Lainnya') {
+                            this.perawatan.pilihan_kelas_lainnya = "";
                         }
-
-                        this.addCanvasListeners("ttd_1", canvas1);
-                    });
-                    // End setup Coraten Canvas
-
-                    // Start setup autocomplete ketika mode ttd canvas
-                    $("#tandaTanganModal").on("shown.bs.modal", () => {
-                        autocomplete(configTTDModalDokter(data));
-                        autocomplete(configTTDModalNakes(data));
-                        setSelect2("#dokter_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
-                        setSelect2("#nakes_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
-
-                        $("#dokter_ttd_modal_auto").on("select2:clearing", (e) => {
-                            this.tmp_modal_ttd.name = "";
-                            this.tmp_modal_ttd.stroke = "";
-                        });
-
-                        $("#nakes_ttd_modal_auto").on("select2:clearing", (e) => {
-                            this.tmp_modal_ttd.name = "";
-                            this.tmp_modal_ttd.stroke = "";
-                        });
-                    });
-                    // End setup autocomplete ketika mode ttd canvas
-                },
-                addCanvasListeners(name, canvas) {
-                    if (!canvas) {
-                        console.warn(`[addCanvasListeners] canvas ${name} undefined`);
-                        return;
-                    }
-
-                    canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
-                    canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
-                    canvas.addEventListener("mouseup", () => this.stopDraw(name));
-                    canvas.addEventListener("mouseout", () => this.stopDraw(name));
-                    canvas.addEventListener("touchstart", (e) => this.startDraw(e, name));
-                    canvas.addEventListener("touchmove", (e) => this.moveDraw(e, name));
-                    canvas.addEventListener("touchend", () => this.stopDraw(name));
-                },
-                getCoordinates(event, canvas) {
-                    const rect = canvas.getBoundingClientRect();
-                    if (event.touches) {
-                        return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
-                    }
-                    return { x: event.offsetX, y: event.offsetY };
-                },
-                startDraw(event, name) {
-                    event.preventDefault();
-                    const canvas = this.$refs[name];
-                    const drawing = this.drawings[name];
-                    drawing.isDrawing = true;
-                    const { x, y } = this.getCoordinates(event, canvas);
-                    drawing.lastX = x;
-                    drawing.lastY = y;
-                },
-                moveDraw(event, name) {
-                    const canvas = this.$refs[name];
-                    const drawing = this.drawings[name];
-                    if (!drawing.isDrawing) return;
-                    event.preventDefault();
-                    const ctx = canvas.getContext("2d");
-                    ctx.lineWidth = drawing.brushSize;
-                    ctx.strokeStyle = drawing.isErasing ? "rgba(255, 255, 255, 1)" : drawing.brushColor;
-                    ctx.globalCompositeOperation = drawing.isErasing ? "destination-out" : "source-over";
-                    ctx.lineJoin = "round";
-                    ctx.lineCap = "round";
-
-                    const { x, y } = this.getCoordinates(event, canvas);
-                    ctx.beginPath();
-                    ctx.moveTo(drawing.lastX, drawing.lastY);
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                    drawing.lastX = x;
-                    drawing.lastY = y;
-                },
-                stopDraw(name) {
-                    this.drawings[name].isDrawing = false;
-                },
-                startDrawing(name) {
-                    this.drawings[name].isErasing = false;
-                },
-                startErasing(name) {
-                    this.drawings[name].isErasing = true;
-                },
-                clearCanvas(name, showConfirm = true) {
-                    if (showConfirm) {
-                        Swal.fire({
-                            title: "Apa kamu yakin?",
-                            text: "Anda tidak akan dapat mengembalikan ini!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                            confirmButtonText: "Ya, hapus!",
-                        }).then((result) => {
-                            if (result.isConfirmed || result.value) {
-                                setByPath(this, this.tmp_modal_ttd.path_stroke, "");
-                                const canvas = this.$refs[name];
-                                const ctx = canvas.getContext("2d");
-                                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Coretan Anda telah dihapus",
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                });
-                            }
-                        });
-                    } else {
-                        const canvas = this.$refs[name];
-                        const ctx = canvas.getContext("2d");
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    }
-                },
-                saveAsImage({ name, path_name, path_stroke, isReturn = false }) {
-                    if (this.tmp_modal_ttd.mode_ttd === "QRCODE") {
-                        if (isReturn) return generatorQr(this.drawer_ttd[name].name);
-                        else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
-                    } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
-                        const drawingCanvas = this.$refs[name];
-                        if (!drawingCanvas) return;
-
-                        if (typeof isCanvasBlank === 'function' && isCanvasBlank(drawingCanvas)) {
-                            if (isReturn) return "";
-                            else setByPath(this, path_stroke, "");
-                            return;
+                    },
+                    'pembayaran.cara_pembayaran'(newVal) {
+                        if (newVal !== 'Asuransi lain') {
+                            this.pembayaran.detail_asuransi_lain = "";
                         }
-
-                        const scaleFactor = 0.8; // Faktor skala untuk kompresi ukuran
-                        const resizedCanvas = document.createElement("canvas");
-                        resizedCanvas.width = Math.round(drawingCanvas.width * scaleFactor);
-                        resizedCanvas.height = Math.round(drawingCanvas.height * scaleFactor);
-
-                        const resizedCtx = resizedCanvas.getContext("2d");
-
-                        // Skalakan gambar latar belakang dan coretan ke canvas yang lebih kecil
-                        resizedCtx.drawImage(drawingCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
-
-                        // Konversi hasilnya menjadi PNG base64
-                        const resizedBase64 = resizedCanvas.toDataURL("image/png");
-
-                        // Menyimpan hasil base64 ke array `drawings`
-                        if (isReturn) return resizedBase64;
-                        else setByPath(this, path_stroke, resizedBase64);
+                        if (newVal !== 'Lain lain') {
+                            this.pembayaran.detail_lain_lain = "";
+                        }
                     }
                 },
-                // Fungsi untuk memuat gambar dari base64 ke canvas
-                loadBase64Image(base64 = null) {
-                    const drawingCanvas = this.$refs["ttd_1"];
-                    const drawingCtx = drawingCanvas.getContext("2d");
+                methods: {
+                    init: function () {
+                        // === [AUTOCOMPLETE_HOOK] ===
+                        // AI will add autocomplete here
+                        autocomplete(configRuang(data));
+                        autocomplete(configDokter1(data));
+                        autocomplete(configNakes1(data));
+                        this.setupSignature(data);
 
-                    const drawingImage = new Image();
-                    drawingImage.src = base64; // Muat gambar dari base64 di array drawings
-
-                    drawingImage.onload = () => {
-                        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
-                        drawingCtx.drawImage(drawingImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
-                    };
-                },
-                openTTDModalHandler: function ({
-                    path_name = "",
-                    path_stroke = "",
-                    mode_ttd = "",
-                    label = "Penandatangan",
-                    name_input_type = "TEXT",
-                }) {
-                    this.clearCanvas("ttd_1", false);
-                    this.tmp_modal_ttd.name = "";
-                    const stroke = getByPath(this, path_stroke);
-                    this.tmp_modal_ttd.name = getByPath(this, path_name);
-                    this.tmp_modal_ttd.name_input_type = name_input_type;
-                    this.tmp_modal_ttd.label = label;
-                    this.tmp_modal_ttd.path_name = path_name;
-                    this.tmp_modal_ttd.path_stroke = path_stroke;
-                    this.tmp_modal_ttd.mode_ttd = mode_ttd;
-
-                    if (stroke || this.tmp_modal_ttd.name) this.tmp_modal_ttd.mode = "edit";
-                    else this.tmp_modal_ttd.mode = "add";
-
-                    if (this.tmp_modal_ttd.mode === "add") {
-                        this.tmp_modal_ttd.title = "Tambah Tanda Tangan";
-                    } else if (this.tmp_modal_ttd.mode === "edit") {
-                        setSelect2("#dokter_ttd_modal_auto", this.tmp_modal_ttd.name, this.tmp_modal_ttd.name);
-                        this.tmp_modal_ttd.title = "Edit Tanda Tangan";
-                        this.loadBase64Image(getByPath(this, path_stroke));
-                    }
-                },
-                saveTTDHandler: function (isAutoComplete = false) {
-                    const drawingCanvas = this.$refs["ttd_1"];
-
-                    setByPath(this, this.tmp_modal_ttd.path_name, this.tmp_modal_ttd.name);
-
-                    if (!isCanvasBlank(drawingCanvas) || this.tmp_modal_ttd.mode_ttd === "QRCODE") {
-                        this.saveAsImage({
-                            name: "ttd_1",
-                            path_name: this.tmp_modal_ttd.path_name,
-                            path_stroke: this.tmp_modal_ttd.path_stroke,
+                        $('#ruang_auto').on('select2:clearing', function (e) {
+                            data.pasien.bangsal = "";
+                            data.pasien.ruang = "";
+                            data.pasien.kelas = "";
                         });
-                    }
 
-                    this.tmp_modal_ttd = {
-                        name: "",
-                        title: "",
-                        label: "",
-                        mode: "",
-                        mode_ttd: "",
-                        path_name: "",
-                        path_stroke: "",
-                        name_input_type: "",
-                    };
-                },
-                navCollapse: function (parentIndex, childIndex, indexExpand) {
-                    this[indexExpand] = this[indexExpand].map((item, i) => {
-                        item.map((subItem, j) => {
-                            subItem.expand = !subItem.expand;
-                            if (i != parentIndex || j != childIndex) {
-                                subItem.expand = false;
+                        if (operation === "add") {
+                            // === [BRIDGING_HOOK] ===
+                            // AI will add the init_doc_add here
+                            init_doc_add(data);
+                        }
+                        if (operation === "edit") {
+                            init_doc_edit(data);
+                        }
+                    },
+                    saveDoc: function () {
+                        // === [SAVE_ACTION_HOOK] ===
+                        // AI will add a step when saving the document here (example: this.diagnosis_group = combineDiagnoses(this.diagnosis_freetext, this.diagnosis_list_autocomplete))
+
+                        var json = {
+                            document_history_list_id: doc_id /* built in variable from edoc */,
+                            patient_id: EMRDATA.patient_id,
+                            reg_number: EMRDATA.reg_number,
+                            document: EMRDATA.document_code,
+                            document_title: EMRDATA.document_name,
+                            label: "Poliklinik",
+                            note: "",
+                            data: sanitizeData(data, '`'),
+                        };
+
+                        /* built in function from edoc */
+                        save_emr_data(json);
+                    },
+                    checkData: function () {
+                        /* built in function from edoc */
+                        preview_emr_data(data);
+                    },
+                    onChDateDynamic: function (dateData, jsonPath) {
+                        // @change="onChDateDynamic($event, 'penatalaksanaan.tanggal_indo')">
+                        let obj = this;
+                        jsonPathSplit = jsonPath.split(".");
+                        for (i = 0; i < jsonPathSplit.length - 1; i++) {
+                            obj = obj[jsonPathSplit[i]];
+                        }
+                        if (dateData.target.value != "") {
+                            obj[jsonPathSplit[i]] = dateParse(new Date(dateData.target.value));
+                        } else {
+                            obj[jsonPathSplit[i]] = "";
+                        }
+                    },
+                    setupSignature: function (data) {
+                        $('[data-bs-toggle="tooltip"]').tooltip();
+                        // Start setup Coretan Canvas
+                        // const canvas1 = this.$refs["ttd_1"];
+                        // this.addCanvasListeners("ttd_1", canvas1);
+
+                        this.$nextTick(() => {
+                            const canvas1 = this.$refs["ttd_1"];
+
+                            if (!canvas1) {
+                                console.warn("[setupSignature] canvas ttd_1 tidak ditemukan");
+                                return;
                             }
-                            return subItem;
+
+                            this.addCanvasListeners("ttd_1", canvas1);
                         });
-                        return item;
-                    });
-                },
-                checkAllBridgingList: function (indexExpand, isSingleCheck = false, primerFilter = null) {
-                    const hasAnyUnselected = this[indexExpand].some((subArray) => {
-                        return subArray.some((item) => !item.selected);
-                    });
+                        // End setup Coraten Canvas
 
-                    const areAllSelected = this[indexExpand].every((subArray) => {
-                        return subArray.every((item) => item.selected);
-                    });
+                        // Start setup autocomplete ketika mode ttd canvas
+                        $("#tandaTanganModal").on("shown.bs.modal", () => {
+                            autocomplete(configTTDModalDokter(data));
+                            autocomplete(configTTDModalNakes(data));
+                            setSelect2("#dokter_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
+                            setSelect2("#nakes_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
 
-                    if (!isSingleCheck) {
-                        this[indexExpand].forEach((subArray, parentIndex) => {
-                            subArray.forEach((item, childIndex) => {
-                                if (primerFilter) {
-                                    const diag = this.external_link.diagnosa_list[parentIndex].layanan[childIndex];
-                                    if (diag.primer === primerFilter) {
-                                        this.$set(item, "selected", this[`${indexExpand}_check_all`]);
-                                    }
-                                } else {
-                                    this.$set(item, "selected", this[`${indexExpand}_check_all`]);
-                                }
+                            $("#dokter_ttd_modal_auto").on("select2:clearing", (e) => {
+                                this.tmp_modal_ttd.name = "";
+                                this.tmp_modal_ttd.stroke = "";
+                            });
+
+                            $("#nakes_ttd_modal_auto").on("select2:clearing", (e) => {
+                                this.tmp_modal_ttd.name = "";
+                                this.tmp_modal_ttd.stroke = "";
                             });
                         });
-                    } else {
-                        if (areAllSelected) this[`${indexExpand}_check_all`] = true;
-                        else this[`${indexExpand}_check_all`] = false;
-                    }
+                        // End setup autocomplete ketika mode ttd canvas
+                    },
+                    addCanvasListeners(name, canvas) {
+                        if (!canvas) {
+                            console.warn(`[addCanvasListeners] canvas ${name} undefined`);
+                            return;
+                        }
+
+                        canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
+                        canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
+                        canvas.addEventListener("mouseup", () => this.stopDraw(name));
+                        canvas.addEventListener("mouseout", () => this.stopDraw(name));
+                        canvas.addEventListener("touchstart", (e) => this.startDraw(e, name));
+                        canvas.addEventListener("touchmove", (e) => this.moveDraw(e, name));
+                        canvas.addEventListener("touchend", () => this.stopDraw(name));
+                    },
+                    getCoordinates(event, canvas) {
+                        const rect = canvas.getBoundingClientRect();
+                        if (event.touches) {
+                            return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
+                        }
+                        return { x: event.offsetX, y: event.offsetY };
+                    },
+                    startDraw(event, name) {
+                        event.preventDefault();
+                        const canvas = this.$refs[name];
+                        const drawing = this.drawings[name];
+                        drawing.isDrawing = true;
+                        const { x, y } = this.getCoordinates(event, canvas);
+                        drawing.lastX = x;
+                        drawing.lastY = y;
+                    },
+                    moveDraw(event, name) {
+                        const canvas = this.$refs[name];
+                        const drawing = this.drawings[name];
+                        if (!drawing.isDrawing) return;
+                        event.preventDefault();
+                        const ctx = canvas.getContext("2d");
+                        ctx.lineWidth = drawing.brushSize;
+                        ctx.strokeStyle = drawing.isErasing ? "rgba(255, 255, 255, 1)" : drawing.brushColor;
+                        ctx.globalCompositeOperation = drawing.isErasing ? "destination-out" : "source-over";
+                        ctx.lineJoin = "round";
+                        ctx.lineCap = "round";
+
+                        const { x, y } = this.getCoordinates(event, canvas);
+                        ctx.beginPath();
+                        ctx.moveTo(drawing.lastX, drawing.lastY);
+                        ctx.lineTo(x, y);
+                        ctx.stroke();
+                        drawing.lastX = x;
+                        drawing.lastY = y;
+                    },
+                    stopDraw(name) {
+                        this.drawings[name].isDrawing = false;
+                    },
+                    startDrawing(name) {
+                        this.drawings[name].isErasing = false;
+                    },
+                    startErasing(name) {
+                        this.drawings[name].isErasing = true;
+                    },
+                    clearCanvas(name, showConfirm = true) {
+                        if (showConfirm) {
+                            Swal.fire({
+                                title: "Apa kamu yakin?",
+                                text: "Anda tidak akan dapat mengembalikan ini!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Ya, hapus!",
+                            }).then((result) => {
+                                if (result.isConfirmed || result.value) {
+                                    setByPath(this, this.tmp_modal_ttd.path_stroke, "");
+                                    const canvas = this.$refs[name];
+                                    const ctx = canvas.getContext("2d");
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Coretan Anda telah dihapus",
+                                        showConfirmButton: false,
+                                        timer: 1000,
+                                    });
+                                }
+                            });
+                        } else {
+                            const canvas = this.$refs[name];
+                            const ctx = canvas.getContext("2d");
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        }
+                    },
+                    saveAsImage({ name, path_name, path_stroke, isReturn = false }) {
+                        if (this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                            if (isReturn) return generatorQr(this.drawer_ttd[name].name);
+                            else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
+                        } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
+                            const drawingCanvas = this.$refs[name];
+                            if (!drawingCanvas) return;
+
+                            if (typeof isCanvasBlank === 'function' && isCanvasBlank(drawingCanvas)) {
+                                if (isReturn) return "";
+                                else setByPath(this, path_stroke, "");
+                                return;
+                            }
+
+                            const scaleFactor = 0.8; // Faktor skala untuk kompresi ukuran
+                            const resizedCanvas = document.createElement("canvas");
+                            resizedCanvas.width = Math.round(drawingCanvas.width * scaleFactor);
+                            resizedCanvas.height = Math.round(drawingCanvas.height * scaleFactor);
+
+                            const resizedCtx = resizedCanvas.getContext("2d");
+
+                            // Skalakan gambar latar belakang dan coretan ke canvas yang lebih kecil
+                            resizedCtx.drawImage(drawingCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+                            // Konversi hasilnya menjadi PNG base64
+                            const resizedBase64 = resizedCanvas.toDataURL("image/png");
+
+                            // Menyimpan hasil base64 ke array `drawings`
+                            if (isReturn) return resizedBase64;
+                            else setByPath(this, path_stroke, resizedBase64);
+                        }
+                    },
+                    // Fungsi untuk memuat gambar dari base64 ke canvas
+                    loadBase64Image(base64 = null) {
+                        const drawingCanvas = this.$refs["ttd_1"];
+                        const drawingCtx = drawingCanvas.getContext("2d");
+
+                        const drawingImage = new Image();
+                        drawingImage.src = base64; // Muat gambar dari base64 di array drawings
+
+                        drawingImage.onload = () => {
+                            drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                            drawingCtx.drawImage(drawingImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+                        };
+                    },
+                    openTTDModalHandler: function ({
+                        path_name = "",
+                        path_stroke = "",
+                        mode_ttd = "",
+                        label = "Penandatangan",
+                        name_input_type = "TEXT",
+                    }) {
+                        this.clearCanvas("ttd_1", false);
+                        this.tmp_modal_ttd.name = "";
+                        const stroke = getByPath(this, path_stroke);
+                        this.tmp_modal_ttd.name = getByPath(this, path_name);
+                        this.tmp_modal_ttd.name_input_type = name_input_type;
+                        this.tmp_modal_ttd.label = label;
+                        this.tmp_modal_ttd.path_name = path_name;
+                        this.tmp_modal_ttd.path_stroke = path_stroke;
+                        this.tmp_modal_ttd.mode_ttd = mode_ttd;
+
+                        if (stroke || this.tmp_modal_ttd.name) this.tmp_modal_ttd.mode = "edit";
+                        else this.tmp_modal_ttd.mode = "add";
+
+                        if (this.tmp_modal_ttd.mode === "add") {
+                            this.tmp_modal_ttd.title = "Tambah Tanda Tangan";
+                        } else if (this.tmp_modal_ttd.mode === "edit") {
+                            setSelect2("#dokter_ttd_modal_auto", this.tmp_modal_ttd.name, this.tmp_modal_ttd.name);
+                            this.tmp_modal_ttd.title = "Edit Tanda Tangan";
+                            this.loadBase64Image(getByPath(this, path_stroke));
+                        }
+                    },
+                    saveTTDHandler: function (isAutoComplete = false) {
+                        const drawingCanvas = this.$refs["ttd_1"];
+
+                        setByPath(this, this.tmp_modal_ttd.path_name, this.tmp_modal_ttd.name);
+
+                        if (!isCanvasBlank(drawingCanvas) || this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                            this.saveAsImage({
+                                name: "ttd_1",
+                                path_name: this.tmp_modal_ttd.path_name,
+                                path_stroke: this.tmp_modal_ttd.path_stroke,
+                            });
+                        }
+
+                        this.tmp_modal_ttd = {
+                            name: "",
+                            title: "",
+                            label: "",
+                            mode: "",
+                            mode_ttd: "",
+                            path_name: "",
+                            path_stroke: "",
+                            name_input_type: "",
+                        };
+                    },
+                    navCollapse: function (parentIndex, childIndex, indexExpand) {
+                        this[indexExpand] = this[indexExpand].map((item, i) => {
+                            item.map((subItem, j) => {
+                                subItem.expand = !subItem.expand;
+                                if (i != parentIndex || j != childIndex) {
+                                    subItem.expand = false;
+                                }
+                                return subItem;
+                            });
+                            return item;
+                        });
+                    },
+                    checkAllBridgingList: function (indexExpand, isSingleCheck = false, primerFilter = null) {
+                        const hasAnyUnselected = this[indexExpand].some((subArray) => {
+                            return subArray.some((item) => !item.selected);
+                        });
+
+                        const areAllSelected = this[indexExpand].every((subArray) => {
+                            return subArray.every((item) => item.selected);
+                        });
+
+                        if (!isSingleCheck) {
+                            this[indexExpand].forEach((subArray, parentIndex) => {
+                                subArray.forEach((item, childIndex) => {
+                                    if (primerFilter) {
+                                        const diag = this.external_link.diagnosa_list[parentIndex].layanan[childIndex];
+                                        if (diag.primer === primerFilter) {
+                                            this.$set(item, "selected", this[`${indexExpand}_check_all`]);
+                                        }
+                                    } else {
+                                        this.$set(item, "selected", this[`${indexExpand}_check_all`]);
+                                    }
+                                });
+                            });
+                        } else {
+                            if (areAllSelected) this[`${indexExpand}_check_all`] = true;
+                            else this[`${indexExpand}_check_all`] = false;
+                        }
+                    },
+                    // === [METHOD_HOOK] ===
+                    // AI will add a bridging method or another additional method here
                 },
-                // === [METHOD_HOOK] ===
-                // AI will add a bridging method or another additional method here
-            },
-        });
-    }
-
-    function init_doc_add(data) {
-        // Call bridging function here
-        executeAllSafely([
-            {
-                label: "Setup Auto",
-                functionName: setupAuto,
-                parameters: [data]
-            },
-            {
-                label: "Bridging Dokter DPJP",
-                functionName: bridgingDokterDPJP,
-                parameters: [data]
-            },
-            {
-                label: "Bridging Patient Data",
-                functionName: bridgingPatientData,
-                parameters: [data]
-            },
-            {
-                label: "Bridging Inpatient Information",
-                functionName: bridgingInpatientInformation,
-                parameters: [data]
-            },
-            // === [BRIDGING_INIT_ADD_HOOK] ===
-            // AI will call the bridging init function here
-        ]);
-
-
-
-    }
-
-    function init_doc_edit(data) {
-        // Call bridging function here
-        executeAllSafely([
-            {
-                label: "Bridging Patient Data [EDIT]",
-                functionName: bridgingPatientData,
-                parameters: [data]
-            },
-            {
-                label: "Bridging Inpatient Information [EDIT]",
-                functionName: bridgingInpatientInformation,
-                parameters: [data, "edit"]
-            },
-            // === [BRIDGING_INIT_EDIT_HOOK] ===
-            // AI will call the bridging init function here
-        ]);
-
-
-
-    }
-
-    // === [BRIDGING_FUNCTION_HOOK] ===
-    // AI will add the bridging function here
-    function setupAuto(data) {
-        // Sesuaikan data disini
-        data.ttd_data.jam = timeNow().time; // Jam sekarang
-        data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
-        data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
-    }
-
-    function bridgingPatientData(data) {
-        const ext_patient = data.external_link.px_data;
-
-        // sesuaikan dengan kebutuhan dokumen
-        data.pasien.nama = ext_patient.nama || "";
-        data.pasien.no_rm = ext_patient.no_rm || "";
-        data.pasien.alamat = ext_patient.alamat || "";
-        data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
-        data.pasien.pekerjaan = ext_patient.pekerjaan || "";
-        data.pasien.agama = ext_patient.agama || "";
-        data.pasien.pendidikan = ext_patient.pendidikan || "";
-        data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
-        data.pasien.kelamin = showKelamin(ext_patient.kelamin);
-        data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
-
-        // untuk tanda tangan pasien image
-        // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
-    }
-
-    function bridgingDokterDPJP(data) {
-        const dpjp = data.external_link?.dokter_dpjp_data?.nama_dokter_dpjp || "";
-        data.ttd_data.dokter = dpjp;
-        setSelect2($("#dokter_auto1"), dpjp, dpjp);
-
-        // Jika TTD dokter menggunakan Image
-        // const ttd_image = data.external_link?.dokter_dpjp_data?.ttd_image;
-        // data.ttd_data.dokter_stroke = ttd_image ? getUrlHandler() + ttd_image : "";
-
-        // Jika TTD dokter menggunakan QR Code
-        setTimeout(() => {
-            data.ttd_data.dokter_stroke = generatorQr(dpjp);
-        }, 1000);
-    }
-
-    function bridgingInpatientInformation(data, operation = "add") {
-        if (operation === "edit") {
-            // Bridging ruangan
-            setSelect2($("#ruang_auto"), data.pasien.ruang, data.pasien.ruang);
-        } else {
-            // Bridging ruangan
-            const ruang = data.external_link.inpatient_information.no_ruang || "";
-            data.pasien.ruang = data.external_link.inpatient_information.no_ruang || "";
-            data.pasien.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
-            data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
-            setSelect2($("#ruang_auto"), ruang, ruang);
-
-            // Bridging waktu masuk
-            data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
-            data.pasien.tanggal_masuk_indo = dateTimeParse(
-                data.external_link.inpatient_information.waktu_masuk
-            ).dateWithMonthName;
-            data.pasien.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
-        }
-    }
-
-    // Custom and another function here
-    function executeAllSafely(tasks = []) {
-        if (!Array.isArray(tasks)) {
-            console.error("executeAllSafely membutuhkan array.");
-            return;
+            });
         }
 
-        tasks.forEach(task => {
-            executeSafely(task);
-        });
-    }
+        function init_doc_add(data) {
+            // Call bridging function here
+            executeAllSafely([
+                {
+                    label: "Setup Auto",
+                    functionName: setupAuto,
+                    parameters: [data]
+                },
+                {
+                    label: "Bridging Patient Data",
+                    functionName: bridgingPatientData,
+                    parameters: [data]
+                },
+                {
+                    label: "Bridging Penanggung Jawab",
+                    functionName: bridgingPatientInfoData,
+                    parameters: [data]
+                },
+                // === [BRIDGING_INIT_ADD_HOOK] ===
+                // AI will call the bridging init function here
+            ]);
 
-    function executeSafely({
-        label,
-        functionName,
-        parameters = [],
-        context = null,
-        throwError = false
-    }) {
-        try {
 
-            // Validasi: memastikan target benar-benar sebuah function
-            if (typeof functionName !== "function") {
-                throw new Error(`Target bukan function pada label: ${label}`);
+
+        }
+
+        function init_doc_edit(data) {
+            // Call bridging function here
+            executeAllSafely([
+                {
+                    label: "Bridging Patient Data [EDIT]",
+                    functionName: bridgingPatientData,
+                    parameters: [data]
+                },
+                // === [BRIDGING_INIT_EDIT_HOOK] ===
+                // AI will call the bridging init function here
+            ]);
+
+
+
+        }
+
+        // === [BRIDGING_FUNCTION_HOOK] ===
+        // AI will add the bridging function here
+        function setupAuto(data) {
+            // Sesuaikan data disini
+            data.ttd_data.jam = timeNow().time; // Jam sekarang
+            data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
+            data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
+        }
+
+        function bridgingPatientInfoData(data, operation = 'add') {
+            const ext_patient_info_data = data.external_link.patient_info_data;
+
+            data.penanggung_jawab.nama = ext_patient_info_data.nama_pjwb || "";
+            data.ttd_data.yang_menyatakan = ext_patient_info_data.nama_pjwb || "";
+            data.ttd_data.yang_menyatakan_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
+            data.penanggung_jawab.alamat = ext_patient_info_data.alamat_pjwb || "";
+        }
+
+        function bridgingPatientData(data) {
+            const ext_patient = data.external_link.px_data;
+
+            // sesuaikan dengan kebutuhan dokumen
+            data.pasien.nama = ext_patient.nama || "";
+            data.pasien.no_rm = ext_patient.no_rm || "";
+            data.pasien.alamat = ext_patient.alamat || "";
+            data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
+            data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
+
+            // untuk tanda tangan pasien image
+            // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
+        }
+
+        // Custom and another function here
+        function executeAllSafely(tasks = []) {
+            if (!Array.isArray(tasks)) {
+                console.error("executeAllSafely membutuhkan array.");
+                return;
             }
 
-            // Eksekusi function:
-            // Jika ada context → pakai apply() supaya 'this' tetap terikat
-            // Jika tidak ada context → panggil normal dengan spread parameter
-            const result = context
-                ? functionName.apply(context, parameters)
-                : functionName(...parameters);
-
-            // Log jika berhasil
-            console.info(`✅[SUCCESS] ${label}`);
-
-            // Kembalikan hasil asli dari function
-            return result;
-
-        } catch (error) {
-
-            // Log error dengan grouping agar rapi di console
-            console.group(`❌ [ERROR] ${label}`);
-            console.error("Message:", error.message);
-            // console.error("Stack:", error.stack);      // Aktifkan jika perlu debug lebih detail
-            // console.error("Arguments:", parameters);   // Aktifkan jika perlu cek parameter
-            console.groupEnd();
-
-            // Jika ingin error tetap dilempar ke luar (opsional)
-            if (throwError) {
-                throw error;
-            }
-
-            // Jika terjadi error, kembalikan null agar tidak memutus alur program
-            return null;
-        }
-    }
-
-    function dateParse(date) {
-        const monthNames = [
-            "Januari",
-            "Februari",
-            "Maret",
-            "April",
-            "Mei",
-            "Juni",
-            "Juli",
-            "Agustus",
-            "September",
-            "Oktober",
-            "November",
-            "Desember",
-        ];
-        let dateInput = date;
-        const yyyy = dateInput.getFullYear();
-        let mm = dateInput.getMonth() + 1; // Months start at 0!
-        let dd = dateInput.getDate();
-        let month = monthNames[mm - 1];
-
-        if (dd < 10) dd = "0" + dd;
-        if (mm < 10) mm = "0" + mm;
-
-        // dateInput = `${yyyy}-${mm}-${dd}`;
-        let dateDisplay = `${dd} ${month} ${yyyy}`;
-        // return {dateInput, dateDisplay}
-        return dateDisplay;
-    }
-
-    function dateTimeParse(dateString) {
-        // Mengubah string menjadi objek Date
-        let dateInput = new Date(dateString);
-
-        // Mendapatkan bagian tanggal
-        const yyyy = dateInput.getFullYear();
-        let mm = dateInput.getMonth() + 1; // Bulan dimulai dari 0, jadi tambahkan 1
-        let dd = dateInput.getDate();
-
-        // Daftar nama bulan
-        const monthNames = [
-            "Januari",
-            "Februari",
-            "Maret",
-            "April",
-            "Mei",
-            "Juni",
-            "Juli",
-            "Agustus",
-            "September",
-            "Oktober",
-            "November",
-            "Desember",
-        ];
-
-        // Menambahkan leading zero jika diperlukan
-        if (dd < 10) dd = "0" + dd;
-        if (mm < 10) mm = "0" + mm; // Menambahkan leading zero untuk bulan jika kurang dari 10
-
-        // Format tanggal biasa (yyyy-mm-dd)
-        let dateDisplay = `${yyyy}-${mm}-${dd}`;
-
-        // Format tanggal dengan nama bulan (dd NamaBulan yyyy)
-        let dateWithMonthName = `${dd} ${monthNames[mm - 1]} ${yyyy}`; // Indeks bulan di array dimulai dari 0
-
-        // Mendapatkan bagian waktu
-        let hours = dateInput.getHours();
-        let minutes = dateInput.getMinutes();
-
-        // Menambahkan leading zero jika diperlukan untuk waktu
-        if (hours < 10) hours = "0" + hours;
-        if (minutes < 10) minutes = "0" + minutes;
-
-        // Format waktu dalam format 24 jam (hh:mm)
-        let timeDisplay = `${hours}:${minutes}`;
-
-        // Mengembalikan objek dengan tanggal, waktu, dan tanggal dengan nama bulan
-        return { date: dateDisplay, time: timeDisplay, dateWithMonthName: dateWithMonthName };
-    }
-
-    function generatorQr(el) {
-        let elgenerateqr = document.createElement("div");
-        elgenerateqr.id = "elgenerateqr";
-
-        let objqrcode = new QRCode(elgenerateqr, el);
-        return elgenerateqr.querySelector("canvas").toDataURL();
-    }
-
-    function getByPath(obj, path) {
-        return path
-            .replace(/\[(\d+)\]/g, ".$1") // Ubah [0] jadi .0
-            .split(".") // Pisahkan dengan titik
-            .reduce((acc, part) => acc && acc[part], obj);
-    }
-
-    function setByPath(obj, path, value) {
-        const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
-        let current = obj;
-
-        for (let i = 0; i < parts.length - 1; i++) {
-            const part = parts[i];
-            if (!(part in current)) {
-                // otomatis buat objek/array baru jika belum ada
-                current[part] = isNaN(Number(parts[i + 1])) ? {} : [];
-            }
-            current = current[part];
+            tasks.forEach(task => {
+                executeSafely(task);
+            });
         }
 
-        current[parts[parts.length - 1]] = value;
-    }
+        function executeSafely({
+            label,
+            functionName,
+            parameters = [],
+            context = null,
+            throwError = false
+        }) {
+            try {
 
-    function isCanvasBlank(canvas) {
-        const context = canvas.getContext("2d");
-        const pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
-
-        return !pixelBuffer.some((color) => color !== 0);
-    }
-
-    function getUrlHandler() {
-        return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
-    }
-
-    function showKelamin(code) {
-        return code === "P" ? "Perempuan" : code === "L" ? "Laki-laki" : "Jenis kelamin tidak dikenal";
-    }
-
-    // Global autogrow mechanism for textareas
-    function autoGrow(element) {
-        // Set base height (setara dengan +/- 3 baris) agar tidak terlalu menciut
-        element.style.height = "75px";
-        // Sesuaikan tinggi dengan scrollHeight
-        element.style.height = (element.scrollHeight + 2) + "px";
-    }
-
-    document.addEventListener("input", function (e) {
-        if (e.target.tagName.toLowerCase() === "textarea") {
-            autoGrow(e.target);
-        }
-    });
-
-    function sanitizeData(data, replaceChar = ' ') {
-        if (typeof data === 'string') {
-            return data.replace(/'/g, replaceChar);
-        } else if (Array.isArray(data)) {
-            return data.map(item => sanitizeData(item, replaceChar));
-        } else if (typeof data === 'object' && data !== null) {
-            const sanitizedObject = {};
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    sanitizedObject[key] = sanitizeData(data[key], replaceChar);
+                // Validasi: memastikan target benar-benar sebuah function
+                if (typeof functionName !== "function") {
+                    throw new Error(`Target bukan function pada label: ${label}`);
                 }
+
+                // Eksekusi function:
+                // Jika ada context → pakai apply() supaya 'this' tetap terikat
+                // Jika tidak ada context → panggil normal dengan spread parameter
+                const result = context
+                    ? functionName.apply(context, parameters)
+                    : functionName(...parameters);
+
+                // Log jika berhasil
+                console.info(`✅[SUCCESS] ${label}`);
+
+                // Kembalikan hasil asli dari function
+                return result;
+
+            } catch (error) {
+
+                // Log error dengan grouping agar rapi di console
+                console.group(`❌ [ERROR] ${label}`);
+                console.error("Message:", error.message);
+                // console.error("Stack:", error.stack);      // Aktifkan jika perlu debug lebih detail
+                // console.error("Arguments:", parameters);   // Aktifkan jika perlu cek parameter
+                console.groupEnd();
+
+                // Jika ingin error tetap dilempar ke luar (opsional)
+                if (throwError) {
+                    throw error;
+                }
+
+                // Jika terjadi error, kembalikan null agar tidak memutus alur program
+                return null;
             }
-            return sanitizedObject;
-        } else {
-            return data;
         }
-    }
 
-    function combineDiagnoses(diagnosisFreetext, diagnosisList, isKeperawatan = false) {
-        // === Tahap 1: Memproses nilai pertama (string) ===
-        // Hapus nomor urut awal dari setiap baris, lalu trim dan filter yang kosong.
-        const textDiagnosaArray = diagnosisFreetext
-            .split("\n")
-            .map(item => {
-                // Regex untuk menghapus nomor urut dan titik di awal, diikuti spasi.
-                // Contoh: "1. " atau "2. " akan dihapus.
-                const cleanedItem = item.replace(/^\d+\.\s*/, '').trim();
-                return cleanedItem;
-            })
-            .filter(item => item !== ""); // Filter baris kosong setelah pembersihan
+        function dateParse(date) {
+            const monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ];
+            let dateInput = date;
+            const yyyy = dateInput.getFullYear();
+            let mm = dateInput.getMonth() + 1; // Months start at 0!
+            let dd = dateInput.getDate();
+            let month = monthNames[mm - 1];
 
-        // === Tahap 2: Memproses nilai kedua (array objek) ===
-        // Gabungkan diagnosa_kerja_list ke dalam format string yang diinginkan
-        const listDiagnosaArray = diagnosisList.map(item => {
-            if (isKeperawatan) {
-                // khusus untuk diagnosa keperawatan
-                return `${item.code} - ${item.nama}`;
-            } else if (item.kode_nama) {
-                // untuk diagnosa gizi 
-                return `${item.kode_nama} - ${item.deskripsi_diet_diagnosa_gizi || ""}`;
-            } else {
-                // Asumsi item.deskripsi tidak ada di sini, jika ada bisa ditambahkan
-                return `${item.icd_x} - ${item.nama_sebab_sakit}`;
+            if (dd < 10) dd = "0" + dd;
+            if (mm < 10) mm = "0" + mm;
+
+            // dateInput = `${yyyy}-${mm}-${dd}`;
+            let dateDisplay = `${dd} ${month} ${yyyy}`;
+            // return {dateInput, dateDisplay}
+            return dateDisplay;
+        }
+
+        function dateTimeParse(dateString) {
+            // Mengubah string menjadi objek Date
+            let dateInput = new Date(dateString);
+
+            // Mendapatkan bagian tanggal
+            const yyyy = dateInput.getFullYear();
+            let mm = dateInput.getMonth() + 1; // Bulan dimulai dari 0, jadi tambahkan 1
+            let dd = dateInput.getDate();
+
+            // Daftar nama bulan
+            const monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ];
+
+            // Menambahkan leading zero jika diperlukan
+            if (dd < 10) dd = "0" + dd;
+            if (mm < 10) mm = "0" + mm; // Menambahkan leading zero untuk bulan jika kurang dari 10
+
+            // Format tanggal biasa (yyyy-mm-dd)
+            let dateDisplay = `${yyyy}-${mm}-${dd}`;
+
+            // Format tanggal dengan nama bulan (dd NamaBulan yyyy)
+            let dateWithMonthName = `${dd} ${monthNames[mm - 1]} ${yyyy}`; // Indeks bulan di array dimulai dari 0
+
+            // Mendapatkan bagian waktu
+            let hours = dateInput.getHours();
+            let minutes = dateInput.getMinutes();
+
+            // Menambahkan leading zero jika diperlukan untuk waktu
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
+
+            // Format waktu dalam format 24 jam (hh:mm)
+            let timeDisplay = `${hours}:${minutes}`;
+
+            // Mengembalikan objek dengan tanggal, waktu, dan tanggal dengan nama bulan
+            return { date: dateDisplay, time: timeDisplay, dateWithMonthName: dateWithMonthName };
+        }
+
+        function generatorQr(el) {
+            let elgenerateqr = document.createElement("div");
+            elgenerateqr.id = "elgenerateqr";
+
+            let objqrcode = new QRCode(elgenerateqr, el);
+            return elgenerateqr.querySelector("canvas").toDataURL();
+        }
+
+        function getByPath(obj, path) {
+            return path
+                .replace(/\[(\d+)\]/g, ".$1") // Ubah [0] jadi .0
+                .split(".") // Pisahkan dengan titik
+                .reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function setByPath(obj, path, value) {
+            const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
+            let current = obj;
+
+            for (let i = 0; i < parts.length - 1; i++) {
+                const part = parts[i];
+                if (!(part in current)) {
+                    // otomatis buat objek/array baru jika belum ada
+                    current[part] = isNaN(Number(parts[i + 1])) ? {} : [];
+                }
+                current = current[part];
+            }
+
+            current[parts[parts.length - 1]] = value;
+        }
+
+        function isCanvasBlank(canvas) {
+            const context = canvas.getContext("2d");
+            const pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+
+            return !pixelBuffer.some((color) => color !== 0);
+        }
+
+        function getUrlHandler() {
+            return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+        }
+
+        function showKelamin(code) {
+            return code === "P" ? "Perempuan" : code === "L" ? "Laki-laki" : "Jenis kelamin tidak dikenal";
+        }
+
+        // Global autogrow mechanism for textareas
+        function autoGrow(element) {
+            // Set base height (setara dengan +/- 3 baris) agar tidak terlalu menciut
+            element.style.height = "75px";
+            // Sesuaikan tinggi dengan scrollHeight
+            element.style.height = (element.scrollHeight + 2) + "px";
+        }
+
+        document.addEventListener("input", function (e) {
+            if (e.target.tagName.toLowerCase() === "textarea") {
+                autoGrow(e.target);
             }
         });
 
-        // === Tahap 3: Gabungkan kedua array dan berikan nomor urut baru ===
-        const combinedDiagnoses = [...textDiagnosaArray, ...listDiagnosaArray];
-
-        // Berikan nomor urut baru ke setiap item dalam array gabungan
-        if (combinedDiagnoses && combinedDiagnoses.length > 0) {
-            return combinedDiagnoses
-                .map((item, index) => `${index + 1}. ${item}`)
-                .join("\n");
-        } else {
-            return "-";
-        }
-    }
-
-    function setupIndexExpand(data, indexExpand, external_link_name, with_layanan = 'layanan') {
-        const checkAll = `${indexExpand}_check_all`;
-        if (typeof data[checkAll] === "undefined") data[checkAll] = false;
-        if (typeof data[indexExpand] === "undefined") data[indexExpand] = [];
-
-        let indexExpandTmp = data.external_link[external_link_name].map((v, i) => {
-            if (with_layanan) {
-                return v[with_layanan].map((x, j) => ({ expand: false, selected: false }));
-            }
-            else {
-                return [{ expand: false, selected: false }];
-            }
-        });
-
-        for (let i = 0; i < indexExpandTmp.length; i++) {
-            if (data[indexExpand][i] === undefined || data[indexExpand][i].length === 0) {
-                data[indexExpand][i] = indexExpandTmp[i];
+        function sanitizeData(data, replaceChar = ' ') {
+            if (typeof data === 'string') {
+                return data.replace(/'/g, replaceChar);
+            } else if (Array.isArray(data)) {
+                return data.map(item => sanitizeData(item, replaceChar));
+            } else if (typeof data === 'object' && data !== null) {
+                const sanitizedObject = {};
+                for (const key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        sanitizedObject[key] = sanitizeData(data[key], replaceChar);
+                    }
+                }
+                return sanitizedObject;
             } else {
-                for (let j = 0; j < indexExpandTmp[i].length; j++) {
-                    if (data[indexExpand][i][j] === undefined) {
-                        data[indexExpand][i][j] = indexExpandTmp[i][j];
+                return data;
+            }
+        }
+
+        function combineDiagnoses(diagnosisFreetext, diagnosisList, isKeperawatan = false) {
+            // === Tahap 1: Memproses nilai pertama (string) ===
+            // Hapus nomor urut awal dari setiap baris, lalu trim dan filter yang kosong.
+            const textDiagnosaArray = diagnosisFreetext
+                .split("\n")
+                .map(item => {
+                    // Regex untuk menghapus nomor urut dan titik di awal, diikuti spasi.
+                    // Contoh: "1. " atau "2. " akan dihapus.
+                    const cleanedItem = item.replace(/^\d+\.\s*/, '').trim();
+                    return cleanedItem;
+                })
+                .filter(item => item !== ""); // Filter baris kosong setelah pembersihan
+
+            // === Tahap 2: Memproses nilai kedua (array objek) ===
+            // Gabungkan diagnosa_kerja_list ke dalam format string yang diinginkan
+            const listDiagnosaArray = diagnosisList.map(item => {
+                if (isKeperawatan) {
+                    // khusus untuk diagnosa keperawatan
+                    return `${item.code} - ${item.nama}`;
+                } else if (item.kode_nama) {
+                    // untuk diagnosa gizi 
+                    return `${item.kode_nama} - ${item.deskripsi_diet_diagnosa_gizi || ""}`;
+                } else {
+                    // Asumsi item.deskripsi tidak ada di sini, jika ada bisa ditambahkan
+                    return `${item.icd_x} - ${item.nama_sebab_sakit}`;
+                }
+            });
+
+            // === Tahap 3: Gabungkan kedua array dan berikan nomor urut baru ===
+            const combinedDiagnoses = [...textDiagnosaArray, ...listDiagnosaArray];
+
+            // Berikan nomor urut baru ke setiap item dalam array gabungan
+            if (combinedDiagnoses && combinedDiagnoses.length > 0) {
+                return combinedDiagnoses
+                    .map((item, index) => `${index + 1}. ${item}`)
+                    .join("\n");
+            } else {
+                return "-";
+            }
+        }
+
+        function setupIndexExpand(data, indexExpand, external_link_name, with_layanan = 'layanan') {
+            const checkAll = `${indexExpand}_check_all`;
+            if (typeof data[checkAll] === "undefined") data[checkAll] = false;
+            if (typeof data[indexExpand] === "undefined") data[indexExpand] = [];
+
+            let indexExpandTmp = data.external_link[external_link_name].map((v, i) => {
+                if (with_layanan) {
+                    return v[with_layanan].map((x, j) => ({ expand: false, selected: false }));
+                }
+                else {
+                    return [{ expand: false, selected: false }];
+                }
+            });
+
+            for (let i = 0; i < indexExpandTmp.length; i++) {
+                if (data[indexExpand][i] === undefined || data[indexExpand][i].length === 0) {
+                    data[indexExpand][i] = indexExpandTmp[i];
+                } else {
+                    for (let j = 0; j < indexExpandTmp[i].length; j++) {
+                        if (data[indexExpand][i][j] === undefined) {
+                            data[indexExpand][i][j] = indexExpandTmp[i][j];
+                        }
                     }
                 }
             }
         }
-    }
 
-    function combineActions(freetextInput, serviceList) {
-        const textItemsArray = freetextInput
-            .split("\n")
-            .map(item => item.replace(/^\d+\.\s*/, '').trim())
-            .filter(item => item !== "");
+        function combineActions(freetextInput, serviceList) {
+            const textItemsArray = freetextInput
+                .split("\n")
+                .map(item => item.replace(/^\d+\.\s*/, '').trim())
+                .filter(item => item !== "");
 
-        const serviceItemsArray = serviceList.map(item => {
-            // Logika pemformatan KHUSUS untuk objek layanan/tindakan
-            // Perhatikan penggunaan String() dan replace HTML untuk membersihkan output
-            return String(item.nama_layanan || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
-        }).filter(item => item !== '');
+            const serviceItemsArray = serviceList.map(item => {
+                // Logika pemformatan KHUSUS untuk objek layanan/tindakan
+                // Perhatikan penggunaan String() dan replace HTML untuk membersihkan output
+                return String(item.nama_layanan || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
+            }).filter(item => item !== '');
 
-        const combinedItems = [...textItemsArray, ...serviceItemsArray];
+            const combinedItems = [...textItemsArray, ...serviceItemsArray];
 
-        if (combinedItems && combinedItems.length > 0) {
-            return combinedItems
-                .map((item, index) => `${index + 1}. ${item}`)
-                .join("\n");
-        } else {
-            return "-";
-        }
-    }
-
-    function containsAny(sourceString, searchTerms) {
-        if (typeof sourceString !== 'string' || !Array.isArray(searchTerms)) {
-            console.error('Input tidak valid. sourceString harus string dan searchTerms harus array.');
-            return false;
+            if (combinedItems && combinedItems.length > 0) {
+                return combinedItems
+                    .map((item, index) => `${index + 1}. ${item}`)
+                    .join("\n");
+            } else {
+                return "-";
+            }
         }
 
-        const lowerSource = sourceString.toLowerCase();
-
-        return searchTerms.some(term => {
-            // Lakukan trim() pada setiap istilah pencarian untuk menghindari spasi tak terlihat
-            const lowerTerm = term.toLowerCase().trim();
-            // Gunakan includes() untuk mengecek apakah sumber mengandung istilah
-            return lowerSource.includes(lowerTerm);
-        });
-    }
-
-    function assignIfEmpty(target, assignments) {
-        Object.entries(assignments).forEach(([path, value]) => {
-            const keys = path.split(".");
-            let obj = target;
-
-            // Navigasi ke level terakhir
-            for (let i = 0; i < keys.length - 1; i++) {
-                if (!(keys[i] in obj)) obj[keys[i]] = {};
-                obj = obj[keys[i]];
+        function containsAny(sourceString, searchTerms) {
+            if (typeof sourceString !== 'string' || !Array.isArray(searchTerms)) {
+                console.error('Input tidak valid. sourceString harus string dan searchTerms harus array.');
+                return false;
             }
 
-            const lastKey = keys[keys.length - 1];
-            const currentValue = obj[lastKey];
+            const lowerSource = sourceString.toLowerCase();
 
-            // Cek apakah kosong, kalau iya set dengan nilai baru
-            if (
-                currentValue === undefined ||
-                currentValue === null ||
-                currentValue === 0 ||
-                currentValue === 0.0 ||
-                (typeof currentValue === "string" && currentValue.trim() === "")
-            ) {
-                obj[lastKey] = value;
-            }
-        });
-    }
+            return searchTerms.some(term => {
+                // Lakukan trim() pada setiap istilah pencarian untuk menghindari spasi tak terlihat
+                const lowerTerm = term.toLowerCase().trim();
+                // Gunakan includes() untuk mengecek apakah sumber mengandung istilah
+                return lowerSource.includes(lowerTerm);
+            });
+        }
 
-    // === [HELPER_FUNCTIONS_HOOK] ===
-    // AI will insert a standalone helper function here
+        function assignIfEmpty(target, assignments) {
+            Object.entries(assignments).forEach(([path, value]) => {
+                const keys = path.split(".");
+                let obj = target;
+
+                // Navigasi ke level terakhir
+                for (let i = 0; i < keys.length - 1; i++) {
+                    if (!(keys[i] in obj)) obj[keys[i]] = {};
+                    obj = obj[keys[i]];
+                }
+
+                const lastKey = keys[keys.length - 1];
+                const currentValue = obj[lastKey];
+
+                // Cek apakah kosong, kalau iya set dengan nilai baru
+                if (
+                    currentValue === undefined ||
+                    currentValue === null ||
+                    currentValue === 0 ||
+                    currentValue === 0.0 ||
+                    (typeof currentValue === "string" && currentValue.trim() === "")
+                ) {
+                    obj[lastKey] = value;
+                }
+            });
+        }
+
+        // === [HELPER_FUNCTIONS_HOOK] ===
+        // AI will insert a standalone helper function here
 
 
-</script>
-<style>
-    /* Custom style here */
-    .garis {
-        height: 1px;
-        border-width: 0;
-        color: gray;
-        background-color: gray;
-        margin-block: 1.5rem;
-    }
+    </script>
+    <style>
+        /* Custom style here */
+        .garis {
+            height: 1px;
+            border-width: 0;
+            color: gray;
+            background-color: gray;
+            margin-block: 1.5rem;
+        }
 
-    .garis-tebal {
-        height: 1px;
-        border-width: 2px;
-        color: black;
-        background-color: gray;
-        margin-block: 1.5rem;
-    }
+        .garis-tebal {
+            height: 1px;
+            border-width: 2px;
+            color: black;
+            background-color: gray;
+            margin-block: 1.5rem;
+        }
 
-    table th {
-        text-align: center;
-    }
+        table th {
+            text-align: center;
+        }
 
-    table tbody td {
-        vertical-align: middle !important;
-    }
+        table tbody td {
+            vertical-align: middle !important;
+        }
 
-    .ttd-img {
-        width: 150px;
-        height: 100px;
-        object-fit: contain;
-        /* atau contain tergantung kebutuhan */
-        border: 1px solid #ccc;
-    }
+        .ttd-img {
+            width: 150px;
+            height: 100px;
+            object-fit: contain;
+            /* atau contain tergantung kebutuhan */
+            border: 1px solid #ccc;
+        }
 
-    /* Style untuk indentitas pasien */
-    .patient-card {
-        /* border-left: 5px solid #007bff; */
-    }
+        /* Style untuk indentitas pasien */
+        .patient-card {
+            /* border-left: 5px solid #007bff; */
+        }
 
-    .data-label {
-        font-size: 0.8rem;
-        color: black;
-        /* Warna abu-abu untuk label */
-        text-transform: uppercase;
-        margin-bottom: 0;
-        line-height: 1;
-        padding-left: 0.2em;
-        font-weight: bold;
-    }
+        .data-label {
+            font-size: 0.8rem;
+            color: black;
+            /* Warna abu-abu untuk label */
+            text-transform: uppercase;
+            margin-bottom: 0;
+            line-height: 1;
+            padding-left: 0.2em;
+            font-weight: bold;
+        }
 
-    .data-value {
-        font-weight: 500;
-        color: #343a40;
-        line-height: 1.2;
-        width: 100%;
-        border: none;
-    }
+        .data-value {
+            font-weight: 500;
+            color: #343a40;
+            line-height: 1.2;
+            width: 100%;
+            border: none;
+        }
 
-    .main-name {
-        font-size: 1.25rem;
-        font-weight: bold;
-        color: #007bff;
-        /* Biru untuk Nama */
-    }
+        .main-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+            /* Biru untuk Nama */
+        }
 
-    .main-rm {
-        font-size: 1.25rem;
-        font-weight: bold;
-        color: #dc3545;
-        /* Merah untuk No RM */
-    }
+        .main-rm {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #dc3545;
+            /* Merah untuk No RM */
+        }
 
-    /* CSS untuk Floating Navigation */
-    .floating-nav-container {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 1000;
-        cursor: pointer;
-        padding: 16px 10px;
-        background-color: #37353e;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        align-items: center;
-        min-height: 100px;
-    }
+        /* CSS untuk Floating Navigation */
+        .floating-nav-container {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 1000;
+            cursor: pointer;
+            padding: 16px 10px;
+            background-color: #37353e;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            min-height: 100px;
+        }
 
-    .floating-nav-container::before {
-        content: "NAVIGASI";
-        /* Teks yang akan ditampilkan */
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-        letter-spacing: 2px;
+        .floating-nav-container::before {
+            content: "NAVIGASI";
+            /* Teks yang akan ditampilkan */
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            letter-spacing: 2px;
 
-        /* Membuat teks menjadi vertikal */
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
+            /* Membuat teks menjadi vertikal */
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
 
-        /* Posisi di tengah container */
-        position: absolute;
-        left: 3px;
+            /* Posisi di tengah container */
+            position: absolute;
+            left: 3px;
 
-        /* Efek transisi saat hilang */
-        transition: opacity 0.2s ease-out;
-    }
+            /* Efek transisi saat hilang */
+            transition: opacity 0.2s ease-out;
+        }
 
-    /* --- SEMBUNYIKAN TEKS VERTIKAL SAAT HOVER --- */
-    .floating-nav-container:hover::before {
-        opacity: 0;
-    }
+        /* --- SEMBUNYIKAN TEKS VERTIKAL SAAT HOVER --- */
+        .floating-nav-container:hover::before {
+            opacity: 0;
+        }
 
-    .nav-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        max-width: 0;
-        overflow: hidden;
-        white-space: nowrap;
-        transition: max-width 0.4s ease-in-out;
-    }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: max-width 0.4s ease-in-out;
+        }
 
-    .floating-nav-container:hover .nav-list,
-    .nav-list.show {
-        max-width: 300px;
-        /* Lebar menu saat muncul */
-        padding: 0 15px 0 10px;
-    }
+        .floating-nav-container:hover .nav-list,
+        .nav-list.show {
+            max-width: 300px;
+            /* Lebar menu saat muncul */
+            padding: 0 15px 0 10px;
+        }
 
-    .nav-list li a {
-        font-size: small;
-        display: block;
-        padding: 8px;
-        color: #faf8f1;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-    }
+        .nav-list li a {
+            font-size: small;
+            display: block;
+            padding: 8px;
+            color: #faf8f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-    .nav-list li a:hover {
-        color: #faeab1;
-        background-color: #47464d;
-        border-radius: 4px;
-    }
-</style>
-<form id="formadd" class="form-label-left input_mask col-md-12">
+        .nav-list li a:hover {
+            color: #faeab1;
+            background-color: #47464d;
+            border-radius: 4px;
+        }
+    </style>
+    <form id="formadd" class="form-label-left input_mask col-md-12">
 
-    <!-- uncomment floating nav tag ini jika memang floating navbar dibutuhkan -->
-    <!-- <floating-nav :sections="navSections"></floating-nav> -->
+        <!-- uncomment floating nav tag ini jika memang floating navbar dibutuhkan -->
+        <!-- <floating-nav :sections="navSections"></floating-nav> -->
 
-    <div class="row my-4">
-        <div class="col-12 d-flex align-items-center justify-content-center">
-            <h4 class="text-center"><b>Document Title</b></h4>
+        <div class="row my-4">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <h4 class="text-center"><b>Document Title</b></h4>
+            </div>
         </div>
-    </div>
 
-    <!-- Pasien Info Data -->
-    <div class="card patient-card shadow-sm" id="pasien-info">
-        <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 border-right">
-                    <div class="mb-3">
-                        <p class="data-label">Nama</p>
-                        <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
+        <!-- Pasien Info Data -->
+        <div class="card patient-card shadow-sm" id="pasien-info">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 border-right">
+                        <div class="mb-3">
+                            <p class="data-label">Nama</p>
+                            <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
+                        </div>
+                        <div class="mb-3">
+                            <p class="data-label">Alamat</p>
+                            <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <p class="data-label">Kelamin</p>
-                        <input id="pasien_kelamin" type="text" class="data-value" v-model="pasien.kelamin" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Alamat</p>
-                        <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Pekerjaan</p>
-                        <input id="pasien_pekerjaan" type="text" class="data-value" v-model="pasien.pekerjaan" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Pendidikan</p>
-                        <input id="pasien_pendidikan" type="text" class="data-value" v-model="pasien.pendidikan" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Agama</p>
-                        <input id="pasien_agama" type="text" class="data-value" v-model="pasien.agama" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Ruang</p>
-                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
-                    </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <p class="data-label">No RM</p>
-                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.no_rm" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Tanggal Lahir</p>
-                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_lahir"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Tempat Lahir</p>
-                        <input id="pasien_tempat_lahir" type="text" class="data-value" v-model="pasien.tempat_lahir" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Umur</p>
-                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" style="width:9%" />
-                        <span>Tahun</span>
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Tanggal Masuk</p>
-                        <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_masuk"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_masuk_indo')" />
-                    </div>
-                    <div class="mb-3">
-                        <p class="data-label">Jam Masuk</p>
-                        <input id="pasien_jam_masuk" type="time" class="data-value" v-model="pasien.jam_masuk" />
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <p class="data-label">No RM</p>
+                            <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.no_rm" />
+                        </div>
+                        <div class="mb-3">
+                            <p class="data-label">Tanggal Lahir</p>
+                            <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
+                                v-model="pasien.tanggal_lahir"/>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Pasien Info Data -->
+        <!-- Pasien Info Data -->
 
-    <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem" />
-
-    <div class="row mt-5 justify-content-end">
-        <div class="col-md-4">
-            <div class="row">
-                <div class="input-group col-md-12 mt-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Tanggal</span>
+        <!-- Lembar Kuasa -->
+        <div class="card patient-card shadow-sm mt-5" id="card-lembar-kuasa">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-dark">Lembar Kuasa</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Lembar kuasa ini harus ditanda tangani oleh pasien sendiri atau wali (keluarga
+                            terdekat/kawan/Induk Semang/ dan lain sebagainya) bagi pasien yang :</p>
+                        <ul >
+                            <li>
+                                Secara fisik/mental dinyatakan tidak sanggup untuk mengisi
+                            </li>
+                            <li>
+                                Pasien dibawah umur
+                            </li>
+                        </ul>
                     </div>
-                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
-                        @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Jam</span>
-                    </div>
-                    <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam" />
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <ttd-section mode="CANVAS" label="Perawat" select_id="nakes_auto1" name_input_type="DOKTER"
-                v-model="ttd_data.perawat" path_name="ttd_data.perawat" :stroke="ttd_data.perawat_stroke"
-                path_stroke="ttd_data.perawat_stroke" @update-stroke="ttd_data.perawat_stroke = $event"
-                @open-ttd-modal="openTTDModalHandler" />
-        </div>
-        <div class="col-md-6">
-            <ttd-section mode="QRCODE" label="Dokter" select_id="dokter_auto1" name_input_type="DOKTER"
-                v-model="ttd_data.dokter" path_name="ttd_data.dokter" :stroke="ttd_data.dokter_stroke"
-                path_stroke="ttd_data.dokter_stroke" @update-stroke="ttd_data.dokter_stroke = $event"
-                @open-ttd-modal="openTTDModalHandler" />
-        </div>
-    </div>
+        <!-- End Lembar Kuasa -->
 
-    <div class="form-group row mt-5 text-center">
-        <div class="col-md-12">
-            <button type="button" v-on:click="saveDoc" class="btn btn-primary">
-                <i class="fa fa-save"></i>
-                Simpan
-            </button>
-            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
-                <i class="fa fa-check-square-o"></i>
-                Check Data
-            </button>
-        </div>
-    </div>
-
-    <!-- START MODAL TTD -->
-    <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-        aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tandaTanganModalLabel">{{ tmp_modal_ttd.title }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <div class="row text-center d-block mb-2">{{ tmp_modal_ttd.label }}</div>
-                            <div class="row">
-                                <div class="col-md-12 p-0 d-flex justify-content-center">
-                                    <div style="width: 65%" class="d-flex justify-content-between">
-                                        <div>
-                                            <div style="display: inline; margin-right: 10px">
-                                                <input type="color" style="width: 30px"
-                                                    v-model="drawings.ttd_1.brushColor" />
-                                            </div>
-                                            <div style="display: inline; margin-right: 10px; margin-top: 5px">
-                                                <input type="range" min="1" max="20"
-                                                    v-model="drawings.ttd_1.brushSize" />
-                                                <span>{{ drawings.ttd_1.brushSize }}</span>
-                                            </div>
-                                        </div>
-                                        <div style="display: inline">
-                                            <button type="button" @click="startDrawing('ttd_1')"
-                                                class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
-                                                data-bs-placement="left" title="Drawing">
-                                                <i class="fa fa-paint-brush"></i>
-                                            </button>
-                                            <button type="button" title="Erasing" @click="startErasing('ttd_1')"
-                                                class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
-                                                data-bs-placement="left">
-                                                <i class="fa fa-eraser"></i>
-                                            </button>
-                                            <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
-                                                class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
-                                                data-bs-placement="left">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-center">
-                                    <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
-                                        style="border: 1px solid black; margin-right: 3px"></canvas>
+        <!-- Persetujuan Rawat Inap -->
+        <div class="card patient-card shadow-sm mt-5" id="card-persetujuan-penanggung-jawab">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-dark">Persetujuan Rawat Inap</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Kami yang bertanda tangan dibawah ini :</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pj_nama" class="form-check-label"><b>Nama</b></label>
+                                    <input id="pj_nama" type="text" class="form-control"
+                                        v-model="penanggung_jawab.nama" />
                                 </div>
                             </div>
-                            <div class="row mt-2 justify-content-center">
-                                <div class="col-md-12 p-0 d-flex justify-content-center">
-                                    <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
-                                        class="d-flex justify-content-center">
-                                        <input :key="'input_text'" type="text" class="form-control"
-                                            v-model="tmp_modal_ttd.name" />
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pj_umur" class="form-check-label"><b>Umur</b></label>
+                                    <div class="input-group">
+                                        <input id="pj_umur" type="number" class="form-control"
+                                            v-model.number="penanggung_jawab.umur" />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Tahun</span>
+                                        </div>
                                     </div>
-                                    <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
-                                            style="width: 100%"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pj_alamat" class="form-check-label"><b>Alamat</b></label>
+                                    <input id="pj_alamat" type="text" class="form-control"
+                                        v-model="penanggung_jawab.alamat" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mb-3 d-flex align-items-center" style="gap: 10px; flex-wrap: wrap;">
+                            <span>Atas nama </span>
+                            <select id="pj_hubungan" class="form-control" style="width: auto;" v-model="penanggung_jawab.hubungan_dengan_pasien">
+                                <option value="" disabled>Pilih Hubungan</option>
+                                <option value="Anak">Anak</option>
+                                <option value="Istri">Istri</option>
+                                <option value="Suami">Suami</option>
+                                <option value="Orang Tua">Orang Tua</option>
+                                <option value="Saudara">Saudara</option>
+                            </select>
+                            <span> dari pasien :</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="p_nama" class="form-check-label"><b>Nama Pasien</b></label>
+                                    <input id="p_nama" type="text" class="form-control" v-model="pasien.nama" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="p_umur" class="form-check-label"><b>Umur Pasien</b></label>
+                                    <div class="input-group">
+                                        <input id="p_umur" type="number" class="form-control"
+                                            v-model.number="pasien.umur" />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Tahun</span>
+                                        </div>
                                     </div>
-                                    <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
-                                        <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
-                                            style="width: 100%"></select>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="p_alamat" class="form-check-label"><b>Alamat Pasien</b></label>
+                                    <input id="p_alamat" type="text" class="form-control" v-model="pasien.alamat" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
-                        Simpan
-                    </button>
+            </div>
+        </div>
+        <!-- End Persetujuan Rawat Inap -->
+
+        <!-- Pernyataan -->
+        <div class="card patient-card shadow-sm mt-5" id="card-persetujuan-pernyataan">
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-dark">Pernyataan Persetujuan</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Menyatakan :</p>
+                        <ol>
+                            <li>Bersedia untuk rawat inap di RS Yasyfin Darusallam Gontor dan mengijinkan dokter manapun
+                                yang ditunjuk untuk melakukan cara pengobatan atau tindakan ( medis dan perawatan ) yang
+                                dianggap perlu.</li>
+                            <li class="mt-3">
+                                <p class="mb-2">Untuk perawatan kami memilih:</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_superior" type="checkbox"
+                                                        v-model="perawatan.pilihan_kelas" true-value="Superior" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_superior" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Superior
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_vip" type="checkbox" v-model="perawatan.pilihan_kelas"
+                                                        true-value="VIP (Standart)" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_vip" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                VIP (Standart)
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_1" type="checkbox" v-model="perawatan.pilihan_kelas"
+                                                        true-value="Kelas I" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_1" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Kelas I
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_2" type="checkbox" v-model="perawatan.pilihan_kelas"
+                                                        true-value="Kelas II" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_2" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Kelas II
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_3" type="checkbox" v-model="perawatan.pilihan_kelas"
+                                                        true-value="Kelas III" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_3" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Kelas III
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="kelas_lainnya" type="checkbox"
+                                                        v-model="perawatan.pilihan_kelas" true-value="Lainnya" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="kelas_lainnya" class="form-check-label"
+                                                style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
+                                                Lainnya
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                v-model="perawatan.pilihan_kelas_lainnya"
+                                                :disabled="perawatan.pilihan_kelas !== 'Lainnya'" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mt-3">Untuk itu saya bersedia menanggung semua biaya yang timbul dan bersedia
+                                mentaati semua peraturan yang berkaitan dengan tata Laksana pembayaran</li>
+                            <li class="mt-3">Bersedia mentaati / memenuhi segala peraturan yang berlaku di RS Yasyfin
+                                Darusallam Gontor dan bila melanggar saya bersedia menerima sanksi.</li>
+                            <li class="mt-3">
+                                <p class="mb-2">Cara Pembayaran</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_bpjs" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="BPJS" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_bpjs" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                BPJS
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_umum" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="Umum" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_umum" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Umum
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_asuransi" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="Asuransi lain" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_asuransi" class="form-check-label"
+                                                style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
+                                                Asuransi lain
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                v-model="pembayaran.detail_asuransi_lain"
+                                                :disabled="pembayaran.cara_pembayaran !== 'Asuransi lain'" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_jasa" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="Jasa Raharja" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_jasa" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Jasa Raharja
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_perusahaan" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="Perusahaan" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_perusahaan" class="form-check-label"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Perusahaan
+                                            </label>
+                                        </div>
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="bayar_lainnya" type="checkbox"
+                                                        v-model="pembayaran.cara_pembayaran" true-value="Lain lain" false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="bayar_lainnya" class="form-check-label"
+                                                style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
+                                                Lain lain
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                v-model="pembayaran.detail_lain_lain"
+                                                :disabled="pembayaran.cara_pembayaran !== 'Lain lain'" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END MODAL TTD -->
+        <!-- End Pernyataan -->
 
-    <!-- === [BRIDGING_MODALS_HOOK] === -->
-    <!-- AI will insert modal HTML here -->
+        <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem" />
 
-</form>
+        <div class="row mt-5 justify-content-end">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="input-group col-md-12 mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Tanggal</span>
+                        </div>
+                        <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
+                            @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Jam</span>
+                        </div>
+                        <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6" style="padding-inline: 200px;">
+                <ttd-section mode="IMAGE" label="Saksi" select_id="nakes_auto1" name_input_type="DOKTER"
+                    v-model="ttd_data.perawat" path_name="ttd_data.perawat" :stroke="ttd_data.perawat_stroke"
+                    path_stroke="ttd_data.perawat_stroke" @update-stroke="ttd_data.perawat_stroke = $event"
+                    @open-ttd-modal="openTTDModalHandler" />
+            </div>
+            <div class="col-md-6" style="padding-inline: 200px;">
+                <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id=""
+                    name_input_type="TEXT" v-model="ttd_data.yang_menyatakan" path_name="ttd_data.yang_menyatakan"
+                    :stroke="ttd_data.yang_menyatakan_stroke" path_stroke="ttd_data.yang_menyatakan_stroke"
+                    @update-stroke="ttd_data.yang_menyatakan_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+            </div>
+        </div>
+
+        <div class="form-group row mt-5 text-center">
+            <div class="col-md-12">
+                <button type="button" v-on:click="saveDoc" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    Simpan
+                </button>
+                <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
+                    <i class="fa fa-check-square-o"></i>
+                    Check Data
+                </button>
+            </div>
+        </div>
+
+        <!-- START MODAL TTD -->
+        <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tandaTanganModalLabel">{{ tmp_modal_ttd.title }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="row text-center d-block mb-2">{{ tmp_modal_ttd.label }}</div>
+                                <div class="row">
+                                    <div class="col-md-12 p-0 d-flex justify-content-center">
+                                        <div style="width: 65%" class="d-flex justify-content-between">
+                                            <div>
+                                                <div style="display: inline; margin-right: 10px">
+                                                    <input type="color" style="width: 30px"
+                                                        v-model="drawings.ttd_1.brushColor" />
+                                                </div>
+                                                <div style="display: inline; margin-right: 10px; margin-top: 5px">
+                                                    <input type="range" min="1" max="20"
+                                                        v-model="drawings.ttd_1.brushSize" />
+                                                    <span>{{ drawings.ttd_1.brushSize }}</span>
+                                                </div>
+                                            </div>
+                                            <div style="display: inline">
+                                                <button type="button" @click="startDrawing('ttd_1')"
+                                                    class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                                    data-bs-placement="left" title="Drawing">
+                                                    <i class="fa fa-paint-brush"></i>
+                                                </button>
+                                                <button type="button" title="Erasing" @click="startErasing('ttd_1')"
+                                                    class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
+                                                    data-bs-placement="left">
+                                                    <i class="fa fa-eraser"></i>
+                                                </button>
+                                                <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
+                                                    class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                                    data-bs-placement="left">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
+                                            style="border: 1px solid black; margin-right: 3px"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 justify-content-center">
+                                    <div class="col-md-12 p-0 d-flex justify-content-center">
+                                        <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
+                                            class="d-flex justify-content-center">
+                                            <input :key="'input_text'" type="text" class="form-control"
+                                                v-model="tmp_modal_ttd.name" />
+                                        </div>
+                                        <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
+                                            <select :key="'input_dokter'" class="form-control"
+                                                id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        </div>
+                                        <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
+                                            <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
+                                                style="width: 100%"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            @click="saveTTDHandler(true)">
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL TTD -->
+
+        <!-- === [BRIDGING_MODALS_HOOK] === -->
+        <!-- AI will insert modal HTML here -->
+
+    </form>
+    <!-- === END CONTAINER CODE === -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../vendor/cutomLib.js"></script>
+    <!-- Tambahkan JSON Data -->
+    <script src="json.js"></script>
+    <!-- Tambahkan script Vue Anda di sini -->
+    <script>
+        init_doc(1, data.sample, 'add');
+    </script>
+</body>
+
+</html>

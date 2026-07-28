@@ -7,16 +7,9 @@
                 "copy"
             ]
         },
-        "inpatient_information": {
+        "patient_info_data": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "dokter_dpjp_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
             "data_usage": [
                 "copy"
             ]

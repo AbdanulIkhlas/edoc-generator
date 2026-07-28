@@ -1,0 +1,55 @@
+<script>
+    methods: {
+        init: function () {
+            autocomplete(configRuang(data));
+            autocomplete(configDokter(data));
+            autocomplete(configDokter2(data));
+            autocomplete(configDokter3(data));
+            this.setupSignature(data);
+
+            $('#ruang_auto').on('select2:clearing', function (e) {
+                data.pasien.bangsal = "";
+                data.pasien.ruang = "";
+                data.pasien.kelas = "";
+            });
+
+            $('#dokter_auto2').on('select2:clearing', function (e) {
+                data.dari = "";
+                data.dari_stroke = "";
+            });
+
+            $('#dokter_auto3').on('select2:clearing', function (e) {
+                data.yth = "";
+                data.yth_stroke = "";
+            });
+
+            $(`#dokter_auto2`).on('select2:select', (e) => {
+                const selected = e.params.data;
+
+                if (selected) {
+                    const url = selected.ttd_image ? getUrlHandler() + selected.ttd_image : '';
+                    data.dari_stroke = url;
+                }
+            });
+
+            $(`#dokter_auto3`).on('select2:select', (e) => {
+                const selected = e.params.data;
+
+                if (selected) {
+                    const url = selected.ttd_image ? getUrlHandler() + selected.ttd_image : '';
+                    data.yth_stroke = url;
+                }
+            });
+
+            if (operation === 'add') {
+                init_doc_add(data);
+            }
+            if (operation === 'edit') {
+                init_doc_edit(data);
+                // difference_checking(data);
+            }
+
+            //alert(JSON.stringify(EMRDATA.init));
+
+        },
+</script>

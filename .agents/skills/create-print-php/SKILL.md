@@ -73,6 +73,18 @@ AI WAJIB menjadikannya referensi untuk:
 
 ---
 
+## 4. Data JSON (`output/json.js`)
+
+AI WAJIB menggunakan struktur data yang tersedia pada `output/json.js` untuk memastikan bahwa field-field pada `$params` yang dipanggil sesuai dan valid.
+
+---
+
+## 5. HTML Form (`output/index.html`)
+
+AI WAJIB melihat dan menyelaraskan dengan elemen pada `output/index.html`.
+Cek bagian `v-model` dan state `data` pada form HTML.
+Tujuannya adalah memastikan tidak ada miskomunikasi antara form yang diisi user dengan output cetakan (Print/PHP) karena seringkali terdapat perubahan di HTML/JSON yang harus diakomodasi di hasil print.
+
 # FILE YANG DIPERBARUI
 
 ```
@@ -290,6 +302,8 @@ $hospital_city
 ```
 
 Jangan hardcode nama rumah sakit maupun kota.
+- Kalau ada di `input/template.pdf` menyebutkan nama rumah sakit atau RS, ganti jadi label statis ini: `<?php echo $static_label->hospital_name ?? ""; ?>`
+- Dan untuk nama kota, biasanya Ponorogo atau yang lain (biasanya di dekat tanggal atau tempat tanda tangan), gunakan label statis ini: `<?php echo $static_label->hospital_city ?? ""; ?>`
 
 ---
 
@@ -400,10 +414,11 @@ Semirip mungkin dengan template.
 # RULES
 1. semua td dari tabel menggunakan valign="top"
 2. Wajib sama persis dengan layout dari template `input/template.pdf`
-3. Buat yang rapi dan mengisi semua space kosong
-4. Layouting menggunakan tabel dan styling menggunakan style yang sudah ada seperti `table-bordered` dan `table-borderless`
-5. Gunakan  font size 12pt untuk body dan 14pt untuk title dan header
-6. Jangan menggunakan Bold tambahan, sesuaikan dengan template pdf nya saja
+3. Buat yang rapi dan terbungkus (wrapped) agar dapat mengisi semua space kosong. Bisa menggunakan div pembungkus dan `page-break-inside: auto` pada kontainer untuk memastikan dokumen terlihat proporsional dan tidak terpotong aneh.
+4. Layouting wajib menggunakan tabel HTML dan styling menggunakan class CSS yang sudah ada seperti `table-bordered` atau `table-borderless`.
+5. Gunakan font size 12pt untuk body dan 14pt untuk title dan header.
+6. Jangan menggunakan Bold tambahan, sesuaikan dengan template pdf nya saja.
+7. PHP yang dibuat wajib selaras dan merujuk secara akurat kepada `output/json.js` serta `v-model` / `data` pada `output/index.html`.
 
 ---
 

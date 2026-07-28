@@ -1,0 +1,25 @@
+<div class="input-group" style="display: flex; flex-wrap: nowrap; align-items: stretch; margin-bottom: .5rem;">
+    <div class="input-group-prepend">
+        <div class="input-group-text">
+            <input id="orang_yang_pertama_melaporkan_Lain_lain" type="checkbox" v-model="orang_yang_pertama_melaporkan"
+                true-value="Lain-lain" false-value="" />
+        </div>
+    </div>
+    <label for="orang_yang_pertama_melaporkan_Lain_lain" class="form-check-label"
+        style=" padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; ">
+        Lain-lain
+    </label>
+    <input type="text" class="form-control" v-model="value_lain_lain"
+        title="orang_yang_pertama_melaporkan_Lain_lain_value"
+        :disabled="orang_yang_pertama_melaporkan !== 'Lain-lain'" />
+</div>
+
+<script>
+    watch: {
+            "orang_yang_pertama_melaporkan": function (val) {
+                if (val !== "Lain-lain") {
+                    this.value_lain_lain = ""
+                }
+            }
+        }
+</script>
