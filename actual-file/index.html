@@ -42,8 +42,7 @@
     const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
     const IP_WG = "11.11.17.4"; // Sesuaikan
 
-    // === COMPONENT_HOOKS ===
-    // AI Will inject component function here
+    // Vue components here
     Vue.component("ttd-section", {
         props: {
             mode: String,
@@ -161,7 +160,7 @@
             </div>
 
             <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
-                </div>
+    		    </div>
 
             <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
                 <button style="min-width: 230px;" type="button"
@@ -190,47 +189,7 @@
 `,
     });
 
-    Vue.component("floating-nav", {
-        props: {
-            sections: {
-                type: Array,
-                required: true,
-            },
-        },
-        data: function () {
-            return {
-                isHovered: false,
-            };
-        },
-        methods: {
-            scrollToSection: function (id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    // Mencegah perilaku default dan melakukan smooth scroll
-                    event.preventDefault();
-                    element.scrollIntoView({ behavior: "smooth" });
-                }
-            },
-        },
-        template: `
-                <div 
-                    class="floating-nav-container" 
-                    @mouseenter="isHovered = true" 
-                    @mouseleave="isHovered = false"
-                >
-                <ul class="nav-list" :class="{ 'show': isHovered }">
-                    <li v-for="section in sections" :key="section.id">
-                        <a :href="'#' + section.id" @click="scrollToSection(section.id)">
-                            {{ section.title }}
-                        </a>
-                    </li>
-                </ul>
-                </div>
-            `,
-    });
-
-    // === [CONFIG_AUTOCOMPLETE_HOOK] ===
-    // AI will add or create the autocomplete configuration here
+    // Config function here
     function configDokter1(data) {
         return {
             element: "#dokter_auto1",
@@ -390,23 +349,6 @@
             name_input_type: "",
         };
 
-        // === [NAV_SECTIONS_HOOK] ===
-        // AI will add the latest ID and title section here
-        data.navSections = [
-            { id: "pasien-info", title: "Informasi Pasien" },
-            { id: "save-doc", title: "Simpan" },
-        ];
-
-        // === [BRIDGING_SORTING_HOOK] ===
-        // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
-
-
-        // === [SETUPINDEXEXPAND_HOOK] ===
-        // AI will insert the JS sorting code from bridging_docs here (for example, sorting data.external_link.vital_sign_data_list) here
-
-        // === [OTHER_VARIABLE_BRIDGING_HOOK] ===
-        // AI will append or add additional variables from the bridging here
-
         var app = new Vue({
             el: "#formadd",
             data: data,
@@ -416,23 +358,10 @@
                 this.$nextTick(() => {
                     document.querySelectorAll("textarea").forEach(autoGrow);
                 });
-
-                // === [MOUNTED_HOOK] ===
-                // AI will add the mounted code from bridging_docs here
-
-            },
-            computed: {
-                // === [COMPUTED_HOOK] ===
-                // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
-            },
-            watch: {
-                // === [WATCH_HOOK] ===
-                // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
             },
             methods: {
                 init: function () {
-                    // === [AUTOCOMPLETE_HOOK] ===
-                    // AI will add autocomplete here
+                    // Autocomplete function here
                     autocomplete(configRuang(data));
                     autocomplete(configDokter1(data));
                     autocomplete(configNakes1(data));
@@ -445,8 +374,6 @@
                     });
 
                     if (operation === "add") {
-                        // === [BRIDGING_HOOK] ===
-                        // AI will add the init_doc_add here
                         init_doc_add(data);
                     }
                     if (operation === "edit") {
@@ -454,9 +381,6 @@
                     }
                 },
                 saveDoc: function () {
-                    // === [SAVE_ACTION_HOOK] ===
-                    // AI will add a step when saving the document here (example: this.diagnosis_group = combineDiagnoses(this.diagnosis_freetext, this.diagnosis_list_autocomplete))
-
                     var json = {
                         document_history_list_id: doc_id /* built in variable from edoc */,
                         patient_id: EMRDATA.patient_id,
@@ -465,7 +389,7 @@
                         document_title: EMRDATA.document_name,
                         label: "Poliklinik",
                         note: "",
-                        data: sanitizeData(data, '`'),
+                        data: sanitizeData(data, '`')
                     };
 
                     /* built in function from edoc */
@@ -619,19 +543,13 @@
                         if (isReturn) return generatorQr(this.drawer_ttd[name].name);
                         else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
                     } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
+                        const scaleFactor = 1; // Faktor skala, bisa diatur sesuai kebutuhan
                         const drawingCanvas = this.$refs[name];
-                        if (!drawingCanvas) return;
 
-                        if (typeof isCanvasBlank === 'function' && isCanvasBlank(drawingCanvas)) {
-                            if (isReturn) return "";
-                            else setByPath(this, path_stroke, "");
-                            return;
-                        }
-
-                        const scaleFactor = 0.8; // Faktor skala untuk kompresi ukuran
+                        // Buat canvas baru untuk menampung hasil
                         const resizedCanvas = document.createElement("canvas");
-                        resizedCanvas.width = Math.round(drawingCanvas.width * scaleFactor);
-                        resizedCanvas.height = Math.round(drawingCanvas.height * scaleFactor);
+                        resizedCanvas.width = drawingCanvas.width * scaleFactor;
+                        resizedCanvas.height = drawingCanvas.height * scaleFactor;
 
                         const resizedCtx = resizedCanvas.getContext("2d");
 
@@ -711,47 +629,6 @@
                         name_input_type: "",
                     };
                 },
-                navCollapse: function (parentIndex, childIndex, indexExpand) {
-                    this[indexExpand] = this[indexExpand].map((item, i) => {
-                        item.map((subItem, j) => {
-                            subItem.expand = !subItem.expand;
-                            if (i != parentIndex || j != childIndex) {
-                                subItem.expand = false;
-                            }
-                            return subItem;
-                        });
-                        return item;
-                    });
-                },
-                checkAllBridgingList: function (indexExpand, isSingleCheck = false, primerFilter = null) {
-                    const hasAnyUnselected = this[indexExpand].some((subArray) => {
-                        return subArray.some((item) => !item.selected);
-                    });
-
-                    const areAllSelected = this[indexExpand].every((subArray) => {
-                        return subArray.every((item) => item.selected);
-                    });
-
-                    if (!isSingleCheck) {
-                        this[indexExpand].forEach((subArray, parentIndex) => {
-                            subArray.forEach((item, childIndex) => {
-                                if (primerFilter) {
-                                    const diag = this.external_link.diagnosa_list[parentIndex].layanan[childIndex];
-                                    if (diag.primer === primerFilter) {
-                                        this.$set(item, "selected", this[`${indexExpand}_check_all`]);
-                                    }
-                                } else {
-                                    this.$set(item, "selected", this[`${indexExpand}_check_all`]);
-                                }
-                            });
-                        });
-                    } else {
-                        if (areAllSelected) this[`${indexExpand}_check_all`] = true;
-                        else this[`${indexExpand}_check_all`] = false;
-                    }
-                },
-                // === [METHOD_HOOK] ===
-                // AI will add a bridging method or another additional method here
             },
         });
     }
@@ -779,12 +656,7 @@
                 functionName: bridgingInpatientInformation,
                 parameters: [data]
             },
-            // === [BRIDGING_INIT_ADD_HOOK] ===
-            // AI will call the bridging init function here
         ]);
-
-        
-
     }
 
     function init_doc_edit(data) {
@@ -800,21 +672,15 @@
                 functionName: bridgingInpatientInformation,
                 parameters: [data, "edit"]
             },
-            // === [BRIDGING_INIT_EDIT_HOOK] ===
-            // AI will call the bridging init function here
         ]);
-
-        
-
     }
 
-    // === [BRIDGING_FUNCTION_HOOK] ===
-    // AI will add the bridging function here
+    // Bridging function here
     function setupAuto(data) {
         // Sesuaikan data disini
         data.ttd_data.jam = timeNow().time; // Jam sekarang
         data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
-        data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
+        // data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
     }
 
     function bridgingPatientData(data) {
@@ -829,7 +695,7 @@
         data.pasien.agama = ext_patient.agama || "";
         data.pasien.pendidikan = ext_patient.pendidikan || "";
         data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
+        // data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
         data.pasien.kelamin = showKelamin(ext_patient.kelamin);
         data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
@@ -866,9 +732,7 @@
 
             // Bridging waktu masuk
             data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
-            data.pasien.tanggal_masuk_indo = dateTimeParse(
-                data.external_link.inpatient_information.waktu_masuk
-            ).dateWithMonthName;
+            // data.pasien.tanggal_masuk_indo = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).dateWithMonthName;
             data.pasien.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
         }
     }
@@ -1088,145 +952,6 @@
             return data;
         }
     }
-
-    function combineDiagnoses(diagnosisFreetext, diagnosisList, isKeperawatan = false) {
-        // === Tahap 1: Memproses nilai pertama (string) ===
-        // Hapus nomor urut awal dari setiap baris, lalu trim dan filter yang kosong.
-        const textDiagnosaArray = diagnosisFreetext
-            .split("\n")
-            .map(item => {
-                // Regex untuk menghapus nomor urut dan titik di awal, diikuti spasi.
-                // Contoh: "1. " atau "2. " akan dihapus.
-                const cleanedItem = item.replace(/^\d+\.\s*/, '').trim();
-                return cleanedItem;
-            })
-            .filter(item => item !== ""); // Filter baris kosong setelah pembersihan
-
-        // === Tahap 2: Memproses nilai kedua (array objek) ===
-        // Gabungkan diagnosa_kerja_list ke dalam format string yang diinginkan
-        const listDiagnosaArray = diagnosisList.map(item => {
-            if (isKeperawatan) {
-                // khusus untuk diagnosa keperawatan
-                return `${item.code} - ${item.nama}`;
-            } else if (item.kode_nama) {
-                // untuk diagnosa gizi 
-                return `${item.kode_nama} - ${item.deskripsi_diet_diagnosa_gizi || ""}`;
-            } else {
-                // Asumsi item.deskripsi tidak ada di sini, jika ada bisa ditambahkan
-                return `${item.icd_x} - ${item.nama_sebab_sakit}`;
-            }
-        });
-
-        // === Tahap 3: Gabungkan kedua array dan berikan nomor urut baru ===
-        const combinedDiagnoses = [...textDiagnosaArray, ...listDiagnosaArray];
-
-        // Berikan nomor urut baru ke setiap item dalam array gabungan
-        if (combinedDiagnoses && combinedDiagnoses.length > 0) {
-            return combinedDiagnoses
-                .map((item, index) => `${index + 1}. ${item}`)
-                .join("\n");
-        } else {
-            return "-";
-        }
-    }
-
-    function setupIndexExpand(data, indexExpand, external_link_name, with_layanan = 'layanan') {
-        const checkAll = `${indexExpand}_check_all`;
-        if (typeof data[checkAll] === "undefined") data[checkAll] = false;
-        if (typeof data[indexExpand] === "undefined") data[indexExpand] = [];
-
-        let indexExpandTmp = data.external_link[external_link_name].map((v, i) => {
-            if (with_layanan) {
-                return v[with_layanan].map((x, j) => ({ expand: false, selected: false }));
-            }
-            else {
-                return [{ expand: false, selected: false }];
-            }
-        });
-
-        for (let i = 0; i < indexExpandTmp.length; i++) {
-            if (data[indexExpand][i] === undefined || data[indexExpand][i].length === 0) {
-                data[indexExpand][i] = indexExpandTmp[i];
-            } else {
-                for (let j = 0; j < indexExpandTmp[i].length; j++) {
-                    if (data[indexExpand][i][j] === undefined) {
-                        data[indexExpand][i][j] = indexExpandTmp[i][j];
-                    }
-                }
-            }
-        }
-    }
-
-    function combineActions(freetextInput, serviceList) {
-        const textItemsArray = freetextInput
-            .split("\n")
-            .map(item => item.replace(/^\d+\.\s*/, '').trim())
-            .filter(item => item !== "");
-
-        const serviceItemsArray = serviceList.map(item => {
-            // Logika pemformatan KHUSUS untuk objek layanan/tindakan
-            // Perhatikan penggunaan String() dan replace HTML untuk membersihkan output
-            return String(item.nama_layanan || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
-        }).filter(item => item !== '');
-
-        const combinedItems = [...textItemsArray, ...serviceItemsArray];
-
-        if (combinedItems && combinedItems.length > 0) {
-            return combinedItems
-                .map((item, index) => `${index + 1}. ${item}`)
-                .join("\n");
-        } else {
-            return "-";
-        }
-    }
-
-    function containsAny(sourceString, searchTerms) {
-        if (typeof sourceString !== 'string' || !Array.isArray(searchTerms)) {
-            console.error('Input tidak valid. sourceString harus string dan searchTerms harus array.');
-            return false;
-        }
-
-        const lowerSource = sourceString.toLowerCase();
-
-        return searchTerms.some(term => {
-            // Lakukan trim() pada setiap istilah pencarian untuk menghindari spasi tak terlihat
-            const lowerTerm = term.toLowerCase().trim();
-            // Gunakan includes() untuk mengecek apakah sumber mengandung istilah
-            return lowerSource.includes(lowerTerm);
-        });
-    }
-
-    function assignIfEmpty(target, assignments) {
-        Object.entries(assignments).forEach(([path, value]) => {
-            const keys = path.split(".");
-            let obj = target;
-
-            // Navigasi ke level terakhir
-            for (let i = 0; i < keys.length - 1; i++) {
-                if (!(keys[i] in obj)) obj[keys[i]] = {};
-                obj = obj[keys[i]];
-            }
-
-            const lastKey = keys[keys.length - 1];
-            const currentValue = obj[lastKey];
-
-            // Cek apakah kosong, kalau iya set dengan nilai baru
-            if (
-                currentValue === undefined ||
-                currentValue === null ||
-                currentValue === 0 ||
-                currentValue === 0.0 ||
-                (typeof currentValue === "string" && currentValue.trim() === "")
-            ) {
-                obj[lastKey] = value;
-            }
-        });
-    }
-
-    // === [HELPER_FUNCTIONS_HOOK] ===
-    // AI will insert a standalone helper function here
-
-
 </script>
 <style>
     /* Custom style here */
@@ -1299,88 +1024,8 @@
         color: #dc3545;
         /* Merah untuk No RM */
     }
-
-    /* CSS untuk Floating Navigation */
-    .floating-nav-container {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 1000;
-        cursor: pointer;
-        padding: 16px 10px;
-        background-color: #37353e;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        align-items: center;
-        min-height: 100px;
-    }
-
-    .floating-nav-container::before {
-        content: "NAVIGASI";
-        /* Teks yang akan ditampilkan */
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-        letter-spacing: 2px;
-
-        /* Membuat teks menjadi vertikal */
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-
-        /* Posisi di tengah container */
-        position: absolute;
-        left: 3px;
-
-        /* Efek transisi saat hilang */
-        transition: opacity 0.2s ease-out;
-    }
-
-    /* --- SEMBUNYIKAN TEKS VERTIKAL SAAT HOVER --- */
-    .floating-nav-container:hover::before {
-        opacity: 0;
-    }
-
-    .nav-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        max-width: 0;
-        overflow: hidden;
-        white-space: nowrap;
-        transition: max-width 0.4s ease-in-out;
-    }
-
-    .floating-nav-container:hover .nav-list,
-    .nav-list.show {
-        max-width: 300px;
-        /* Lebar menu saat muncul */
-        padding: 0 15px 0 10px;
-    }
-
-    .nav-list li a {
-        font-size: small;
-        display: block;
-        padding: 8px;
-        color: #faf8f1;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-    }
-
-    .nav-list li a:hover {
-        color: #faeab1;
-        background-color: #47464d;
-        border-radius: 4px;
-    }
 </style>
 <form id="formadd" class="form-label-left input_mask col-md-12">
-
-    <!-- uncomment floating nav tag ini jika memang floating navbar dibutuhkan -->
-    <!-- <floating-nav :sections="navSections"></floating-nav> -->
-
     <div class="row my-4">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <h4 class="text-center"><b>Document Title</b></h4>
@@ -1432,26 +1077,22 @@
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Tanggal Lahir</p>
-                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_lahir"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                        <input id="pasien_tanggal_lahir" type="date" class="data-value"
+                            v-model="pasien.tanggal_lahir" />
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Tempat Lahir</p>
-                        <input id="pasien_tempat_lahir" type="text" class="data-value"
-                            v-model="pasien.tempat_lahir" />
+                        <input id="pasien_tempat_lahir" type="text" class="data-value" v-model="pasien.tempat_lahir" />
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Umur</p>
-                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur"
-                            style="width:9%" />
+                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" style="width:9%" />
                         <span>Tahun</span>
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Tanggal Masuk</p>
-                        <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_masuk"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_masuk_indo')" />
+                        <input id="pasien_tanggal_masuk" type="date" class="data-value"
+                            v-model="pasien.tanggal_masuk" />
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Jam Masuk</p>
@@ -1472,8 +1113,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Tanggal</span>
                     </div>
-                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
-                        @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
+                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal" />
                     <div class="input-group-prepend">
                         <span class="input-group-text">Jam</span>
                     </div>
@@ -1571,8 +1211,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control"
-                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -1585,8 +1225,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -1594,10 +1233,6 @@
         </div>
     </div>
     <!-- END MODAL TTD -->
-
-    <!-- === [BRIDGING_MODALS_HOOK] === -->
-    <!-- AI will insert modal HTML here -->
-
 </form>
     <!-- === END CONTAINER CODE === -->
 

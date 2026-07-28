@@ -4,7 +4,6 @@ const data = {
             "nama": "Garga",
             "no_rm": "876754",
             "tanggal_lahir": "2000-08-08",
-            "tanggal_lahir_indo": "8 Agustus 2000",
             "kelamin": "Laki-laki",
             "alamat": "Sleman",
             "tempat_lahir": "Bandung",
@@ -16,13 +15,11 @@ const data = {
             "bangsal": "bangsal",
             "kelas": "10 MIPA 2",
             "tanggal_masuk": "2000-08-08",
-            "tanggal_masuk_indo": "8 Agustus 2000",
             "jam_masuk": "20:00"
         },
         "ttd_data": {
             "kota": "Labuhanhaji",
             "tanggal": "2000-08-08",
-            "tanggal_indo": "8 Agustus 2000",
             "jam": "20:00",
             "perawat": "Sunarni",
             "perawat_stroke": "",
@@ -91,7 +88,6 @@ const data = {
             "nama": "",
             "no_rm": "",
             "tanggal_lahir": "",
-            "tanggal_lahir_indo": "",
             "kelamin": "",
             "alamat": "",
             "tempat_lahir": "",
@@ -103,13 +99,11 @@ const data = {
             "bangsal": "",
             "kelas": "",
             "tanggal_masuk": "",
-            "tanggal_masuk_indo": "",
             "jam_masuk": ""
         },
         "ttd_data": {
             "kota": "Yogyakarta",
             "tanggal": "",
-            "tanggal_indo": "",
             "jam": "",
             "perawat": "",
             "perawat_stroke": "",
