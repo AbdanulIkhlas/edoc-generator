@@ -419,6 +419,7 @@ Semirip mungkin dengan template.
 5. Gunakan font size 12pt untuk body dan 14pt untuk title dan header.
 6. Jangan menggunakan Bold tambahan, sesuaikan dengan template pdf nya saja.
 7. PHP yang dibuat wajib selaras dan merujuk secara akurat kepada `output/json.js` serta `v-model` / `data` pada `output/index.html`.
+8. Jangan merender/membuat layout ke dalam 1 tabel besar saja. Pecah-pecah perbagian menjadi tabel-tabel kecil (misal tabel header terpisah, tabel isi 1 terpisah, tabel tanda tangan terpisah) agar lebih modular dan aman untuk PDF renderer, namun tetap gunakan `page-break-inside: auto` jika diperlukan. Tapi tetap pertahankan struktur utama dan perbagian layout agar menyerupai template PDF.
 
 ---
 

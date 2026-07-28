@@ -66,7 +66,7 @@ function tgl_indo($tanggal)
     }
 
     body {
-        font: 14pt times new roman;
+        font: 12pt times new roman;
         size: f4;
         padding-bottom: 10px;
     }
@@ -89,6 +89,36 @@ function tgl_indo($tanggal)
     .table-bordered td {
         border: 1px solid black;
         border-collapse: collapse;
+        padding: .2em;
+    }
+
+    .table-bordered-no-top {
+        border: 1px solid black;
+        border-top: none;
+        border-collapse: collapse;
+    }
+
+    .table-bordered-no-bottom {
+        border: 1px solid black;
+        border-bottom: none;
+        border-collapse: collapse;
+    }
+
+    .table-bordered-sides {
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        border-top: none;
+        border-bottom: none;
+        border-collapse: collapse;
+    }
+
+    .table-bordered-no-top th,
+    .table-bordered-no-top td,
+    .table-bordered-no-bottom th,
+    .table-bordered-no-bottom td,
+    .table-bordered-sides th,
+    .table-bordered-sides td {
+        border: none;
         padding: .2em;
     }
 
