@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulir PPI </title>
-
-    <!-- Tambahkan Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <!-- Tambahkan pustaka Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- Tambahkan SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
-        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Highcharts -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <style></style>
-</head>
-
-<body>
-    <!-- === START CONTAINER CODE === -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -145,47 +110,47 @@
         },
         template: `
 <div class="row justify-content-center align-items-center">
-<div class="col-md-12">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 text-center" style="height:40px">
-            <p class="mb-0">{{ label }}</p>
-        </div>
-
-        <div class="col-md-12 text-center mb-2">
-            <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
-            <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
-        </div>
-
-        <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
-            <p class="mb-0">{{ localValue }}</p>
-        </div>
-
-        <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
+    <div class="col-md-12">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center" style="height:40px">
+                <p class="mb-0">{{ label }}</p>
             </div>
 
-        <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
-            <button style="min-width: 230px;" type="button"
-            class="btn"
-            :class="{
-                'bg-success text-white': (stroke === '' && localValue === ''),
-                'bg-warning text-black': (stroke !== '' || localValue !== '')
-            }"
-            data-toggle="modal"
-            data-target="#tandaTanganModal"
-            @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            &nbsp;&nbsp;
-            {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
-            </button>
-        </div>
+            <div class="col-md-12 text-center mb-2">
+                <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+            </div>
 
-        <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
-            <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
-            <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
-            <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+            <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
+                <p class="mb-0">{{ localValue }}</p>
+            </div>
+
+            <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
+                </div>
+
+            <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
+                <button style="min-width: 230px;" type="button"
+                class="btn"
+                :class="{
+                    'bg-success text-white': (stroke === '' && localValue === ''),
+                    'bg-warning text-black': (stroke !== '' || localValue !== '')
+                }"
+                data-toggle="modal"
+                data-target="#tandaTanganModal"
+                @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
+                </button>
+            </div>
+
+            <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
+                <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
+                <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
+                <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+            </div>
         </div>
     </div>
-</div>
 </div>
 `,
     });
@@ -213,20 +178,20 @@
             },
         },
         template: `
-            <div 
-                class="floating-nav-container" 
-                @mouseenter="isHovered = true" 
-                @mouseleave="isHovered = false"
-            >
-            <ul class="nav-list" :class="{ 'show': isHovered }">
-                <li v-for="section in sections" :key="section.id">
-                    <a :href="'#' + section.id" @click="scrollToSection(section.id)">
-                        {{ section.title }}
-                    </a>
-                </li>
-            </ul>
-            </div>
-        `,
+                <div 
+                    class="floating-nav-container" 
+                    @mouseenter="isHovered = true" 
+                    @mouseleave="isHovered = false"
+                >
+                <ul class="nav-list" :class="{ 'show': isHovered }">
+                    <li v-for="section in sections" :key="section.id">
+                        <a :href="'#' + section.id" @click="scrollToSection(section.id)">
+                            {{ section.title }}
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            `,
     });
 
     // === [CONFIG_AUTOCOMPLETE_HOOK] ===
@@ -394,9 +359,6 @@
         // AI will add the latest ID and title section here
         data.navSections = [
             { id: "pasien-info", title: "Informasi Pasien" },
-            { id: "card-lembar-kuasa", title: "Lembar Kuasa" },
-            { id: "card-persetujuan-penanggung-jawab", title: "Persetujuan Rawat Inap" },
-            { id: "card-persetujuan-pernyataan", title: "Pernyataan Persetujuan" },
             { id: "save-doc", title: "Simpan" },
         ];
 
@@ -431,19 +393,6 @@
             watch: {
                 // === [WATCH_HOOK] ===
                 // AI will add the computed property from bridging_docs here (for example, this.combineDiagnoses = computed(() => { return this.diagnosis_freetext + this.diagnosis_list_autocomplete }))
-                'perawatan.pilihan_kelas'(newVal) {
-                    if (newVal !== 'Lainnya') {
-                        this.perawatan.pilihan_kelas_lainnya = "";
-                    }
-                },
-                'pembayaran.cara_pembayaran'(newVal) {
-                    if (newVal !== 'Asuransi lain') {
-                        this.pembayaran.detail_asuransi_lain = "";
-                    }
-                    if (newVal !== 'Lain lain') {
-                        this.pembayaran.detail_lain_lain = "";
-                    }
-                }
             },
             methods: {
                 init: function () {
@@ -781,13 +730,18 @@
                 parameters: [data]
             },
             {
+                label: "Bridging Dokter DPJP",
+                functionName: bridgingDokterDPJP,
+                parameters: [data]
+            },
+            {
                 label: "Bridging Patient Data",
                 functionName: bridgingPatientData,
                 parameters: [data]
             },
             {
-                label: "Bridging Penanggung Jawab",
-                functionName: bridgingPatientInfoData,
+                label: "Bridging Inpatient Information",
+                functionName: bridgingInpatientInformation,
                 parameters: [data]
             },
             // === [BRIDGING_INIT_ADD_HOOK] ===
@@ -806,6 +760,11 @@
                 functionName: bridgingPatientData,
                 parameters: [data]
             },
+            {
+                label: "Bridging Inpatient Information [EDIT]",
+                functionName: bridgingInpatientInformation,
+                parameters: [data, "edit"]
+            },
             // === [BRIDGING_INIT_EDIT_HOOK] ===
             // AI will call the bridging init function here
         ]);
@@ -823,15 +782,6 @@
         data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
     }
 
-    function bridgingPatientInfoData(data, operation = 'add') {
-        const ext_patient_info_data = data.external_link.patient_info_data;
-
-        data.penanggung_jawab.nama = ext_patient_info_data.nama_pjwb || "";
-        data.ttd_data.yang_menyatakan = ext_patient_info_data.nama_pjwb || "";
-        data.ttd_data.yang_menyatakan_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
-        data.penanggung_jawab.alamat = ext_patient_info_data.alamat_pjwb || "";
-    }
-
     function bridgingPatientData(data) {
         const ext_patient = data.external_link.px_data;
 
@@ -839,11 +789,53 @@
         data.pasien.nama = ext_patient.nama || "";
         data.pasien.no_rm = ext_patient.no_rm || "";
         data.pasien.alamat = ext_patient.alamat || "";
+        data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
+        data.pasien.pekerjaan = ext_patient.pekerjaan || "";
+        data.pasien.agama = ext_patient.agama || "";
+        data.pasien.pendidikan = ext_patient.pendidikan || "";
         data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
+        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
+        data.pasien.kelamin = showKelamin(ext_patient.kelamin);
         data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
         // untuk tanda tangan pasien image
         // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
+    }
+
+    function bridgingDokterDPJP(data) {
+        const dpjp = data.external_link?.dokter_dpjp_data?.nama_dokter_dpjp || "";
+        data.ttd_data.dokter = dpjp;
+        setSelect2($("#dokter_auto1"), dpjp, dpjp);
+
+        // Jika TTD dokter menggunakan Image
+        // const ttd_image = data.external_link?.dokter_dpjp_data?.ttd_image;
+        // data.ttd_data.dokter_stroke = ttd_image ? getUrlHandler() + ttd_image : "";
+
+        // Jika TTD dokter menggunakan QR Code
+        setTimeout(() => {
+            data.ttd_data.dokter_stroke = generatorQr(dpjp);
+        }, 1000);
+    }
+
+    function bridgingInpatientInformation(data, operation = "add") {
+        if (operation === "edit") {
+            // Bridging ruangan
+            setSelect2($("#ruang_auto"), data.pasien.ruang, data.pasien.ruang);
+        } else {
+            // Bridging ruangan
+            const ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.pasien.ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.pasien.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
+            data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
+            setSelect2($("#ruang_auto"), ruang, ruang);
+
+            // Bridging waktu masuk
+            data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
+            data.pasien.tanggal_masuk_indo = dateTimeParse(
+                data.external_link.inpatient_information.waktu_masuk
+            ).dateWithMonthName;
+            data.pasien.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
+        }
     }
 
     // Custom and another function here
@@ -1373,8 +1365,28 @@
                         <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
                     </div>
                     <div class="mb-3">
+                        <p class="data-label">Kelamin</p>
+                        <input id="pasien_kelamin" type="text" class="data-value" v-model="pasien.kelamin" />
+                    </div>
+                    <div class="mb-3">
                         <p class="data-label">Alamat</p>
                         <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Pekerjaan</p>
+                        <input id="pasien_pekerjaan" type="text" class="data-value" v-model="pasien.pekerjaan" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Pendidikan</p>
+                        <input id="pasien_pendidikan" type="text" class="data-value" v-model="pasien.pendidikan" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Agama</p>
+                        <input id="pasien_agama" type="text" class="data-value" v-model="pasien.agama" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Ruang</p>
+                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
                     </div>
                 </div>
 
@@ -1386,326 +1398,33 @@
                     <div class="mb-3">
                         <p class="data-label">Tanggal Lahir</p>
                         <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_lahir"/>
+                            v-model="pasien.tanggal_lahir"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="pasien_tempat_lahir" type="text" class="data-value" v-model="pasien.tempat_lahir" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Umur</p>
+                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" style="width:9%" />
+                        <span>Tahun</span>
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Masuk</p>
+                        <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
+                            v-model="pasien.tanggal_masuk"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_masuk_indo')" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Jam Masuk</p>
+                        <input id="pasien_jam_masuk" type="time" class="data-value" v-model="pasien.jam_masuk" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Pasien Info Data -->
-
-    <!-- Lembar Kuasa -->
-    <div class="card patient-card shadow-sm mt-5" id="card-lembar-kuasa">
-        <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">Lembar Kuasa</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Lembar kuasa ini harus ditanda tangani oleh pasien sendiri atau wali (keluarga
-                        terdekat/kawan/Induk Semang/ dan lain sebagainya) bagi pasien yang :</p>
-                    <ul >
-                        <li>
-                            Secara fisik/mental dinyatakan tidak sanggup untuk mengisi
-                        </li>
-                        <li>
-                            Pasien dibawah umur
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Lembar Kuasa -->
-
-    <!-- Persetujuan Rawat Inap -->
-    <div class="card patient-card shadow-sm mt-5" id="card-persetujuan-penanggung-jawab">
-        <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">Persetujuan Rawat Inap</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Kami yang bertanda tangan dibawah ini :</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="pj_nama" class="form-check-label"><b>Nama</b></label>
-                                <input id="pj_nama" type="text" class="form-control"
-                                    v-model="penanggung_jawab.nama" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="pj_umur" class="form-check-label"><b>Umur</b></label>
-                                <div class="input-group">
-                                    <input id="pj_umur" type="number" class="form-control"
-                                        v-model.number="penanggung_jawab.umur" />
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Tahun</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="pj_alamat" class="form-check-label"><b>Alamat</b></label>
-                                <input id="pj_alamat" type="text" class="form-control"
-                                    v-model="penanggung_jawab.alamat" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 mb-3 d-flex align-items-center" style="gap: 10px; flex-wrap: wrap;">
-                        <span>Atas nama </span>
-                        <select id="pj_hubungan" class="form-control" style="width: auto;" v-model="penanggung_jawab.hubungan_dengan_pasien">
-                            <option value="" disabled>Pilih Hubungan</option>
-                            <option value="Anak">Anak</option>
-                            <option value="Istri">Istri</option>
-                            <option value="Suami">Suami</option>
-                            <option value="Orang Tua">Orang Tua</option>
-                            <option value="Saudara">Saudara</option>
-                        </select>
-                        <span> dari pasien :</span>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="p_nama" class="form-check-label"><b>Nama Pasien</b></label>
-                                <input id="p_nama" type="text" class="form-control" v-model="pasien.nama" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="p_umur" class="form-check-label"><b>Umur Pasien</b></label>
-                                <div class="input-group">
-                                    <input id="p_umur" type="number" class="form-control"
-                                        v-model.number="pasien.umur" />
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Tahun</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="p_alamat" class="form-check-label"><b>Alamat Pasien</b></label>
-                                <input id="p_alamat" type="text" class="form-control" v-model="pasien.alamat" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Persetujuan Rawat Inap -->
-
-    <!-- Pernyataan -->
-    <div class="card patient-card shadow-sm mt-5" id="card-persetujuan-pernyataan">
-        <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">Pernyataan Persetujuan</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Menyatakan :</p>
-                    <ol>
-                        <li>Bersedia untuk rawat inap di RS Yasyfin Darusallam Gontor dan mengijinkan dokter manapun
-                            yang ditunjuk untuk melakukan cara pengobatan atau tindakan ( medis dan perawatan ) yang
-                            dianggap perlu.</li>
-                        <li class="mt-3">
-                            <p class="mb-2">Untuk perawatan kami memilih:</p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_superior" type="checkbox"
-                                                    v-model="perawatan.pilihan_kelas" true-value="Superior" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_superior" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Superior
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_vip" type="checkbox" v-model="perawatan.pilihan_kelas"
-                                                    true-value="VIP (Standart)" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_vip" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            VIP (Standart)
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_1" type="checkbox" v-model="perawatan.pilihan_kelas"
-                                                    true-value="Kelas I" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_1" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Kelas I
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_2" type="checkbox" v-model="perawatan.pilihan_kelas"
-                                                    true-value="Kelas II" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_2" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Kelas II
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_3" type="checkbox" v-model="perawatan.pilihan_kelas"
-                                                    true-value="Kelas III" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_3" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Kelas III
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="kelas_lainnya" type="checkbox"
-                                                    v-model="perawatan.pilihan_kelas" true-value="Lainnya" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="kelas_lainnya" class="form-check-label"
-                                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
-                                            Lainnya
-                                        </label>
-                                        <input type="text" class="form-control"
-                                            v-model="perawatan.pilihan_kelas_lainnya"
-                                            :disabled="perawatan.pilihan_kelas !== 'Lainnya'" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="mt-3">Untuk itu saya bersedia menanggung semua biaya yang timbul dan bersedia
-                            mentaati semua peraturan yang berkaitan dengan tata Laksana pembayaran</li>
-                        <li class="mt-3">Bersedia mentaati / memenuhi segala peraturan yang berlaku di RS Yasyfin
-                            Darusallam Gontor dan bila melanggar saya bersedia menerima sanksi.</li>
-                        <li class="mt-3">
-                            <p class="mb-2">Cara Pembayaran</p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_bpjs" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="BPJS" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_bpjs" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            BPJS
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_umum" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Umum" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_umum" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Umum
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_asuransi" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Asuransi lain" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_asuransi" class="form-check-label"
-                                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
-                                            Asuransi lain
-                                        </label>
-                                        <input type="text" class="form-control"
-                                            v-model="pembayaran.detail_asuransi_lain"
-                                            :disabled="pembayaran.cara_pembayaran !== 'Asuransi lain'" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_jasa" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Jasa Raharja" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_jasa" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Jasa Raharja
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_perusahaan" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Perusahaan" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_perusahaan" class="form-check-label"
-                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
-                                            Perusahaan
-                                        </label>
-                                    </div>
-                                    <div class="input-group mb-2"
-                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input id="bayar_lainnya" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Lain lain" false-value="" />
-                                            </div>
-                                        </div>
-                                        <label for="bayar_lainnya" class="form-check-label"
-                                            style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
-                                            Lain lain
-                                        </label>
-                                        <input type="text" class="form-control"
-                                            v-model="pembayaran.detail_lain_lain"
-                                            :disabled="pembayaran.cara_pembayaran !== 'Lain lain'" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Pernyataan -->
 
     <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem" />
 
@@ -1727,17 +1446,17 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-6" style="padding-inline: 200px;">
-            <ttd-section mode="IMAGE" label="Saksi" select_id="nakes_auto1" name_input_type="DOKTER"
+        <div class="col-md-6">
+            <ttd-section mode="CANVAS" label="Perawat" select_id="nakes_auto1" name_input_type="DOKTER"
                 v-model="ttd_data.perawat" path_name="ttd_data.perawat" :stroke="ttd_data.perawat_stroke"
                 path_stroke="ttd_data.perawat_stroke" @update-stroke="ttd_data.perawat_stroke = $event"
                 @open-ttd-modal="openTTDModalHandler" />
         </div>
-        <div class="col-md-6" style="padding-inline: 200px;">
-            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id=""
-                name_input_type="TEXT" v-model="ttd_data.yang_menyatakan" path_name="ttd_data.yang_menyatakan"
-                :stroke="ttd_data.yang_menyatakan_stroke" path_stroke="ttd_data.yang_menyatakan_stroke"
-                @update-stroke="ttd_data.yang_menyatakan_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
+        <div class="col-md-6">
+            <ttd-section mode="QRCODE" label="Dokter" select_id="dokter_auto1" name_input_type="DOKTER"
+                v-model="ttd_data.dokter" path_name="ttd_data.dokter" :stroke="ttd_data.dokter_stroke"
+                path_stroke="ttd_data.dokter_stroke" @update-stroke="ttd_data.dokter_stroke = $event"
+                @open-ttd-modal="openTTDModalHandler" />
         </div>
     </div>
 
@@ -1815,8 +1534,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control"
-                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -1829,8 +1548,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -1843,16 +1561,3 @@
     <!-- AI will insert modal HTML here -->
 
 </form>
-    <!-- === END CONTAINER CODE === -->
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="../vendor/cutomLib.js"></script>
-    <!-- Tambahkan JSON Data -->
-    <script src="json.js"></script>
-    <!-- Tambahkan script Vue Anda di sini -->
-    <script>
-        init_doc(1, data.sample, 'add');
-    </script>
-</body>
-
-</html>

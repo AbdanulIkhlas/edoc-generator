@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "pasien": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string"
+        },
+        "no_rm": {
+          "type": "string"
+        },
+        "tanggal_lahir": {
+          "type": "string"
+        },
+        "tanggal_lahir_indo": {
+          "type": "string"
+        },
+        "kelamin": {
+          "type": "string"
+        },
+        "alamat": {
+          "type": "string"
+        },
+        "tempat_lahir": {
+          "type": "string"
+        },
+        "pekerjaan": {
+          "type": "string"
+        },
+        "pendidikan": {
+          "type": "string"
+        },
+        "agama": {
+          "type": "string"
+        },
+        "umur": {
+          "type": "string"
+        },
+        "ruang": {
+          "type": "string"
+        },
+        "bangsal": {
+          "type": "string"
+        },
+        "kelas": {
+          "type": "string"
+        },
+        "tanggal_masuk": {
+          "type": "string"
+        },
+        "tanggal_masuk_indo": {
+          "type": "string"
+        },
+        "jam_masuk": {
+          "type": "string"
+        }
+      }
+    },
+    "kondisi_pasien": {
+      "type": "object",
+      "properties": {
+        "tidak_sanggup_fisik_mental": {
+          "type": "boolean"
+        },
+        "dibawah_umur": {
+          "type": "boolean"
+        }
+      }
+    },
+    "penanggung_jawab": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string"
+        },
+        "umur": {
+          "type": "number"
+        },
+        "alamat": {
+          "type": "string"
+        },
+        "hubungan_dengan_pasien": {
+          "type": "string"
+        }
+      }
+    },
+    "perawatan": {
+      "type": "object",
+      "properties": {
+        "pilihan_kelas": {
+          "type": "string"
+        },
+        "pilihan_kelas_lainnya": {
+          "type": "string"
+        }
+      }
+    },
+    "pembayaran": {
+      "type": "object",
+      "properties": {
+        "cara_pembayaran": {
+          "type": "string"
+        },
+        "detail_cara_pembayaran": {
+          "type": "string"
+        }
+      }
+    },
+    "ttd_data": {
+      "type": "object",
+      "properties": {
+        "kota": {
+          "type": "string"
+        },
+        "tanggal": {
+          "type": "string"
+        },
+        "tanggal_indo": {
+          "type": "string"
+        },
+        "jam": {
+          "type": "string"
+        },
+        "perawat": {
+          "type": "string"
+        },
+        "perawat_stroke": {
+          "type": "string"
+        },
+        "dokter": {
+          "type": "string"
+        },
+        "dokter_stroke": {
+          "type": "string"
+        },
+        "saksi": {
+          "type": "string"
+        },
+        "saksi_stroke": {
+          "type": "string"
+        },
+        "yang_menyatakan": {
+          "type": "string"
+        },
+        "yang_menyatakan_stroke": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
