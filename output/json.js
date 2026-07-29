@@ -4,18 +4,7 @@ const data = {
             "nama": "Garga",
             "no_rm": "876754",
             "tanggal_lahir": "2000-08-08",
-            "kelamin": "Laki-laki",
-            "alamat": "Sleman",
-            "tempat_lahir": "Bandung",
-            "pekerjaan": "Influencer",
-            "pendidikan": "Diplomat",
-            "agama": "Islam",
-            "umur": "35",
-            "ruang": "Kelas",
-            "bangsal": "bangsal",
-            "kelas": "10 MIPA 2",
-            "tanggal_masuk": "2000-08-08",
-            "jam_masuk": "20:00"
+            "alamat": "Sleman"
         },
         "ttd_data": {
             "kota": "Labuhanhaji",
@@ -252,18 +241,7 @@ const data = {
             "nama": "",
             "no_rm": "",
             "tanggal_lahir": "",
-            "kelamin": "",
-            "alamat": "",
-            "tempat_lahir": "",
-            "pekerjaan": "",
-            "pendidikan": "",
-            "agama": "",
-            "umur": "",
-            "ruang": "",
-            "bangsal": "",
-            "kelas": "",
-            "tanggal_masuk": "",
-            "jam_masuk": ""
+            "alamat": ""
         },
         "ttd_data": {
             "kota": "",

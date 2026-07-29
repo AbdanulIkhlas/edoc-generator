@@ -14,40 +14,7 @@
                 "tanggal_lahir": {
                     "type": "string"
                 },
-                "kelamin": {
-                    "type": "string"
-                },
                 "alamat": {
-                    "type": "string"
-                },
-                "tempat_lahir": {
-                    "type": "string"
-                },
-                "pekerjaan": {
-                    "type": "string"
-                },
-                "pendidikan": {
-                    "type": "string"
-                },
-                "agama": {
-                    "type": "string"
-                },
-                "umur": {
-                    "type": "string"
-                },
-                "ruang": {
-                    "type": "string"
-                },
-                "bangsal": {
-                    "type": "string"
-                },
-                "kelas": {
-                    "type": "string"
-                },
-                "tanggal_masuk": {
-                    "type": "string"
-                },
-                "jam_masuk": {
                     "type": "string"
                 }
             }

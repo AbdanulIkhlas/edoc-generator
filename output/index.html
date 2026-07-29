@@ -28,7 +28,24 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
-    <style></style>
+    <style>
+        .table input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+        }
+
+        .table .form-check-label {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .table td:nth-child(2),
+        .table td:nth-child(3) {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -231,6 +248,78 @@
 
         // === [CONFIG_AUTOCOMPLETE_HOOK] ===
         // AI will add or create the autocomplete configuration here
+
+        function configDokterOperator(data) {
+            return {
+                element: "#dokter_operator_auto",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                allowClear: true,
+                query_params: { status: "", spesialisasi: "" },
+                markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+                selection_template: function (repo) {
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.informasi_operasi.dokter_operator;
+                        data.informasi_operasi.dokter_operator = res;
+                    }
+                    return res;
+                },
+            };
+        }
+
+        function configDokterAnestesi(data) {
+            return {
+                element: "#dokter_anestesi_auto",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                allowClear: true,
+                query_params: { status: "", spesialisasi: "" },
+                markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+                selection_template: function (repo) {
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.informasi_operasi.dokter_anestesi;
+                        data.informasi_operasi.dokter_anestesi = res;
+                    }
+                    return res;
+                },
+            };
+        }
+
+        function configDokterOperator1(data) {
+            return {
+                element: "#dokter_operator_1_auto",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                allowClear: true,
+                query_params: { status: "", spesialisasi: "" },
+                markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+                selection_template: function (repo) {
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.informasi_operasi.dokter_operator_1;
+                        data.informasi_operasi.dokter_operator_1 = res;
+                    }
+                    return res;
+                },
+            };
+        }
+
+        function configDokterPendamping(data) {
+            return {
+                element: "#dokter_pendamping_auto",
+                url: "/api/emr/autocomplete?source_name=dokter",
+                allowClear: true,
+                query_params: { status: "", spesialisasi: "" },
+                markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+                selection_template: function (repo) {
+                    var res = "";
+                    if (repo.id != "") {
+                        res = repo.nama || data.informasi_operasi.dokter_pendamping;
+                        data.informasi_operasi.dokter_pendamping = res;
+                    }
+                    return res;
+                },
+            };
+        }
         function configDokter1(data) {
             return {
                 element: "#dokter_auto1",
@@ -439,16 +528,16 @@
                     init: function () {
                         // === [AUTOCOMPLETE_HOOK] ===
                         // AI will add autocomplete here
-                        autocomplete(configRuang(data));
+
+                        autocomplete(configDokterOperator(data));
+                        autocomplete(configDokterAnestesi(data));
+                        autocomplete(configDokterOperator1(data));
+                        autocomplete(configDokterPendamping(data));
                         autocomplete(configDokter1(data));
                         autocomplete(configNakes1(data));
                         this.setupSignature(data);
 
-                        $('#ruang_auto').on('select2:clearing', function (e) {
-                            data.pasien.bangsal = "";
-                            data.pasien.ruang = "";
-                            data.pasien.kelas = "";
-                        });
+
 
                         if (operation === "add") {
                             // === [BRIDGING_HOOK] ===
@@ -829,13 +918,7 @@
             data.pasien.nama = ext_patient.nama || "";
             data.pasien.no_rm = ext_patient.no_rm || "";
             data.pasien.alamat = ext_patient.alamat || "";
-            data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
-            data.pasien.pekerjaan = ext_patient.pekerjaan || "";
-            data.pasien.agama = ext_patient.agama || "";
-            data.pasien.pendidikan = ext_patient.pendidikan || "";
             data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
-            data.pasien.kelamin = showKelamin(ext_patient.kelamin);
-            data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
 
             // untuk tanda tangan pasien image
             // data.ttd_data.pasien_stroke = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
@@ -1401,31 +1484,12 @@
                             <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
                         </div>
                         <div class="mb-3">
-                            <p class="data-label">Kelamin</p>
-                            <input id="pasien_kelamin" type="text" class="data-value" v-model="pasien.kelamin" />
-                        </div>
-                        <div class="mb-3">
                             <p class="data-label">Alamat</p>
-                            <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Pekerjaan</p>
-                            <input id="pasien_pekerjaan" type="text" class="data-value" v-model="pasien.pekerjaan" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Pendidikan</p>
-                            <input id="pasien_pendidikan" type="text" class="data-value" v-model="pasien.pendidikan" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Agama</p>
-                            <input id="pasien_agama" type="text" class="data-value" v-model="pasien.agama" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Ruang</p>
-                            <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
+                            <textarea id="pasien_alamat" class="data-value form-control form-control-sm"
+                                v-model="pasien.alamat" rows="2"></textarea>
                         </div>
                     </div>
-        
+
                     <div class="col-md-6">
                         <div class="mb-3">
                             <p class="data-label">No RM</p>
@@ -1433,30 +1497,13 @@
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Tanggal Lahir</p>
-                            <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
+                            <input id="pasien_tanggal_lahir" type="date" class="data-value"
                                 v-model="pasien.tanggal_lahir" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Tempat Lahir</p>
-                            <input id="pasien_tempat_lahir" type="text" class="data-value" v-model="pasien.tempat_lahir" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Umur</p>
-                            <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" style="width:9%" />
-                            <span>Tahun</span>
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Tanggal Masuk</p>
-                            <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
-                                v-model="pasien.tanggal_masuk" />
-                        </div>
-                        <div class="mb-3">
-                            <p class="data-label">Jam Masuk</p>
-                            <input id="pasien_jam_masuk" type="time" class="data-value" v-model="pasien.jam_masuk" />
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <!-- Pasien Info Data -->
 
@@ -1474,11 +1521,11 @@
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Dr. Operator</p>
-                            <input type="text" class="data-value" v-model="informasi_operasi.dokter_operator" />
+                            <select class="form-control" id="dokter_operator_auto" style="width: 100%"></select>
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Dr. Anestesi</p>
-                            <input type="text" class="data-value" v-model="informasi_operasi.dokter_anestesi" />
+                            <select class="form-control" id="dokter_anestesi_auto" style="width: 100%"></select>
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Tindakan</p>
@@ -1496,11 +1543,11 @@
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Dr. Operator 1</p>
-                            <input type="text" class="data-value" v-model="informasi_operasi.dokter_operator_1" />
+                            <select class="form-control" id="dokter_operator_1_auto" style="width: 100%"></select>
                         </div>
                         <div class="mb-3">
                             <p class="data-label">Dr. Pendamping</p>
-                            <input type="text" class="data-value" v-model="informasi_operasi.dokter_pendamping" />
+                            <select class="form-control" id="dokter_pendamping_auto" style="width: 100%"></select>
                         </div>
                     </div>
                 </div>
@@ -1753,14 +1800,37 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <p class="data-label font-weight-bold">PENANDAAN LOKASI OPERASI</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" v-model="penandaan_lokasi_operasi.ya">
-                            <label class="form-check-label">Ya</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox"
-                                v-model="penandaan_lokasi_operasi.tidak_diperlukan">
-                            <label class="form-check-label">Tidak diperlukan</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group mb-2"
+                                    style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input id="penandaan_lokasi_operasi_ya" type="checkbox"
+                                                v-model="penandaan_lokasi_operasi.ya" />
+                                        </div>
+                                    </div>
+                                    <label for="penandaan_lokasi_operasi_ya" class="form-check-label m-0"
+                                        style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                        Ya
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group mb-2"
+                                    style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input id="penandaan_lokasi_operasi_tidak" type="checkbox"
+                                                v-model="penandaan_lokasi_operasi.tidak_diperlukan" />
+                                        </div>
+                                    </div>
+                                    <label for="penandaan_lokasi_operasi_tidak" class="form-check-label m-0"
+                                        style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                        Tidak diperlukan
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1779,51 +1849,115 @@
                             <p class="data-label">1. Riwayat penyakit dahulu</p>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.alergi_obat">
-                                        <label class="form-check-label">Alergi Obat</label>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="alergi_obat" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.alergi_obat" />
+                                            </div>
+                                        </div>
+                                        <label for="alergi_obat" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Alergi Obat
+                                        </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.alergi_makanan">
-                                        <label class="form-check-label">Alergi Makanan</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_jantung">
-                                        <label class="form-check-label">Penyakit Jantung</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.hipertensi">
-                                        <label class="form-check-label">Hipertensi</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.asma">
-                                        <label class="form-check-label">Asma</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.ppok">
-                                        <label class="form-check-label">PPOK</label>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="alergi_makanan" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.alergi_makanan" />
+                                            </div>
+                                        </div>
+                                        <label for="alergi_makanan" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Alergi Makanan
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_ginjal">
-                                        <label class="form-check-label">Penyakit Ginjal</label>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="penyakit_jantung" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_jantung" />
+                                            </div>
+                                        </div>
+                                        <label for="penyakit_jantung" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Penyakit Jantung
+                                        </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_hati">
-                                        <label class="form-check-label">Penyakit hati</label>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="hipertensi" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.hipertensi" />
+                                            </div>
+                                        </div>
+                                        <label for="hipertensi" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Hipertensi
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="asma" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.asma" />
+                                            </div>
+                                        </div>
+                                        <label for="asma" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Asma
+                                        </label>
+                                    </div>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="ppok" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.ppok" />
+                                            </div>
+                                        </div>
+                                        <label for="ppok" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            PPOK
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="penyakit_ginjal" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_ginjal" />
+                                            </div>
+                                        </div>
+                                        <label for="penyakit_ginjal" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Penyakit Ginjal
+                                        </label>
+                                    </div>
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="penyakit_hati" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penyakit_dahulu.penyakit_hati" />
+                                            </div>
+                                        </div>
+                                        <label for="penyakit_hati" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Penyakit hati
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -1834,46 +1968,126 @@
                         </div>
                         <div class="mb-3">
                             <p class="data-label">3. Riwayat Operasi Terdahulu</p>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Pernah"
-                                    v-model="anamnesis.riwayat_operasi_terdahulu">
-                                <label class="form-check-label">Pernah</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" value="Tidak Pernah"
-                                    v-model="anamnesis.riwayat_operasi_terdahulu">
-                                <label class="form-check-label">Tidak Pernah</label>
+                            <div class="row mb-2">
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="riwayat_operasi_pernah" type="checkbox"
+                                                    v-model="anamnesis.riwayat_operasi_terdahulu" true-value="Pernah"
+                                                    false-value="" />
+                                            </div>
+                                        </div>
+                                        <label for="riwayat_operasi_pernah" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Pernah
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="riwayat_operasi_tidak" type="checkbox"
+                                                    v-model="anamnesis.riwayat_operasi_terdahulu"
+                                                    true-value="Tidak Pernah" false-value="" />
+                                            </div>
+                                        </div>
+                                        <label for="riwayat_operasi_tidak" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Tidak Pernah
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-2" v-if="anamnesis.riwayat_operasi_terdahulu === 'Pernah'">
                                 <p class="data-label mb-1">Jika pernah:</p>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" value="Ada Komplikasi"
-                                        v-model="anamnesis.komplikasi">
-                                    <label class="form-check-label">Ada Komplikasi</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" value="Tidak Ada Komplikasi"
-                                        v-model="anamnesis.komplikasi">
-                                    <label class="form-check-label">Tidak Ada Komplikasi</label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="komplikasi_ada" type="checkbox"
+                                                        v-model="anamnesis.komplikasi" true-value="Ada Komplikasi"
+                                                        false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="komplikasi_ada" class="form-check-label m-0"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Ada Komplikasi
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group mb-2"
+                                            style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input id="komplikasi_tidak" type="checkbox"
+                                                        v-model="anamnesis.komplikasi" true-value="Tidak Ada Komplikasi"
+                                                        false-value="" />
+                                                </div>
+                                            </div>
+                                            <label for="komplikasi_tidak" class="form-check-label m-0"
+                                                style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                                Tidak Ada Komplikasi
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <p class="data-label">4. Riwayat Penggunaan bahan tertentu</p>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox"
-                                    v-model="anamnesis.riwayat_penggunaan_bahan.obat_penenang">
-                                <label class="form-check-label">Obat penenang / Narkotika</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox"
-                                    v-model="anamnesis.riwayat_penggunaan_bahan.merokok">
-                                <label class="form-check-label">Merokok</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox"
-                                    v-model="anamnesis.riwayat_penggunaan_bahan.alkohol">
-                                <label class="form-check-label">Alkohol</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="obat_penenang" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penggunaan_bahan.obat_penenang" />
+                                            </div>
+                                        </div>
+                                        <label for="obat_penenang" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Obat penenang / Narkotika
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="merokok" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penggunaan_bahan.merokok" />
+                                            </div>
+                                        </div>
+                                        <label for="merokok" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Merokok
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mb-2"
+                                        style="display: flex; flex-wrap: nowrap; align-items: stretch;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input id="alkohol" type="checkbox"
+                                                    v-model="anamnesis.riwayat_penggunaan_bahan.alkohol" />
+                                            </div>
+                                        </div>
+                                        <label for="alkohol" class="form-check-label m-0"
+                                            style="flex-grow: 1; padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+                                            Alkohol
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
