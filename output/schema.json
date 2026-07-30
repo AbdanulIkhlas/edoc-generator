@@ -505,6 +505,9 @@
         },
         "catatan": {
             "type": "string"
+        },
+        "resep_freetext": {
+            "type": "string"
         }
     }
 }
