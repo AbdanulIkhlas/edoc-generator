@@ -1886,7 +1886,7 @@
                             </tr>
                             <!-- 6. Puasa -->
                             <tr>
-                                <td>6. Puasa <input type="number" style="width:50px; display:inline;"
+                                <td>6. Puasa <input type="number" min="0" style="width:50px; display:inline;"
                                         class="form-control form-control-sm"
                                         v-model.number="persiapan_menjelang_operasi.puasa.jam_sebelum_op" /> jam
                                     sebelum
@@ -2005,7 +2005,7 @@
                                         v-model="persiapan_menjelang_operasi.informed_consent_anestesi.ok" /></td>
                             </tr>
                             <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;g. Darah transfusi <input type="number"
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;g. Darah transfusi <input type="number" min="0"
                                         style="width:50px; display:inline;" class="form-control form-control-sm"
                                         v-model.number="persiapan_menjelang_operasi.darah_transfusi.colf" /> Colf
                                     jenis
@@ -2030,14 +2030,14 @@
                                 <td colspan="3">12. Persediaan darah transfusi</td>
                             </tr>
                             <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;a. Donor <input type="number"
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;a. Donor <input type="number" min="0"
                                         style="width:50px; display:inline;" class="form-control form-control-sm"
                                         v-model.number="persiapan_menjelang_operasi.donor.orang" /> orang</td>
                                 <td><input type="checkbox" v-model="persiapan_menjelang_operasi.donor.ri_rj" /></td>
                                 <td><input type="checkbox" v-model="persiapan_menjelang_operasi.donor.ok" /></td>
                             </tr>
                             <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;b. PMI <input type="number"
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;b. PMI <input type="number" min="0"
                                         style="width:50px; display:inline;" class="form-control form-control-sm"
                                         v-model.number="persiapan_menjelang_operasi.pmi.colf" /> Colf Jenis <input
                                         type="text" style="width:50px; display:inline;"
@@ -2389,19 +2389,19 @@
                     <div class="mb-3">
                         <p class="data-label">Tek. Darah</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm"
-                                v-model="pemeriksaan_fisik.tensi_sistole" style="width: 60px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.tensi_sistole" style="width: 60px;" />
                             <span class="mx-2">/</span>
-                            <input type="text" class="form-control form-control-sm"
-                                v-model="pemeriksaan_fisik.tensi_diastole" style="width: 60px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.tensi_diastole" style="width: 60px;" />
                             <span class="ml-2">mmHg</span>
                         </div>
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Frek. Nadi</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm"
-                                v-model="pemeriksaan_fisik.frek_nadi" style="width: 80px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.frek_nadi" style="width: 80px;" />
                             <span class="ml-2">x/mnt</span>
                         </div>
                     </div>
@@ -2410,16 +2410,16 @@
                     <div class="mb-3">
                         <p class="data-label">Frek. Nafas</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm"
-                                v-model="pemeriksaan_fisik.frek_nafas" style="width: 80px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.frek_nafas" style="width: 80px;" />
                             <span class="ml-2">x/mnt</span>
                         </div>
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Suhu</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm" v-model="pemeriksaan_fisik.suhu"
-                                style="width: 80px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.suhu" style="width: 80px;" />
                             <span class="ml-2">°C</span>
                         </div>
                     </div>
@@ -2428,16 +2428,16 @@
                     <div class="mb-3">
                         <p class="data-label">BB</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm" v-model="pemeriksaan_fisik.bb"
-                                style="width: 80px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.bb" style="width: 80px;" />
                             <span class="ml-2">Kg</span>
                         </div>
                     </div>
                     <div class="mb-3">
                         <p class="data-label">TB</p>
                         <div class="d-flex align-items-center">
-                            <input type="text" class="form-control form-control-sm" v-model="pemeriksaan_fisik.tb"
-                                style="width: 80px;" />
+                            <input type="number" class="form-control form-control-sm"
+                                v-model.number="pemeriksaan_fisik.tb" style="width: 80px;" />
                             <span class="ml-2">cm</span>
                         </div>
                     </div>
@@ -2547,7 +2547,7 @@
         </div>
     </div>
 
-    <div class="form-group row mt-5 text-center" id="save-doc">
+    <div class="form-group row mt-5 text-center">
         <div class="col-md-12">
             <button type="button" v-on:click="saveDoc" class="btn btn-primary">
                 <i class="fa fa-save"></i>

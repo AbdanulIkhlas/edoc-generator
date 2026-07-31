@@ -156,13 +156,13 @@ const data = {
             }
         },
         "pemeriksaan_fisik": {
-            "tensi_sistole": "120",
-            "tensi_diastole": "80",
-            "frek_nadi": "80",
-            "frek_nafas": "20",
-            "suhu": "36.5",
-            "bb": "65",
-            "tb": "165"
+            "tensi_sistole": 120.0,
+            "tensi_diastole": 0.0,
+            "frek_nadi": 0.0,
+            "frek_nafas": 0.0,
+            "suhu": 0.0,
+            "bb": 0.0,
+            "tb": 0.0
         },
         "pemeriksaan_penunjang": {
             "hb": "13",
@@ -386,52 +386,52 @@ const data = {
                         }
                     ],
                     "assesmen_igd": {
-                              "disability_keadaan_umum": "Tampak sakit berat, pasien tidak responsif terhadap panggilan",
-                              "gcs_e": "3",
-                              "gcs_v": "2",
-                              "gcs_m": "1",
-                              "skala_nyeri": 7,
-                              "wajah": 2,
-                              "kaki": 2,
-                              "aktivitas": 1,
-                              "menangis": 1,
-                              "bersuara": 1,
-                              "disability_kesadaran": "Somnolen",
-                              "refleks_cahaya": "+/+",
-                              "pulang_pukul": "14:30",
-                              "pulang_gcs_e": "4",
-                              "pulang_gcs_v": "4",
-                              "pulang_gcs_m": "5",
-                              "pulang_nadi": 88,
-                              "pulang_nafas": 20,
-                              "pulang_tensi": {
-                                "sistole": 120,
-                                "diastole": 80
-                              },
-                              "pulang_suhu": 36.8,
-                              "pulang_spo2": 99,
-                              "transportasi_pulang": "Kursi roda didampingi keluarga",
-                              "pendidikan_pasien": "Edukasi tanda bahaya seperti penurunan kesadaran, muntah berulang, dan sesak napas",
-                              "mke": "Cedera kepala ringan dengan penurunan kesadaran sementara",
-                              "mke_assesment": "Pasien datang dengan riwayat trauma kepala. GCS awal 6, kondisi membaik setelah observasi dan terapi suportif.",
-                              "mke_objective": "Tekanan darah 130/85 mmHg, nadi 92x/menit, RR 22x/menit, SpO2 98%. Pupil isokor dengan refleks cahaya positif.",
-                              "mke_plan": "Observasi neurologis, pemberian analgesik, edukasi keluarga, kontrol ulang bila ada perburukan.",
-                              "mke_subjective": "Keluarga mengatakan pasien sempat tidak sadar setelah terjatuh.",
-                              "triase": "Kuning (Urgent)",
-                              "data_tindakan_kolaboratif": [
-                                {
-                                  "tindakan": "Pemasangan infus RL",
-                                  "pelaksana": "Perawat IGD",
-                                  "keterangan": "Untuk terapi cairan"
-                                },
-                                {
-                                  "tindakan": "CT Scan Kepala",
-                                  "pelaksana": "Dokter Spesialis Radiologi",
-                                  "keterangan": "Evaluasi kemungkinan perdarahan intrakranial"
-                                }
-                              ],
-                              "spo2": 98
+                        "disability_keadaan_umum": "Tampak sakit berat, pasien tidak responsif terhadap panggilan",
+                        "gcs_e": "3",
+                        "gcs_v": "2",
+                        "gcs_m": "1",
+                        "skala_nyeri": 7,
+                        "wajah": 2,
+                        "kaki": 2,
+                        "aktivitas": 1,
+                        "menangis": 1,
+                        "bersuara": 1,
+                        "disability_kesadaran": "Somnolen",
+                        "refleks_cahaya": "+/+",
+                        "pulang_pukul": "14:30",
+                        "pulang_gcs_e": "4",
+                        "pulang_gcs_v": "4",
+                        "pulang_gcs_m": "5",
+                        "pulang_nadi": 88,
+                        "pulang_nafas": 20,
+                        "pulang_tensi": {
+                            "sistole": 120,
+                            "diastole": 80
+                        },
+                        "pulang_suhu": 36.8,
+                        "pulang_spo2": 99,
+                        "transportasi_pulang": "Kursi roda didampingi keluarga",
+                        "pendidikan_pasien": "Edukasi tanda bahaya seperti penurunan kesadaran, muntah berulang, dan sesak napas",
+                        "mke": "Cedera kepala ringan dengan penurunan kesadaran sementara",
+                        "mke_assesment": "Pasien datang dengan riwayat trauma kepala. GCS awal 6, kondisi membaik setelah observasi dan terapi suportif.",
+                        "mke_objective": "Tekanan darah 130/85 mmHg, nadi 92x/menit, RR 22x/menit, SpO2 98%. Pupil isokor dengan refleks cahaya positif.",
+                        "mke_plan": "Observasi neurologis, pemberian analgesik, edukasi keluarga, kontrol ulang bila ada perburukan.",
+                        "mke_subjective": "Keluarga mengatakan pasien sempat tidak sadar setelah terjatuh.",
+                        "triase": "Kuning (Urgent)",
+                        "data_tindakan_kolaboratif": [
+                            {
+                                "tindakan": "Pemasangan infus RL",
+                                "pelaksana": "Perawat IGD",
+                                "keterangan": "Untuk terapi cairan"
+                            },
+                            {
+                                "tindakan": "CT Scan Kepala",
+                                "pelaksana": "Dokter Spesialis Radiologi",
+                                "keterangan": "Evaluasi kemungkinan perdarahan intrakranial"
                             }
+                        ],
+                        "spo2": 98
+                    }
                 },
                 {
                     "no_register": "2202230010",
@@ -459,12 +459,12 @@ const data = {
                                 "sistole": 0,
                                 "diastole": 0
                             },
-                            "gcs":{
-                                "e":7,  
-                                "v":8,  
-                                "m":9,
-                                "total":24  
-                             },
+                            "gcs": {
+                                "e": 7,
+                                "v": 8,
+                                "m": 9,
+                                "total": 24
+                            },
                             "nadi": 0,
                             "suhu": 0,
                             "nafas": 0,
@@ -501,97 +501,97 @@ const data = {
                     "instansi_perujuk": "Pribadi",
                     "layanan": [
                         {
-                                "id_layanan_pendaftaran": 154,
-                                "dokter": "Reizkiana Feva K.D. dr.Hj., Sp.A",
-                                "id_dokter": "000177",
-                                "jenis_layanan": "Rawat Inap",
-                                "jenis_igd": "Umum",
-                                "waktu_visitasi": "2025-08-09 09:24:55",
-                                "tensi": {
-                                    "sistole": 110,
-                                    "diastole": 70
-                                },
-                                "gcs": {
-                                    "e": 9,
-                                    "v": 10,
-                                    "m": 11,
-                                    "total": 30
-                                },
-                                "nadi": 88,
-                                "suhu": 38.2,
-                                "nafas": 22,
-                                "anamnesis": "Pasien anak laki-laki 6 tahun dengan keluhan demam sejak 2 hari disertai batuk pilek. Tidak ada riwayat alergi obat.",
-                                "riwayat_penyakit_keluarga": "Ibu dengan riwayat asma.",
-                                "anamnesis_lalu": "Tidak ada riwayat penyakit kronis. Imunisasi lengkap.",
-                                "keluhan_utama": "Demam tinggi disertai batuk pilek.",
-                                "keluhan_utama_perawat": "SAKIT LUAR BIASA",
-                                "pemeriksaan_fisik": "Kesadaran: Compos mentis\nTekanan darah: 110/70 mmHg\nNadi: 88 x/menit\nSuhu: 38.2°C\nRR: 22 x/menit\nSpO₂: 96%\nBB: 22 kg\nTB: 115 cm",
-                                "pemeriksaan_penunjang": "Hitung darah lengkap: Leukosit 11.000 /µL (sedikit meningkat). Rapid test influenza: negatif.",
-                                "diagnosis": "Infeksi Saluran Pernapasan Atas (ISPA)",
-                                "plan": "Observasi suhu, terapi simptomatik dengan Paracetamol 250 mg/8 jam bila demam, cairan cukup, edukasi orang tua.",
-                                "spo2": "96%",
-                                "id_pendaftaran": 4521,
-                                "tinggi_badan": 115,
-                                "berat_badan": 22
-                            }
+                            "id_layanan_pendaftaran": 154,
+                            "dokter": "Reizkiana Feva K.D. dr.Hj., Sp.A",
+                            "id_dokter": "000177",
+                            "jenis_layanan": "Rawat Inap",
+                            "jenis_igd": "Umum",
+                            "waktu_visitasi": "2025-08-09 09:24:55",
+                            "tensi": {
+                                "sistole": 110,
+                                "diastole": 70
+                            },
+                            "gcs": {
+                                "e": 9,
+                                "v": 10,
+                                "m": 11,
+                                "total": 30
+                            },
+                            "nadi": 88,
+                            "suhu": 38.2,
+                            "nafas": 22,
+                            "anamnesis": "Pasien anak laki-laki 6 tahun dengan keluhan demam sejak 2 hari disertai batuk pilek. Tidak ada riwayat alergi obat.",
+                            "riwayat_penyakit_keluarga": "Ibu dengan riwayat asma.",
+                            "anamnesis_lalu": "Tidak ada riwayat penyakit kronis. Imunisasi lengkap.",
+                            "keluhan_utama": "Demam tinggi disertai batuk pilek.",
+                            "keluhan_utama_perawat": "SAKIT LUAR BIASA",
+                            "pemeriksaan_fisik": "Kesadaran: Compos mentis\nTekanan darah: 110/70 mmHg\nNadi: 88 x/menit\nSuhu: 38.2°C\nRR: 22 x/menit\nSpO₂: 96%\nBB: 22 kg\nTB: 115 cm",
+                            "pemeriksaan_penunjang": "Hitung darah lengkap: Leukosit 11.000 /µL (sedikit meningkat). Rapid test influenza: negatif.",
+                            "diagnosis": "Infeksi Saluran Pernapasan Atas (ISPA)",
+                            "plan": "Observasi suhu, terapi simptomatik dengan Paracetamol 250 mg/8 jam bila demam, cairan cukup, edukasi orang tua.",
+                            "spo2": "96%",
+                            "id_pendaftaran": 4521,
+                            "tinggi_badan": 115,
+                            "berat_badan": 22
+                        }
                     ],
                     "assesmen_igd": [],
                     "alergi_list": [
-                                {
-                                  "id_alergi_pasien": "34",
-                                  "id_snomed_allergy": null,
-                                  "id_pasien": "00007659",
-                                  "kategori_alergi": "medication",
-                                  "status_verifikasi": "confirmed",
-                                  "deskripsi": "testing 3",
-                                  "kode_kfa": "93021992",
-                                  "nama_kfa": "Ekstrak Phyllanthus niruri Herba 50 mg Kapsul (STIMUNO FORTE)",
-                                  "is_delete": "0",
-                                  "id_allergy_satusehat": null,
-                                  "display_indo": null,
-                                  "code_snomed": null,
-                                  "display_snomed": null,
-                                  "code_system_snomed": null,
-                                  "status_allergy": null,
-                                  "category": null
-                                },
-                                {
-                                  "id_alergi_pasien": "33",
-                                  "id_snomed_allergy": "3",
-                                  "id_pasien": "00007659",
-                                  "kategori_alergi": "environment",
-                                  "status_verifikasi": "confirmed",
-                                  "deskripsi": "testing 2",
-                                  "kode_kfa": "",
-                                  "nama_kfa": "",
-                                  "is_delete": "0",
-                                  "id_allergy_satusehat": null,
-                                  "display_indo": "Akasia",
-                                  "code_snomed": "43987000",
-                                  "display_snomed": "Acacia",
-                                  "code_system_snomed": "http://snomed.info/sct",
-                                  "status_allergy": "1",
-                                  "category": "environment"
-                                },
-                                {
-                                  "id_alergi_pasien": "32",
-                                  "id_snomed_allergy": "19",
-                                  "id_pasien": "00007659",
-                                  "kategori_alergi": "food",
-                                  "status_verifikasi": "confirmed",
-                                  "deskripsi": "testing",
-                                  "kode_kfa": "",
-                                  "nama_kfa": "",
-                                  "is_delete": "0",
-                                  "id_allergy_satusehat": null,
-                                  "display_indo": "Daging ayam",
-                                  "code_snomed": "226955001",
-                                  "display_snomed": "Chicken - meat",
-                                  "code_system_snomed": "http://snomed.info/sct",
-                                  "status_allergy": "1",
-                                  "category": "food"
-                                }
-                          ]
+                        {
+                            "id_alergi_pasien": "34",
+                            "id_snomed_allergy": null,
+                            "id_pasien": "00007659",
+                            "kategori_alergi": "medication",
+                            "status_verifikasi": "confirmed",
+                            "deskripsi": "testing 3",
+                            "kode_kfa": "93021992",
+                            "nama_kfa": "Ekstrak Phyllanthus niruri Herba 50 mg Kapsul (STIMUNO FORTE)",
+                            "is_delete": "0",
+                            "id_allergy_satusehat": null,
+                            "display_indo": null,
+                            "code_snomed": null,
+                            "display_snomed": null,
+                            "code_system_snomed": null,
+                            "status_allergy": null,
+                            "category": null
+                        },
+                        {
+                            "id_alergi_pasien": "33",
+                            "id_snomed_allergy": "3",
+                            "id_pasien": "00007659",
+                            "kategori_alergi": "environment",
+                            "status_verifikasi": "confirmed",
+                            "deskripsi": "testing 2",
+                            "kode_kfa": "",
+                            "nama_kfa": "",
+                            "is_delete": "0",
+                            "id_allergy_satusehat": null,
+                            "display_indo": "Akasia",
+                            "code_snomed": "43987000",
+                            "display_snomed": "Acacia",
+                            "code_system_snomed": "http://snomed.info/sct",
+                            "status_allergy": "1",
+                            "category": "environment"
+                        },
+                        {
+                            "id_alergi_pasien": "32",
+                            "id_snomed_allergy": "19",
+                            "id_pasien": "00007659",
+                            "kategori_alergi": "food",
+                            "status_verifikasi": "confirmed",
+                            "deskripsi": "testing",
+                            "kode_kfa": "",
+                            "nama_kfa": "",
+                            "is_delete": "0",
+                            "id_allergy_satusehat": null,
+                            "display_indo": "Daging ayam",
+                            "code_snomed": "226955001",
+                            "display_snomed": "Chicken - meat",
+                            "code_system_snomed": "http://snomed.info/sct",
+                            "status_allergy": "1",
+                            "category": "food"
+                        }
+                    ]
                 }
             ]
         }
@@ -753,13 +753,13 @@ const data = {
             }
         },
         "pemeriksaan_fisik": {
-            "tensi_sistole": "",
-            "tensi_diastole": "",
-            "frek_nadi": "",
-            "frek_nafas": "",
-            "suhu": "",
-            "bb": "",
-            "tb": ""
+            "tensi_sistole": 0.0,
+            "tensi_diastole": 0.0,
+            "frek_nadi": 0.0,
+            "frek_nafas": 0.0,
+            "suhu": 0.0,
+            "bb": 0.0,
+            "tb": 0.0
         },
         "pemeriksaan_penunjang": {
             "hb": "",

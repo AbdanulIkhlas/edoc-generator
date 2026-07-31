@@ -3,7 +3,7 @@
 $params = json_decode($argv[1]);
 
 $base_url = $argv[2]; // Base_url
-$title = "Title";
+$title = "Serah Terima Rajal & Ranap ke OK ";
 $static_label = json_decode($argv[3]);
 
 function tgl_indo($tanggal)
@@ -539,7 +539,7 @@ function tgl_indo($tanggal)
             <td valign="top" width="5%">OK</td>
         </tr>
         <tr>
-            <td valign="top">1. Infus............. <?php echo $params->persiapan_menjelang_operasi->infus->tts_mnt ?? ""; ?> tts/mnt</td>
+            <td valign="top">1. Infus <?php echo $params->persiapan_menjelang_operasi->infus->tts_mnt ?? ""; ?> tts/mnt</td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->infus->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->infus->ok) ? "V" : ""; ?></td>
 
@@ -566,7 +566,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->ekg->ok) ? "V" : ""; ?></td>
         </tr>
         <tr>
-            <td valign="top">4. Cukur............. <?php echo $params->persiapan_menjelang_operasi->cukur->detail ?? ""; ?></td>
+            <td valign="top">4. Cukur <?php echo $params->persiapan_menjelang_operasi->cukur->detail ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->cukur->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->cukur->ok) ? "V" : ""; ?></td>
 
@@ -575,7 +575,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->ro_usg_ctscan->ok) ? "V" : ""; ?></td>
         </tr>
         <tr>
-            <td valign="top">5. Lavement pukul............. <?php echo $params->persiapan_menjelang_operasi->lavement->pukul ?? ""; ?></td>
+            <td valign="top">5. Lavement pukul <?php echo $params->persiapan_menjelang_operasi->lavement->pukul ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lavement->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lavement->ok) ? "V" : ""; ?></td>
 
@@ -584,7 +584,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lembar_konsultasi->ok) ? "V" : ""; ?></td>
         </tr>
         <tr>
-            <td valign="top">6. Puasa............. <?php echo $params->persiapan_menjelang_operasi->puasa->jam_sebelum_op ?? ""; ?> jam sebelum OP</td>
+            <td valign="top">6. Puasa <?php echo $params->persiapan_menjelang_operasi->puasa->jam_sebelum_op ?? ""; ?> jam sebelum OP</td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->puasa->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->puasa->ok) ? "V" : ""; ?></td>
 
@@ -606,7 +606,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->potong_kuku->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->potong_kuku->ok) ? "V" : ""; ?></td>
 
-            <td valign="top" style="padding-left: 15px;">g. Darah transfusi............. <?php echo $params->persiapan_menjelang_operasi->darah_transfusi->colf ?? ""; ?> Colf jenis............. <?php echo $params->persiapan_menjelang_operasi->darah_transfusi->jenis ?? ""; ?></td>
+            <td valign="top" style="padding-left: 15px;">g. Darah transfusi <?php echo $params->persiapan_menjelang_operasi->darah_transfusi->colf ?? ""; ?> Colf jenis <?php echo $params->persiapan_menjelang_operasi->darah_transfusi->jenis ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->darah_transfusi->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->darah_transfusi->ok) ? "V" : ""; ?></td>
         </tr>
@@ -615,7 +615,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="background-color: #f0f0f0;"></td>
             <td valign="top" style="background-color: #f0f0f0;"></td>
 
-            <td valign="top" style="padding-left: 15px;">h. Obat............. <?php echo $params->persiapan_menjelang_operasi->obat->detail ?? ""; ?></td>
+            <td valign="top" style="padding-left: 15px;">h. Obat <?php echo $params->persiapan_menjelang_operasi->obat->detail ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->obat->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->obat->ok) ? "V" : ""; ?></td>
         </tr>
@@ -633,16 +633,16 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lepas_lensa_kontak->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lepas_lensa_kontak->ok) ? "V" : ""; ?></td>
 
-            <td valign="top" style="padding-left: 15px;">a. Donor............. <?php echo $params->persiapan_menjelang_operasi->donor->orang ?? ""; ?> orang</td>
+            <td valign="top" style="padding-left: 15px;">a. Donor <?php echo $params->persiapan_menjelang_operasi->donor->orang ?? ""; ?> orang</td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->donor->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->donor->ok) ? "V" : ""; ?></td>
         </tr>
         <tr>
-            <td valign="top" style="padding-left: 15px;">c. Perhiasan............. <?php echo $params->persiapan_menjelang_operasi->lepas_perhiasan->detail ?? ""; ?></td>
+            <td valign="top" style="padding-left: 15px;">c. Perhiasan <?php echo $params->persiapan_menjelang_operasi->lepas_perhiasan->detail ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lepas_perhiasan->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->lepas_perhiasan->ok) ? "V" : ""; ?></td>
 
-            <td valign="top" style="padding-left: 15px;">b. PMI............. <?php echo $params->persiapan_menjelang_operasi->pmi->colf ?? ""; ?> Colf Jenis............. <?php echo $params->persiapan_menjelang_operasi->pmi->jenis ?? ""; ?></td>
+            <td valign="top" style="padding-left: 15px;">b. PMI <?php echo $params->persiapan_menjelang_operasi->pmi->colf ?? ""; ?> Colf Jenis <?php echo $params->persiapan_menjelang_operasi->pmi->jenis ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->pmi->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->pmi->ok) ? "V" : ""; ?></td>
         </tr>
@@ -651,7 +651,7 @@ function tgl_indo($tanggal)
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->hapus_makeup->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->hapus_makeup->ok) ? "V" : ""; ?></td>
 
-            <td valign="top" style="padding-left: 15px;">c. Penyimpanan............. <?php echo $params->persiapan_menjelang_operasi->penyimpanan->detail ?? ""; ?></td>
+            <td valign="top" style="padding-left: 15px;">c. Penyimpanan <?php echo $params->persiapan_menjelang_operasi->penyimpanan->detail ?? ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->penyimpanan->ri_rj) ? "V" : ""; ?></td>
             <td valign="top" style="text-align: center;"><?php echo !empty($params->persiapan_menjelang_operasi->penyimpanan->ok) ? "V" : ""; ?></td>
         </tr>

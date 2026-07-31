@@ -452,25 +452,25 @@
             "type": "object",
             "properties": {
                 "tensi_sistole": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "tensi_diastole": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "frek_nadi": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "frek_nafas": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "suhu": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "bb": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "tb": {
-                    "type": "string"
+                    "type": "number"
                 }
             }
         },
