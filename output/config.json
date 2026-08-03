@@ -21,16 +21,16 @@
                 "copy"
             ]
         },
-        "prescription_data_list": {
+        "diagnosa_list_rujukan": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/prescription_list/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
         },
-        "vital_sign_data_list": {
+        "diagnosa_list_rujukan_balik": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]

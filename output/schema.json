@@ -14,7 +14,46 @@
                 "tanggal_lahir": {
                     "type": "string"
                 },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "kelamin": {
+                    "type": "string"
+                },
                 "alamat": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
+                },
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
+                },
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "tanggal_masuk_indo": {
+                    "type": "string"
+                },
+                "jam_masuk": {
                     "type": "string"
                 }
             }
@@ -26,6 +65,9 @@
                     "type": "string"
                 },
                 "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
                     "type": "string"
                 },
                 "jam": {
@@ -43,471 +85,104 @@
                 "dokter_stroke": {
                     "type": "string"
                 },
-                "perawat_pengantar": {
+                "dokter_rumah_sakit": {
                     "type": "string"
                 },
-                "perawat_pengantar_stroke": {
-                    "type": "string"
-                },
-                "perawat_penerima": {
-                    "type": "string"
-                },
-                "perawat_penerima_stroke": {
+                "dokter_rumah_sakit_stroke": {
                     "type": "string"
                 }
             }
         },
-        "informasi_operasi": {
+        "rujukan": {
             "type": "object",
             "properties": {
-                "tanggal": {
+                "no_rujukan": {
                     "type": "string"
                 },
-                "jam": {
+                "kode_rs": {
                     "type": "string"
                 },
-                "dokter_operator": {
+                "rumah_sakit": {
                     "type": "string"
                 },
-                "dokter_operator_1": {
+                "kabupaten_kota": {
                     "type": "string"
                 },
-                "dokter_anestesi": {
+                "kepada_yth": {
                     "type": "string"
                 },
-                "dokter_pendamping": {
+                "rsu": {
                     "type": "string"
                 },
-                "tindakan": {
+                "no_kartu_bpjs": {
                     "type": "string"
                 },
-                "lokasi_tindakan": {
+                "status": {
+                    "type": "string"
+                },
+                "diagnosa_group": {
+                    "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
+                },
+                "telah_diberikan": {
                     "type": "string"
                 }
             }
         },
-        "persiapan_menjelang_operasi": {
+        "rujukan_balik": {
             "type": "object",
             "properties": {
-                "infus": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "tts_mnt": {
-                            "type": "string"
-                        }
-                    }
+                "no_rujukan": {
+                    "type": "string"
                 },
-                "pasang_dc": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
+                "kode_rs": {
+                    "type": "string"
                 },
-                "kosongkan_vu": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
+                "rumah_sakit": {
+                    "type": "string"
                 },
-                "cukur": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "detail": {
-                            "type": "string"
-                        }
-                    }
+                "diagnosa_group": {
+                    "type": "string"
                 },
-                "lavement": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "pukul": {
-                            "type": "string"
-                        }
-                    }
+                "diagnosa_freetext": {
+                    "type": "string"
                 },
-                "puasa": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "jam_sebelum_op": {
-                            "type": "string"
-                        }
-                    }
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
                 },
-                "pakai_baju_operasi": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
+                "terapi": {
+                    "type": "string"
                 },
-                "potong_kuku": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "lepas_gigi_palsu": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "lepas_lensa_kontak": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "lepas_perhiasan": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "detail": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "hapus_makeup": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "status_pasien": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "ekg": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "ro_usg_ctscan": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "lembar_konsultasi": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "informed_consent_bedah": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "informed_consent_anestesi": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "darah_transfusi": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "colf": {
-                            "type": "string"
-                        },
-                        "jenis": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "obat": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "detail": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "donor": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "orang": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "pmi": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "colf": {
-                            "type": "string"
-                        },
-                        "jenis": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "penyimpanan": {
-                    "type": "object",
-                    "properties": {
-                        "ri_rj": {
-                            "type": "boolean"
-                        },
-                        "ok": {
-                            "type": "boolean"
-                        },
-                        "detail": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "penandaan_lokasi_operasi": {
-            "type": "object",
-            "properties": {
-                "ya": {
+                "pengobatan_dengan_obat": {
                     "type": "boolean"
                 },
-                "tidak_diperlukan": {
+                "pengobatan_dengan_obat_text": {
+                    "type": "string"
+                },
+                "perlu_rawat_inap": {
                     "type": "boolean"
-                }
-            }
-        },
-        "anamnesis": {
-            "type": "object",
-            "properties": {
-                "riwayat_penyakit_dahulu": {
-                    "type": "object",
-                    "properties": {
-                        "alergi_obat": {
-                            "type": "boolean"
-                        },
-                        "alergi_makanan": {
-                            "type": "boolean"
-                        },
-                        "penyakit_jantung": {
-                            "type": "boolean"
-                        },
-                        "hipertensi": {
-                            "type": "boolean"
-                        },
-                        "asma": {
-                            "type": "boolean"
-                        },
-                        "ppok": {
-                            "type": "boolean"
-                        },
-                        "penyakit_ginjal": {
-                            "type": "boolean"
-                        },
-                        "penyakit_hati": {
-                            "type": "boolean"
-                        }
-                    }
                 },
-                "riwayat_pengobatan": {
+                "kontrol_kembali": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali_tanggal": {
                     "type": "string"
                 },
-                "riwayat_operasi_terdahulu": {
-                    "type": "string"
+                "konsultasi_selesai": {
+                    "type": "boolean"
                 },
-                "komplikasi": {
-                    "type": "string"
+                "lain_lain": {
+                    "type": "boolean"
                 },
-                "riwayat_penggunaan_bahan": {
-                    "type": "object",
-                    "properties": {
-                        "obat_penenang": {
-                            "type": "boolean"
-                        },
-                        "merokok": {
-                            "type": "boolean"
-                        },
-                        "alkohol": {
-                            "type": "boolean"
-                        }
-                    }
-                }
-            }
-        },
-        "pemeriksaan_fisik": {
-            "type": "object",
-            "properties": {
-                "tensi_sistole": {
-                    "type": "string"
-                },
-                "tensi_diastole": {
-                    "type": "string"
-                },
-                "frek_nadi": {
-                    "type": "string"
-                },
-                "frek_nafas": {
-                    "type": "string"
-                },
-                "suhu": {
-                    "type": "string"
-                },
-                "bb": {
-                    "type": "string"
-                },
-                "tb": {
+                "lain_lain_text": {
                     "type": "string"
                 }
             }
-        },
-        "pemeriksaan_penunjang": {
-            "type": "object",
-            "properties": {
-                "hb": {
-                    "type": "string"
-                },
-                "pt": {
-                    "type": "string"
-                },
-                "al": {
-                    "type": "string"
-                },
-                "appt": {
-                    "type": "string"
-                },
-                "at": {
-                    "type": "string"
-                },
-                "gds": {
-                    "type": "string"
-                },
-                "gol": {
-                    "type": "string"
-                },
-                "hbsag": {
-                    "type": "string"
-                }
-            }
-        },
-        "catatan": {
-            "type": "string"
-        },
-        "resep_freetext": {
-            "type": "string"
         }
     }
 }
