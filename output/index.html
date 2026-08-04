@@ -929,7 +929,12 @@
                 label: "Bridging List Diagnosis Rujukan Balik",
                 functionName: bridgingListDiagnosisRujukanBalik,
                 parameters: [data]
-            }
+            },
+            {
+                label: "Bridging Patient Info Data",
+                functionName: bridgingPatientInfoData,
+                parameters: [data]
+            },
         ]);
 
 
@@ -969,6 +974,15 @@
 
     // === [BRIDGING_FUNCTION_HOOK] ===
     // AI will add the bridging function here
+    function bridgingPatientInfoData(data, operation = 'add') {
+        const ext_patient_info_data = data.external_link.patient_info_data;
+
+        data.rujukan.no_rujukan = ext_patient_info_data?.no_rujukan || "";
+        data.rujukan_balik.no_rujukan = ext_patient_info_data?.no_rujukan || "";
+        data.rujukan.no_kartu_bpjs = ext_patient_info_data?.rujukan_information?.rujukan?.peserta?.noKartu || "";
+    }
+
+    
     function bridgingListDiagnosisRujukan(data) {
         if (data.external_link.diagnosa_list_rujukan.length === 1) {
             let hasilDiagnosa = "";
