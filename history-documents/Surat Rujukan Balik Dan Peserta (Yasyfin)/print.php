@@ -442,16 +442,17 @@ function tgl_indo($tanggal)
                         <td style="padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Status</td>
                         <td style="padding-bottom: 5px; vertical-align: top;">:</td>
                         <td colspan="2" style="padding-bottom: 5px; vertical-align: top;">
-                            <?php 
-                            $status = $params->rujukan->status ?? ""; 
+                            <?php
+                            $status = $params->rujukan->status ?? "";
                             $is_utama = $status == "Utama";
                             $is_tanggungan = $status == "Tanggungan";
                             $kelamin = $params->pasien->kelamin ?? "";
                             $is_l = in_array(strtolower($kelamin), ['l', 'laki-laki']);
                             $is_p = in_array(strtolower($kelamin), ['p', 'perempuan']);
                             ?>
-                            <span style="border: 1px solid black; padding: 0 5px; margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_utama || $is_tanggungan) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_utama ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Utama</span>/<span style="<?= $is_tanggungan ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Tanggungan</span>
-                            <span style="border: 1px solid black; padding: 0 5px; margin-left: 10px; margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_l || $is_p) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_l ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">L</span>/<span style="<?= $is_p ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">P</span>
+                            <span style="border: 1px solid black; padding: 0 5px; margin-right: 5px; margin-bottom: 10px; display: inline-block; width: 10px; text-align:center;"><?= ($is_utama || $is_tanggungan) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_utama ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Utama</span>/<span style="<?= $is_tanggungan ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Tanggungan</span>
+                            <br />
+                            <span style="border: 1px solid black; padding: 0 5px;  margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_l || $is_p) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_l ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">L</span>/<span style="<?= $is_p ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">P</span>
                         </td>
                     </tr>
                 </table>
