@@ -4,7 +4,8 @@
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
             "data_usage": [
-                "copy"
+                "copy",
+                "embeded"
             ]
         },
         "inpatient_information": {
@@ -21,23 +22,9 @@
                 "copy"
             ]
         },
-        "diagnosa_list_rujukan": {
+        "vital_sign_data_list": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "diagnosa_list_rujukan_balik": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "patient_info_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
