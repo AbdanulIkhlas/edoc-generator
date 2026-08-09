@@ -115,6 +115,26 @@ const data = {
             "panjang_badan": 50.0,
             "lingkar_kepala": 34.0
         },
+        "grafik_pertumbuhan_data": [],
+        "grafik_pertumbuhan_base64": "",
+        "grafik_berat_badan_data": [],
+        "grafik_berat_badan_base64": "",
+        "grafik_lingkar_kepala_data": [],
+        "grafik_lingkar_kepala_base64": "",
+        "data_estimasi_umur_lainnya": {
+            "pemeriksaan_pertama": {
+                "kmk": "",
+                "smk": "",
+                "bmk": "",
+                "umur_pemeriksaan_jam": ""
+            },
+            "pemeriksaan_kedua": {
+                "kmk": "",
+                "smk": "",
+                "bmk": "",
+                "umur_pemeriksaan_jam": ""
+            }
+        },
         "planning": "",
         "diagnosa_group": "",
         "diagnosa_freetext": "",
@@ -633,6 +653,26 @@ const data = {
             "berat_badan": 0,
             "panjang_badan": 0,
             "lingkar_kepala": 0
+        },
+        "grafik_pertumbuhan_data": [],
+        "grafik_pertumbuhan_base64": "",
+        "grafik_berat_badan_data": [],
+        "grafik_berat_badan_base64": "",
+        "grafik_lingkar_kepala_data": [],
+        "grafik_lingkar_kepala_base64": "",
+        "data_estimasi_umur_lainnya": {
+            "pemeriksaan_pertama": {
+                "kmk": "",
+                "smk": "",
+                "bmk": "",
+                "umur_pemeriksaan_jam": ""
+            },
+            "pemeriksaan_kedua": {
+                "kmk": "",
+                "smk": "",
+                "bmk": "",
+                "umur_pemeriksaan_jam": ""
+            }
         },
         "planning": "",
         "diagnosa_group": "",
