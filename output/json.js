@@ -9,7 +9,7 @@ const data = {
             "no_rm": "876754",
             "cara_masuk": "IGD"
         },
-        "keluhan_utama":"",
+        "keluhan_utama": "",
         "objektif": {
             "tanda_vital": {
                 "fj": 80.0,
@@ -32,15 +32,15 @@ const data = {
                 "apnea": "-",
                 "auskultasi_bunyi_nafas": "Vesikuler"
             },
-            "skor_downe":"test"
+            "skor_downe": "test"
         },
         "pemeriksaan_gawat_napas": {
-            "frekuensi_napas": 0.0,
-            "retraksi": 0.0,
-            "sianosis_skor": 0.0,
-            "suara_napas": 0.0,
-            "merintih": 0.0,
-            "total_skor": 0.0,
+            "frekuensi_napas": null,
+            "retraksi": null,
+            "sianosis_skor": null,
+            "suara_napas": null,
+            "merintih": null,
+            "total_skor": null,
             "diagnosis": "Gawat Napas Ringan",
             "rekomendasi_tindakan_ringan": "Terapi Oksigen Nasal Kanul / Headbox",
             "rekomendasi_tindakan_sedang": "Terapi Oksigen CPAP",
@@ -87,30 +87,33 @@ const data = {
             "kelainan_lain": "Tidak ada"
         },
         "maturitas_fisik": {
-            "kulit": "",
-            "lanugo": "",
-            "lanugo_keterangan": "Sebagian besar tanpa lanugo",
-            "permukaan_plantar": "",
-            "permukaan_plantar_keterangan": "Garis di anterior transversa",
-            "payudara": "",
+            "kulit": "-1",
+            "lanugo": "0",
+            "lanugo_keterangan": "",
+            "permukaan_plantar": "1",
+            "permukaan_plantar_keterangan": "",
+            "payudara": "-1",
             "payudara_keterangan": "",
-            "mata_telinga": "",
+            "mata_telinga": "0",
             "mata_telinga_keterangan": "",
-            "genital_pria": "",
+            "genital_pria": "0",
             "genital_pria_keterangan": "",
-            "genital_wanita": "",
+            "genital_wanita": "0",
             "genital_wanita_keterangan": ""
         },
         "maturitas_neuromuskular": {
             "postur": null,
-            "square_window": null,
-            "arm_recoil": null,
-            "popliteal_angle": null,
-            "scarf_sign": null,
-            "heel_to_ear": null
+            "square_window": 1,
+            "arm_recoil": 2,
+            "popliteal_angle": 4,
+            "scarf_sign": 4,
+            "heel_to_ear": 4
         },
+        "fix_total_skor_ballard": 14,
         "estimasi_umur_kehamilan": {
-            "minggu_kehamilan": 38.0,
+            "minggu_kehamilan_1": 38.0,
+            "minggu_kehamilan_2": 38.0,
+            "minggu_kehamilan_3": 38.0,
             "berat_badan": 3200.0,
             "panjang_badan": 50.0,
             "lingkar_kepala": 34.0
@@ -574,12 +577,12 @@ const data = {
             "skor_downe": ""
         },
         "pemeriksaan_gawat_napas": {
-            "frekuensi_napas": 0,
-            "retraksi": 0,
-            "sianosis_skor": 0,
-            "suara_napas": 0,
-            "merintih": 0,
-            "total_skor": 0,
+            "frekuensi_napas": null,
+            "retraksi": null,
+            "sianosis_skor": null,
+            "suara_napas": null,
+            "merintih": null,
+            "total_skor": null,
             "diagnosis": "",
             "rekomendasi_tindakan_ringan": "",
             "rekomendasi_tindakan_sedang": "",
@@ -648,8 +651,11 @@ const data = {
             "scarf_sign": null,
             "heel_to_ear": null
         },
+        "fix_total_skor_ballard": null,
         "estimasi_umur_kehamilan": {
-            "minggu_kehamilan": 0,
+            "minggu_kehamilan_1": 0,
+            "minggu_kehamilan_2": 0,
+            "minggu_kehamilan_3": 0,
             "berat_badan": 0,
             "panjang_badan": 0,
             "lingkar_kepala": 0

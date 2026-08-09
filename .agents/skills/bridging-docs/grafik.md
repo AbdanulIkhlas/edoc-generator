@@ -2,6 +2,9 @@
 name: inject-grafik-pertumbuhan
 description: This document provides the standard code snippets for integrating dynamic Growth Charts (Grafik Pertumbuhan) using Chart.js. AI agents MUST paste these code snippets and adjust the variable names appropriately according to the user's specific chart requirements.
 ---
+<!-- abaikan ini!!!! : 
+contoh dokumen : RS34_RMK46
+PEMERIKSAAN NEONATUS di local/datuberu -->
 
 # Inject Growth Chart (Grafik Pertumbuhan)
 
@@ -236,10 +239,20 @@ To ensure the chart can be printed on the PDF side, capture the canvas output as
 Locate the `saveDoc: function () { ... }` block and add the following hook before the JSON data assembly:
 
 ```javascript
-                    const chartCanvasEl = document.getElementById('idCanvasChart');
-                    if (chartCanvasEl) {
-                        this.grafik_nama_chart_base64 = chartCanvasEl.toDataURL('image/jpeg', 0.5);
-                    }
+const getChartBase64 = (canvasId) => {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return "";
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const ctx = tempCanvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+    ctx.drawImage(canvas, 0, 0);
+    return tempCanvas.toDataURL('image/jpeg', 0.8);
+};
+
+this.grafik_nama_chart_base64 = getChartBase64('idCanvasChart');
 ```
 
 ---
@@ -249,3 +262,6 @@ Locate the `saveDoc: function () { ... }` block and add the following hook befor
 1. **Adapt Variable Names:** The placeholders like `NamaChart`, `grafik_nama_chart_data`, and `idCanvasChart` MUST be intelligently renamed to match the user's specific context (e.g. `Pertumbuhan`, `grafik_berat_badan_data`, `beratBadanChart`).
 2. **Chart Configuration:** Adjust the `min`, `max`, `stepSize`, and reference dataset arrays (`ds90`, `ds50`, `ds10`) exactly as required by the medical chart or the user's prompt.
 3. **Data Source Integration:** Verify whether `v-model.number` variables are appropriately pointing to the existing variables inside `data()` or if new ones must be created.
+
+
+

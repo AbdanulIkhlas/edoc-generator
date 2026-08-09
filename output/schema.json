@@ -220,18 +220,8 @@
                         "auskultasi_bunyi_usus": {
                             "type": "string"
                         },
-                        "residu_lambung": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "lingkar_abdomen": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
+                        "residu_lambung": {},
+                        "lingkar_abdomen": {},
                         "anus_imperfekta": {
                             "type": "string"
                         }
