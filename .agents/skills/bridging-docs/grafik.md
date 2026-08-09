@@ -242,14 +242,20 @@ Locate the `saveDoc: function () { ... }` block and add the following hook befor
 const getChartBase64 = (canvasId) => {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return "";
+    // compress ukuran agar base64 tidak terlalu panjang (menghindari error argument list too long)
+    const maxWidth = 500;
+    let scale = 1;
+    if (canvas.width > maxWidth) {
+        scale = maxWidth / canvas.width;
+    }
     const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
+    tempCanvas.width = canvas.width * scale;
+    tempCanvas.height = canvas.height * scale;
     const ctx = tempCanvas.getContext('2d');
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-    ctx.drawImage(canvas, 0, 0);
-    return tempCanvas.toDataURL('image/jpeg', 0.8);
+    ctx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
+    return tempCanvas.toDataURL('image/jpeg', 0.4);
 };
 
 this.grafik_nama_chart_base64 = getChartBase64('idCanvasChart');
