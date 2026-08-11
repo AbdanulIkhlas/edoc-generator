@@ -722,8 +722,28 @@
                     this.renderGrafikPertumbuhan();
                 },
                 hapusGrafikPertumbuhan: function (index) {
-                    this.grafik_pertumbuhan_data.splice(index, 1);
-                    this.renderGrafikPertumbuhan();
+                    Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "red",
+                        cancelButtonColor: "grey",
+                        confirmButtonText: "Ya, hapus!"
+                    }).then((result) => {
+                        if (result.isConfirmed || result.value) {
+                            if (index > -1) {
+                                this.grafik_pertumbuhan_data.splice(index, 1);
+                                this.renderGrafikPertumbuhan();
+                            }
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil menghapus data",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    });
                 },
                 renderGrafikBeratBadan: function () {
                     if (this.beratBadanChartInstance) {
@@ -852,8 +872,28 @@
                     this.renderGrafikBeratBadan();
                 },
                 hapusGrafikBeratBadan: function (index) {
-                    this.grafik_berat_badan_data.splice(index, 1);
-                    this.renderGrafikBeratBadan();
+                    Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "red",
+                        cancelButtonColor: "grey",
+                        confirmButtonText: "Ya, hapus!"
+                    }).then((result) => {
+                        if (result.isConfirmed || result.value) {
+                            if (index > -1) {
+                                this.grafik_berat_badan_data.splice(index, 1);
+                                this.renderGrafikBeratBadan();
+                            }
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil menghapus data",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    });
                 },
                 renderGrafikLingkarKepala: function () {
                     if (this.lingkarKepalaChartInstance) {
@@ -946,8 +986,28 @@
                     this.renderGrafikLingkarKepala();
                 },
                 hapusGrafikLingkarKepala: function (index) {
-                    this.grafik_lingkar_kepala_data.splice(index, 1);
-                    this.renderGrafikLingkarKepala();
+                    Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "red",
+                        cancelButtonColor: "grey",
+                        confirmButtonText: "Ya, hapus!"
+                    }).then((result) => {
+                        if (result.isConfirmed || result.value) {
+                            if (index > -1) {
+                                this.grafik_lingkar_kepala_data.splice(index, 1);
+                                this.renderGrafikLingkarKepala();
+                            }
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil menghapus data",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    });
                 },
                 onChDateDynamic: function (dateData, jsonPath) {
                     // @change="onChDateDynamic($event, 'penatalaksanaan.tanggal_indo')">
@@ -2050,7 +2110,7 @@
                         <div class="col-md-6 form-group">
                             <label><b>FJ</b></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="objektif.tanda_vital.fj" />
+                                <input type="number" class="form-control" min=0 v-model.number="objektif.tanda_vital.fj" />
                                 <div class="input-group-prepend"><span class="input-group-text">x/i</span></div>
                             </div>
                         </div>
@@ -2065,21 +2125,21 @@
                             </label>
                             <div class="input-group">
                                 <input type="number" step="0.1" class="form-control"
-                                    v-model.number="objektif.tanda_vital.suhu" />
+                                    min=0 v-model.number="objektif.tanda_vital.suhu" />
                                 <div class="input-group-prepend"><span class="input-group-text">°C</span></div>
                             </div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label><b>FN</b></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="objektif.tanda_vital.fn" />
+                                <input type="number" class="form-control" min=0 v-model.number="objektif.tanda_vital.fn" />
                                 <div class="input-group-prepend"><span class="input-group-text">x/i</span></div>
                             </div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label><b>CRT</b></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="objektif.tanda_vital.crt" />
+                                <input type="number" class="form-control" min=0 v-model.number="objektif.tanda_vital.crt" />
                                 <div class="input-group-prepend"><span class="input-group-text">Detik</span></div>
                             </div>
                         </div>
@@ -2099,7 +2159,7 @@
                             </label>
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                    v-model.number="objektif.ukuran_pertumbuhan.bb" />
+                                    min=0 v-model.number="objektif.ukuran_pertumbuhan.bb" />
                                 <div class="input-group-prepend"><span class="input-group-text">Gram</span></div>
                             </div>
                         </div>
@@ -2114,7 +2174,7 @@
                             </label>
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                    v-model.number="objektif.ukuran_pertumbuhan.pb" />
+                                    min=0 v-model.number="objektif.ukuran_pertumbuhan.pb" />
                                 <div class="input-group-prepend"><span class="input-group-text">Cm</span></div>
                             </div>
                         </div>
@@ -2122,7 +2182,7 @@
                             <label><b>LK</b></label>
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                    v-model.number="objektif.ukuran_pertumbuhan.lk" />
+                                    min=0 v-model.number="objektif.ukuran_pertumbuhan.lk" />
                                 <div class="input-group-prepend"><span class="input-group-text">Cm</span></div>
                             </div>
                         </div>
@@ -2221,7 +2281,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="fn_0" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="0"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="0"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2237,7 +2297,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="fn_1" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="1"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="1"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2253,7 +2313,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="fn_2" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="2"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.frekuensi_napas" :true-value="2"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2272,7 +2332,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="retraksi_0" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="0"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="0"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2288,7 +2348,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="retraksi_1" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="1"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="1"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2304,7 +2364,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="retraksi_2" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="2"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.retraksi" :true-value="2"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2323,7 +2383,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="sianosis_gn_0" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="0"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="0"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2339,7 +2399,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="sianosis_gn_1" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="1"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="1"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2355,7 +2415,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="sianosis_gn_2" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="2"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.sianosis_skor" :true-value="2"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2374,7 +2434,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="suara_napas_0" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="0"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="0"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2390,7 +2450,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="suara_napas_1" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="1"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="1"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2406,7 +2466,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="suara_napas_2" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="2"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.suara_napas" :true-value="2"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2425,7 +2485,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="merintih_0" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="0"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="0"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2441,7 +2501,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="merintih_1" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="1"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="1"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2457,7 +2517,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input id="merintih_2" type="checkbox"
-                                                v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="2"
+                                                min=0 v-model.number="pemeriksaan_gawat_napas.merintih" :true-value="2"
                                                 :false-value="''" />
                                         </div>
                                     </div>
@@ -2572,12 +2632,12 @@
                             <span class="mr-2">:</span>
                             <div class="input-group w-100">
                                 <input type="number" class="form-control"
-                                    v-model.number="pemeriksaan_fisik_lanjutan.sistem_kardiovaskuler.tensi_sistole">
+                                    min=0 v-model.number="pemeriksaan_fisik_lanjutan.sistem_kardiovaskuler.tensi_sistole">
                                 <div class="input-group-append">
                                     <span class="input-group-text">/</span>
                                 </div>
                                 <input type="number" class="form-control"
-                                    v-model.number="pemeriksaan_fisik_lanjutan.sistem_kardiovaskuler.tensi_diastole">
+                                    min=0 v-model.number="pemeriksaan_fisik_lanjutan.sistem_kardiovaskuler.tensi_diastole">
                                 <div class="input-group-append">
                                     <span class="input-group-text">mmHg</span>
                                 </div>
@@ -2712,7 +2772,7 @@
                             <span class="mr-2">:</span>
                             <div class="input-group w-75">
                                 <input type="number" class="form-control"
-                                    v-model.number="pemeriksaan_fisik_lanjutan.sistem_gastrointestinal.residu_lambung">
+                                    min=0 v-model.number="pemeriksaan_fisik_lanjutan.sistem_gastrointestinal.residu_lambung">
                                 <div class="input-group-append">
                                     <span class="input-group-text">ml.</span>
                                 </div>
@@ -2725,7 +2785,7 @@
                             <span class="mr-2">:</span>
                             <div class="input-group w-75">
                                 <input type="number" class="form-control"
-                                    v-model.number="pemeriksaan_fisik_lanjutan.sistem_gastrointestinal.lingkar_abdomen">
+                                    min=0 v-model.number="pemeriksaan_fisik_lanjutan.sistem_gastrointestinal.lingkar_abdomen">
                                 <div class="input-group-append">
                                     <span class="input-group-text">cm</span>
                                 </div>
@@ -4225,7 +4285,7 @@
                     <label><b>Minggu Kehamilan</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_1" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_1" />
                         <div class="input-group-prepend"><span class="input-group-text">Minggu</span></div>
                     </div>
                 </div>
@@ -4233,7 +4293,7 @@
                     <label><b>Panjang Badan</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.panjang_badan" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.panjang_badan" />
                         <div class="input-group-prepend"><span class="input-group-text">cm</span></div>
                     </div>
                 </div>
@@ -4258,16 +4318,16 @@
                             <tr v-for="(item, index) in grafik_pertumbuhan_data" :key="index">
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.minggu" @change="renderGrafikPertumbuhan" />
+                                        min=0 v-model.number="item.minggu" @change="renderGrafikPertumbuhan" />
                                 </td>
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.panjang" @change="renderGrafikPertumbuhan" />
+                                        min=0 v-model.number="item.panjang" @change="renderGrafikPertumbuhan" />
                                 </td>
                                 <td>
                                     <button class="btn btn-danger btn-sm" type="button"
                                         @click="hapusGrafikPertumbuhan(index)">
-                                        <i class="fas fa-trash"></i> Hapus
+                                        <i class="fa fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             </tr>
@@ -4295,7 +4355,7 @@
                     <label><b>Minggu Kehamilan</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_2" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_2" />
                         <div class="input-group-prepend"><span class="input-group-text">Minggu</span></div>
                     </div>
                 </div>
@@ -4303,7 +4363,7 @@
                     <label><b>Berat Badan</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.berat_badan" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.berat_badan" />
                         <div class="input-group-prepend"><span class="input-group-text">Gram</span></div>
                     </div>
                 </div>
@@ -4327,16 +4387,16 @@
                             <tr v-for="(item, index) in grafik_berat_badan_data" :key="index">
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.minggu" @change="renderGrafikBeratBadan" />
+                                        min=0 v-model.number="item.minggu" @change="renderGrafikBeratBadan" />
                                 </td>
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.berat" @change="renderGrafikBeratBadan" />
+                                        min=0 v-model.number="item.berat" @change="renderGrafikBeratBadan" />
                                 </td>
                                 <td>
                                     <button class="btn btn-danger btn-sm" type="button"
                                         @click="hapusGrafikBeratBadan(index)">
-                                        <i class="fas fa-trash"></i> Hapus
+                                        <i class="fa fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             </tr>
@@ -4365,7 +4425,7 @@
                     <label><b>Minggu Kehamilan</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_3" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.minggu_kehamilan_3" />
                         <div class="input-group-prepend"><span class="input-group-text">Minggu</span></div>
                     </div>
                 </div>
@@ -4373,7 +4433,7 @@
                     <label><b>Lingkar Kepala</b></label>
                     <div class="input-group">
                         <input type="number" class="form-control"
-                            v-model.number="estimasi_umur_kehamilan.lingkar_kepala" />
+                            min=0 v-model.number="estimasi_umur_kehamilan.lingkar_kepala" />
                         <div class="input-group-prepend"><span class="input-group-text">cm</span></div>
                     </div>
                 </div>
@@ -4397,16 +4457,16 @@
                             <tr v-for="(item, index) in grafik_lingkar_kepala_data" :key="index">
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.minggu" @change="renderGrafikLingkarKepala" />
+                                        min=0 v-model.number="item.minggu" @change="renderGrafikLingkarKepala" />
                                 </td>
                                 <td>
                                     <input type="number" class="form-control form-control-sm text-center"
-                                        v-model.number="item.lingkar" @change="renderGrafikLingkarKepala" />
+                                        min=0 v-model.number="item.lingkar" @change="renderGrafikLingkarKepala" />
                                 </td>
                                 <td>
                                     <button class="btn btn-danger btn-sm" type="button"
                                         @click="hapusGrafikLingkarKepala(index)">
-                                        <i class="fas fa-trash"></i> Hapus
+                                        <i class="fa fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             </tr>
