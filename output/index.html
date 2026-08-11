@@ -1,39 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulir PPI </title>
-
-    <!-- Tambahkan Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <!-- Tambahkan pustaka Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- Tambahkan SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
-        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Highcharts -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <style>
-    </style>
-</head>
-
-<body>
-    <!-- === START CONTAINER CODE === -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -982,7 +946,7 @@
         data.rujukan.no_kartu_bpjs = ext_patient_info_data?.rujukan_information?.rujukan?.peserta?.noKartu || "";
     }
 
-    
+
     function bridgingListDiagnosisRujukan(data) {
         if (data.external_link.diagnosa_list_rujukan.length === 1) {
             let hasilDiagnosa = "";
@@ -2169,18 +2133,4 @@
         </div>
     </div>
     <!--END DIAGNOSA RUJUKAN BALIK MODAL-->
-
 </form>
-    <!-- === END CONTAINER CODE === -->
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="../vendor/cutomLib.js"></script>
-    <!-- Tambahkan JSON Data -->
-    <script src="json.js"></script>
-    <!-- Tambahkan script Vue Anda di sini -->
-    <script>
-        init_doc(1, data.sample, 'add');
-    </script>
-</body>
-
-</html>
