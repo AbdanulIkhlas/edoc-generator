@@ -5,12 +5,13 @@ description: Memperbarui file `output/index.html` dan `output/print.php` menjadi
 
 # Langkah Langkah Pengerjaan
 
-
 ## Analisis Data Json, Form Html dan Print PHP
+
 Analisis terlebih dahulu file `output/json.js`, `output/index.html`, dan `output/print.php`.
 Data yang akan digunakan pada `output/json.js` adalah data pada objek `sample` saja tapi selain `external_link`.
 Contoh :
-isi asli file `output/json.js` misal seperti ini 
+isi asli file `output/json.js` misal seperti ini
+
 ```json
 const data = {
     "sample": {
@@ -530,6 +531,7 @@ const data = {
 ```
 
 data yang akan digunakan untuk dokumen berkelanjutan ini adalah sebagai berikut.
+
 ```json
 "pasien": {
     "~nama": "Garga",
@@ -597,24 +599,29 @@ data yang akan digunakan untuk dokumen berkelanjutan ini adalah sebagai berikut.
 ```
 
 ## Ikuti Step by Step Snippet ini
+
 Ini merupakan code snippet yang bisa di tempel ke form html nya
 
 ### 1. Tambahkan Variabel Dummy
+
 tambahkan code dibawah ini pada atas function `function init_doc(doc_id, data, operation)`
+
 ```javascript
-let DOC_ID_DUMMY =  60;
+let DOC_ID_DUMMY = 60;
 ```
 
 ### 2. Inisialisasi Variabel
+
 cari komentar `=== [OTHER_VARIABLE_BRIDGING_HOOK] ===` dalam function `function init_doc(doc_id, data, operation)`
 dan tambahkan kode dibawah ini dibawah komen tersebut
+
 ```javascript
 // ---- template ---
 data.doc_id = doc_id ? doc_id : DOC_ID_DUMMY; // ngecek id dummy atau id rill
 data.doc_status = "ACTIVE"; // Akan diupdate dari API jika sudah pernah dibuat
-data.list_data = null;   // variabel untuk menyimpan data tabel dari database
+data.list_data = null; // variabel untuk menyimpan data tabel dari database
 data.isDirty = false; // variabel checking untuk mengecek ada perubahan pada data pasien atau tidak
-data.unsavedTimer = null; 
+data.unsavedTimer = null;
 data.showUnsavedWarning = false;
 data.showScrollTop = false;
 
@@ -632,19 +639,23 @@ data.static_json = null;
 ```
 
 ### 3. Tambahkan ke `mounted`
+
 Pada instance `var app = new Vue({`, cari bagian `mounted: function () {` dan tambahkan pemanggilan inisialisasi dokumen berkelanjutan (tambahkan jika bagian `mounted` belum ada):
+
 ```javascript
 this.getStaticJson(operation);
 this.loadPage(1);
 
 // Scroll event listener for scroll-to-top button
 window.addEventListener("scroll", () => {
-    this.showScrollTop = window.scrollY > 300;
+  this.showScrollTop = window.scrollY > 300;
 });
 ```
 
 ### 4. Tambahkan ke `watch`
+
 Tambahkan observer (watch) untuk memantau perubahan pada `static_json` agar muncul warning belum tersimpan:
+
 ```javascript
 watch: {
     static_json: {
@@ -670,7 +681,9 @@ watch: {
 ```
 
 ### 5. Tambahkan ke `computed`
+
 Tambahkan state komputasi untuk mempermudah perhitungan Pagination:
+
 ```javascript
 computed: {
     pages() {
@@ -700,7 +713,9 @@ computed: {
 ```
 
 ### 6. Tambahkan ke `methods` (API Handlers Berkelanjutan)
+
 Tambahkan method berikut ke dalam properti `methods:` pada instance Vue. Method ini menangani pengambilan, penyimpanan, dan sinkronisasi data utama (static_json) serta pagination data list (list_data).
+
 ```javascript
 handleScroll: function () {
     this.showScrollTop = window.scrollY > 300;
@@ -834,62 +849,106 @@ saveStaticJson: async function () {
 ```
 
 ### 7. Hapus/Sesuaikan Pemanggilan Save yang Lama
+
 Karena dokumen berkelanjutan (continuous) memiliki sifat auto-save berdasarkan object state (`this.static_json`) atau penambahan item ke list (`saveEntryItemHandler`), maka hapus tombol-tombol _Save Form Utama_ yang bersifat statis yang biasanya ada di paling bawah form dan hapus logika form validasi _hardcoded_ jika mengganggu flow berkelanjutan. Bridging list dari API lain juga harus diarahkan untuk memasukkan data langsung ke dalam `this.static_json` agar menjadi reaktif.
 
 > **Catatan Penting Pada Vue Methods (Bridging):** Saat melakukan set property reaktif, biasakan memanggil `this.$set(this.static_json, 'namaproperty', nilai)` lalu memanggil object collapse / modal secara bergantian dengan `setTimeout()` jika diperlukan render DOM, misalnya:
+>
 > ```javascript
 > setTimeout(() => {
->     $('#collapse_id').collapse('show');
+>   $("#collapse_id").collapse("show");
 > }, 100);
 > ```
 
 > **Catatan Penting Z-Index Modal:** Jika ada modal tambahan yang dimunculkan untuk mengambil data bridging di atas Modal Form Utama, berikan CSS styling `z-index: 1060 !important;` ke modal anak untuk memastikan modal itu berada di atas backdrop standar.
 
 ### 8. Tambahkan HTML DOM Tambahan
-Salin elemen pemberitahuan (*Floating Warning Unsaved*) di bagian atas/bawah `<form>`:
+
+Salin elemen pemberitahuan (_Floating Warning Unsaved_) di bagian atas/bawah `<form>`:
+
 ```html
 <div v-if="showUnsavedWarning" class="unsaved-notification-bar">
-    <span>
-        <i class="fa fa-warning"></i>
-        Ada perubahan yang belum disimpan!
-    </span>
-    <button type="button" v-on:click="saveStaticJson" class="btn btn-primary btn-sm">
-        <i class="fa fa-save"></i> Perbarui Sekarang
-    </button>
+  <span>
+    <i class="fa fa-warning"></i>
+    Ada perubahan yang belum disimpan!
+  </span>
+  <button
+    type="button"
+    v-on:click="saveStaticJson"
+    class="btn btn-primary btn-sm"
+  >
+    <i class="fa fa-save"></i> Perbarui Sekarang
+  </button>
 </div>
 ```
 
 **Informasi Identitas Pasien (contoh):**
 Ganti bagian atas form HTML identitas lama dengan Card Info Pasien:
+
 ```html
 <div class="card patient-card shadow-sm mb-3">
-    <div class="card-header bg-light">
-        <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
+  <div class="card-header bg-light">
+    <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
+  </div>
+  <div class="card-body">
+    <div class="row" v-if="static_json">
+      <!-- Isi dengan kolom nama, no_rm, kelamin dll menggunakan v-model="static_json.px_data.nama" -->
     </div>
-    <div class="card-body">
-        <div class="row" v-if="static_json">
-            <!-- Isi dengan kolom nama, no_rm, kelamin dll menggunakan v-model="static_json.px_data.nama" -->
-        </div>
-    </div>
+  </div>
 </div>
 ```
 
 ### 9. Tambahkan CSS Styles
-Tambahkan CSS ini di dalam tag `<style>` untuk styling elemen *continuous doc* seperti card pasien, pagination, dan floating action bar.
+
+Tambahkan CSS ini di dalam tag `<style>` untuk styling elemen _continuous doc_ seperti card pasien, pagination, dan floating action bar.
+
 ```css
-.patient-card { border: 1px solid #dee2e6; margin-top: 15px; border-radius: 8px; }
-.patient-card .data-label { font-weight: 600; color: #6c757d; margin-bottom: 2px; font-size: 0.9rem; }
-.patient-card .data-value { font-size: 1.05rem; color: #212529; width: 100%; border: 1px solid #ced4da; padding: 5px; border-radius: 4px; background-color: #f8f9fa; }
-.unsaved-notification-bar {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1050;
-    background-color: #333; color: white; padding: 12px 20px; border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); display: flex; justify-content: space-between; align-items: center; gap: 20px;
+.patient-card {
+  border: 1px solid #dee2e6;
+  margin-top: 15px;
+  border-radius: 8px;
 }
-.unsaved-notification-bar .fa-warning { color: #ffc107; margin-right: 8px; }
+.patient-card .data-label {
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+}
+.patient-card .data-value {
+  font-size: 1.05rem;
+  color: #212529;
+  width: 100%;
+  border: 1px solid #ced4da;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+}
+.unsaved-notification-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  background-color: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.unsaved-notification-bar .fa-warning {
+  color: #ffc107;
+  margin-right: 8px;
+}
 ```
 
 ### 10. Konfigurasi `print.php` dengan Redis
+
 Dokumen berkelanjutan menggunakan Redis untuk mencetak dokumen. File `output/print.php` harus diubah untuk mengambil data JSON yang telah disimpan dengan menggunakan kunci `_static` untuk form header (pasien) dan data `entry` untuk tabel dinamis.
+
 ```php
 <?php
 // Ambil Key dari Argumen
@@ -921,7 +980,8 @@ $static = isset($params->static_json->static_json) ? $params->static_json->stati
 ?>
 ```
 
-Lalu di bagian cetak identitas, gunakan variabel `$static->px_data->nama` dan untuk *list record*, lakukan perulangan (looping):
+Lalu di bagian cetak identitas, gunakan variabel `$static->px_data->nama` dan untuk _list record_, lakukan perulangan (looping):
+
 ```php
 <?php foreach ($entries as $row): ?>
     <?php $v = is_object($row) && isset($row->entry_data) ? $row->entry_data : $row; ?>
@@ -929,3 +989,10 @@ Lalu di bagian cetak identitas, gunakan variabel `$static->px_data->nama` dan un
 <?php endforeach; ?>
 ```
 
+## Referensi Tambahan & Contoh Implementasi
+
+Anda dapat melihat contoh konkrit *full implementation* dari dokumen berkelanjutan yang sudah berjalan dengan baik di direktori:
+- **HTML Form / Vue**: `example/example-berkelanjutan-1.html`
+- **PHP Print**: `example/example-berkelanjutan-1.php`
+
+Gunakan file-file tersebut sebagai pedoman / contekan (*cheat sheet*) untuk membandingkan alur kodenya jika terdapat bagian yang kurang jelas pada snippet di atas.
