@@ -78,6 +78,7 @@ Insert the following layout block where the chart should be displayed. It includ
                     <button class="btn btn-danger ml-2" type="button" @click="resetGrafikNamaChart" v-if="grafik_nama_chart_data.length > 0">Reset Grafik</button>
                 </div>
 
+                <!-- tampilkan data sumbu x dan sumbu y nya di bawah ini dalam bentuk tabel dan bisa di edit serta hapus -->
                 <div class="col-md-12 mt-3" v-if="grafik_nama_chart_data.length > 0">
                     <table class="table table-bordered table-sm text-center">
                         <thead class="bg-light">
@@ -90,14 +91,17 @@ Insert the following layout block where the chart should be displayed. It includ
                         <tbody>
                             <tr v-for="(item, index) in grafik_nama_chart_data" :key="index">
                                 <td>
-                                    <input type="number" class="form-control form-control-sm text-center" v-model.number="item.x" @change="renderGrafikNamaChart" />
+                                    <input type="number" class="form-control form-control-sm text-center"
+                                        min=0 v-model.number="item.x" @change="renderGrafikNamaChart" />
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control form-control-sm text-center" v-model.number="item.y" @change="renderGrafikNamaChart" />
+                                    <input type="number" class="form-control form-control-sm text-center"
+                                        min=0 v-model.number="item.y" @change="renderGrafikNamaChart" />
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" type="button" @click="hapusGrafikNamaChart(index)">
-                                        <i class="fas fa-trash"></i> Hapus
+                                    <button class="btn btn-danger btn-sm" type="button"
+                                        @click="hapusGrafikNamaChart(index)">
+                                        <i class="fa fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             </tr>
@@ -213,8 +217,28 @@ Insert the rendering and interaction logic inside the `methods: { ... }` block o
                     this.renderGrafikNamaChart();
                 },
                 hapusGrafikNamaChart: function(index) {
-                    this.grafik_nama_chart_data.splice(index, 1);
-                    this.renderGrafikNamaChart();
+                    Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "red",
+                        cancelButtonColor: "grey",
+                        confirmButtonText: "Ya, hapus!"
+                    }).then((result) => {
+                        if (result.isConfirmed || result.value) {
+                            if (index > -1) {
+                                this.grafik_nama_chart_data.splice(index, 1);
+                                this.renderGrafikNamaChart();
+                            }
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil menghapus data",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    });
                 },
 ```
 
