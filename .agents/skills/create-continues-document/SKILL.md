@@ -631,3 +631,301 @@ data.static_json = null;
 // ---- template ---
 ```
 
+### 3. Tambahkan ke `mounted`
+Pada instance `var app = new Vue({`, cari bagian `mounted: function () {` dan tambahkan pemanggilan inisialisasi dokumen berkelanjutan (tambahkan jika bagian `mounted` belum ada):
+```javascript
+this.getStaticJson(operation);
+this.loadPage(1);
+
+// Scroll event listener for scroll-to-top button
+window.addEventListener("scroll", () => {
+    this.showScrollTop = window.scrollY > 300;
+});
+```
+
+### 4. Tambahkan ke `watch`
+Tambahkan observer (watch) untuk memantau perubahan pada `static_json` agar muncul warning belum tersimpan:
+```javascript
+watch: {
+    static_json: {
+        handler: function (dataFormSaatIni) {
+            if (!this.original_static_json) return;
+
+            const dataSekarangString = JSON.stringify(dataFormSaatIni);
+            const dataAsliString = JSON.stringify(this.original_static_json);
+            this.isDirty = dataSekarangString !== dataAsliString;
+
+            clearTimeout(this.unsavedTimer);
+            this.showUnsavedWarning = false;
+
+            if (this.isDirty) {
+                this.unsavedTimer = setTimeout(() => {
+                    this.showUnsavedWarning = true;
+                }, 3000);
+            }
+        },
+        deep: true,
+    },
+},
+```
+
+### 5. Tambahkan ke `computed`
+Tambahkan state komputasi untuk mempermudah perhitungan Pagination:
+```javascript
+computed: {
+    pages() {
+        const numShown = 5;
+        const pages = [];
+        let start = Math.max(1, this.pagination.page - Math.floor(numShown / 2));
+        let end = Math.min(this.totalPages, start + numShown - 1);
+
+        if (end - start + 1 < numShown) {
+            start = Math.max(1, end - numShown + 1);
+        }
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+        return pages;
+    },
+    totalPages() {
+        return Math.ceil(this.pagination.total / this.pagination.limit);
+    },
+    paginationInfo() {
+        const start = (this.pagination.page - 1) * this.pagination.limit + 1;
+        const end = Math.min(this.pagination.page * this.pagination.limit, this.pagination.total);
+        return `Menampilkan ${start} - ${end} dari ${this.pagination.total} data`;
+    },
+},
+```
+
+### 6. Tambahkan ke `methods` (API Handlers Berkelanjutan)
+Tambahkan method berikut ke dalam properti `methods:` pada instance Vue. Method ini menangani pengambilan, penyimpanan, dan sinkronisasi data utama (static_json) serta pagination data list (list_data).
+```javascript
+handleScroll: function () {
+    this.showScrollTop = window.scrollY > 300;
+},
+scrollToTop: function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+},
+getStaticJson: async function (operation) {
+    if (operation === "add") {
+        let isSuccess = false;
+
+        const payload = {
+            patient_document_id: this.doc_id,
+            emr_data: {
+                static: this.external_link,
+            },
+        };
+
+        await apiHelper({
+            method: "PUT",
+            url: `/api/patient_document_item/update-static`,
+            requestData: payload,
+            notifyOnError: true,
+            renderSuccess: (response) => {
+                isSuccess = true;
+            },
+        });
+
+        if (!isSuccess) return;
+    }
+
+    await apiHelper({
+        url: `/api/patient_document/get_static/${this.doc_id}`,
+        notifyOnError: true,
+        renderSuccess: (response) => {
+            this.static_json = response.data.static_json;
+            // Sinkronisasi manual px_data agar jika kosong bisa diganti
+            if (!this.static_json.px_data) {
+                this.static_json.px_data = {
+                    nama: data.pasien.nama,
+                    no_rm: data.pasien.no_rm,
+                    kelamin: data.pasien.kelamin,
+                    tanggal_lahir: data.pasien.tanggal_lahir,
+                    tanggal_lahir_indo: data.pasien.tanggal_lahir_indo
+                };
+            }
+            this.original_static_json = JSON.parse(JSON.stringify(this.static_json));
+            this.isDirty = false;
+            this.showUnsavedWarning = false;
+        },
+    });
+},
+stopPatientDocument: async function () {
+    await apiHelper({
+        url: `/api/patient_document/stop/${this.doc_id}`,
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        confirm: {
+            title: "Yakin ingin menyelesaikan dokumen Ini?",
+            confirmText: "Ya, selesaikan!",
+            icon: "warning",
+            confirmButtonColor: "#dc3545",
+            cancelButtonColor: "#6c757d",
+        },
+        renderSuccess: (result) => {
+            this.doc_status = "CLOSED";
+        },
+    });
+},
+startPatientDocument: async function () {
+    await apiHelper({
+        url: `/api/patient_document/start/${this.doc_id}`,
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        confirm: {
+            title: "Yakin ingin melanjutkan dokumen Ini?",
+            icon: "warning",
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#6c757d",
+        },
+        renderSuccess: (result) => {
+            this.doc_status = "ACTIVE";
+        },
+    });
+},
+loadPage: async function (page) {
+    if (page < 1 || (page > this.totalPages && this.totalPages > 0)) return;
+    this.list_data = null;
+    let apiUrl = `/api/patient_document_item/list?patient_document_id=${this.doc_id}&p=${page}`;
+    if (this.filterStartDate) apiUrl += `&start_date=${this.filterStartDate}`;
+    if (this.filterEndDate) apiUrl += `&end_date=${this.filterEndDate}`;
+    apiUrl += `&sort_order=${this.sortOrder}`;
+
+    await apiHelper({
+        url: apiUrl,
+        notifyOnError: true,
+        renderSuccess: (response) => {
+            this.$set(this, "list_data", response.data);
+            this.pagination.page = response.page;
+            this.pagination.limit = response.limit;
+            this.pagination.total = response.total;
+        },
+    });
+},
+saveStaticJson: async function () {
+    if (this.unsavedTimer) {
+        clearTimeout(this.unsavedTimer);
+        this.unsavedTimer = null;
+        this.showUnsavedWarning = false;
+    }
+
+    const payload = {
+        patient_document_id: this.doc_id,
+        emr_data: {
+            static: this.static_json,
+        },
+    };
+
+    await apiHelper({
+        url: `/api/patient_document_item/update-static`,
+        method: "PUT",
+        requestData: payload,
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        renderSuccess: (response) => {
+            this.original_static_json = JSON.parse(JSON.stringify(this.static_json));
+            this.isDirty = false;
+        },
+    });
+},
+```
+
+### 7. Hapus/Sesuaikan Pemanggilan Save yang Lama
+Karena dokumen berkelanjutan (continuous) memiliki sifat auto-save berdasarkan object state (`this.static_json`) atau penambahan item ke list (`saveEntryItemHandler`), maka hapus tombol-tombol _Save Form Utama_ yang bersifat statis yang biasanya ada di paling bawah form dan hapus logika form validasi _hardcoded_ jika mengganggu flow berkelanjutan. Bridging list dari API lain juga harus diarahkan untuk memasukkan data langsung ke dalam `this.static_json` agar menjadi reaktif.
+
+> **Catatan Penting Pada Vue Methods (Bridging):** Saat melakukan set property reaktif, biasakan memanggil `this.$set(this.static_json, 'namaproperty', nilai)` lalu memanggil object collapse / modal secara bergantian dengan `setTimeout()` jika diperlukan render DOM, misalnya:
+> ```javascript
+> setTimeout(() => {
+>     $('#collapse_id').collapse('show');
+> }, 100);
+> ```
+
+> **Catatan Penting Z-Index Modal:** Jika ada modal tambahan yang dimunculkan untuk mengambil data bridging di atas Modal Form Utama, berikan CSS styling `z-index: 1060 !important;` ke modal anak untuk memastikan modal itu berada di atas backdrop standar.
+
+### 8. Tambahkan HTML DOM Tambahan
+Salin elemen pemberitahuan (*Floating Warning Unsaved*) di bagian atas/bawah `<form>`:
+```html
+<div v-if="showUnsavedWarning" class="unsaved-notification-bar">
+    <span>
+        <i class="fa fa-warning"></i>
+        Ada perubahan yang belum disimpan!
+    </span>
+    <button type="button" v-on:click="saveStaticJson" class="btn btn-primary btn-sm">
+        <i class="fa fa-save"></i> Perbarui Sekarang
+    </button>
+</div>
+```
+
+**Informasi Identitas Pasien (contoh):**
+Ganti bagian atas form HTML identitas lama dengan Card Info Pasien:
+```html
+<div class="card patient-card shadow-sm mb-3">
+    <div class="card-header bg-light">
+        <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
+    </div>
+    <div class="card-body">
+        <div class="row" v-if="static_json">
+            <!-- Isi dengan kolom nama, no_rm, kelamin dll menggunakan v-model="static_json.px_data.nama" -->
+        </div>
+    </div>
+</div>
+```
+
+### 9. Tambahkan CSS Styles
+Tambahkan CSS ini di dalam tag `<style>` untuk styling elemen *continuous doc* seperti card pasien, pagination, dan floating action bar.
+```css
+.patient-card { border: 1px solid #dee2e6; margin-top: 15px; border-radius: 8px; }
+.patient-card .data-label { font-weight: 600; color: #6c757d; margin-bottom: 2px; font-size: 0.9rem; }
+.patient-card .data-value { font-size: 1.05rem; color: #212529; width: 100%; border: 1px solid #ced4da; padding: 5px; border-radius: 4px; background-color: #f8f9fa; }
+.unsaved-notification-bar {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1050;
+    background-color: #333; color: white; padding: 12px 20px; border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); display: flex; justify-content: space-between; align-items: center; gap: 20px;
+}
+.unsaved-notification-bar .fa-warning { color: #ffc107; margin-right: 8px; }
+```
+
+### 10. Konfigurasi `print.php` dengan Redis
+Dokumen berkelanjutan menggunakan Redis untuk mencetak dokumen. File `output/print.php` harus diubah untuk mengambil data JSON yang telah disimpan dengan menggunakan kunci `_static` untuk form header (pasien) dan data `entry` untuk tabel dinamis.
+```php
+<?php
+// Ambil Key dari Argumen
+$redisKey = $argv[1];
+$serverAddress = $argv[2];
+
+// Koneksi ke Redis
+$redis = new Redis();
+try {
+    $redis->connect('localhost', 6379);
+} catch (Exception $e) {
+    die("Gagal koneksi ke Redis: " . $e->getMessage());
+}
+
+$jsonString = $redis->get($redisKey);
+$staticJsonString = $redis->get($redisKey . "_static");
+
+if (!$jsonString) {
+    die("Dokumen ini tidak memiliki preview.");
+}
+
+$params = json_decode($jsonString);
+$static_label = json_decode($staticJsonString);
+
+$title = "ASSESMEN MEDIS LANJUTAN"; // Ubah sesuai judul
+
+$entries = isset($params->entry) ? $params->entry : [];
+$static = isset($params->static_json->static_json) ? $params->static_json->static_json : null;
+?>
+```
+
+Lalu di bagian cetak identitas, gunakan variabel `$static->px_data->nama` dan untuk *list record*, lakukan perulangan (looping):
+```php
+<?php foreach ($entries as $row): ?>
+    <?php $v = is_object($row) && isset($row->entry_data) ? $row->entry_data : $row; ?>
+    <!-- cetak variabel $v->nama_properti di dalam tabel -->
+<?php endforeach; ?>
+```
+
