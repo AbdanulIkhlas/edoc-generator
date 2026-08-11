@@ -1,0 +1,148 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "no_rm": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "kelamin": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
+                },
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
+                },
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "jam_masuk": {
+                    "type": "string"
+                }
+            }
+        },
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "kota": {
+                    "type": "string"
+                },
+                "tanggal": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "perawat": {
+                    "type": "string"
+                },
+                "perawat_stroke": {
+                    "type": "string"
+                },
+                "dokter": {
+                    "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
+                }
+            }
+        },
+        "diagnosa_group": {
+            "type": "string"
+        },
+        "diagnosa_freetext": {
+            "type": "string"
+        },
+        "diagnosa_list_autocomplete": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "icd_x": {
+                        "type": "string"
+                    },
+                    "nama_sebab_sakit": {
+                        "type": "string"
+                    },
+                    "deskripsi": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "fungsional": {
+            "type": "string"
+        },
+        "program_tindakan": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "riwayat_terapi": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "tanggal": {
+                        "type": "string"
+                    },
+                    "tindakan_list": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tindakan": {
+                                    "type": "string"
+                                },
+                                "ttd_petugas_nama": {
+                                    "type": "string"
+                                },
+                                "ttd_petugas_stroke": {
+                                    "type": "string"
+                                },
+                                "ttd_pasien_nama": {
+                                    "type": "string"
+                                },
+                                "ttd_pasien_stroke": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
