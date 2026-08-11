@@ -1,0 +1,1286 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+    integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" charset="utf-8">
+    // Global variable here
+    const URL_IMAGE_SEVER_LOCAL = "http://192.168.0.201:1201/";
+    const URL_IMAGE_SEVER_WG = "http://45.149.93.234:1201/";
+    const IP_WG = "45.149.93.234";
+
+    // Vue components here
+    Vue.component("floating-nav", {
+        props: {
+            sections: {
+                type: Array,
+                required: true,
+            },
+        },
+        data: function () {
+            return {
+                isHovered: false,
+            };
+        },
+        methods: {
+            scrollToSection: function (id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    // Mencegah perilaku default dan melakukan smooth scroll
+                    event.preventDefault();
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
+            },
+        },
+        template: `
+                    <div 
+                        class="floating-nav-container" 
+                        @mouseenter="isHovered = true" 
+                        @mouseleave="isHovered = false"
+                    >
+                    <ul class="nav-list" :class="{ 'show': isHovered }">
+                        <li v-for="section in sections" :key="section.id">
+                            <a :href="'#' + section.id" @click="scrollToSection(section.id)">
+                                {{ section.title }}
+                            </a>
+                        </li>
+                    </ul>
+                    </div>
+                `,
+    });
+
+    Vue.component("ttd-section", {
+        props: {
+            mode: String,
+            drawer_name: String,
+            label: String,
+            value: String,
+            path_name: String,
+            stroke: String,
+            path_stroke: String,
+            name_input_type: String,
+            select_id: String,
+        },
+        mounted() {
+            $(`#${this.select_id}`).on("select2:select", (e) => {
+                const selected = e.params.data;
+
+                if (selected) {
+                    const url = selected.ttd_image ? this.getImageUrl() + selected.ttd_image : "";
+                    this.onChangeTTD(url);
+                }
+            });
+
+            $(`#${this.select_id}`).on("select2:clearing", (e) => {
+                this.localValue = "";
+                this.updateStrokeBaru("");
+            });
+
+            setSelect2(`#${this.select_id}`, this.value, this.value);
+        },
+        methods: {
+            getImageUrl() {
+                return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+            },
+            showImageUrl(url) {
+                if (!url || typeof url !== "string" || url.trim() === "") {
+                    console.warn("URL tidak valid atau kosong. Mengembalikan string kosong.");
+                    return "";
+                }
+
+                try {
+                    // 2. Gunakan objek URL untuk mendapatkan pathname
+                    const urlObject = new URL(url);
+                    const pathname = urlObject.pathname.startsWith('/') ? urlObject.pathname.substring(1) : urlObject.pathname;
+
+                    // urlObject.search untuk selalu mengambil data image terbaru pada ttd pasien
+                    const result = this.getImageUrl() + pathname + urlObject.search;
+                    return result;
+                } catch (e) {
+                    console.error("Gagal memproses URL:", e);
+                    // Mengembalikan URL asli jika terjadi kesalahan
+                    return url;
+                }
+            },
+            handleOpenTTDModal({ path_stroke, path_name, mode, label, name_input_type }) {
+                this.$emit("open-ttd-modal", {
+                    path_stroke,
+                    path_name,
+                    label,
+                    name_input_type,
+                    mode_ttd: mode,
+                });
+            },
+            onChangeTTD(url = "") {
+                if (this.mode === "IMAGE" && this.name_input_type === 'TEXT') return;
+
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(() => {
+                    if (this.localValue) {
+                        let stroke = "";
+
+                        if (this.mode === "QRCODE") {
+                            stroke = generatorQr(this.localValue);
+                        } else if (this.mode === "IMAGE") {
+                            stroke = url;
+                        } else {
+                            return;
+                        }
+
+                        this.updateStrokeBaru(stroke);
+                    } else {
+                        this.updateStrokeBaru("");
+                    }
+                }, 500); // delay 500 ms
+            },
+            updateStrokeBaru(url) {
+                // Memberi tahu parent untuk update stroke
+                this.$emit("update-stroke", url);
+            },
+        },
+        computed: {
+            localValue: {
+                get() {
+                    return this.value;
+                },
+                set(val) {
+                    this.$emit("input", val);
+                },
+            },
+        },
+        template: `
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-12">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-12 text-center" style="height:40px">
+                            <p class="mb-0">{{ label }}</p>
+                        </div>
+            
+                        <div class="col-md-12 text-center mb-2">
+                            <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                            <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                        </div>
+            
+                        <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
+                            <p class="mb-0">{{ localValue }}</p>
+                        </div>
+            
+                        <div v-if="mode === 'IMAGE' || mode === 'QRCODE'" class="col-md-12 text-center" style="height:23px">
+                        </div>
+            
+                        <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
+                            <button style="min-width: 230px;" type="button"
+                            class="btn"
+                            :class="{
+                                'bg-success text-white': (stroke === '' && localValue === ''),
+                                'bg-warning text-black': (stroke !== '' || localValue !== '')
+                            }"
+                            data-toggle="modal"
+                            data-target="#tandaTanganModal"
+                            @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            &nbsp;&nbsp;
+                            {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
+                            </button>
+                        </div>
+            
+                        <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
+                            <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
+                            <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
+                            <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `,
+    });
+
+    // Config function here
+    function configKepadaKonsulen(data) {
+        return {
+            element: "#kepada_konsulen_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            allowClear: true,
+            query_params: { status: "", spesialisasi: "" },
+            markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+            selection_template: function (repo) {
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.form_data.kepada_konsulen;
+                    data.form_data.kepada_konsulen = res;
+                }
+                return res;
+            },
+        };
+    }
+
+    function configKepadaDPJP(data) {
+        return {
+            element: "#kepada_dpjp_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            allowClear: true,
+            query_params: { status: "", spesialisasi: "" },
+            markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+            selection_template: function (repo) {
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.form_data.kepada_dpjp;
+                    data.form_data.kepada_dpjp = res;
+                }
+                return res;
+            },
+        };
+    }
+
+    function configTTDDPJP(data) {
+        return {
+            element: "#dpjp_ttd_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            allowClear: true,
+            query_params: { status: "", spesialisasi: "" },
+            markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+            selection_template: function (repo) {
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.ttd_data.dokter_dpjp;
+                    data.ttd_data.dokter_dpjp = res;
+                }
+                return res;
+            },
+        };
+    }
+
+    function configTTDKonsulen(data) {
+        return {
+            element: "#konsulen_ttd_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            allowClear: true,
+            query_params: { status: "", spesialisasi: "" },
+            markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+            selection_template: function (repo) {
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.ttd_data.dokter_konsulen;
+                    data.ttd_data.dokter_konsulen = res;
+                }
+                return res;
+            },
+        };
+    }
+
+    function configTTDModalDokter(data) {
+        return {
+            element: "#dokter_ttd_modal_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            dropdownParent: "#tandaTanganModal",
+            allowClear: true,
+            query_params: { status: "", spesialisasi: "" },
+            markup_template: function (repo) { return `<b>${repo.nama}</b>`; },
+            selection_template: function (repo) {
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.tmp_modal_ttd.name;
+                    data.tmp_modal_ttd.name = res;
+                }
+                return res;
+            },
+        };
+    }
+
+    let DOC_ID_DUMMY = 60;
+    function init_doc(doc_id, data, operation) {
+        data.navSections = [
+            { id: "pasien-info", title: "Informasi Pasien" },
+            { id: "lembar-konsultasi", title: "Lembar Konsultasi" },
+            { id: "form-2", title: "Jawaban Konsultasi" },
+            { id: "save-doc", title: "Simpan" },
+        ];
+        data.drawings = {
+            ttd_1: { brushSize: 2, brushColor: "#000000", isDrawing: false, isErasing: false, lastX: 0, lastY: 0 },
+        };
+
+        if (!data.form_data) {
+            data.form_data = {
+                kepada_konsulen: "",
+                konsul: "",
+                kepada_dpjp: "",
+                saran: ""
+            };
+        }
+
+        if (!data.ttd_data) {
+            data.ttd_data = {
+                kota: "Ponorogo",
+                tanggal_permintaan: "",
+                tanggal_permintaan_indo: "",
+                jam_permintaan: "",
+                dokter_dpjp: "",
+                dokter_dpjp_stroke: "",
+
+                tanggal_jawaban: "",
+                tanggal_jawaban_indo: "",
+                jam_jawaban: "",
+                dokter_konsulen: "",
+                dokter_konsulen_stroke: ""
+            };
+        }
+
+        data.tmp_modal_ttd = {
+            name: "", title: "", label: "", mode: "", mode_ttd: "",
+            path_name: "", path_stroke: "", name_input_type: "",
+        };
+
+        // ---- template continuous ---
+        data.doc_id = doc_id ? doc_id : (typeof DOC_ID_DUMMY !== 'undefined' ? DOC_ID_DUMMY : 60);
+        data.doc_status = "ACTIVE"; 
+        data.isDirty = false; 
+        data.unsavedTimer = null; 
+        data.showUnsavedWarning = false;
+        data.showScrollTop = false;
+        data.original_state_string = null;
+        // ---- template continuous ---
+
+        var app = new Vue({
+            el: "#formadd",
+            data: data,
+            mounted: function () {
+                this.init();
+                this.getStaticJson(operation);
+
+                window.addEventListener("scroll", () => {
+                    this.showScrollTop = window.scrollY > 300;
+                });
+            },
+            watch: {
+                'pasien': { handler: 'checkUnsaved', deep: true },
+                'form_data': { handler: 'checkUnsaved', deep: true },
+                'ttd_data': { handler: 'checkUnsaved', deep: true },
+            },
+            methods: {
+                init: function () {
+                    // Autocomplete function here
+                    autocomplete(configKepadaKonsulen(data));
+                    autocomplete(configKepadaDPJP(data));
+                    autocomplete(configTTDDPJP(data));
+                    autocomplete(configTTDKonsulen(data));
+
+                    this.setupSignature(data);
+
+                    if (operation === "add") {
+                        init_doc_add(data);
+                    }
+                    if (operation === "edit") {
+                        init_doc_edit(data);
+                    }
+
+                    // Set existing values to Select2 on load
+                    setTimeout(() => {
+                        setSelect2("#kepada_konsulen_auto", data.form_data.kepada_konsulen, data.form_data.kepada_konsulen);
+                        setSelect2("#kepada_dpjp_auto", data.form_data.kepada_dpjp, data.form_data.kepada_dpjp);
+                        setSelect2("#dpjp_ttd_auto", data.ttd_data.dokter_dpjp, data.ttd_data.dokter_dpjp);
+                        setSelect2("#konsulen_ttd_auto", data.ttd_data.dokter_konsulen, data.ttd_data.dokter_konsulen);
+                    }, 500);
+                },
+                checkUnsaved: function() {
+                    if (!this.original_state_string) return;
+                    const current_state_string = JSON.stringify({
+                        pasien: this.pasien,
+                        form_data: this.form_data,
+                        ttd_data: this.ttd_data
+                    });
+                    this.isDirty = current_state_string !== this.original_state_string;
+                    
+                    clearTimeout(this.unsavedTimer);
+                    this.showUnsavedWarning = false;
+
+                    if (this.isDirty) {
+                        this.unsavedTimer = setTimeout(() => {
+                            this.showUnsavedWarning = true;
+                        }, 3000);
+                    }
+                },
+                handleScroll: function () {
+                    this.showScrollTop = window.scrollY > 300;
+                },
+                scrollToTop: function () {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                },
+                getStaticJson: async function (operation) {
+                    if (operation === "add") {
+                        let isSuccess = false;
+                        const payload = {
+                            patient_document_id: this.doc_id,
+                            emr_data: {
+                                static: {
+                                    pasien: this.pasien,
+                                    form_data: this.form_data,
+                                    ttd_data: this.ttd_data
+                                }
+                            }
+                        };
+                        await apiHelper({
+                            method: "PUT",
+                            url: `/api/patient_document_item/update-static`,
+                            requestData: payload,
+                            notifyOnError: true,
+                            renderSuccess: (response) => { isSuccess = true; }
+                        });
+                        if (!isSuccess) return;
+                    }
+
+                    await apiHelper({
+                        url: `/api/patient_document/get_static/${this.doc_id}`,
+                        notifyOnError: true,
+                        renderSuccess: (response) => {
+                            if (response.data && response.data.static_json) {
+                                const st = response.data.static_json;
+                                if (st.pasien) this.pasien = st.pasien;
+                                if (st.form_data) this.form_data = st.form_data;
+                                if (st.ttd_data) this.ttd_data = st.ttd_data;
+                                
+                                // Sinkronisasi manual px_data
+                                if (!st.px_data) {
+                                    st.px_data = {
+                                        nama: data.pasien.nama,
+                                        no_rm: data.pasien.no_rm,
+                                        kelamin: data.pasien.kelamin,
+                                        tanggal_lahir: data.pasien.tanggal_lahir,
+                                        tanggal_lahir_indo: data.pasien.tanggal_lahir_indo
+                                    };
+                                }
+                            }
+                            
+                            this.original_state_string = JSON.stringify({
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            });
+                            this.isDirty = false;
+                            this.showUnsavedWarning = false;
+                        }
+                    });
+                },
+                saveStaticJson: async function () {
+                    if (this.unsavedTimer) {
+                        clearTimeout(this.unsavedTimer);
+                        this.unsavedTimer = null;
+                        this.showUnsavedWarning = false;
+                    }
+
+                    const payload = {
+                        patient_document_id: this.doc_id,
+                        emr_data: {
+                            static: {
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            }
+                        }
+                    };
+
+                    await apiHelper({
+                        url: `/api/patient_document_item/update-static`,
+                        method: "PUT",
+                        requestData: payload,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        renderSuccess: (response) => {
+                            this.original_state_string = JSON.stringify({
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            });
+                            this.isDirty = false;
+                        }
+                    });
+                },
+                saveDoc: function () {
+                    this.saveStaticJson();
+                },
+                checkData: function () {
+                    /* built in function from edoc */
+                    preview_emr_data(data);
+                },
+                onChDateDynamic: function (dateData, jsonPath) {
+                    let obj = this;
+                    jsonPathSplit = jsonPath.split(".");
+                    for (i = 0; i < jsonPathSplit.length - 1; i++) {
+                        obj = obj[jsonPathSplit[i]];
+                    }
+                    if (dateData.target.value != "") {
+                        obj[jsonPathSplit[i]] = dateParse(new Date(dateData.target.value));
+                    } else {
+                        obj[jsonPathSplit[i]] = "";
+                    }
+                },
+                setupSignature: function (data) {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                    // Start setup Coretan Canvas
+                    const canvas1 = this.$refs["ttd_1"];
+                    this.addCanvasListeners("ttd_1", canvas1);
+                    // End setup Coraten Canvas
+
+                    // Start setup autocomplete ketika mode ttd canvas
+                    $("#tandaTanganModal").on("shown.bs.modal", () => {
+                        autocomplete(configTTDModalDokter(data));
+                        setSelect2("#dokter_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
+
+                        $("#dokter_ttd_modal_auto").on("select2:clearing", (e) => {
+                            this.tmp_modal_ttd.name = "";
+                            this.tmp_modal_ttd.stroke = "";
+                        });
+                    });
+                    // End setup autocomplete ketika mode ttd canvas
+                },
+                addCanvasListeners(name, canvas) {
+                    canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("mouseup", () => this.stopDraw(name));
+                    canvas.addEventListener("mouseout", () => this.stopDraw(name));
+                    canvas.addEventListener("touchstart", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("touchmove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("touchend", () => this.stopDraw(name));
+                },
+                getCoordinates(event, canvas) {
+                    const rect = canvas.getBoundingClientRect();
+                    if (event.touches) {
+                        return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
+                    }
+                    return { x: event.offsetX, y: event.offsetY };
+                },
+                startDraw(event, name) {
+                    event.preventDefault();
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    drawing.isDrawing = true;
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                moveDraw(event, name) {
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    if (!drawing.isDrawing) return;
+                    event.preventDefault();
+                    const ctx = canvas.getContext("2d");
+                    ctx.lineWidth = drawing.brushSize;
+                    ctx.strokeStyle = drawing.isErasing ? "rgba(255, 255, 255, 1)" : drawing.brushColor;
+                    ctx.globalCompositeOperation = drawing.isErasing ? "destination-out" : "source-over";
+                    ctx.lineJoin = "round";
+                    ctx.lineCap = "round";
+
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    ctx.beginPath();
+                    ctx.moveTo(drawing.lastX, drawing.lastY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                stopDraw(name) {
+                    this.drawings[name].isDrawing = false;
+                },
+                startDrawing(name) {
+                    this.drawings[name].isErasing = false;
+                },
+                startErasing(name) {
+                    this.drawings[name].isErasing = true;
+                },
+                clearCanvas(name, showConfirm = true) {
+                    if (showConfirm) {
+                        Swal.fire({
+                            title: "Apa kamu yakin?",
+                            text: "Anda tidak akan dapat mengembalikan ini!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Ya, hapus!",
+                        }).then((result) => {
+                            if (result.isConfirmed || result.value) {
+                                setByPath(this, this.tmp_modal_ttd.path_stroke, "");
+                                const canvas = this.$refs[name];
+                                const ctx = canvas.getContext("2d");
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Coretan Anda telah dihapus",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                });
+                            }
+                        });
+                    } else {
+                        const canvas = this.$refs[name];
+                        const ctx = canvas.getContext("2d");
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+                },
+                saveAsImage({ name, path_name, path_stroke, isReturn = false }) {
+                    if (this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        if (isReturn) return generatorQr(this.drawer_ttd[name].name);
+                        else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
+                    } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
+                        const scaleFactor = 1; // Faktor skala, bisa diatur sesuai kebutuhan
+                        const drawingCanvas = this.$refs[name];
+
+                        // Buat canvas baru untuk menampung hasil
+                        const resizedCanvas = document.createElement("canvas");
+                        resizedCanvas.width = drawingCanvas.width * scaleFactor;
+                        resizedCanvas.height = drawingCanvas.height * scaleFactor;
+
+                        const resizedCtx = resizedCanvas.getContext("2d");
+
+                        // Skalakan gambar latar belakang dan coretan ke canvas yang lebih kecil
+                        resizedCtx.drawImage(drawingCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+                        // Konversi hasilnya menjadi PNG base64
+                        const resizedBase64 = resizedCanvas.toDataURL("image/png");
+
+                        // Menyimpan hasil base64 ke array `drawings`
+                        if (isReturn) return resizedBase64;
+                        else setByPath(this, path_stroke, resizedBase64);
+                    }
+                },
+                // Fungsi untuk memuat gambar dari base64 ke canvas
+                loadBase64Image(base64 = null) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+                    const drawingCtx = drawingCanvas.getContext("2d");
+
+                    const drawingImage = new Image();
+                    drawingImage.src = base64; // Muat gambar dari base64 di array drawings
+
+                    drawingImage.onload = () => {
+                        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                        drawingCtx.drawImage(drawingImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+                    };
+                },
+                openTTDModalHandler: function ({ path_name = "", path_stroke = "", mode_ttd = "", label = "Penandatangan", name_input_type = "TEXT" }) {
+                    this.clearCanvas("ttd_1", false);
+                    this.tmp_modal_ttd.name = "";
+                    const stroke = getByPath(this, path_stroke);
+                    this.tmp_modal_ttd.name = getByPath(this, path_name);
+                    this.tmp_modal_ttd.name_input_type = name_input_type;
+                    this.tmp_modal_ttd.label = label;
+                    this.tmp_modal_ttd.path_name = path_name;
+                    this.tmp_modal_ttd.path_stroke = path_stroke;
+                    this.tmp_modal_ttd.mode_ttd = mode_ttd;
+
+                    if (stroke || this.tmp_modal_ttd.name) this.tmp_modal_ttd.mode = "edit";
+                    else this.tmp_modal_ttd.mode = "add";
+
+                    if (this.tmp_modal_ttd.mode === "add") {
+                        this.tmp_modal_ttd.title = "Tambah Tanda Tangan";
+                    } else if (this.tmp_modal_ttd.mode === "edit") {
+                        setSelect2("#dokter_ttd_modal_auto", this.tmp_modal_ttd.name, this.tmp_modal_ttd.name);
+                        this.tmp_modal_ttd.title = "Edit Tanda Tangan";
+                        this.loadBase64Image(getByPath(this, path_stroke));
+                    }
+                },
+                saveTTDHandler: function (isAutoComplete = false) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+
+                    setByPath(this, this.tmp_modal_ttd.path_name, this.tmp_modal_ttd.name);
+
+                    if (!isCanvasBlank(drawingCanvas) || this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        this.saveAsImage({ name: "ttd_1", path_name: this.tmp_modal_ttd.path_name, path_stroke: this.tmp_modal_ttd.path_stroke });
+                    }
+
+                    this.tmp_modal_ttd = {
+                        name: "",
+                        title: "",
+                        label: "",
+                        mode: "",
+                        mode_ttd: "",
+                        path_name: "",
+                        path_stroke: "",
+                        name_input_type: "",
+                    };
+                },
+            },
+        });
+    }
+
+    function init_doc_add(data) {
+        setupAuto(data);
+        bridgingPatientData(data);
+        bridgingDokterDPJP(data);
+        bridgingTTD(data);
+    }
+
+    function init_doc_edit(data) {
+        bridgingPatientData(data);
+    }
+
+    function bridgingTTD(data) {
+        // 1. Bridging DPJP (Dokter)
+        if (data.external_link?.dokter_dpjp_data) {
+            const dpjp = data.external_link.dokter_dpjp_data.nama_dokter_dpjp || "";
+            data.ttd_data.dokter_dpjp = dpjp;
+            data.ttd_data.dokter_dpjp_stroke = data.external_link.dokter_dpjp_data.ttd_image ?
+                getUrlHandler() + data.external_link.dokter_dpjp_data.ttd_image : "";
+
+            // Pastikan ini dipanggil agar Select2 terisi
+            setTimeout(() => {
+                setSelect2($("#dpjp_ttd_auto"), dpjp, dpjp);
+            }, 500);
+        }
+
+        // 2. Bridging Konsulen (Dokter Konsulen)
+        // Pastikan key 'dokter_konsulen_data' ada di response API Anda
+        if (data.external_link?.dokter_konsulen_data) {
+            const konsulen = data.external_link.dokter_konsulen_data.nama_dokter_konsulen || "";
+            data.ttd_data.dokter_konsulen = konsulen;
+            data.ttd_data.dokter_konsulen_stroke = data.external_link.dokter_konsulen_data.ttd_image ?
+                getUrlHandler() + data.external_link.dokter_konsulen_data.ttd_image : "";
+
+            // PENTING: Tambahkan ini agar Select2 Konsulen terisi
+            setTimeout(() => {
+                setSelect2($("#konsulen_ttd_auto"), konsulen, konsulen);
+            }, 500);
+        }
+    }
+    function setupAuto(data) {
+        // if (!data.ttd_data.tanggal_permintaan) {
+        //     data.ttd_data.tanggal_permintaan = timeNow().date; 
+        //     data.ttd_data.tanggal_permintaan_indo = dateParse(new Date(timeNow().date));
+        // }
+        // if (!data.ttd_data.jam_permintaan) {
+        //     data.ttd_data.jam_permintaan = timeNow().time; 
+        // }
+
+        // if (!data.ttd_data.tanggal_jawaban) {
+        //     data.ttd_data.tanggal_jawaban = timeNow().date; 
+        //     data.ttd_data.tanggal_jawaban_indo = dateParse(new Date(timeNow().date));
+        // }
+        // if (!data.ttd_data.jam_jawaban) {
+        //     data.ttd_data.jam_jawaban = timeNow().time; 
+        // }
+    }
+
+    function bridgingPatientData(data) {
+        const ext_patient = data.external_link.px_data;
+
+        data.pasien.nama = ext_patient.nama || "";
+        data.pasien.no_rm = ext_patient.no_rm || "";
+        data.pasien.alamat = ext_patient.alamat || "";
+        data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
+        data.pasien.pekerjaan = ext_patient.pekerjaan || "";
+        data.pasien.agama = ext_patient.agama || "";
+        data.pasien.pendidikan = ext_patient.pendidikan || "";
+        data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
+        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || ""));
+        data.pasien.kelamin = showKelamin(ext_patient.kelamin);
+        data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
+    }
+
+    function bridgingDokterDPJP(data) {
+        const dpjp = data.external_link?.dokter_dpjp_data?.nama_dokter_dpjp || "";
+        data.ttd_data.dokter = dpjp;
+        setSelect2($("#dokter_auto1"), dpjp, dpjp);
+
+        // Jika TTD dokter menggunakan Image
+        const ttd_image = data.external_link?.dokter_dpjp_data?.ttd_image;
+        data.ttd_data.dokter_stroke = ttd_image ? getUrlHandler() + ttd_image : "";
+
+        // Jika TTD dokter menggunakan QR Code
+        // setTimeout(() => {
+        //     data.ttd_data.dokter_stroke = generatorQr(dpjp);
+        // }, 1000);
+    }
+
+    // Custom and another function here
+    function dateParse(date) {
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        let dateInput = date;
+        const yyyy = dateInput.getFullYear();
+        let mm = dateInput.getMonth() + 1;
+        let dd = dateInput.getDate();
+        let month = monthNames[mm - 1];
+
+        if (dd < 10) dd = "0" + dd;
+        if (mm < 10) mm = "0" + mm;
+
+        let dateDisplay = `${dd} ${month} ${yyyy}`;
+        return dateDisplay;
+    }
+
+    function dateTimeParse(dateString) {
+        let dateInput = new Date(dateString);
+
+        const yyyy = dateInput.getFullYear();
+        let mm = dateInput.getMonth() + 1;
+        let dd = dateInput.getDate();
+
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        if (dd < 10) dd = "0" + dd;
+        if (mm < 10) mm = "0" + mm;
+
+        let dateDisplay = `${yyyy}-${mm}-${dd}`;
+        let dateWithMonthName = `${dd} ${monthNames[mm - 1]} ${yyyy}`;
+
+        let hours = dateInput.getHours();
+        let minutes = dateInput.getMinutes();
+
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+
+        let timeDisplay = `${hours}:${minutes}`;
+
+        return { date: dateDisplay, time: timeDisplay, dateWithMonthName: dateWithMonthName };
+    }
+
+    function generatorQr(el) {
+        let elgenerateqr = document.createElement("div");
+        elgenerateqr.id = "elgenerateqr";
+
+        let objqrcode = new QRCode(elgenerateqr, el);
+        return elgenerateqr.querySelector("canvas").toDataURL();
+    }
+
+    function getByPath(obj, path) {
+        return path
+            .replace(/\[(\d+)\]/g, ".$1")
+            .split(".")
+            .reduce((acc, part) => acc && acc[part], obj);
+    }
+
+    function setByPath(obj, path, value) {
+        const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
+        let current = obj;
+
+        for (let i = 0; i < parts.length - 1; i++) {
+            const part = parts[i];
+            if (!(part in current)) {
+                current[part] = isNaN(Number(parts[i + 1])) ? {} : [];
+            }
+            current = current[part];
+        }
+
+        current[parts[parts.length - 1]] = value;
+    }
+
+    function isCanvasBlank(canvas) {
+        const context = canvas.getContext("2d");
+        const pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+
+        return !pixelBuffer.some((color) => color !== 0);
+    }
+
+    function showKelamin(code) {
+        return code === "P" ? "Perempuan" : code === "L" ? "Laki-laki" : "Jenis kelamin tidak dikenal";
+    }
+</script>
+<style>
+    /* Custom style here */
+
+    /* CSS untuk Floating Navigation */
+    .floating-nav-container {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 1000;
+        cursor: pointer;
+        padding: 16px 10px;
+        background-color: #37353e;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        min-height: 100px;
+    }
+
+    .floating-nav-container::before {
+        content: "NAVIGASI";
+        /* Teks yang akan ditampilkan */
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+        letter-spacing: 2px;
+
+        /* Membuat teks menjadi vertikal */
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+
+        /* Posisi di tengah container */
+        position: absolute;
+        left: 3px;
+
+        /* Efek transisi saat hilang */
+        transition: opacity 0.2s ease-out;
+    }
+
+    /* --- SEMBUNYIKAN TEKS VERTIKAL SAAT HOVER --- */
+    .floating-nav-container:hover::before {
+        opacity: 0;
+    }
+
+    .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: max-width 0.4s ease-in-out;
+    }
+
+    .floating-nav-container:hover .nav-list,
+    .nav-list.show {
+        max-width: 300px;
+        /* Lebar menu saat muncul */
+        padding: 0 15px 0 10px;
+    }
+
+    .nav-list li a {
+        font-size: small;
+        display: block;
+        padding: 8px;
+        color: #faf8f1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .nav-list li a:hover {
+        color: #faeab1;
+        background-color: #47464d;
+        border-radius: 4px;
+    }
+
+    .garis {
+        height: 1px;
+        border-width: 0;
+        color: gray;
+        background-color: gray;
+        margin-block: 1.5rem;
+    }
+
+    .garis-tebal {
+        height: 1px;
+        border-width: 2px;
+        color: black;
+        background-color: gray;
+        margin-block: 1.5rem;
+    }
+
+    .ttd-img {
+        width: 150px;
+        height: 100px;
+        object-fit: contain;
+        border: 1px solid #ccc;
+    }
+
+    .unsaved-notification-bar {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1050;
+        background-color: #333;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .unsaved-notification-bar .fa-warning {
+        color: #ffc107;
+        margin-right: 8px;
+    }
+
+    .text-wrap {
+        white-space: normal !important;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    /* Style untuk indentitas pasien */
+    .data-label {
+        font-size: 0.8rem;
+        color: black;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        line-height: 1;
+        padding-left: 0.2em;
+        font-weight: bold;
+    }
+
+    .data-value {
+        font-weight: 500;
+        color: #343a40;
+        line-height: 1.2;
+        width: 100%;
+        border: none;
+    }
+
+    /* Style Specific to Lembar Konsultasi */
+    .border-black {
+        border-color: #343a40 !important;
+        border-width: 2px !important;
+    }
+
+    .border-bottom-black {
+        border-bottom-color: #343a40 !important;
+        border-bottom-width: 2px !important;
+    }
+
+    .border-top-black {
+        border-top-color: #343a40 !important;
+        border-top-width: 2px !important;
+    }
+
+    .ttd-box-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .konsul-title {
+        background-color: transparent !important;
+    }
+</style>
+
+<form id="formadd" class="form-label-left input_mask col-md-12">
+    <floating-nav :sections="navSections"></floating-nav>
+    <div class="row my-4">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <h4 class="text-center font-weight-bold">LEMBAR KONSULTASI</h4>
+        </div>
+    </div>
+
+    <div class="card patient-card shadow-sm mb-4" id="pasien-info">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 border-right">
+                    <div class="mb-3">
+                        <p class="data-label">Nama</p>
+                        <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Alamat</p>
+                        <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="data-label">No RM</p>
+                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.no_rm" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Lahir</p>
+                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
+                            v-model="pasien.tanggal_lahir"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card patient-card shadow-sm mb-4" id="lembar-konsultasi">
+        <div class="card-header bg-light text-center">
+            <h6 class="font-weight-bold mb-0 text-dark">Permintaan Konsul Dokter<br>Tanda Tangan & Nama Terang Dokter
+                DPJP</h6>
+        </div>
+
+
+        <div class="card-body">
+            <div class="form-group row mb-2">
+                <label class="col-md-12 col-form-label pb-0">Kepada Yth. Teman Sejawat <br> Dokter (Konsulen) :</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="kepada_konsulen_auto" style="width: 100%;"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="">Konsul :</label>
+                <textarea class="form-control" rows="8" v-model="form_data.konsul"></textarea>
+            </div>
+
+            <div class="row justify-content-end mt-4">
+                <div class="col-md-6 col-lg-5">
+                    <div class="d-flex justify-content-center align-items-center mb-1">
+
+                        <input type="date" class="form-control form-control-sm" style="width: 130px;"
+                            v-model="ttd_data.tanggal_permintaan"
+                            @change="onChDateDynamic($event, 'ttd_data.tanggal_permintaan_indo')">
+                        <span class="mx-2">Jam:</span>
+                        <input type="time" class="form-control form-control-sm" style="width: 90px;"
+                            v-model="ttd_data.jam_permintaan">
+                    </div>
+
+                    <div class="ttd-box-container mt-3">
+                        <div class="text-center mb-1">Dokter</div>
+                        <ttd-section mode="IMAGE" label="" select_id="dpjp_ttd_auto" name_input_type="DOKTER"
+                            v-model="ttd_data.dokter_dpjp" path_name="ttd_data.dokter_dpjp"
+                            :stroke="ttd_data.dokter_dpjp_stroke" path_stroke="ttd_data.dokter_dpjp_stroke"
+                            @update-stroke="ttd_data.dokter_dpjp_stroke = $event"
+                            @open-ttd-modal="openTTDModalHandler" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header bg-light text-center" id="form-2">
+            <h6 class="font-weight-bold mb-0 text-dark">Jawaban Konsul<br>Tanda Tangan & Nama Terang Dokter Konsulen
+            </h6>
+        </div>
+
+
+        <div class="card-body">
+            <div class="form-group row mb-2">
+                <label class="col-md-12 col-form-label pb-0">Kepada Yth. Teman Sejawat <br> Dokter :</label>
+                <div class="col-md-6">
+                    <select class="form-control" id="kepada_dpjp_auto" style="width: 100%;"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="">Saran :</label>
+                <textarea class="form-control" rows="8" v-model="form_data.saran"></textarea>
+            </div>
+
+            <div class="row justify-content-end mt-4">
+                <div class="col-md-6 col-lg-5">
+                    <div class="d-flex justify-content-center align-items-center mb-1">
+
+                        <input type="date" class="form-control form-control-sm" style="width: 130px;"
+                            v-model="ttd_data.tanggal_jawaban"
+                            @change="onChDateDynamic($event, 'ttd_data.tanggal_jawaban_indo')">
+                        <span class="mx-2">Jam:</span>
+                        <input type="time" class="form-control form-control-sm" style="width: 90px;"
+                            v-model="ttd_data.jam_jawaban">
+                    </div>
+
+                    <div class="ttd-box-container mt-3">
+                        <div class="text-center mb-1">Dokter</div>
+                        <ttd-section mode="IMAGE" label="" select_id="konsulen_ttd_auto" name_input_type="DOKTER"
+                            v-model="ttd_data.dokter_konsulen" path_name="ttd_data.dokter_konsulen"
+                            :stroke="ttd_data.dokter_konsulen_stroke" path_stroke="ttd_data.dokter_konsulen_stroke"
+                            @update-stroke="ttd_data.dokter_konsulen_stroke = $event"
+                            @open-ttd-modal="openTTDModalHandler" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row mt-5 text-center" id="save-doc">
+        <div class="col-md-12">
+            <button type="button" v-on:click="saveDoc" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                Simpan
+            </button>
+            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
+                <i class="fa fa-check-square-o"></i>
+                Check Data
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tandaTanganModalLabel">{{ tmp_modal_ttd.title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="row text-center d-block mb-2" v-if="tmp_modal_ttd.label">{{ tmp_modal_ttd.label
+                                }}</div>
+                            <div class="row">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div style="width: 65%" class="d-flex justify-content-between">
+                                        <div>
+                                            <div style="display: inline; margin-right: 10px">
+                                                <input type="color" style="width: 30px"
+                                                    v-model="drawings.ttd_1.brushColor" />
+                                            </div>
+                                            <div style="display: inline; margin-right: 10px; margin-top: 5px">
+                                                <input type="range" min="1" max="20"
+                                                    v-model="drawings.ttd_1.brushSize" />
+                                                <span>{{ drawings.ttd_1.brushSize }}</span>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline">
+                                            <button type="button" @click="startDrawing('ttd_1')"
+                                                class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left" title="Drawing">
+                                                <i class="fa fa-paint-brush"></i>
+                                            </button>
+                                            <button type="button" title="Erasing" @click="startErasing('ttd_1')"
+                                                class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-eraser"></i>
+                                            </button>
+                                            <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
+                                                class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
+                                        style="border: 1px solid black; margin-right: 3px"></canvas>
+                                </div>
+                            </div>
+                            <div class="row mt-2 justify-content-center">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
+                                        class="d-flex justify-content-center">
+                                        <input :key="'input_text'" type="text" class="form-control"
+                                            v-model="tmp_modal_ttd.name" />
+                                    </div>
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        @click="saveTTDHandler(true)">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="showUnsavedWarning" class="unsaved-notification-bar">
+        <span>
+            <i class="fa fa-warning"></i>
+            Ada perubahan yang belum disimpan!
+        </span>
+        <button type="button" v-on:click="saveStaticJson" class="btn btn-primary btn-sm">
+            <i class="fa fa-save"></i> Perbarui Sekarang
+        </button>
+    </div>
+</form>
