@@ -8,10 +8,13 @@
                 "nama": {
                     "type": "string"
                 },
-                "tempat_lahir": {
+                "no_rm": {
                     "type": "string"
                 },
                 "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
                     "type": "string"
                 },
                 "kelamin": {
@@ -20,401 +23,166 @@
                 "alamat": {
                     "type": "string"
                 },
-                "no_rm": {
+                "tempat_lahir": {
                     "type": "string"
                 },
-                "cara_masuk": {
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
+                },
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "tanggal_masuk_indo": {
+                    "type": "string"
+                },
+                "jam_masuk": {
                     "type": "string"
                 }
             }
         },
-        "keluhan_utama": {
-            "type": "string"
-        },
-        "objektif": {
+        "ttd_data": {
             "type": "object",
             "properties": {
-                "tanda_vital": {
-                    "type": "object",
-                    "properties": {
-                        "fj": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "fn": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "suhu": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "crt": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        }
-                    }
-                },
-                "ukuran_pertumbuhan": {
-                    "type": "object",
-                    "properties": {
-                        "bb": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "pb": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "lk": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        }
-                    }
-                },
-                "asupan": {
+                "kota": {
                     "type": "string"
                 },
-                "sistem_pernafasan": {
-                    "type": "object",
-                    "properties": {
-                        "warna_kulit": {
-                            "type": "string"
-                        },
-                        "pergerakan_dinding_dada": {
-                            "type": "string"
-                        },
-                        "reaksi": {
-                            "type": "string"
-                        },
-                        "sianosis": {
-                            "type": "string"
-                        },
-                        "grunting": {
-                            "type": "string"
-                        },
-                        "apnea": {
-                            "type": "string"
-                        },
-                        "auskultasi_bunyi_nafas": {
-                            "type": "string"
-                        }
-                    }
+                "tanggal": {
+                    "type": "string"
                 },
-                "skor_downe": {
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "perawat": {
+                    "type": "string"
+                },
+                "perawat_stroke": {
+                    "type": "string"
+                },
+                "dokter": {
+                    "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
+                },
+                "dokter_rumah_sakit": {
+                    "type": "string"
+                },
+                "dokter_rumah_sakit_stroke": {
                     "type": "string"
                 }
             }
         },
-        "pemeriksaan_gawat_napas": {
+        "rujukan": {
             "type": "object",
             "properties": {
-                "frekuensi_napas": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "retraksi": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "sianosis_skor": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "suara_napas": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "merintih": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "total_skor": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "diagnosis": {
+                "no_rujukan": {
                     "type": "string"
                 },
-                "rekomendasi_tindakan_ringan": {
+                "kode_rs": {
                     "type": "string"
                 },
-                "rekomendasi_tindakan_sedang": {
+                "rumah_sakit": {
                     "type": "string"
                 },
-                "rekomendasi_tindakan_berat": {
+                "kabupaten_kota": {
                     "type": "string"
                 },
-                "evaluasi": {
+                "kepada_yth": {
+                    "type": "string"
+                },
+                "rsu": {
+                    "type": "string"
+                },
+                "no_kartu_bpjs": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "diagnosa_group": {
+                    "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
+                },
+                "telah_diberikan": {
                     "type": "string"
                 }
             }
         },
-        "pemeriksaan_fisik_lanjutan": {
+        "rujukan_balik": {
             "type": "object",
             "properties": {
-                "sistem_kardiovaskuler": {
-                    "type": "object",
-                    "properties": {
-                        "auskultasi": {
-                            "type": "string"
-                        },
-                        "murmur": {
-                            "type": "string"
-                        },
-                        "tensi_sistole": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "tensi_diastole": {
-                            "type": [
-                                "number",
-                                "null"
-                            ]
-                        },
-                        "denyut": {
-                            "type": "string"
-                        }
-                    }
+                "no_rujukan": {
+                    "type": "string"
                 },
-                "sistem_gastrointestinal": {
-                    "type": "object",
-                    "properties": {
-                        "dinding_abdomen": {
-                            "type": "string"
-                        },
-                        "umbilikus": {
-                            "type": "string"
-                        },
-                        "palpasi": {
-                            "type": "string"
-                        },
-                        "auskultasi_bunyi_usus": {
-                            "type": "string"
-                        },
-                        "residu_lambung": {},
-                        "lingkar_abdomen": {},
-                        "anus_imperfekta": {
-                            "type": "string"
-                        }
-                    }
+                "kode_rs": {
+                    "type": "string"
                 },
-                "genital": {
-                    "type": "object",
-                    "properties": {
-                        "laki_laki": {
-                            "type": "string"
-                        },
-                        "wanita": {
-                            "type": "string"
-                        }
-                    }
+                "rumah_sakit": {
+                    "type": "string"
                 },
-                "sistem_saraf_pusat": {
-                    "type": "object",
-                    "properties": {
-                        "aktifitas": {
-                            "type": "string"
-                        },
-                        "tingkat_kesadaran": {
-                            "type": "string"
-                        },
-                        "tonus_otot": {
-                            "type": "string"
-                        },
-                        "ukuran_pupil": {
-                            "type": "string"
-                        },
-                        "reaksi_terhadap_cahaya": {
-                            "type": "string"
-                        },
-                        "fontanela": {
-                            "type": "string"
-                        },
-                        "sutura": {
-                            "type": "string"
-                        },
-                        "kejang": {
-                            "type": "string"
-                        }
-                    }
+                "diagnosa_group": {
+                    "type": "string"
                 },
-                "pemeriksaan_lain": {
-                    "type": "object",
-                    "properties": {
-                        "ekstremitas_superior": {
-                            "type": "string"
-                        },
-                        "ekstremitas_inferior": {
-                            "type": "string"
-                        },
-                        "panggul": {
-                            "type": "string"
-                        },
-                        "tubuh_dan_tulang_punggung": {
-                            "type": "string"
-                        }
-                    }
+                "diagnosa_freetext": {
+                    "type": "string"
                 },
-                "kelainan_lain": {
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
+                },
+                "terapi": {
+                    "type": "string"
+                },
+                "pengobatan_dengan_obat": {
+                    "type": "boolean"
+                },
+                "pengobatan_dengan_obat_text": {
+                    "type": "string"
+                },
+                "perlu_rawat_inap": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali_tanggal": {
+                    "type": "string"
+                },
+                "konsultasi_selesai": {
+                    "type": "boolean"
+                },
+                "lain_lain": {
+                    "type": "boolean"
+                },
+                "lain_lain_text": {
                     "type": "string"
                 }
             }
-        },
-        "maturitas_fisik": {
-            "type": "object",
-            "properties": {
-                "kulit": {
-                    "type": "string"
-                },
-                "lanugo": {
-                    "type": "string"
-                },
-                "lanugo_keterangan": {
-                    "type": "string"
-                },
-                "permukaan_plantar": {
-                    "type": "string"
-                },
-                "permukaan_plantar_keterangan": {
-                    "type": "string"
-                },
-                "payudara": {
-                    "type": "string"
-                },
-                "payudara_keterangan": {
-                    "type": "string"
-                },
-                "mata_telinga": {
-                    "type": "string"
-                },
-                "mata_telinga_keterangan": {
-                    "type": "string"
-                },
-                "genital_pria": {
-                    "type": "string"
-                },
-                "genital_pria_keterangan": {
-                    "type": "string"
-                },
-                "genital_wanita": {
-                    "type": "string"
-                },
-                "genital_wanita_keterangan": {
-                    "type": "string"
-                }
-            }
-        },
-        "maturitas_neuromuskular": {
-            "type": "object",
-            "properties": {
-                "postur": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "square_window": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "arm_recoil": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "popliteal_angle": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "scarf_sign": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "heel_to_ear": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                }
-            }
-        },
-        "estimasi_umur_kehamilan": {
-            "type": "object",
-            "properties": {
-                "minggu_kehamilan": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "berat_badan": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "panjang_badan": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                },
-                "lingkar_kepala": {
-                    "type": [
-                        "number",
-                        "null"
-                    ]
-                }
-            }
-        },
-        "planning": {
-            "type": "string"
-        },
-        "diagnosa_group": {
-            "type": "string"
-        },
-        "diagnosa_freetext": {
-            "type": "string"
-        },
-        "diagnosa_list_autocomplete": {
-            "type": "array",
-            "items": {}
         }
     }
 }
