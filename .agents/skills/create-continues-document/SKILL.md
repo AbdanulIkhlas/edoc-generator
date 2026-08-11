@@ -992,7 +992,7 @@ Lalu di bagian cetak identitas, gunakan variabel `$static->px_data->nama` dan un
 ## Referensi Tambahan & Contoh Implementasi
 
 Anda dapat melihat contoh konkrit *full implementation* dari dokumen berkelanjutan yang sudah berjalan dengan baik di direktori:
-- **HTML Form / Vue**: `example/example-berkelanjutan-1.html`
-- **PHP Print**: `example/example-berkelanjutan-1.php`
+- **HTML Form / Vue**: `example/example-berkelanjutan-1.html` dan yang lainnya
+- **PHP Print**: `example/example-berkelanjutan-1.php` dan yang lainnya
 
 Gunakan file-file tersebut sebagai pedoman / contekan (*cheat sheet*) untuk membandingkan alur kodenya jika terdapat bagian yang kurang jelas pada snippet di atas.
