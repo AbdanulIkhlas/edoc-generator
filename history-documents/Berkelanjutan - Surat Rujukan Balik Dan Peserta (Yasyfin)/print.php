@@ -23,10 +23,10 @@ if (!$jsonString) {
 $params = json_decode($jsonString);
 $static_label = json_decode($staticJsonString);
 
-$title = "Title";
+$title = "Surat Rujuk Peserta dan Rujuk Balik";
 
 $entries = isset($params->entry) ? $params->entry : [];
-$static = isset($params->static_json->static) ? $params->static_json->static : null;
+$static = isset($params->static_json->static_json) ? $params->static_json->static_json : null;
 
 if ($static) {
     // Override params for continuous document because data is in static payload
