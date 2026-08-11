@@ -4,8 +4,7 @@
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
             "data_usage": [
-                "copy",
-                "embeded"
+                "copy"
             ]
         },
         "inpatient_information": {
@@ -18,27 +17,6 @@
         "dokter_dpjp_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "diagnosa_keperawatan_list": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/diagnosa_keperawatan/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "tindakan_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/action_patient/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "prescription_data_list": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/prescription_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
