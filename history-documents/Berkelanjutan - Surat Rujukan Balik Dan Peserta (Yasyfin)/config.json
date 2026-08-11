@@ -1,0 +1,46 @@
+{
+    "external_link": {
+        "px_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "inpatient_information": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "dokter_dpjp_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "diagnosa_list_rujukan": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "diagnosa_list_rujukan_balik": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "patient_info_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        }
+    }
+}
