@@ -1199,8 +1199,8 @@ function tgl_indo($tanggal)
                                         $sel = isSelScore($tsb, $score);
                                         if ($sel) {
                                             echo "<tr>";
-                                            echo "<td style='background-color: #e0e0e0; font-weight: bold; border: 2px solid black; padding: 3px;'>$score</td>";
-                                            echo "<td style='background-color: #e0e0e0; font-weight: bold; border: 2px solid black; padding: 3px;'>$minggu</td>";
+                                            echo "<td style='background-color: #fff2cc; font-weight: bold; padding: 3px;'>$score</td>";
+                                            echo "<td style='background-color: #fff2cc; font-weight: bold; padding: 3px;'>$minggu</td>";
                                             echo "</tr>";
                                         } else {
                                             echo "<tr><td style='padding: 3px;'>$score</td><td style='padding: 3px;'>$minggu</td></tr>";
