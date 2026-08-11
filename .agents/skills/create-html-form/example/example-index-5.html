@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulir PPI </title>
-
-    <!-- Tambahkan Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <!-- Tambahkan pustaka Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- Tambahkan SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
-        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Highcharts -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <style></style>
-</head>
-
-<body>
-    <!-- === START CONTAINER CODE === -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -1386,7 +1351,7 @@
                     <div class="mb-3">
                         <p class="data-label">Tanggal Lahir</p>
                         <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
-                            v-model="pasien.tanggal_lahir"/>
+                            v-model="pasien.tanggal_lahir" />
                     </div>
                 </div>
             </div>
@@ -1404,7 +1369,7 @@
                 <div class="col-md-12">
                     <p>Lembar kuasa ini harus ditanda tangani oleh pasien sendiri atau wali (keluarga
                         terdekat/kawan/Induk Semang/ dan lain sebagainya) bagi pasien yang :</p>
-                    <ul >
+                    <ul>
                         <li>
                             Secara fisik/mental dinyatakan tidak sanggup untuk mengisi
                         </li>
@@ -1431,8 +1396,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pj_nama" class="form-check-label"><b>Nama</b></label>
-                                <input id="pj_nama" type="text" class="form-control"
-                                    v-model="penanggung_jawab.nama" />
+                                <input id="pj_nama" type="text" class="form-control" v-model="penanggung_jawab.nama" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -1458,7 +1422,8 @@
 
                     <div class="mt-4 mb-3 d-flex align-items-center" style="gap: 10px; flex-wrap: wrap;">
                         <span>Atas nama </span>
-                        <select id="pj_hubungan" class="form-control" style="width: auto;" v-model="penanggung_jawab.hubungan_dengan_pasien">
+                        <select id="pj_hubungan" class="form-control" style="width: auto;"
+                            v-model="penanggung_jawab.hubungan_dengan_pasien">
                             <option value="" disabled>Pilih Hubungan</option>
                             <option value="Anak">Anak</option>
                             <option value="Istri">Istri</option>
@@ -1522,7 +1487,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="kelas_superior" type="checkbox"
-                                                    v-model="perawatan.pilihan_kelas" true-value="Superior" false-value="" />
+                                                    v-model="perawatan.pilihan_kelas" true-value="Superior"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="kelas_superior" class="form-check-label"
@@ -1589,7 +1555,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="kelas_lainnya" type="checkbox"
-                                                    v-model="perawatan.pilihan_kelas" true-value="Lainnya" false-value="" />
+                                                    v-model="perawatan.pilihan_kelas" true-value="Lainnya"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="kelas_lainnya" class="form-check-label"
@@ -1616,7 +1583,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_bpjs" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="BPJS" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="BPJS"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_bpjs" class="form-check-label"
@@ -1629,7 +1597,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_umum" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Umum" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="Umum"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_umum" class="form-check-label"
@@ -1642,7 +1611,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_asuransi" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Asuransi lain" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="Asuransi lain"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_asuransi" class="form-check-label"
@@ -1660,7 +1630,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_jasa" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Jasa Raharja" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="Jasa Raharja"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_jasa" class="form-check-label"
@@ -1673,7 +1644,8 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_perusahaan" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Perusahaan" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="Perusahaan"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_perusahaan" class="form-check-label"
@@ -1686,15 +1658,15 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <input id="bayar_lainnya" type="checkbox"
-                                                    v-model="pembayaran.cara_pembayaran" true-value="Lain lain" false-value="" />
+                                                    v-model="pembayaran.cara_pembayaran" true-value="Lain lain"
+                                                    false-value="" />
                                             </div>
                                         </div>
                                         <label for="bayar_lainnya" class="form-check-label"
                                             style="padding: .375rem .75rem; border: 1px solid #ced4da; display: flex; align-items: center;">
                                             Lain lain
                                         </label>
-                                        <input type="text" class="form-control"
-                                            v-model="pembayaran.detail_lain_lain"
+                                        <input type="text" class="form-control" v-model="pembayaran.detail_lain_lain"
                                             :disabled="pembayaran.cara_pembayaran !== 'Lain lain'" />
                                     </div>
                                 </div>
@@ -1734,8 +1706,8 @@
                 @open-ttd-modal="openTTDModalHandler" />
         </div>
         <div class="col-md-6" style="padding-inline: 200px;">
-            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id=""
-                name_input_type="TEXT" v-model="ttd_data.yang_menyatakan" path_name="ttd_data.yang_menyatakan"
+            <ttd-section mode="IMAGE" label="Yang Menyatakan" select_id="" name_input_type="TEXT"
+                v-model="ttd_data.yang_menyatakan" path_name="ttd_data.yang_menyatakan"
                 :stroke="ttd_data.yang_menyatakan_stroke" path_stroke="ttd_data.yang_menyatakan_stroke"
                 @update-stroke="ttd_data.yang_menyatakan_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
         </div>
@@ -1815,8 +1787,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control"
-                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -1829,8 +1801,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -1843,16 +1814,3 @@
     <!-- AI will insert modal HTML here -->
 
 </form>
-    <!-- === END CONTAINER CODE === -->
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="../vendor/cutomLib.js"></script>
-    <!-- Tambahkan JSON Data -->
-    <script src="json.js"></script>
-    <!-- Tambahkan script Vue Anda di sini -->
-    <script>
-        init_doc(1, data.sample, 'add');
-    </script>
-</body>
-
-</html>

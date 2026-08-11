@@ -936,7 +936,7 @@ function tgl_indo($tanggal)
                 $mf = $params->maturitas_fisik;
                 function isSelMF($val, $check)
                 {
-                    return ($val == $check) ? 'style="border: 2px solid black; font-weight: bold; background-color: #e0e0e0; padding: 5px;"' : 'style="padding: 5px;"';
+                    return ($val == $check) ? 'style="font-weight: bold; background-color: #fff2cc; padding: 5px;"' : 'style="padding: 5px;"';
                 }
                 ?>
                 <div style="font-size: 13px; margin-top: 15px; margin-bottom: 5px;">
@@ -1069,7 +1069,7 @@ function tgl_indo($tanggal)
                 function isSelMN($val, $check)
                 {
                     if ($val === null || $val === '') return 'style="padding: 2px; text-align: center; vertical-align: middle;"';
-                    return (intval($val) === $check) ? 'style="border: 2px solid black; background-color: #e0e0e0; padding: 2px; text-align: center; vertical-align: middle;"' : 'style="padding: 2px; text-align: center; vertical-align: middle;"';
+                    return (intval($val) === $check) ? 'style=" background-color: #fff2cc; padding: 2px; text-align: center; vertical-align: middle;"' : 'style="padding: 2px; text-align: center; vertical-align: middle;"';
                 }
 
                 $tsb = $params->fix_total_skor_ballard ?? null;
@@ -1199,8 +1199,8 @@ function tgl_indo($tanggal)
                                         $sel = isSelScore($tsb, $score);
                                         if ($sel) {
                                             echo "<tr>";
-                                            echo "<td style='background-color: #e0e0e0; font-weight: bold; border: 2px solid black; padding: 3px;'>$score</td>";
-                                            echo "<td style='background-color: #e0e0e0; font-weight: bold; border: 2px solid black; padding: 3px;'>$minggu</td>";
+                                            echo "<td style='background-color: #fff2cc; font-weight: bold; padding: 3px;'>$score</td>";
+                                            echo "<td style='background-color: #fff2cc; font-weight: bold; padding: 3px;'>$minggu</td>";
                                             echo "</tr>";
                                         } else {
                                             echo "<tr><td style='padding: 3px;'>$score</td><td style='padding: 3px;'>$minggu</td></tr>";
