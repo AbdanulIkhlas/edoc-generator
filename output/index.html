@@ -285,6 +285,7 @@
         };
     }
 
+    let DOC_ID_DUMMY = 60;
     function init_doc(doc_id, data, operation) {
         data.navSections = [
             { id: "pasien-info", title: "Informasi Pasien" },
@@ -327,11 +328,31 @@
             path_name: "", path_stroke: "", name_input_type: "",
         };
 
+        // ---- template continuous ---
+        data.doc_id = doc_id ? doc_id : (typeof DOC_ID_DUMMY !== 'undefined' ? DOC_ID_DUMMY : 60);
+        data.doc_status = "ACTIVE"; 
+        data.isDirty = false; 
+        data.unsavedTimer = null; 
+        data.showUnsavedWarning = false;
+        data.showScrollTop = false;
+        data.original_state_string = null;
+        // ---- template continuous ---
+
         var app = new Vue({
             el: "#formadd",
             data: data,
             mounted: function () {
                 this.init();
+                this.getStaticJson(operation);
+
+                window.addEventListener("scroll", () => {
+                    this.showScrollTop = window.scrollY > 300;
+                });
+            },
+            watch: {
+                'pasien': { handler: 'checkUnsaved', deep: true },
+                'form_data': { handler: 'checkUnsaved', deep: true },
+                'ttd_data': { handler: 'checkUnsaved', deep: true },
             },
             methods: {
                 init: function () {
@@ -358,20 +379,121 @@
                         setSelect2("#konsulen_ttd_auto", data.ttd_data.dokter_konsulen, data.ttd_data.dokter_konsulen);
                     }, 500);
                 },
-                saveDoc: function () {
-                    var json = {
-                        document_history_list_id: doc_id /* built in variable from edoc */,
-                        patient_id: EMRDATA.patient_id,
-                        reg_number: EMRDATA.reg_number,
-                        document: EMRDATA.document_code,
-                        document_title: EMRDATA.document_name,
-                        label: "Poliklinik",
-                        note: "",
-                        data: data,
+                checkUnsaved: function() {
+                    if (!this.original_state_string) return;
+                    const current_state_string = JSON.stringify({
+                        pasien: this.pasien,
+                        form_data: this.form_data,
+                        ttd_data: this.ttd_data
+                    });
+                    this.isDirty = current_state_string !== this.original_state_string;
+                    
+                    clearTimeout(this.unsavedTimer);
+                    this.showUnsavedWarning = false;
+
+                    if (this.isDirty) {
+                        this.unsavedTimer = setTimeout(() => {
+                            this.showUnsavedWarning = true;
+                        }, 3000);
+                    }
+                },
+                handleScroll: function () {
+                    this.showScrollTop = window.scrollY > 300;
+                },
+                scrollToTop: function () {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                },
+                getStaticJson: async function (operation) {
+                    if (operation === "add") {
+                        let isSuccess = false;
+                        const payload = {
+                            patient_document_id: this.doc_id,
+                            emr_data: {
+                                static: {
+                                    pasien: this.pasien,
+                                    form_data: this.form_data,
+                                    ttd_data: this.ttd_data
+                                }
+                            }
+                        };
+                        await apiHelper({
+                            method: "PUT",
+                            url: `/api/patient_document_item/update-static`,
+                            requestData: payload,
+                            notifyOnError: true,
+                            renderSuccess: (response) => { isSuccess = true; }
+                        });
+                        if (!isSuccess) return;
+                    }
+
+                    await apiHelper({
+                        url: `/api/patient_document/get_static/${this.doc_id}`,
+                        notifyOnError: true,
+                        renderSuccess: (response) => {
+                            if (response.data && response.data.static_json) {
+                                const st = response.data.static_json;
+                                if (st.pasien) this.pasien = st.pasien;
+                                if (st.form_data) this.form_data = st.form_data;
+                                if (st.ttd_data) this.ttd_data = st.ttd_data;
+                                
+                                // Sinkronisasi manual px_data
+                                if (!st.px_data) {
+                                    st.px_data = {
+                                        nama: data.pasien.nama,
+                                        no_rm: data.pasien.no_rm,
+                                        kelamin: data.pasien.kelamin,
+                                        tanggal_lahir: data.pasien.tanggal_lahir,
+                                        tanggal_lahir_indo: data.pasien.tanggal_lahir_indo
+                                    };
+                                }
+                            }
+                            
+                            this.original_state_string = JSON.stringify({
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            });
+                            this.isDirty = false;
+                            this.showUnsavedWarning = false;
+                        }
+                    });
+                },
+                saveStaticJson: async function () {
+                    if (this.unsavedTimer) {
+                        clearTimeout(this.unsavedTimer);
+                        this.unsavedTimer = null;
+                        this.showUnsavedWarning = false;
+                    }
+
+                    const payload = {
+                        patient_document_id: this.doc_id,
+                        emr_data: {
+                            static: {
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            }
+                        }
                     };
 
-                    /* built in function from edoc */
-                    save_emr_data(json);
+                    await apiHelper({
+                        url: `/api/patient_document_item/update-static`,
+                        method: "PUT",
+                        requestData: payload,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        renderSuccess: (response) => {
+                            this.original_state_string = JSON.stringify({
+                                pasien: this.pasien,
+                                form_data: this.form_data,
+                                ttd_data: this.ttd_data
+                            });
+                            this.isDirty = false;
+                        }
+                    });
+                },
+                saveDoc: function () {
+                    this.saveStaticJson();
                 },
                 checkData: function () {
                     /* built in function from edoc */
@@ -850,6 +972,28 @@
         border: 1px solid #ccc;
     }
 
+    .unsaved-notification-bar {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1050;
+        background-color: #333;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .unsaved-notification-bar .fa-warning {
+        color: #ffc107;
+        margin-right: 8px;
+    }
+
     .text-wrap {
         white-space: normal !important;
         word-wrap: break-word;
@@ -1128,5 +1272,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div v-if="showUnsavedWarning" class="unsaved-notification-bar">
+        <span>
+            <i class="fa fa-warning"></i>
+            Ada perubahan yang belum disimpan!
+        </span>
+        <button type="button" v-on:click="saveStaticJson" class="btn btn-primary btn-sm">
+            <i class="fa fa-save"></i> Perbarui Sekarang
+        </button>
     </div>
 </form>

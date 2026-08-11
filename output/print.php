@@ -1,11 +1,34 @@
 <?php
-// EMR Data
-$params = json_decode($argv[1]);
-
+// Ambil Key dari Argumen (bukan data JSON)
+$redisKey = $argv[1];
 $base_url = $argv[2]; // Base_url
 $title = "LEMBAR KONSULTASI";
-$static_label = json_decode($argv[3]);
 
+// Koneksi ke Redis
+$redis = new Redis();
+try {
+    $redis->connect('localhost', 6379);
+} catch (Exception $e) {
+    die("Gagal koneksi ke Redis: " . $e->getMessage());
+}
+
+// Ambil Data JSON dari Redis
+$jsonString = $redis->get($redisKey);
+$staticJsonString = $redis->get($redisKey . "_static");
+
+if (!$jsonString) {
+    die("Dokumen ini tidak memiliki preview.");
+}
+
+// Decode JSON
+$params = json_decode($jsonString);
+$static_label = json_decode($staticJsonString);
+
+$static = isset($params->static_json->static_json) ? $params->static_json->static_json : null;
+if ($static) {
+    // Override params for continuous document because data is in static payload
+    $params = $static;
+}
 // Fungsi untuk format tanggal Indonesia
 function tanggal_indo($tanggal, $includeJam = true)
 {
