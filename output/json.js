@@ -4,28 +4,29 @@ const data = {
             "nama": "Garga",
             "no_rm": "876754",
             "tanggal_lahir": "2000-08-08",
-            "kelamin": "Laki-laki",
-            "alamat": "Sleman",
-            "tempat_lahir": "Bandung",
-            "pekerjaan": "Influencer",
-            "pendidikan": "Diplomat",
-            "agama": "Islam",
-            "umur": "35",
-            "ruang": "Kelas",
-            "bangsal": "bangsal",
-            "kelas": "10 MIPA 2",
-            "tanggal_masuk": "2000-08-08",
-            "jam_masuk": "20:00"
+            "alamat": "Sleman"
         },
         "ttd_data": {
-            "kota": "Labuhanhaji",
-            "tanggal": "2000-08-08",
-            "jam": "20:00",
-            "perawat": "Sunarni",
-            "perawat_stroke": "",
             "dokter": "dr. Sunarno",
             "dokter_stroke": ""
         },
+        "diagnosa_medis": "Stroke Non Hemoragik",
+        "fungsional": "Kelemahan anggota gerak sebelah kiri",
+        "program_tindakan": [],
+        "riwayat_terapi": [
+            {
+                "tanggal": "2026-08-11",
+                "tindakan_list": [
+                    {
+                        "tindakan": "Pemanasan statis",
+                        "ttd_petugas_nama": "Sunarni",
+                        "ttd_petugas_stroke": "",
+                        "ttd_pasien_nama": "Garga",
+                        "ttd_pasien_stroke": ""
+                    }
+                ]
+            }
+        ],
         "external_link": {
             "px_data": {
                 "no_rm": "00000001",
@@ -88,27 +89,15 @@ const data = {
             "nama": "",
             "no_rm": "",
             "tanggal_lahir": "",
-            "kelamin": "",
-            "alamat": "",
-            "tempat_lahir": "",
-            "pekerjaan": "",
-            "pendidikan": "",
-            "agama": "",
-            "umur": "",
-            "ruang": "",
-            "bangsal": "",
-            "kelas": "",
-            "tanggal_masuk": "",
-            "jam_masuk": ""
+            "alamat": ""
         },
         "ttd_data": {
-            "kota": "Yogyakarta",
-            "tanggal": "",
-            "jam": "",
-            "perawat": "",
-            "perawat_stroke": "",
             "dokter": "",
             "dokter_stroke": ""
-        }
+        },
+        "diagnosa_medis": "",
+        "fungsional": "",
+        "program_tindakan": [],
+        "riwayat_terapi": []
     }
 }
