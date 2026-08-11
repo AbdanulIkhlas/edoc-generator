@@ -20,6 +20,13 @@
             "data_usage": [
                 "copy"
             ]
+        },
+        "diagnosa_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
         }
     }
 }

@@ -82,6 +82,7 @@ function tgl_indo($tanggal)
 
     td {
         height: 25px;
+        vertical-align: top;
     }
 
     .table-bordered,
@@ -392,7 +393,199 @@ function tgl_indo($tanggal)
 
 <body>
     <!-- === [EMR_DATA_DISPLAY_HOOK] === -->
-    <!-- AI will insert the main HTML structure and data binding here -->
+    <div class="main-outer-table" style="page-break-inside: auto; margin-bottom: 20px;">
+        <table style="width: 100%;" class="table-borderless">
+            <tr style="padding-bottom: 5px; padding-top: 5px;">
+                <td width="15%" style="vertical-align: middle; text-align: center;">
+                    <img style="width: 70px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
+                </td>
+                <td width="40%" style="vertical-align: middle;">
+                    <h4 style="margin: 0; font-size: 14pt;"><?php echo $static_label->hospital_name ?? ""; ?></h4>
+                    <div style="font-size: 10pt; line-height: 1.3; margin-top: 5px;">
+                        <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : ""; ?>
+                        <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . "<br>" : ""; ?>
+                        <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email : ""; ?>
+                    </div>
+                </td>
+                <td width="45%" style="vertical-align: middle; padding: 10px; font-size:12pt">
+                    <table class="table-bordered" style="width:100%;">
+                        <tr>
+                            <td width="30%">No RM</td>
+                            <td width="5%">:</td>
+                            <td><?php echo $params->pasien->no_rm ?? ""; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Pasien</td>
+                            <td>:</td>
+                            <td><?php echo $params->pasien->nama ?? ""; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Lahir</td>
+                            <td>:</td>
+                            <td><?php echo tgl_indo($params->pasien->tanggal_lahir ?? ""); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td><?php echo $params->pasien->alamat ?? ""; ?></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <h4 style="font-size: 14pt; font-weight: bold;">PROTOKOL TERAPI<br>RENCANA TINDAKAN REHABILITASI MEDIK</h4>
+        </div>
+
+        <table class="table-bordered" style="width: 100%; margin-bottom: 10px;">
+            <tr>
+                <td style="vertical-align: top;">
+                    <table class="table-borderless" style="width: 100%;">
+                        <tr>
+                            <td width="20%" style="vertical-align: top;">Diagnosa Medis</td>
+                            <td width="2%" style="vertical-align: top;">:</td>
+                            <td style="vertical-align: top;"><?php echo nl2br($params->diagnosa_freetext ?? ""); ?></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Fungsional</td>
+                            <td style="vertical-align: top;">:</td>
+                            <td style="vertical-align: top;"><?php echo $params->fungsional ?? ""; ?></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Program Tindakan</td>
+                            <td style="vertical-align: top;">:</td>
+                            <td style="vertical-align: top;">
+                                <?php
+                                if (!empty($params->program_tindakan)) {
+                                    foreach ($params->program_tindakan as $idx => $tindakan) {
+                                        echo ($idx + 1) . ". " . $tindakan . "<br>";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;" colspan="3">
+                                <table class="table-borderless">
+                                    <tr>
+                                        <td width="50%"></td>
+                                        <td width="50%" align="center">
+                                            <p>Dokter Yang Merawat</p>
+                                            <br>
+                                            <?php if (!empty($params->ttd_data->dokter_stroke)) { ?>
+                                                <img src="<?php echo $params->ttd_data->dokter_stroke; ?>" style="height:100px;width:auto;display:block;">
+                                            <?php } else { ?>
+                                                <br><br><br><br>
+                                            <?php } ?>
+                                            ( <?php echo $params->ttd_data->dokter ?? "..................................."; ?> )
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div style="text-align: right; font-weight: bold; margin-bottom: 5px;">
+            Wajib dibawa setiap pasien kontrol
+        </div>
+
+        <?php
+        $riwayat_terapi = $params->riwayat_terapi ?? [];
+        $chunks = array_chunk($riwayat_terapi, 3);
+
+        foreach ($chunks as $chunk) {
+            // Calculate max rows and num columns for this chunk
+            $max_rows = 0;
+            $num_cols = count($chunk);
+            
+            foreach ($chunk as $item) {
+                if (isset($item->tindakan_list) && is_array($item->tindakan_list)) {
+                    $count = count($item->tindakan_list);
+                    if ($count > $max_rows) {
+                        $max_rows = $count;
+                    }
+                }
+            }
+
+            // Render table for this chunk
+        ?>
+            <table class="table-bordered" style="width: 100%; margin-bottom: 20px; page-break-inside: auto;">
+                <tr>
+                    <?php
+                    // Render headers for up to $num_cols columns
+                    for ($i = 0; $i < $num_cols; $i++) {
+                        $tanggal = isset($chunk[$i]->tanggal) ? tgl_indo($chunk[$i]->tanggal) : " ";
+                    ?>
+                        <td colspan="3" style="text-align: left; vertical-align: top;">Tgl : <?php echo $tanggal; ?></td>
+                    <?php } ?>
+                </tr>
+                <tr>
+                    <?php for ($i = 0; $i < $num_cols; $i++) { ?>
+                        <td rowspan="2" style="text-align: center; vertical-align: top; width: 13%;">Tindakan</td>
+                        <td colspan="2" style="text-align: center; vertical-align: top;">Tanda tangan</td>
+                    <?php } ?>
+                </tr>
+                <tr>
+                    <?php for ($i = 0; $i < $num_cols; $i++) { ?>
+                        <td style="text-align: center; vertical-align: top; width: 10%;">Petugas</td>
+                        <td style="text-align: center; vertical-align: top; width: 10%;">Pasien</td>
+                    <?php } ?>
+                </tr>
+
+                <?php for ($row = 0; $row < $max_rows; $row++) { ?>
+                    <tr>
+                        <?php
+                        for ($col = 0; $col < $num_cols; $col++) {
+                            $tindakan_text = "";
+                            $petugas_stroke = "";
+                            $pasien_stroke = "";
+
+                            if (isset($chunk[$col]->tindakan_list[$row])) {
+                                $tindakan_item = $chunk[$col]->tindakan_list[$row];
+                                $tindakan_text = $tindakan_item->tindakan ?? "";
+                                $petugas_stroke = $tindakan_item->ttd_petugas_stroke ?? "";
+                                $pasien_stroke = $tindakan_item->ttd_pasien_stroke ?? "";
+                            }
+                        ?>
+                            <td style="vertical-align: top; height: 30px;"><?php echo $tindakan_text; ?></td>
+                            <td style="vertical-align: top; text-align: center;">
+                                <?php if (!empty($petugas_stroke)) { ?>
+                                    <img src="<?php echo $petugas_stroke; ?>" style="height:40px;width:auto;display:inline-block;">
+                                <?php } ?>
+                            </td>
+                            <td style="vertical-align: top; text-align: center;">
+                                <?php if (!empty($pasien_stroke)) { ?>
+                                    <img src="<?php echo $pasien_stroke; ?>" style="height:40px;width:auto;display:inline-block;">
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } ?>
+
+        <div style="margin-top: 10px; font-size: 11pt;">
+            Keterangan:<br>
+            <table class="table-borderless" style="width: 100%;">
+                <tr>
+                    <td style="width: 2%; vertical-align: top;">1.</td>
+                    <td style="vertical-align: top;">Protokol terapi asli harus selalu dibawa oleh pasien setiap kali akan di terapi di Rehabilitasi Medik</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">2.</td>
+                    <td style="vertical-align: top;">Serahkan lembar protokol ini pada petugas pada waktu mendaftar</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">3.</td>
+                    <td style="vertical-align: top;">Pelaksanaan terapi sesuai dengan program tindakan yang telah dintentukan oleh dokter yang merawat</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

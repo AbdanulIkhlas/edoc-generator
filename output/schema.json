@@ -78,14 +78,37 @@
                 }
             }
         },
-        "diagnosa_medis": {
+        "diagnosa_group": {
             "type": "string"
+        },
+        "diagnosa_freetext": {
+            "type": "string"
+        },
+        "diagnosa_list_autocomplete": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "icd_x": {
+                        "type": "string"
+                    },
+                    "nama_sebab_sakit": {
+                        "type": "string"
+                    },
+                    "deskripsi": {
+                        "type": "string"
+                    }
+                }
+            }
         },
         "fungsional": {
             "type": "string"
         },
         "program_tindakan": {
-            "type": "string"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "riwayat_terapi": {
             "type": "array",

@@ -10,7 +10,19 @@ const data = {
             "dokter": "dr. Sunarno",
             "dokter_stroke": ""
         },
-        "diagnosa_medis": "Stroke Non Hemoragik",
+        "diagnosa_group": "",
+        "diagnosa_freetext": "1. J18.0 - Bronchopneumonia, unspecified \n2. J18.0 - Bronchopneumonia, unspecified - BP\n",
+        "diagnosa_list_autocomplete": [
+            {
+                "icd_x": "J18.0",
+                "nama_sebab_sakit": "Bronchopneumonia, unspecified"
+            },
+            {
+                "icd_x": "J18.0",
+                "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                "deskripsi": "BP"
+            }
+        ],
         "fungsional": "Kelemahan anggota gerak sebelah kiri",
         "program_tindakan": [],
         "riwayat_terapi": [
@@ -29,7 +41,7 @@ const data = {
         ],
         "external_link": {
             "px_data": {
-                "no_rm": "00000001",
+                "no_rm": "00007659",
                 "nama": "HANA AMIRA NN",
                 "kelamin": "P",
                 "tanggal_lahir": "1985-10-24",
@@ -81,7 +93,95 @@ const data = {
                 "id_profesi": 1,
                 "nama_profesi": "Dokter",
                 "ttd_image": "000002_682b2a74c336d.png"
-            }
+            },
+            "diagnosa_list": [
+                {
+                    "no_register": "2202230010",
+                    "id_pasien": "00206957",
+                    "id_pendaftaran": 10,
+                    "id_layanan_pendaftaran": 1652,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2022-03-01",
+                    "jam": "09:27:15",
+                    "layanan": [{
+                        "id_diagnosa": 823,
+                        "id_dokter": 177,
+                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                        "id_spesialis": 1,
+                        "nama_spesialis": "Anak",
+                        "id_profesi": 2,
+                        "nama_profesi": "Dokter Spesialis",
+                        "id_sebab_sakit": 3504,
+                        "kode_sebab_sakit": "J180",
+                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                        "icd_x": "J18.0",
+                        "deskripsi": "",
+                        "kasus": "Baru",
+                        "post": "Diagnosa Sementara",
+                        "primer": "Primer"
+                    },
+                    {
+                        "id_diagnosa": 826,
+                        "id_dokter": 177,
+                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                        "id_spesialis": 1,
+                        "nama_spesialis": "Anak",
+                        "id_profesi": 2,
+                        "nama_profesi": "Dokter Spesialis",
+                        "id_sebab_sakit": 3504,
+                        "kode_sebab_sakit": "J180",
+                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                        "icd_x": "J18.0",
+                        "deskripsi": "BP",
+                        "kasus": "Baru",
+                        "post": "Diagnosa Akhir",
+                        "primer": "Primer"
+                    }]
+                },
+                {
+                    "no_register": "2202230010",
+                    "id_pasien": "00206957",
+                    "id_pendaftaran": 10,
+                    "id_layanan_pendaftaran": 1652,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2022-03-01",
+                    "jam": "09:27:15",
+                    "layanan": [{
+                        "id_diagnosa": 823,
+                        "id_dokter": 177,
+                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                        "id_spesialis": 1,
+                        "nama_spesialis": "Anak",
+                        "id_profesi": 2,
+                        "nama_profesi": "Dokter Spesialis",
+                        "id_sebab_sakit": 3504,
+                        "kode_sebab_sakit": "J180",
+                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                        "icd_x": "J18.0",
+                        "deskripsi": "",
+                        "kasus": "Baru",
+                        "post": "Diagnosa Sementara",
+                        "primer": "Primer"
+                    },
+                    {
+                        "id_diagnosa": 826,
+                        "id_dokter": 177,
+                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                        "id_spesialis": 1,
+                        "nama_spesialis": "Anak",
+                        "id_profesi": 2,
+                        "nama_profesi": "Dokter Spesialis",
+                        "id_sebab_sakit": 3504,
+                        "kode_sebab_sakit": "J180",
+                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                        "icd_x": "J18.0",
+                        "deskripsi": "BP",
+                        "kasus": "Baru",
+                        "post": "Diagnosa Akhir",
+                        "primer": "Primer"
+                    }]
+                }
+            ],
         }
     },
     "default": {
@@ -95,7 +195,9 @@ const data = {
             "dokter": "",
             "dokter_stroke": ""
         },
-        "diagnosa_medis": "",
+        "diagnosa_group": "",
+        "diagnosa_freetext": "",
+        "diagnosa_list_autocomplete": [],
         "fungsional": "",
         "program_tindakan": [],
         "riwayat_terapi": []
