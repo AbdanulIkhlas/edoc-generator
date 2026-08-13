@@ -14,6 +14,9 @@
                 "tanggal_lahir": {
                     "type": "string"
                 },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
                 "kelamin": {
                     "type": "string"
                 },
@@ -47,6 +50,9 @@
                 "tanggal_masuk": {
                     "type": "string"
                 },
+                "tanggal_masuk_indo": {
+                    "type": "string"
+                },
                 "jam_masuk": {
                     "type": "string"
                 }
@@ -59,6 +65,9 @@
                     "type": "string"
                 },
                 "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
                     "type": "string"
                 },
                 "jam": {
@@ -75,72 +84,103 @@
                 },
                 "dokter_stroke": {
                     "type": "string"
+                },
+                "dokter_rumah_sakit": {
+                    "type": "string"
+                },
+                "dokter_rumah_sakit_stroke": {
+                    "type": "string"
                 }
             }
         },
-        "diagnosa_group": {
-            "type": "string"
-        },
-        "diagnosa_freetext": {
-            "type": "string"
-        },
-        "diagnosa_list_autocomplete": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "icd_x": {
-                        "type": "string"
-                    },
-                    "nama_sebab_sakit": {
-                        "type": "string"
-                    },
-                    "deskripsi": {
-                        "type": "string"
-                    }
+        "rujukan": {
+            "type": "object",
+            "properties": {
+                "no_rujukan": {
+                    "type": "string"
+                },
+                "kode_rs": {
+                    "type": "string"
+                },
+                "rumah_sakit": {
+                    "type": "string"
+                },
+                "kabupaten_kota": {
+                    "type": "string"
+                },
+                "kepada_yth": {
+                    "type": "string"
+                },
+                "rsu": {
+                    "type": "string"
+                },
+                "no_kartu_bpjs": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "diagnosa_group": {
+                    "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
+                },
+                "telah_diberikan": {
+                    "type": "string"
                 }
             }
         },
-        "fungsional": {
-            "type": "string"
-        },
-        "program_tindakan": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "riwayat_terapi": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "tanggal": {
-                        "type": "string"
-                    },
-                    "tindakan_list": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "tindakan": {
-                                    "type": "string"
-                                },
-                                "ttd_petugas_nama": {
-                                    "type": "string"
-                                },
-                                "ttd_petugas_stroke": {
-                                    "type": "string"
-                                },
-                                "ttd_pasien_nama": {
-                                    "type": "string"
-                                },
-                                "ttd_pasien_stroke": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
+        "rujukan_balik": {
+            "type": "object",
+            "properties": {
+                "no_rujukan": {
+                    "type": "string"
+                },
+                "kode_rs": {
+                    "type": "string"
+                },
+                "rumah_sakit": {
+                    "type": "string"
+                },
+                "diagnosa_group": {
+                    "type": "string"
+                },
+                "diagnosa_freetext": {
+                    "type": "string"
+                },
+                "diagnosa_list_autocomplete": {
+                    "type": "array"
+                },
+                "terapi": {
+                    "type": "string"
+                },
+                "pengobatan_dengan_obat": {
+                    "type": "boolean"
+                },
+                "pengobatan_dengan_obat_text": {
+                    "type": "string"
+                },
+                "perlu_rawat_inap": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali": {
+                    "type": "boolean"
+                },
+                "kontrol_kembali_tanggal": {
+                    "type": "string"
+                },
+                "konsultasi_selesai": {
+                    "type": "boolean"
+                },
+                "lain_lain": {
+                    "type": "boolean"
+                },
+                "lain_lain_text": {
+                    "type": "string"
                 }
             }
         }

@@ -21,9 +21,23 @@
                 "copy"
             ]
         },
-        "diagnosa_list": {
+        "diagnosa_list_rujukan": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "diagnosa_list_rujukan_balik": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "patient_info_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
             "data_usage": [
                 "copy"
             ]
