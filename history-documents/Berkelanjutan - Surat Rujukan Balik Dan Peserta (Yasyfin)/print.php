@@ -513,7 +513,7 @@ function tgl_indo($tanggal)
                                     <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
                                     <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
                                         <?= isset($params->ttd_data->tanggal_rujukan_peserta) && !empty($params->ttd_data->tanggal_rujukan_peserta) ? tgl_indo($params->ttd_data->tanggal_rujukan_peserta) : "" ?>,
-                                        <?= isset($params->ttd_data->jam_rujukan_peserta) && !empty($params->ttd_data->jam_rujukan_peserta) ? ' Jam ' . tgl_indo($params->ttd_data->jam_rujukan_peserta) . ' WIB' : "" ?>
+                                        <?= isset($params->ttd_data->jam_rujukan_peserta) && !empty($params->ttd_data->jam_rujukan_peserta) ? ' Jam ' . $params->ttd_data->jam_rujukan_peserta . ' WIB' : "" ?>
                                     </td>
                                 </tr>
                                 <tr>
