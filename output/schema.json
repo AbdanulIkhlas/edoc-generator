@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
         "pasien": {
@@ -11,59 +11,239 @@
                 "no_rm": {
                     "type": "string"
                 },
+                "kelamin": {
+                    "type": "string"
+                },
                 "tanggal_lahir": {
                     "type": "string"
                 },
                 "tanggal_lahir_indo": {
                     "type": "string"
+                }
+            }
+        },
+        "dokter_pelaksana": {
+            "type": "string"
+        },
+        "diagnosa_group": {
+            "type": "string"
+        },
+        "diagnosa_freetext": {
+            "type": "string"
+        },
+        "diagnosa_list_autocomplete": {
+            "type": "array",
+            "items": {}
+        },
+        "checkAll": {
+            "type": "boolean"
+        },
+        "jenis_informasi": {
+            "type": "object",
+            "properties": {
+                "diagnosa": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
                 },
-                "kelamin": {
+                "dasar_diagnosa": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tindakan_kedokteran": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "indikasi_tindakan": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tata_cara": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tujuan": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "risiko": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "komplikasi": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "prognosis": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "alternatif": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "lain_lain": {
+                    "type": "object",
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string"
+                        },
+                        "tanda": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "penolakan_tindakan_kedokteran": {
+            "type": "object",
+            "properties": {
+                "yang_bertandatangan": {
+                    "type": "object",
+                    "properties": {
+                        "nama": {
+                            "type": "string"
+                        },
+                        "umur": {
+                            "type": "string"
+                        },
+                        "kelamin": {
+                            "type": "string"
+                        },
+                        "pekerjaan": {
+                            "type": "string"
+                        },
+                        "no_identitas": {
+                            "type": "string"
+                        },
+                        "alamat": {
+                            "type": "string"
+                        },
+                        "telp": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tindakan": {
                     "type": "string"
                 },
-                "alamat": {
-                    "type": "string"
+                "terhadap": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        },
+                        "nama": {
+                            "type": "string"
+                        },
+                        "umur": {
+                            "type": "string"
+                        },
+                        "kelamin": {
+                            "type": "string"
+                        },
+                        "alamat": {
+                            "type": "string"
+                        },
+                        "bangsal": {
+                            "type": "string"
+                        },
+                        "ruang": {
+                            "type": "string"
+                        },
+                        "kelas": {
+                            "type": "string"
+                        },
+                        "no_rm": {
+                            "type": "string"
+                        }
+                    }
                 },
-                "tempat_lahir": {
-                    "type": "string"
-                },
-                "pekerjaan": {
-                    "type": "string"
-                },
-                "pendidikan": {
-                    "type": "string"
-                },
-                "agama": {
-                    "type": "string"
-                },
-                "umur": {
-                    "type": "string"
-                },
-                "ruang": {
-                    "type": "string"
-                },
-                "bangsal": {
-                    "type": "string"
-                },
-                "kelas": {
-                    "type": "string"
-                },
-                "tanggal_masuk": {
-                    "type": "string"
-                },
-                "tanggal_masuk_indo": {
-                    "type": "string"
-                },
-                "jam_masuk": {
-                    "type": "string"
+                "hubungan_pasien": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        },
+                        "lain_lain": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
         "ttd_data": {
             "type": "object",
             "properties": {
-                "kota": {
-                    "type": "string"
-                },
                 "tanggal": {
                     "type": "string"
                 },
@@ -73,113 +253,40 @@
                 "jam": {
                     "type": "string"
                 },
-                "perawat": {
-                    "type": "string"
-                },
-                "perawat_stroke": {
-                    "type": "string"
-                },
                 "dokter": {
                     "type": "string"
                 },
                 "dokter_stroke": {
                     "type": "string"
                 },
-                "dokter_rumah_sakit": {
+                "penerima_stroke": {
                     "type": "string"
                 },
-                "dokter_rumah_sakit_stroke": {
-                    "type": "string"
-                }
-            }
-        },
-        "rujukan": {
-            "type": "object",
-            "properties": {
-                "no_rujukan": {
+                "penerima": {
                     "type": "string"
                 },
-                "kode_rs": {
+                "menyatakan": {
                     "type": "string"
                 },
-                "rumah_sakit": {
+                "menyatakan_stroke": {
                     "type": "string"
                 },
-                "kabupaten_kota": {
+                "dokter1": {
                     "type": "string"
                 },
-                "kepada_yth": {
+                "dokter1_stroke": {
                     "type": "string"
                 },
-                "rsu": {
+                "saksi1": {
                     "type": "string"
                 },
-                "no_kartu_bpjs": {
+                "saksi1_stroke": {
                     "type": "string"
                 },
-                "status": {
+                "saksi2": {
                     "type": "string"
                 },
-                "diagnosa_group": {
-                    "type": "string"
-                },
-                "diagnosa_freetext": {
-                    "type": "string"
-                },
-                "diagnosa_list_autocomplete": {
-                    "type": "array"
-                },
-                "telah_diberikan": {
-                    "type": "string"
-                }
-            }
-        },
-        "rujukan_balik": {
-            "type": "object",
-            "properties": {
-                "no_rujukan": {
-                    "type": "string"
-                },
-                "kode_rs": {
-                    "type": "string"
-                },
-                "rumah_sakit": {
-                    "type": "string"
-                },
-                "diagnosa_group": {
-                    "type": "string"
-                },
-                "diagnosa_freetext": {
-                    "type": "string"
-                },
-                "diagnosa_list_autocomplete": {
-                    "type": "array"
-                },
-                "terapi": {
-                    "type": "string"
-                },
-                "pengobatan_dengan_obat": {
-                    "type": "boolean"
-                },
-                "pengobatan_dengan_obat_text": {
-                    "type": "string"
-                },
-                "perlu_rawat_inap": {
-                    "type": "boolean"
-                },
-                "kontrol_kembali": {
-                    "type": "boolean"
-                },
-                "kontrol_kembali_tanggal": {
-                    "type": "string"
-                },
-                "konsultasi_selesai": {
-                    "type": "boolean"
-                },
-                "lain_lain": {
-                    "type": "boolean"
-                },
-                "lain_lain_text": {
+                "saksi2_stroke": {
                     "type": "string"
                 }
             }

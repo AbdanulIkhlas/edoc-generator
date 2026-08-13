@@ -1,100 +1,35 @@
 <?php
-// Ambil Key dari Argumen (bukan data JSON)
-$redisKey = $argv[1];
+// EMR Data
+$params = json_decode($argv[1]);
+
 $base_url = $argv[2]; // Base_url
+$title = "FORM PERSETUJUAN TINDAKAN KEDOKTERAN";
+$static_label = json_decode($argv[3]);
 
-// Koneksi ke Redis
-$redis = new Redis();
-try {
-    $redis->connect('localhost', 6379);
-} catch (Exception $e) {
-    die("Gagal koneksi ke Redis: " . $e->getMessage());
-}
-
-// Ambil Data JSON dari Redis
-$jsonString = $redis->get($redisKey);
-$staticJsonString = $redis->get($redisKey . "_static");
-
-if (!$jsonString) {
-    die("Dokumen ini tidak memiliki preview.");
-}
-
-// Decode JSON
-$params = json_decode($jsonString);
-$static_label = json_decode($staticJsonString);
-
-$title = "Surat Rujuk Peserta dan Rujuk Balik";
-
-$entries = isset($params->entry) ? $params->entry : [];
-$static = isset($params->static_json->static_json) ? $params->static_json->static_json : null;
-
-if ($static) {
-    // Override params for continuous document because data is in static payload
-    $params = $static;
-}
-function tgl_indo($tanggal)
-{
-    if (empty($tanggal) || $tanggal === '0000-00-00') {
-        return '';
-    }
-
-    $bulan = [
-        1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
-    ];
-
-    $timestamp = strtotime($tanggal);
-
-    if ($timestamp === false) {
-        return '';
-    }
-
-    $hari = date('j', $timestamp);   // tanpa leading zero
-    $bulan_ke = date('n', $timestamp);
-    $tahun = date('Y', $timestamp);
-
-    return $hari . ' ' . $bulan[$bulan_ke] . ' ' . $tahun;
-}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title; ?></title>
+    <title><?php echo $title ?></title>
 </head>
 <style>
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    ol,
-    ul {
-        margin: 0;
-        padding: 0;
-        font-weight: normal;
+    .pagebreak {
+        page-break-before: always;
     }
 
     body {
-        font: 12pt times new roman;
-        size: f4;
-        padding-bottom: 10px;
+        /* font: 13pt times new roman;
+    size: f4;
+    padding-bottom: 10px; */
+        font-family: sans-serif;
+        font-size: 13pt;
+        line-height: 1.3;
+    }
+
+    .allign {
+        text-align: right;
     }
 
     table {
@@ -107,587 +42,728 @@ function tgl_indo($tanggal)
     }
 
     td {
-        height: 25px;
+        height: 20px;
+        vertical-align: top;
     }
 
-    .table-bordered,
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: .2em;
+    .space {
+        padding-top: 20px;
     }
 
-    .table-borderless,
-    .table-borderless th,
-    .table-borderless td {
-        border: none;
-        border-collapse: collapse;
-    }
-
-    .img-logo {
-        width: 250px;
-        height: 70px;
-    }
-
-    .vertical-text {
-        padding: 0;
-        margin: 0;
-        writing-mode: tb-rl;
-        filter: flipv fliph;
-        -webkit-transform: rotate(90deg);
-        white-space: nowrap;
-        text-orientation: mixed;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .txt-vertical-1 {
-        transform: translate(-40%, -50%) rotate(-90deg);
-        -webkit-transform: translate(-40%, -50%) rotate(-90deg);
-        position: absolute;
-    }
-
-    .txt-vertical-2 {
-        transform: translate(-50%, -50%) rotate(-90deg);
-        -webkit-transform: translate(-50%, -50%) rotate(-90deg);
-        position: absolute;
-    }
-
-    .textbottomup {
-        transform: rotate(180deg);
-        writing-mode: vertical-rl;
-        text-align: center;
-    }
-
-    .tanda-tangan {
+    .img100px {
         width: 100px;
         height: 100px;
     }
 
-    .text {
-        padding: 4px 0px;
-    }
-
-    .td-default {
-        border: 1px solid black;
-        padding: 0.5em 1em;
-    }
-
-    .td-borderless {
-        border: 1px solid none;
-        padding: 1em 1em;
-    }
-
-    .flex {
-        display: table;
+    .ttd-image {
+        margin-top: 5px;
+        margin-bottom: 5px;
         width: 100%;
-        box-sizing: border-box;
+        height: 100px;
     }
 
-    .flex-text-start {
-        display: table-cell;
-        ;
-        text-align: right;
-        text-wrap: nowrap;
-        white-space: nowrap;
+    .borderr-hitam {
+        border: 3px;
+        width: 100px;
     }
 
-    .flex-text-end {
-        display: table-cell;
-        ;
-        text-align: left;
-        text-wrap: nowrap;
-        white-space: nowrap;
-        white-space: nowrap;
+    .space-left {
+        margin-left: 40px;
     }
 
-    .flex-text {
-        display: table-cell;
-        ;
-        text-align: center;
-        text-wrap: nowrap;
+    .dot {
+        border-bottom: 1px dotted black;
+        margin-top: 9px;
     }
 
-    .flex-blank {
-        display: table-cell;
-        text-align: center;
-    }
-
-    .flex-dotted {
-        display: table-cell;
-        border-bottom: 2px dotted black;
-        text-align: center;
-    }
-
-    .flex-solid {
-        display: table-cell;
-        border-bottom: 2px solid black;
-        text-align: center;
-    }
-
-    .rectangle {
-        display: inline-block;
-        margin-right: 1em;
-        border: 1px solid black;
-        width: 11px;
-        height: 11px;
-    }
-
-    .flex-container {
-        padding: 0;
-        margin: 0;
+    .line {
+        text-decoration: overline;
         width: 100%;
-        list-style: none;
-        -ms-box-orient: horizontal;
-        -webkit-box-pack: left;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -moz-flex;
-        display: -webkit-flex;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .centerr {
+        text-align: center;
+    }
+
+    .middle {
+        vertical-align: middle;
+    }
+
+    .tbl-full {
+        width: 100%;
+    }
+
+    .borderr {
+        border: 1px solid black;
+    }
+
+    .ml-1 {
+        margin-left: 10px;
+    }
+
+    .prg {
+        /* text-align: justify; */
+        text-justify: inter-word;
+    }
+
+    .boldd {
+        font-weight: bold;
+    }
+
+    .pagee {
+        /*width: 210mm;*/
+        /*height: 290mm;*/
+        margin: auto;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        /*page-break-after: always;*/
+    }
+
+    .tdlonggar {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .ml-2 {
+        margin-left: 20px;
+    }
+
+    .ml-3 {
+        margin-left: 30px;
+    }
+
+    .container {
         display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: stretch;
+        gap: 20px;
+        /* Atur jarak antara div */
+        align-items: center;
+        /* Atur untuk membuat sejajar secara vertikal */
+        justify-content: flex-start;
+        /* Pilih perataan horizontal yang sesuai */
     }
 
-    .flex-item {
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+    .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Agar gambar dan teks berada di tengah */
     }
 
-    .flex-solid {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 1px solid black;
-    }
-
-    .flex-dotted {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 2px dotted black;
-    }
-
-    .flex-blank {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-    }
-
-    .w100 {
-        width: 100%;
-    }
-
-    .w80 {
-        width: 80%;
-    }
-
-    .w70 {
-        width: 70%;
-    }
-
-    .w65 {
-        width: 65%;
-    }
-
-    .w60 {
-        width: 60%;
-    }
-
-    .w55 {
-        width: 55%;
-    }
-
-    .w50 {
-        width: 50%;
-    }
-
-    .w45 {
-        width: 45%;
-    }
-
-    .w40 {
-        width: 40%;
-    }
-
-    .w35 {
-        width: 35%;
-    }
-
-    .w30 {
-        width: 30%;
-    }
-
-    .w25 {
-        width: 25%;
-    }
-
-    .w20 {
-        width: 20%;
-    }
-
-    .w15 {
-        width: 15%;
-    }
-
-    .w10 {
-        width: 10%
-    }
-
-    .w5 {
-        width: 5%
-    }
-
-    .w3 {
-        width: 3%
-    }
-
-    .w1 {
-        width: 1%
+    .text-bottom {
+        vertical-align: bottom;
     }
 
     .ttd-img {
-        width: 200px;
-        height: 120px;
+        width: 120px;
+        height: 100px;
         object-fit: contain;
         /* atau contain tergantung kebutuhan */
     }
-
-    .circle {
-        display: inline-block;
-        border: 2px solid black;
-        border-radius: 50%;
-        text-align: center;
-        font-weight: bold;
-        padding: 5px;
-    }
-
-    .pagebreak {
-        min-height: 1px;
-        page-break-before: always;
-    }
-
-    /* BARIS INI AKAN MENCEGAH TABEL TERPOTONG */
-    .pagebreak-avoid {
-        page-break-inside: avoid;
-    }
-
-    /* === [NEW_STYLE_HOOK] === */
-    /* AI will add additional styles here */
 </style>
 
-<body style="font-size: 12pt;">
-    <!-- === [EMR_DATA_DISPLAY_HOOK] === -->
-    <!-- AI will insert the main HTML structure and data binding here -->
-    <table style="width: 100%; border: 1px solid black; margin-bottom: 20px; page-break-inside: auto;" class="table-borderless">
-        <tr>
-            <td style="vertical-align: top; padding: 10px;">
-                <table style="width: 100%;">
-                    <tr style="padding-bottom: 5px; padding-top: 5px;">
-                        <td width="20%" style="vertical-align: middle; text-align: center;">
-                            <img style="width: 100px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
-                        </td>
-                        <td width="80%" style="vertical-align: middle; text-align: center;">
-                            <h4 style="margin: 0; font-size: 14pt; font-weight: bold;"><?php echo $static_label->hospital_name ?? "RS Yasyfin Darussalam Gontor"; ?></h4>
-                            <div style="font-size: 12pt; line-height: 1.3; margin-top: 5px;">
-                                <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : "Jl. Dukuh Gontor II, Desa Gontor, Kec. Mlarak<br>Kab. Ponorogo, Jawa Timur 63472<br>"; ?>
-                                <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email . "<br>" : "Email: rsyasyfin@gontor.ac.id<br>"; ?>
-                                <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . " Fax. 0352 3597038" : "Telp. 0352 3591202 Fax. 0352 3597038"; ?>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+<body>
+    <div class="pagee">
+        <!--<table border="0">-->
+        <!--    <tr>-->
+        <!--        <td align="right">RM15.1</td>-->
+        <!--    </tr>-->
+        <!--</table>-->
+        <table class="tbl-full">
+            <tr class="tdlonggar">
+                <td width="15%" style="vertical-align: middle; text-align: center;">
+                    <img style="width: 70px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
+                </td>
+                <td width="40%" style="vertical-align: middle;">
+                    <h4 style="margin: 0; font-size: 14pt;"><?php echo $static_label->hospital_name; ?></h4>
+                    <div style="font-size: 10pt; line-height: 1.3; margin-top: 5px;">
+                        <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : ""; ?>
+                        <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . "<br>" : ""; ?>
+                        <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email : ""; ?>
+                    </div>
+                </td>
+                <td class="borderr" width="45%" style="vertical-align: middle; padding: 10px; font-size:12pt">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td class="col-sm" width="36%">No. RM</td>
+                            <td width="1%">:</td>
+                            <td><?php echo $params->pasien->no_rm; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm">Nama Pasien</td>
+                            <td>:</td>
+                            <td><?php echo $params->pasien->nama; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm">Tanggal Lahir</td>
+                            <td>:</td>
+                            <td><?php echo $params->pasien->tanggal_lahir_indo; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm">Jenis Kelamin</td>
+                            <td>:</td>
+                            <td><?php
+                                if (strtoupper($params->pasien->kelamin)  == 'L') {
+                                    echo "Laki-laki";
+                                } else if (strtoupper($params->pasien->kelamin) == 'P') {
+                                    echo "Perempuan";
+                                } else {
+                                    echo '';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table width="100%" style="border:none">
+            <tr style="border:none">
+                <td style="border:none" class="centerr borderr tdlonggar">
+                    <b>FORM PERSETUJUAN TINDAKAN KEDOKTERAN</b>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table class="tbl-full">
+            <tr class="borderr tdlonggar">
+                <td width="30%" class="borderr" colspan="2">
+                    <div class="ml-1">JENIS TINDAKAN</div>
+                </td>
+                <td class="borderr" colspan="3">
+                    <div class="ml-1"><?php echo $params->jenis_tindakan ?? ''; ?></div>
+                </td>
+            </tr>
+            <tr class="borderr tdlonggar">
+                <td width="30%" class="borderr" colspan="2">
+                    <div class="ml-1">Dokter Pelaksana Tindakan</div>
+                </td>
+                <td class="borderr" colspan="3">
+                    <div class="ml-1"><?php echo $params->dokter_pelaksana; ?></div>
+                </td>
+            </tr>
+            <tr class="borderr tdlonggar">
+                <td class="borderr" colspan="2">
+                    <div class="ml-1">Pemberi Informasi</div>
+                </td>
+                <td class="borderr" colspan="3">
+                    <div class="ml-1"><?php echo $params->ttd_data->dokter; ?></div>
+                </td>
+            </tr>
+            <tr class="borderr tdlonggar">
+                <td class="borderr" colspan="2">
+                    <div class="ml-1">Penerima Informasi / Pemberi Persetujuan*</div>
+                </td>
+                <td class="borderr" colspan="3">
+                    <div class="ml-1"><?php echo $params->ttd_data->penerima; ?></div>
+                </td>
+            </tr>
+            <tr class="borderr tdlonggar">
+                <td class="borderr" colspan="2">
+                    <div class="ml-1">Diberikan Pada waktu</div>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Tanggal : <?php echo $params->tanggal_pemberian_indo ?? ''; ?></div>
+                </td>
+                <td class="borderr" colspan="2">
+                    <div class="ml-1">Jam : <?php echo $params->jam_pemberian ?? ''; ?></div>
+                </td>
+            </tr>
+            <tr class="tdlonggar">
+                <td width="5%" class="borderr centerr boldd" rowspan="2" style="vertical-align:middle">
+                    NO
+                </td>
+                <td width="25%" class="borderr centerr boldd" rowspan="2" style="vertical-align:middle">
+                    JENIS INFORMASI
+                </td>
+                <td width="40%" class="borderr centerr boldd" rowspan="2" style="vertical-align:middle">
+                    ISI INFORMASI
+                </td>
+                <td width="30%" class="borderr centerr boldd" colspan="2" style="vertical-align:middle">
+                    TANDA (&radic;)
+                </td>
+            </tr>
+            <tr class="tdlonggar">
+                <td width="15%" class="borderr centerr boldd" style="vertical-align:middle">MENGERTI</td>
+                <td width="15%" class="borderr centerr boldd" style="vertical-align:middle">RE EDUKASI</td>
+            </tr>
+            <?php $no = 1; ?>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Diagnosa (WD dan DD)</div>
+                </td>
+                <td class="borderr ml-1">
+                    <!--<?php echo nl2br($params->jenis_informasi->diagnosa->isi_informasi); ?>-->
+                    <?php echo nl2br($params->diagnosa_group); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->diagnosa->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->diagnosa->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Dasar Diagnosis</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->dasar_diagnosa->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->dasar_diagnosa->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->dasar_diagnosa->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Tindakan Medis</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->tindakan_medis->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tindakan_medis->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tindakan_medis->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Tindakan Pemeriksaan Penunjang (Laboratorium, Radiologi, dll)</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->tindakan_pemeriksaan_penunjang->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tindakan_pemeriksaan_penunjang->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tindakan_pemeriksaan_penunjang->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Alat Kesehatan yang dipasang</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->alat_kesehatan->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->alat_kesehatan->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->alat_kesehatan->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Indikasi tindakan</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->indikasi_tindakan->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->indikasi_tindakan->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->indikasi_tindakan->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Tata Cara</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->tata_cara->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tata_cara->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tata_cara->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Tujuan</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->tujuan->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tujuan->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->tujuan->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Resiko</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->risiko->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->risiko->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->risiko->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Komplikasi</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->komplikasi->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->komplikasi->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->komplikasi->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Prognosis</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->prognosis->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->prognosis->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->prognosis->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Resiko bila tidak dilakukan tindakan</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->risiko_bila_tidak_dilakukan_tindakan->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->risiko_bila_tidak_dilakukan_tindakan->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->risiko_bila_tidak_dilakukan_tindakan->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="borderr centerr ">
+                    <?php echo $no++ . '.'; ?>
+                </td>
+                <td class="borderr">
+                    <div class="ml-1">Alternatif</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->alternatif->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->alternatif->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->alternatif->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="borderr">
+                    <div class="ml-1">Lain-lain</div>
+                </td>
+                <td class="borderr ml-1">
+                    <?php echo nl2br($params->jenis_informasi->lain_lain->isi_informasi); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->lain_lain->tanda == "Ya" ? "V" : ""); ?>
+                </td>
+                <td class="borderr centerr middle">
+                    <?php echo ($params->jenis_informasi->lain_lain->tanda_2 == "Ya" ? "V" : ""); ?>
+                </td>
+            </tr>
+        </table>
+        <table class="tbl-full">
+            <tr>
+                <td width="70%" class="borderr">
+                    <div class="ml-1 prg">
+                        Dengan ini menyatakan bahwa saya dokter <?php echo !empty($params->ttd_data->dokter) ? $params->ttd_data->dokter : '................................'; ?>
+                        telah menerangkan hal-hal diatas secara benar dan jelas dan memberikan kesempatan
+                        untuk bertanya dan / atau berdiskusi
+                    </div>
+                </td>
+                <td class="centerr borderr">
+                    Tanda tangan
+                    <div class="ttd-image">
+                        <img src="<?php echo $params->ttd_data->dokter_stroke  ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">
+                    </div>
+                    <?php echo $params->ttd_data->dokter ?>
+                </td>
+            </tr>
+            <tr>
+                <td width="70%" class="borderr">
+                    <div class="ml-1 prg">
+                        Dengan ini menyatakan bahwa <?php echo !empty($params->yang_menyatakan) ? $params->yang_menyatakan : 'saya / keluarga pasien'; ?> <?php echo !empty($params->pasien->nama) ? $params->pasien->nama : '................................'; ?>
+                        telah menerima informasi sebagaimana diatas yang saya beri tanda / paraf dikolom kanannya
+                        serta telah diberi kesempatan untuk bertanya / berdiskusi dan telah memahaminya
+                    </div>
+                </td>
+                <td class="centerr borderr">
+                    Tanda tangan
+                    <div class="ttd-image">
+                        <img src="<?php echo $params->ttd_data->penerima_stroke  ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">
+                    </div>
+                    <?php echo $params->ttd_data->penerima; ?>
 
-                <h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 14pt; font-weight: bold;">SURAT RUJUKAN PESERTA</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="borderr prg">
+                    Catatan : Bila pasien tidak kompeten atau tidak mau menerima informasi, maka penerima informasi adalah wali atau keluarga terdekat
+                </td>
+            </tr>
+        </table>
 
-                <table style="width: 100%; border: 1px solid black; margin-bottom: 10px;" class="table-borderless">
-                    <tr>
-                        <td style="width: 20%; padding: 5px; vertical-align: top;">No.Rujukan</td>
-                        <td style="width: 2%; padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan->no_rujukan ?? ""; ?></td>
-                        <td style="width: 15%; padding: 5px; vertical-align: top;"></td>
-                        <td style="width: 20%; padding: 5px; vertical-align: top;"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px; vertical-align: top;">Rumah Sakit</td>
-                        <td style="padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top; font-weight: bold;"><?php echo $params->rujukan->rumah_sakit ?? ""; ?></td>
-                        <td style="padding: 5px; vertical-align: top;">Kode RS :</td>
-                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan->kode_rs ?? ""; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px; vertical-align: top;">Kabupaten/ Kota</td>
-                        <td style="padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top; font-weight: bold;"><?php echo $params->rujukan->kabupaten_kota ?? ""; ?></td>
-                        <td style="padding: 5px; vertical-align: top;"></td>
-                        <td style="padding: 5px; vertical-align: top;"></td>
-                    </tr>
-                </table>
+    </div>
 
-                <table style="width: 100%; margin-bottom: 10px;">
-                    <tr>
-                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Kepada Yth.</td>
-                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->kepada_yth ?? ""; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 5px; vertical-align: top;">RSU</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->rsu ?? ""; ?></td>
-                    </tr>
-                </table>
-
-                <div style="margin-bottom: 10px; font-size: 12pt;">
-                    Mohon pemeriksaan dan penanganan lebih lanjut penderita :
-                </div>
-
-                <table style="width: 100%; margin-bottom: 10px;">
-                    <tr>
-                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Nama</td>
-                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="width: 35%; padding-bottom: 5px; vertical-align: top;"><?php echo $params->pasien->nama ?? ""; ?></td>
-                        <td style="width: 10%; padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Umur</td>
-                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top; text-align: center;"><?php echo $params->pasien->umur ?? ""; ?></td>
-                        <td style="width: 10%; padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Tahun</td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 5px; vertical-align: top;">No.Kartu BPJS</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->no_kartu_bpjs ?? ""; ?></td>
-                        <td style="padding-left: 10px; padding-bottom: 5px; vertical-align: top;">Status</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td colspan="2" style="padding-bottom: 5px; vertical-align: top;">
-                            <?php
-                            $status = $params->rujukan->status ?? "";
-                            $is_utama = $status == "Utama";
-                            $is_tanggungan = $status == "Tanggungan";
-                            $kelamin = $params->pasien->kelamin ?? "";
-                            $is_l = in_array(strtolower($kelamin), ['l', 'laki-laki']);
-                            $is_p = in_array(strtolower($kelamin), ['p', 'perempuan']);
-                            ?>
-                            <span style="border: 1px solid black; padding: 0 5px; margin-right: 5px; margin-bottom: 10px; display: inline-block; width: 10px; text-align:center;"><?= ($is_utama || $is_tanggungan) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_utama ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Utama</span>/<span style="<?= $is_tanggungan ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">Tanggungan</span>
-                            <br />
-                            <span style="border: 1px solid black; padding: 0 5px;  margin-right: 5px; display: inline-block; width: 10px; text-align:center;"><?= ($is_l || $is_p) ? "✓" : "&nbsp;"; ?></span><span style="<?= $is_l ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">L</span>/<span style="<?= $is_p ? 'border: 1px solid black; border-radius: 50%; padding: 2px 4px;' : 'padding: 2px 4px;' ?>">P</span>
-                        </td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%; margin-bottom: 10px;">
-                    <tr>
-                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Diagnosa</td>
-                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">
-                            <?php echo nl2br($params->rujukan->diagnosa_group ?? ""); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">Telah diberikan</td>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">
-                            <?php echo nl2br($params->rujukan->telah_diberikan ?? ""); ?>
-                        </td>
-                    </tr>
-                </table>
-
-                <div style="margin-bottom: 20px; font-size: 12pt;">
-                    Demikian atas bantuanya, diucapkan terima kasih.
-                </div>
-
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 40%; vertical-align: top;"></td>
-                        <td style="width: 60%; text-align: center; vertical-align: top;">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
-                                    <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
-                                        <?= isset($params->ttd_data->tanggal_rujukan_peserta) && !empty($params->ttd_data->tanggal_rujukan_peserta) ? tgl_indo($params->ttd_data->tanggal_rujukan_peserta) : "" ?>,
-                                        <?= isset($params->ttd_data->jam_rujukan_peserta) && !empty($params->ttd_data->jam_rujukan_peserta) ? ' Jam ' . $params->ttd_data->jam_rujukan_peserta . ' WIB' : "" ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; padding-top: 5px; vertical-align: top;">Salam Sejawat</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; height: 80px; vertical-align: middle;">
-                                        <?php if (!empty($params->ttd_data->perawat_stroke)): ?>
-                                            <img src="<?php echo $params->ttd_data->perawat_stroke; ?>" style="height:80px; width:auto; display:block; margin:0 auto;">
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; vertical-align: top;">
-                                        ( <?php echo $params->ttd_data->perawat ?? "...................................."; ?> )
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <table style="width: 100%; border: 1px solid black; margin-bottom: 20px; page-break-inside: auto;" class="table-borderless">
-        <tr>
-            <td style="vertical-align: top; padding: 10px;">
-                <table style="width: 100%;">
-                    <tr style="padding-bottom: 5px; padding-top: 5px;">
-                        <td width="20%" style="vertical-align: middle; text-align: center;">
-                            <img style="width: 100px" src="<?= $base_url; ?>/images/rs/LogoRS.png">
-                        </td>
-                        <td width="80%" style="vertical-align: middle; text-align: center;">
-                            <h4 style="margin: 0; font-size: 14pt; font-weight: bold;"><?php echo $static_label->hospital_name ?? "RS Yasyfin Darussalam Gontor"; ?></h4>
-                            <div style="font-size: 12pt; line-height: 1.3; margin-top: 5px;">
-                                <?php echo !empty($static_label->hospital_address) ? $static_label->hospital_address . "<br>" : "Jl. Dukuh Gontor II, Desa Gontor, Kec. Mlarak<br>Kab. Ponorogo, Jawa Timur 63472<br>"; ?>
-                                <?php echo !empty($static_label->hospital_email) ? "Email: " . $static_label->hospital_email . "<br>" : "Email: rsyasyfin@gontor.ac.id<br>"; ?>
-                                <?php echo !empty($static_label->hospital_phone) ? "Telp. " . $static_label->hospital_phone . " Fax. 0352 3597038" : "Telp. 0352 3591202 Fax. 0352 3597038"; ?>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-                <h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 14pt; font-weight: bold;">SURAT RUJUKAN BALIK</h4>
-
-                <table style="width: 100%; border: 1px solid black; margin-bottom: 10px;" class="table-borderless">
-                    <tr>
-                        <td style="width: 20%; padding: 5px; vertical-align: top;">No.Rujukan</td>
-                        <td style="width: 2%; padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->no_rujukan ?? ""; ?></td>
-                        <td style="width: 15%; padding: 5px; vertical-align: top;"></td>
-                        <td style="width: 20%; padding: 5px; vertical-align: top;"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px; vertical-align: top;">Rumah Sakit</td>
-                        <td style="padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->rumah_sakit ?? ""; ?></td>
-                        <td style="padding: 5px; vertical-align: top;">Kode RS :</td>
-                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan_balik->kode_rs ?? ""; ?></td>
-                    </tr>
-                </table>
-
-                <div style="margin-bottom: 10px; font-size: 12pt;">
-                    Teman Sejawat Yth.<br>
-                    Mohon Kontrol selanjutnya penderita :
-                </div>
-
-                <table style="width: 100%; margin-bottom: 10px;">
-                    <tr>
-                        <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Nama</td>
-                        <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->pasien->nama ?? ""; ?></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 5px; vertical-align: top;">Diagnosa</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;">
-                            <?php echo nl2br($params->rujukan_balik->diagnosa_group ?? ""); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">Terapi</td>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; padding-top: 10px; vertical-align: top;">
-                            <?php echo nl2br($params->rujukan_balik->terapi ?? ""); ?>
-                        </td>
-                    </tr>
-                </table>
-
-                <div style="margin-bottom: 10px; font-size: 12pt;">
-                    Tindak lanjut yang dianjurkan
-                </div>
-
-                <table style="width: 100%; margin-bottom: 20px;">
-                    <tr>
-                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
-                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->pengobatan_dengan_obat ?? false) ? "✓" : "&nbsp;"; ?></span>
-                        </td>
-                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
-                            Pengobatan dengan obat-obatan :<br>
-                            <span style="display: inline-block; width: 90%; min-height: 20px;"><?= $params->rujukan_balik->pengobatan_dengan_obat_text ?? ""; ?></span>
-                        </td>
-                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
-                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->perlu_rawat_inap ?? false) ? "✓" : "&nbsp;"; ?></span>
-                        </td>
-                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
-                            Perlu rawat inap
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
-                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->kontrol_kembali ?? false) ? "✓" : "&nbsp;"; ?></span>
-                        </td>
-                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
-                            Kontrol kembali RS tanggal :<br>
-                            <span style="display: inline-block; width: 90%; min-height: 20px;">
-                                <?= !empty($params->rujukan_balik->kontrol_kembali_tanggal) ? tgl_indo($params->rujukan_balik->kontrol_kembali_tanggal) : ""; ?>
-                            </span>
-                        </td>
-                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
-                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->konsultasi_selesai ?? false) ? "✓" : "&nbsp;"; ?></span>
-                        </td>
-                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
-                            Konsultasi Selesai
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%; text-align: right; padding-right: 10px; padding-bottom: 10px; vertical-align: top;">
-                            <span style="border: 1px solid black; padding: 0 5px; display: inline-block; width: 10px; text-align:center;"><?= ($params->rujukan_balik->lain_lain ?? false) ? "✓" : "&nbsp;"; ?></span>
-                        </td>
-                        <td style="width: 45%; padding-bottom: 10px; vertical-align: top;">
-                            Lain - lain :<br>
-                            <span style="display: inline-block; width: 90%; min-height: 20px;"><?= $params->rujukan_balik->lain_lain_text ?? ""; ?></span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 40%; vertical-align: top;"></td>
-                        <td style="width: 60%; text-align: center; vertical-align: top;">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
-                                    <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
-                                        <?= isset($params->ttd_data->tanggal_rujukan_balik) && !empty($params->ttd_data->tanggal_rujukan_balik) ? tgl_indo($params->ttd_data->tanggal_rujukan_balik) : "" ?>,
-                                        <?= isset($params->ttd_data->jam_rujukan_balik) && !empty($params->ttd_data->jam_rujukan_balik) ? ' Jam ' . $params->ttd_data->jam_rujukan_balik . ' WIB' : "" ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; padding-top: 5px; vertical-align: top;">Dokter Rumah Sakit</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; height: 80px; vertical-align: middle;">
-                                        <?php if (!empty($params->ttd_data->dokter_stroke)): ?>
-                                            <img src="<?php echo $params->ttd_data->dokter_stroke; ?>" style="height:80px; width:auto; display:block; margin:0 auto;">
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: center; vertical-align: top;">
-                                        ( <?php echo $params->ttd_data->dokter ?? "...................................."; ?> )
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <br /><br />
+    <div class="">
+        <!--<table border="0">-->
+        <!--    <tr>-->
+        <!--        <td align="right">RM 15.12</td>-->
+        <!--    </tr>-->
+        <!--</table>-->
+        <table class="tbl-full borderr">
+            <tr>
+                <td class="borderr">
+                    <center><B>PERSETUJUAN TINDAKAN KEDOKTERAN</B></center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ml-1">
+                        Yang bertanda tangan di bawah ini saya,
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="ml-2">
+                        <tr>
+                            <td width="18%">Nama</td>
+                            <td width="1%">:</td>
+                            <td>
+                                <?php echo $params->ttd_data->menyatakan; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Umur</td>
+                            <td>:</td>
+                            <td>
+                                <?php echo !empty($params->persetujuan_tindakan_kedokteran->yang_bertandatangan->umur) ? $params->persetujuan_tindakan_kedokteran->yang_bertandatangan->umur . " Tahun" : ""; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td>:</td>
+                            <td>
+                                <?php
+                                $kelamin = $params->persetujuan_tindakan_kedokteran->yang_bertandatangan->kelamin;
+                                echo ($kelamin == 'L' ? "Laki-laki" : ($kelamin == 'P' ? "Perempuan" : ""));
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>
+                                <?php echo $params->persetujuan_tindakan_kedokteran->yang_bertandatangan->alamat; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="prg ml-1">
+                        Dengan ini menyatakan SETUJU untuk dilakukan tindakan :
+                        <?php echo $params->persetujuan_tindakan_kedokteran->tindakan; ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="prg ml-1">
+                        <?php if (isset($params->yang_menyatakan) && $params->yang_menyatakan === 'Saya'): ?>
+                            Terhadap saya
+                        <?php elseif (isset($params->yang_menyatakan) && $params->yang_menyatakan === 'Keluarga Pasien'): ?>
+                            Terhadap <?php echo !empty($params->persetujuan_tindakan_kedokteran->terhadap->value) ? $params->persetujuan_tindakan_kedokteran->terhadap->value : "......................."; ?> saya
+                        <?php else: ?>
+                            Terhadap saya atau <?php echo !empty($params->persetujuan_tindakan_kedokteran->terhadap->value) ? $params->persetujuan_tindakan_kedokteran->terhadap->value . " saya" : ".......................  saya"; ?>
+                        <?php endif; ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="ml-2">
+                        <tr>
+                            <td width="18%">Nama</td>
+                            <td width="1%">:</td>
+                            <td>
+                                <?php echo $params->persetujuan_tindakan_kedokteran->terhadap->nama; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Umur</td>
+                            <td>:</td>
+                            <td>
+                                <?php echo !empty($params->persetujuan_tindakan_kedokteran->terhadap->umur) ? $params->persetujuan_tindakan_kedokteran->terhadap->umur . " Tahun" : ""; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td>:</td>
+                            <td>
+                                <?php
+                                $kelamin = $params->persetujuan_tindakan_kedokteran->terhadap->kelamin;
+                                echo ($kelamin == 'L' ? "Laki-laki" : ($kelamin == 'P' ? "Perempuan" : ""));
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>
+                                <?php echo $params->persetujuan_tindakan_kedokteran->terhadap->alamat; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="prg ml-1" style="margin-top: 3px; text-align:justify; padding-right:8px">
+                        Saya memahami perlunya dan manfaat tindakan tersebut sebagaiman telah dijelaskan dalam tabel
+                        pemberian informasi pada halaman sebelumnya termasuk resiko dan komplikasi yang mungkin timbul.
+                        Saya juga menyadari bahwa oleh karena ilmu kedokteran bukan ilmu pasti, maka keberhasilan
+                        tindakan kedokteran bukanlah keniscayaan, melainkan tergantung kepada Tuhan Yang Maha Esa.
+                    </div>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="ml-2">
+                        <tr>
+                            <td width="50%"></td>
+                            <td>
+                                <?php echo $static_label->hospital_city; ?>,
+                                <?php echo !empty($params->ttd_data->tanggal_indo) ? $params->ttd_data->tanggal_indo  : "................"; ?>
+                                Jam, <?php echo !empty($params->ttd_data->jam) ? $params->ttd_data->jam . " WIB" : "............"; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <!--start ttd-->
+                <td>
+                    <table>
+                        <tr>
+                            <td class="centerr" width="33.3%">
+                                Yang Menyatakan
+                            </td>
+                            <td colspan="2" class="centerr" width="66.3%">
+                                Saksi-saksi
+                            </td>
+                            <!--<td class="centerr" width="33.3%">-->
+                            <!--    Saksi 2-->
+                            <!--</td>-->
+                            <!--<td class="centerr" width="50%">-->
+                            <!--    Dokter-->
+                            <!--</td>-->
+                        </tr>
+                        <tr>
+                            <td class="centerr">
+                                <img src="<?php echo $params->ttd_data->menyatakan_stroke ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">
+                            </td>
+                            <td class="centerr" width="33.3%">
+                                <img src="<?php echo $params->ttd_data->saksi1_stroke ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">
+                            </td>
+                            <td class="centerr" width="33.3%">
+                                <img src="<?php echo $params->ttd_data->saksi2_stroke ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">
+                            </td>
+                            <!--<td class="centerr">-->
+                            <!--<img src="<?php echo $params->ttd_data->dokter_stroke ?>" style="height: 100px; width: auto; display: block; margin: 10px auto;">-->
+                            <!--</td>-->
+                        </tr>
+                        <tr>
+                            <td class="centerr">
+                                <?php echo $params->ttd_data->menyatakan; ?>
+                            </td>
+                            <td class="centerr">
+                                <?php echo $params->ttd_data->saksi1; ?>
+                            </td>
+                            <td class="centerr">
+                                <?php echo $params->ttd_data->saksi2; ?>
+                            </td>
+                            <!--<td class="centerr">-->
+                            <!--<?php echo $params->ttd_data->dokter; ?>-->
+                            <!--</td>-->
+                        </tr>
+                    </table>
+                </td>
+                <!--end ttd-->
+            </tr>
+        </table>
+    </div>
 </body>
-
-</html>
