@@ -767,6 +767,13 @@ getStaticJson: async function (operation) {
             this.showUnsavedWarning = false;
         },
     });
+
+    if (operation === "edit") {
+        // jika ada yang ingin di proses ketika edit dokumen
+        // contoh jika ada tanda tangan
+        // setSelect2($("#dokter_auto1"), this.ttd_data.dokter, this.ttd_data.dokter);
+        // setSelect2($("#nakes_auto1"), this.ttd_data.perawat, this.ttd_data.perawat);
+    }
 },
 stopPatientDocument: async function () {
     await apiHelper({
