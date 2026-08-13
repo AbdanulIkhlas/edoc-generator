@@ -563,6 +563,44 @@
                             this.showUnsavedWarning = false;
                         }
                     });
+
+                    if (operation === "edit") {
+                        setSelect2($("#dokter_auto1"), this.ttd_data.dokter, this.ttd_data.dokter);
+                        setSelect2($("#nakes_auto1"), this.ttd_data.perawat, this.ttd_data.perawat);
+                    }
+                },
+                stopPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/stop/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin menyelesaikan dokumen Ini?",
+                            confirmText: "Ya, selesaikan!",
+                            icon: "warning",
+                            confirmButtonColor: "#dc3545",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "CLOSED";
+                        },
+                    });
+                },
+                startPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/start/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin melanjutkan dokumen Ini?",
+                            icon: "warning",
+                            confirmButtonColor: "#28a745",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "ACTIVE";
+                        },
+                    });
                 },
                 saveStaticJson: async function () {
                     if (this.unsavedTimer) {
@@ -1045,9 +1083,6 @@
                 parameters: [data]
             }
         ]);
-
-
-
     }
 
     // === [BRIDGING_FUNCTION_HOOK] ===
@@ -1057,7 +1092,7 @@
 
         data.rujukan.no_rujukan = ext_patient_info_data?.no_rujukan || "";
         data.rujukan_balik.no_rujukan = ext_patient_info_data?.no_rujukan || "";
-        data.rujukan.no_kartu_bpjs = ext_patient_info_data?.rujukan_information?.rujukan?.peserta?.noKartu || "";
+        data.rujukan.no_kartu_bpjs = ext_patient_info_data?.nopolish || "";
     }
 
 
@@ -1785,8 +1820,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="pasien_jenis_kelamin" class="form-check-label"><b>Jenis
-                                        Kelamin</b></label>
+                                <label for="pasien_jenis_kelamin" class="form-check-label"><b>Jenis Kelamin</b></label>
                                 <select id="pasien_jenis_kelamin" class="form-control" v-model="pasien.kelamin">
                                     <option value="" disabled selected>Pilih</option>
                                     <option value="Laki-laki">Laki-laki</option>
@@ -2016,14 +2050,31 @@
 
     <div class="form-group row mt-5 text-center">
         <div class="col-md-12">
-            <button type="button" v-on:click="saveDoc" class="btn btn-primary">
-                <i class="fa fa-save"></i>
-                Simpan
-            </button>
-            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
-                <i class="fa fa-check-square-o"></i>
-                Check Data
-            </button>
+            <!--<button type="button" v-on:click="saveDoc" class="btn btn-primary">-->
+            <!--    <i class="fa fa-save"></i>-->
+            <!--    Simpan-->
+            <!--</button>-->
+            <div class="card-footer text-muted">
+                <button type="button" v-on:click="saveStaticJson" class="btn btn-primary">
+                    <i class="fa fa-refresh"></i>
+                    Perbarui
+                </button>
+                <button v-if="doc_status === 'ACTIVE'" type="button" v-on:click="stopPatientDocument"
+                    class="btn btn-danger">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    Selesaikan Dokumen
+                </button>
+                <button v-else-if="doc_status === 'CLOSED'" type="button" v-on:click="startPatientDocument"
+                    class="btn btn-success">
+                    <i class="fa fa-unlock" aria-hidden="true"></i>
+                    Lanjutkan Dokumen
+                </button>
+                <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
+                    <i class="fa fa-check-square-o"></i>
+                    Check Data
+                </button>
+            </div>
+
         </div>
     </div>
 
