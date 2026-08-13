@@ -1,41 +1,67 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "dokter_pengirim": {
+                    "type": "string"
+                },
+                "dokter_pengirim_stroke": {
+                    "type": "string"
+                },
+                "dokter_penerima": {
+                    "type": "string"
+                },
+                "dokter_penerima_stroke": {
+                    "type": "string"
+                }
+            }
+        },
         "pasien": {
             "type": "object",
             "properties": {
+                "no_sep": {
+                    "type": "string"
+                },
+                "data_peserta_bpjs_jkn": {
+                    "type": "string"
+                },
                 "nama": {
                     "type": "string"
                 },
                 "no_rm": {
                     "type": "string"
                 },
-                "tanggal_lahir": {
+                "nik": {
                     "type": "string"
                 },
-                "tanggal_lahir_indo": {
+                "tanggal": {
                     "type": "string"
                 },
-                "kelamin": {
+                "tanggal_indo": {
                     "type": "string"
                 },
                 "alamat": {
                     "type": "string"
                 },
-                "tempat_lahir": {
+                "umur": {
                     "type": "string"
                 },
                 "pekerjaan": {
                     "type": "string"
                 },
-                "pendidikan": {
+                "kelamin": {
                     "type": "string"
                 },
-                "agama": {
+                "kelamin_text": {
                     "type": "string"
                 },
-                "umur": {
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
                     "type": "string"
                 },
                 "ruang": {
@@ -47,23 +73,75 @@
                 "kelas": {
                     "type": "string"
                 },
-                "tanggal_masuk": {
-                    "type": "string"
-                },
-                "tanggal_masuk_indo": {
-                    "type": "string"
-                },
-                "jam_masuk": {
+                "dokter_pengirim": {
                     "type": "string"
                 }
             }
         },
-        "ttd_data": {
+        "nomor_surat": {
+            "type": "string"
+        },
+        "di_bagian": {
+            "type": "string"
+        },
+        "keterangan_klinis": {
+            "type": "string"
+        },
+        "pengobatan": {
+            "type": "string"
+        },
+        "diagnosis": {
+            "type": "string"
+        },
+        "indikasi_rujuk": {
+            "type": "string"
+        },
+        "sebelum_transfer": {
             "type": "object",
             "properties": {
-                "kota": {
+                "kesadaran": {
                     "type": "string"
                 },
+                "sistole": {
+                    "type": "string"
+                },
+                "diastole": {
+                    "type": "string"
+                },
+                "hr": {
+                    "type": "string"
+                },
+                "rr": {
+                    "type": "string"
+                }
+            }
+        },
+        "proses_transfer": {
+            "type": "object",
+            "properties": {
+                "kesadaran": {
+                    "type": "string"
+                },
+                "sistole": {
+                    "type": "string"
+                },
+                "diastole": {
+                    "type": "string"
+                },
+                "hr": {
+                    "type": "string"
+                },
+                "rr": {
+                    "type": "string"
+                }
+            }
+        },
+        "catatan_tambahan": {
+            "type": "string"
+        },
+        "bagian_kiri": {
+            "type": "object",
+            "properties": {
                 "tanggal": {
                     "type": "string"
                 },
@@ -73,116 +151,37 @@
                 "jam": {
                     "type": "string"
                 },
-                "perawat": {
+                "dokter": {
+                    "type": "string"
+                }
+            }
+        },
+        "bagian_kanan": {
+            "type": "object",
+            "properties": {
+                "tanggal": {
                     "type": "string"
                 },
-                "perawat_stroke": {
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
                     "type": "string"
                 },
                 "dokter": {
                     "type": "string"
-                },
-                "dokter_stroke": {
-                    "type": "string"
-                },
-                "dokter_rumah_sakit": {
-                    "type": "string"
-                },
-                "dokter_rumah_sakit_stroke": {
-                    "type": "string"
                 }
             }
         },
-        "rujukan": {
-            "type": "object",
-            "properties": {
-                "no_rujukan": {
-                    "type": "string"
-                },
-                "kode_rs": {
-                    "type": "string"
-                },
-                "rumah_sakit": {
-                    "type": "string"
-                },
-                "kabupaten_kota": {
-                    "type": "string"
-                },
-                "kepada_yth": {
-                    "type": "string"
-                },
-                "rsu": {
-                    "type": "string"
-                },
-                "no_kartu_bpjs": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                },
-                "diagnosa_group": {
-                    "type": "string"
-                },
-                "diagnosa_freetext": {
-                    "type": "string"
-                },
-                "diagnosa_list_autocomplete": {
-                    "type": "array"
-                },
-                "telah_diberikan": {
-                    "type": "string"
-                }
-            }
+        "diagnosa_masuk_group": {
+            "type": "string"
         },
-        "rujukan_balik": {
-            "type": "object",
-            "properties": {
-                "no_rujukan": {
-                    "type": "string"
-                },
-                "kode_rs": {
-                    "type": "string"
-                },
-                "rumah_sakit": {
-                    "type": "string"
-                },
-                "diagnosa_group": {
-                    "type": "string"
-                },
-                "diagnosa_freetext": {
-                    "type": "string"
-                },
-                "diagnosa_list_autocomplete": {
-                    "type": "array"
-                },
-                "terapi": {
-                    "type": "string"
-                },
-                "pengobatan_dengan_obat": {
-                    "type": "boolean"
-                },
-                "pengobatan_dengan_obat_text": {
-                    "type": "string"
-                },
-                "perlu_rawat_inap": {
-                    "type": "boolean"
-                },
-                "kontrol_kembali": {
-                    "type": "boolean"
-                },
-                "kontrol_kembali_tanggal": {
-                    "type": "string"
-                },
-                "konsultasi_selesai": {
-                    "type": "boolean"
-                },
-                "lain_lain": {
-                    "type": "boolean"
-                },
-                "lain_lain_text": {
-                    "type": "string"
-                }
-            }
+        "diagnosa_masuk_freetext": {
+            "type": "string"
+        },
+        "diagnosa_masuk_autocomplete": {
+            "type": "array",
+            "items": {}
         }
     }
 }

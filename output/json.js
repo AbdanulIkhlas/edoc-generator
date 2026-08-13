@@ -1,259 +1,141 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "Garga",
-            "no_rm": "876754",
-            "tanggal_lahir": "2000-08-08",
-            "tanggal_lahir_indo": "8 Agustus 2000",
-            "kelamin": "Laki-laki",
-            "alamat": "Sleman",
-            "tempat_lahir": "Bandung",
-            "pekerjaan": "Influencer",
-            "pendidikan": "Diplomat",
-            "agama": "Islam",
-            "umur": "35",
-            "ruang": "Kelas",
-            "bangsal": "bangsal",
-            "kelas": "10 MIPA 2",
-            "tanggal_masuk": "2000-08-08",
-            "tanggal_masuk_indo": "8 Agustus 2000",
-            "jam_masuk": "20:00"
+            "nama": "ICHA FELISA NILAM SARI AN",
+            "no_rm": "00000001",
+            "tanggal_lahir": "1985-10-24",
+            "tanggal_lahir_indo": "24 Oktober 1985",
+            "alamat": "Jln. Magelang, Pantai Timur"
         },
-        "ttd_data": {
-            "kota": "",
-            "tanggal_rujukan_peserta": "",
-            "tanggal_rujukan_balik": "",
-            "jam_rujukan_peserta": "",
-            "jam_rujukan_balik": "",
-            "perawat": "Sunarni",
-            "perawat_stroke": "",
-            "dokter": "dr. Sunarno",
-            "dokter_stroke": "",
-            "dokter_rumah_sakit": "dr. Budiman",
-            "dokter_rumah_sakit_stroke": ""
+        "tanggal_form": "2026-06-23",
+        "tanggal_form_indo": "23 Juni 2026",
+        "jam_form": "13:28",
+        "konsul": {
+            "kepada_dokter": "dr. Budi Santoso, Sp.PD",
+            "isi": "Mohon evaluasi lebih lanjut terkait keluhan sesak nafas dan peningkatan tekanan darah sejak 2 hari yang lalu. Riwayat asma disangkal.",
+            "tanggal": "2026-06-23",
+            "jam": "13:30",
+            "ttd_nama": "dr. Andi Wijaya",
+            "ttd_stroke": ""
         },
-        "rujukan": {
-            "no_rujukan": "RJ-001",
-            "kode_rs": "KRS-123",
-            "rumah_sakit": "RS Yasyfin Darussalam Gontor",
-            "kabupaten_kota": "Ponorogo",
-            "kepada_yth": "dr. Andi",
-            "rsu": "RSUD Dr. Harjono",
-            "no_kartu_bpjs": "000123456789",
-            "status": "Utama",
-            "diagnosa_group": "",
-            "diagnosa_freetext": "Demam Berdarah Dengue",
-            "diagnosa_list_autocomplete": [],
-            "telah_diberikan": "Paracetamol"
-        },
-        "rujukan_balik": {
-            "no_rujukan": "RJB-001",
-            "kode_rs": "KRS-123",
-            "rumah_sakit": "RSUD Dr. Harjono",
-            "diagnosa_group": "",
-            "diagnosa_freetext": "Demam Berdarah Dengue",
-            "diagnosa_list_autocomplete": [],
-            "terapi": "Perawatan Intensif",
-            "pengobatan_dengan_obat": true,
-            "pengobatan_dengan_obat_text": "Amoxicillin",
-            "perlu_rawat_inap": false,
-            "kontrol_kembali": true,
-            "kontrol_kembali_tanggal": "2026-08-01",
-            "konsultasi_selesai": false,
-            "lain_lain": false,
-            "lain_lain_text": ""
+        "jawaban": {
+            "kepada_dokter": "dr. Andi Wijaya",
+            "isi": "Terima kasih teman sejawat atas konsulnya. Saat ini pasien stabil, namun disarankan untuk observasi selama 1x24 jam dan pemberian terapi inhalasi setiap 8 jam.",
+            "tanggal": "2026-06-23",
+            "jam": "14:15",
+            "ttd_nama": "dr. Budi Santoso, Sp.PD",
+            "ttd_stroke": ""
         },
         "external_link": {
-            "patient_info_data": {
-                "no_register": "2001080007",
-                "id_pasien": "00000092",
-                "id_pendaftaran": 1823,
-                "id_layanan_pendaftaran": 2080,
-                "waktu_daftar": "2020-01-08 10:28:09",
-                "waktu_keluar": "2020-01-08 18:15:41",
-                "jenis": "Poliklinik",
-                "tindak_lanjut": "Pulang",
-                "kondisi_keluar": "Hidup",
-                "nama_pjwb": "",
-                "telp_pjwb": "",
-                "alamat_pjwb": "",
-                "nama_pjwb_finansial": "",
-                "telp_pjwb_finansial": "",
-                "alamat_pjwb_finansial": "",
-                "nama_ayah": "Abdullah",
-                "nama_ibu": "Aminah",
-                "nama_pasangan": "Khaleed",
-                "cara_bayar": "Tunai",
-                "nama_penjamin": "",
-                "klinik": "Umum",
-                "nopolish": "999999999",
-                "no_sep": "0144R0010923V000645",
-                "no_rujukan": "111502020923Y000193",
-                "bpjs_information": [
-                    {
-                        "id_bpjs_surat_kontrol": 485,
-                        "waktu_terbit": "2022-06-29 08:24:14",
-                        "tanggal_kontrol": "2022-07-13",
-                        "jenis": "Kontrol",
-                        "nomor_surat": "0144R0010622K001044",
-                        "dipakai": 1
-                    },
-                    {
-                        "id_bpjs_surat_kontrol": 958,
-                        "waktu_terbit": "2022-07-13 07:43:20",
-                        "tanggal_kontrol": "2022-07-27",
-                        "jenis": "Kontrol",
-                        "nomor_surat": "0144R0010722K000456",
-                        "dipakai": 1
-                    },
-                    {
-                        "id_bpjs_surat_kontrol": 1435,
-                        "waktu_terbit": "2022-07-27 08:26:58",
-                        "tanggal_kontrol": "2022-08-10",
-                        "jenis": "Kontrol",
-                        "nomor_surat": "0144R0010722K000969",
-                        "dipakai": 1
-                    }
-                ],
-                "sep_information": {
-                    "noSep": "0144R0010923V000645",
-                    "tglSep": "2023-09-12",
-                    "jnsPelayanan": "Rawat Jalan",
-                    "kelasRawat": "Kelas 3",
-                    "diagnosa": "Malignant neoplasm of sigmoid colon",
-                    "noRujukan": "111502020923Y000193",
-                    "poli": "BEDAH",
-                    "poliEksekutif": "0",
-                    "catatan": "MINTA RUJUKAN",
-                    "penjamin": null,
-                    "peserta": {
-                        "noKartu": "0000535133755",
-                        "nama": "WARTI",
-                        "tglLahir": "1980-12-23",
-                        "noMr": "00031424",
-                        "kelamin": "P",
-                        "jnsPeserta": "PBI (APBN)",
-                        "hakKelas": "Kelas 3",
-                        "asuransi": null
-                    },
-                    "klsRawat": {
-                        "klsRawatHak": "3",
-                        "klsRawatNaik": null,
-                        "pembiayaan": null,
-                        "penanggungJawab": null
-                    },
-                    "informasi": null,
-                    "kdStatusKecelakaan": "0",
-                    "nmstatusKecelakaan": "Bukan Kecelakaan",
-                    "dpjp": {
-                        "kdDPJP": "9571",
-                        "nmDPJP": "DR  WAHYU PRIYATNO Sp.B"
-                    },
-                    "kontrol": {
-                        "noSurat": null,
-                        "kdDokter": null,
-                        "nmDokter": null
-                    },
-                    "lokasiKejadian": {
-                        "tglKejadian": null,
-                        "kdProp": null,
-                        "kdKab": null,
-                        "kdKec": null,
-                        "ketKejadian": null,
-                        "lokasi": null
-                    },
-                    "cob": "0",
-                    "katarak": "0",
-                    "tujuanKunj": {
-                        "kode": "0",
-                        "nama": "Normal"
-                    },
-                    "flagProcedure": {
-                        "kode": "0",
-                        "nama": "Prosedur tidak berkelanjutan"
-                    },
-                    "kdPenunjang": {
-                        "kode": "0",
-                        "nama": ""
-                    },
-                    "assestmenPel": {
-                        "kode": "0",
-                        "nama": ""
-                    },
-                    "eSEP": "True"
-                },
-                "rujukan_information": {
-                    "asalFaskes": "1",
-                    "rujukan": {
-                        "noKunjungan": "111502020923Y000193",
-                        "tglKunjungan": "2023-09-09",
-                        "provPerujuk": {
-                            "kode": "11150202",
-                            "nama": "Purwareja Klampok 2"
-                        },
-                        "peserta": {
-                            "noKartu": "0000535133755",
-                            "nik": "3304026312800003",
-                            "nama": "WARTI",
-                            "pisa": "3",
-                            "sex": "P",
-                            "mr": {
-                                "noMR": "00031424",
-                                "noTelepon": "088220061023"
-                            },
-                            "tglLahir": "1980-12-23",
-                            "tglCetakKartu": "2015-10-30",
-                            "tglTAT": "2080-12-01",
-                            "tglTMT": "2013-01-01",
-                            "statusPeserta": {
-                                "kode": "0",
-                                "keterangan": "AKTIF"
-                            },
-                            "provUmum": {
-                                "kdProvider": "11150202",
-                                "nmProvider": "Purwareja Klampok 2"
-                            },
-                            "jenisPeserta": {
-                                "kode": "21",
-                                "keterangan": "PBI (APBN)"
-                            },
-                            "hakKelas": {
-                                "kode": "3",
-                                "keterangan": "KELAS III"
-                            },
-                            "umur": {
-                                "umurSekarang": "42 tahun ,9 bulan ,11 hari",
-                                "umurSaatPelayanan": "42 tahun ,9 bulan ,14 hari"
-                            },
-                            "informasi": {
-                                "dinsos": null,
-                                "prolanisPRB": null,
-                                "noSKTM": null,
-                                "eSEP": null
-                            },
-                            "cob": {
-                                "noAsuransi": null,
-                                "nmAsuransi": null,
-                                "tglTMT": null,
-                                "tglTAT": null
-                            }
-                        },
-                        "diagnosa": {
-                            "kode": "C18.7",
-                            "nama": "Malignant neoplasm of sigmoid colon"
-                        },
-                        "keluhan": "MINTA RUJUKAN",
-                        "poliRujukan": {
-                            "kode": "BED",
-                            "nama": "BEDAH"
-                        },
-                        "pelayanan": {
-                            "kode": "2",
-                            "nama": "Rawat Jalan"
+            "prescription_data_list": [
+                {
+                    "no_register": "2502140133",
+                    "id_pasien": "040540",
+                    "id_pendaftaran": 69568,
+                    "id_layanan_pendaftaran": 82235,
+                    "id_resep": 44718,
+                    "id_resep_tebus": "18252",
+                    "status_obat_pulang": "",
+                    "status_approval": "Disetujui",
+                    "waktu_resep": "2025-11-08 09:19:00",
+                    "waktu_resep_approval": "2025-11-08 09:44:55",
+                    "telaah_resep": null,
+                    "telaah_obat": null,
+                    "status_farmasi": "Disetujui",
+                    "order_resep": [
+                        {
+                            "r_no": 1,
+                            "nama_pendek": "Paracetamol 500 mg Tablet",
+                            "nama_obat": "Paracetamol 500 mg Tablet 500 mg Tablet \u003Ci\u003EPT. Kimia Farma\u003C/i\u003E",
+                            "qty": 1,
+                            "nama_satuan": "Tablet",
+                            "kekuatan": 500,
+                            "nama_kekuatan": "mg",
+                            "aturan_pakai": "-",
+                            "ket_aturan_pakai": "-",
+                            "timing": "Sesudah",
+                            "admintime": "",
+                            "kronis": "0",
+                            "id_kategori": "1",
+                            "nama_kategori_barang": "Obat",
+                            "high_alert": "Tidak"
                         }
-                    }
+                    ],
+                    "resep": [
+                        {
+                            "id_penjualan": 18397,
+                            "r_no": 1,
+                            "nama_pendek": "Paracetamol 500 mg Tablet",
+                            "nama_obat": "Paracetamol 500 mg Tablet 500 mg Tablet \u003Ci\u003EPT. Kimia Farma\u003C/i\u003E",
+                            "qty": 15,
+                            "nama_satuan": "Tablet",
+                            "kekuatan": 500,
+                            "nama_kekuatan": "mg",
+                            "aturan_pakai": "3dd1tab",
+                            "ket_aturan_pakai": "3 x sehari 1 Tablet",
+                            "timing": "Sesudah",
+                            "admintime": "Pagi: 06.00, Siang: 14.00, Malam: 22.00",
+                            "kronis": "0",
+                            "id_kategori": "1",
+                            "nama_kategori_barang": "Obat",
+                            "high_alert": "Tidak"
+                        },
+                        {
+                            "id_penjualan": 18397,
+                            "r_no": 1,
+                            "nama_pendek": "Paracetamol 500 mg Tablet",
+                            "nama_obat": "Paracetamol 500 mg Tablet 500 mg Tablet \u003Ci\u003EPT. Kimia Farma\u003C/i\u003E",
+                            "qty": 15,
+                            "nama_satuan": "Tablet",
+                            "kekuatan": 500,
+                            "nama_kekuatan": "mg",
+                            "aturan_pakai": "3dd1tab",
+                            "ket_aturan_pakai": "3 x sehari 1 Tablet",
+                            "timing": "Sesudah",
+                            "admintime": "Pagi: 06.00, Siang: 14.00, Malam: 22.00",
+                            "kronis": "0",
+                            "id_kategori": "1",
+                            "nama_kategori_barang": "Obat",
+                            "high_alert": "Tidak"
+                        }
+                    ]
+                },
+                {
+                    "no_register": "2502140133",
+                    "id_pasien": "040540",
+                    "id_pendaftaran": 69568,
+                    "id_layanan_pendaftaran": 82235,
+                    "id_resep": 44984,
+                    "id_resep_tebus": "",
+                    "status_obat_pulang": "",
+                    "status_approval": "Disetujui",
+                    "waktu_resep": "2025-11-08 21:59:00",
+                    "waktu_resep_approval": "2025-11-08 22:05:18",
+                    "telaah_resep": null,
+                    "telaah_obat": null,
+                    "status_farmasi": "Menunggu Konfirmasi",
+                    "order_resep": [
+                        {
+                            "r_no": 1,
+                            "nama_pendek": "Paracetamol 500 mg Tablet",
+                            "nama_obat": "Paracetamol 500 mg Tablet 500 mg Tablet \u003Ci\u003EPT. Kimia Farma\u003C/i\u003E",
+                            "qty": 1,
+                            "nama_satuan": "Tablet",
+                            "kekuatan": 500,
+                            "nama_kekuatan": "mg",
+                            "aturan_pakai": "3dd1/2tab",
+                            "ket_aturan_pakai": "3 x sehari 1/2 tablet",
+                            "timing": "Sesudah",
+                            "admintime": "Pagi: 06.00, Siang: 14.00, Malam: 22.00",
+                            "kronis": "0",
+                            "id_kategori": "1",
+                            "nama_kategori_barang": "Obat",
+                            "high_alert": "Tidak"
+                        }
+                    ],
+                    "resep": []
                 }
-            },
+            ],
             "px_data": {
                 "no_rm": "00000001",
                 "nama": "HANA AMIRA NN",
@@ -308,208 +190,187 @@ const data = {
                 "nama_profesi": "Dokter",
                 "ttd_image": "000002_682b2a74c336d.png"
             },
-            "diagnosa_list_rujukan": [
+            "diagnosa_keperawatan_list": [
                 {
-                    "no_register": "2202230010",
-                    "id_pasien": "00206957",
-                    "id_pendaftaran": 10,
-                    "id_layanan_pendaftaran": 1652,
-                    "jenis": "Rawat Inap",
-                    "tanggal": "2022-03-01",
-                    "jam": "09:27:15",
-                    "layanan": [
+                    "id": "79748",
+                    "id_pendaftaran": "64121",
+                    "jenis": "IGD",
+                    "bangsal": "IGD UTAMA",
+                    "kelas": "-",
+                    "no_ruang": "1",
+                    "nomor_bed": "3",
+                    "klinik": "Gawat Darurat Umum",
+                    "jenis_igd": "Umum",
+                    "data": [
                         {
-                            "id_diagnosa": 823,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Sementara",
-                            "primer": "Primer"
-                        },
-                        {
-                            "id_diagnosa": 826,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "BP",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Akhir",
-                            "primer": "Primer"
+                            "id": "974",
+                            "id_diagnosa_keperawatan_lama": null,
+                            "id_layanan_pendaftaran": "79748",
+                            "waktu": "2025-10-13 12:45:20",
+                            "id_nakes": "0",
+                            "id_sebab_sakit_keperawatan": "2",
+                            "deskripsi": "Pasien datang dengan sesak napas dan tampak gelisah. Diberikan oksigen 3 L/menit melalui nasal kanul, dilakukan posisi semi fowler untuk memudahkan pernapasan.",
+                            "primer": "1",
+                            "id_user": "1",
+                            "nama_user": "fgadmin",
+                            "nama_nakes": "Perawat IGD",
+                            "code": "D.0001",
+                            "diagnosa": "D.0001 | Pola Napas Tidak Efektif.",
+                            "diagnosa_keperawatan_lama": []
                         }
                     ]
                 },
                 {
-                    "no_register": "2202230010",
-                    "id_pasien": "00206957",
-                    "id_pendaftaran": 10,
-                    "id_layanan_pendaftaran": 1652,
+                    "id": "79750",
+                    "id_pendaftaran": "64121",
                     "jenis": "Rawat Inap",
-                    "tanggal": "2022-03-01",
-                    "jam": "09:27:15",
-                    "layanan": [
+                    "bangsal": "RENGGALI ATAS",
+                    "kelas": "III",
+                    "no_ruang": "18",
+                    "nomor_bed": "2",
+                    "klinik": null,
+                    "jenis_igd": "Umum",
+                    "data": [
                         {
-                            "id_diagnosa": 823,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Sementara",
-                            "primer": "Primer"
+                            "id": "975",
+                            "id_diagnosa_keperawatan_lama": null,
+                            "id_layanan_pendaftaran": "79750",
+                            "waktu": "2025-10-16 15:00:00",
+                            "id_nakes": "0",
+                            "id_sebab_sakit_keperawatan": "1",
+                            "deskripsi": "Pasien mengalami batuk produktif sejak 3 hari, sekret kental dan sulit dikeluarkan. Diberikan edukasi teknik batuk efektif dan hidrasi cukup.",
+                            "primer": "1",
+                            "id_user": "1",
+                            "nama_user": "fgadmin",
+                            "nama_nakes": "Perawat Bangsal",
+                            "code": "D.0010",
+                            "diagnosa": "D.0010 | Bersihan Jalan Napas Tidak Efektif.",
+                            "diagnosa_keperawatan_lama": []
                         },
                         {
-                            "id_diagnosa": 826,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "BP",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Akhir",
-                            "primer": "Primer"
+                            "id": "976",
+                            "id_diagnosa_keperawatan_lama": null,
+                            "id_layanan_pendaftaran": "79750",
+                            "waktu": "2025-10-14 13:00:00",
+                            "id_nakes": "0",
+                            "id_sebab_sakit_keperawatan": "3",
+                            "deskripsi": "Pasien tampak lemah dan sering berbaring. Diberikan latihan mobilisasi pasif dan edukasi keluarga untuk membantu perubahan posisi tiap 2 jam.",
+                            "primer": "0",
+                            "id_user": "1",
+                            "nama_user": "fgadmin",
+                            "nama_nakes": "Perawat Bangsal",
+                            "code": "D.0002",
+                            "diagnosa": "D.0002 | Intoleransi Aktivitas.",
+                            "diagnosa_keperawatan_lama": []
+                        },
+                        {
+                            "id": "977",
+                            "id_diagnosa_keperawatan_lama": null,
+                            "id_layanan_pendaftaran": "79750",
+                            "waktu": "2025-10-15 14:00:00",
+                            "id_nakes": "0",
+                            "id_sebab_sakit_keperawatan": "4",
+                            "deskripsi": "Pasien mengeluh sulit tidur di malam hari karena batuk dan ketidaknyamanan. Diberikan edukasi relaksasi pernapasan dan posisi nyaman.",
+                            "primer": "0",
+                            "id_user": "1",
+                            "nama_user": "fgadmin",
+                            "nama_nakes": "Perawat Bangsal",
+                            "code": "D.0008",
+                            "diagnosa": "D.0008 | Gangguan Pola Tidur.",
+                            "diagnosa_keperawatan_lama": []
                         }
                     ]
                 }
             ],
-            "diagnosa_list_rujukan_balik": [
+            "tindakan_data": [
                 {
-                    "no_register": "2202230010",
-                    "id_pasien": "00206957",
-                    "id_pendaftaran": 10,
-                    "id_layanan_pendaftaran": 1652,
+                    "no_register": "2504280022",
+                    "id_pasien": "106560",
+                    "id_pendaftaran": 152,
+                    "id_layanan_pendaftaran": 437,
                     "jenis": "Rawat Inap",
-                    "tanggal": "2022-03-01",
-                    "jam": "09:27:15",
-                    "layanan": [
-                        {
-                            "id_diagnosa": 823,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Sementara",
-                            "primer": "Primer"
-                        },
-                        {
-                            "id_diagnosa": 826,
-                            "id_dokter": 177,
-                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
-                            "id_spesialis": 1,
-                            "nama_spesialis": "Anak",
-                            "id_profesi": 2,
-                            "nama_profesi": "Dokter Spesialis",
-                            "id_sebab_sakit": 3504,
-                            "kode_sebab_sakit": "J180",
-                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                            "icd_x": "J18.0",
-                            "deskripsi": "BP",
-                            "kasus": "Baru",
-                            "post": "Diagnosa Akhir",
-                            "primer": "Primer"
-                        }
-                    ]
+                    "nama_layanan": "Jasa Perawatan",
+                    "qty": 1,
+                    "tanggal": "2025-04-28",
+                    "jam": "16:15:15",
+                    "user": "Isnan",
+                    "icd_9_code": "",
+                    "icd_9_name": ""
+                },
+                {
+                    "no_register": "2504280022",
+                    "id_pasien": "106560",
+                    "id_pendaftaran": 152,
+                    "id_layanan_pendaftaran": 437,
+                    "jenis": "Rawat Inap",
+                    "nama_layanan": "Askep",
+                    "qty": 1,
+                    "tanggal": "2025-04-28",
+                    "jam": "18:46:13",
+                    "user": "Isnan",
+                    "icd_9_code": "",
+                    "icd_9_name": ""
+                },
+                {
+                    "no_register": "2504280022",
+                    "id_pasien": "106560",
+                    "id_pendaftaran": 152,
+                    "id_layanan_pendaftaran": 437,
+                    "jenis": "Rawat Inap",
+                    "nama_layanan": "Pasang Infus (RI, D5, Asering)",
+                    "qty": 1,
+                    "tanggal": "2025-04-29",
+                    "jam": "08:45:04",
+                    "user": "Rohani",
+                    "icd_9_code": "",
+                    "icd_9_name": ""
+                },
+                {
+                    "no_register": "2504280022",
+                    "id_pasien": "106560",
+                    "id_pendaftaran": 152,
+                    "id_layanan_pendaftaran": 437,
+                    "jenis": "Rawat Inap",
+                    "nama_layanan": "Visite Dokter Spesialis",
+                    "qty": 1,
+                    "tanggal": "2025-04-29",
+                    "jam": "08:45:35",
+                    "user": "Rohani",
+                    "icd_9_code": "",
+                    "icd_9_name": ""
                 }
             ]
         }
     },
     "default": {
+        "tanggal_form": "",
+        "tanggal_form_indo": "",
+        "jam_form": "",
         "pasien": {
             "nama": "",
             "no_rm": "",
             "tanggal_lahir": "",
             "tanggal_lahir_indo": "",
-            "kelamin": "",
-            "alamat": "",
-            "tempat_lahir": "",
-            "pekerjaan": "",
-            "pendidikan": "",
-            "agama": "",
-            "umur": "",
-            "ruang": "",
-            "bangsal": "",
-            "kelas": "",
-            "tanggal_masuk": "",
-            "tanggal_masuk_indo": "",
-            "jam_masuk": ""
+            "alamat": ""
         },
-        "ttd_data": {
-            "kota": "",
-            "tanggal_rujukan_peserta": "",
-            "tanggal_rujukan_balik": "",
-            "jam_rujukan_peserta": "",
-            "jam_rujukan_balik": "",
-            "perawat": "",
-            "perawat_stroke": "",
-            "dokter": "",
-            "dokter_stroke": ""
+        "konsul": {
+            "kepada_dokter": "",
+            "isi": "",
+            "tanggal": "",
+            "jam": "",
+            "ttd_nama": "",
+            "ttd_stroke": ""
         },
-        "rujukan": {
-            "no_rujukan": "",
-            "kode_rs": "",
-            "rumah_sakit": "RS Yasyfin Darussalam Gontor",
-            "kabupaten_kota": "Ponorogo",
-            "kepada_yth": "",
-            "rsu": "",
-            "no_kartu_bpjs": "",
-            "status": "",
-            "diagnosa_group": "",
-            "diagnosa_freetext": "",
-            "diagnosa_list_autocomplete": [],
-            "telah_diberikan": ""
+        "jawaban": {
+            "kepada_dokter": "",
+            "isi": "",
+            "tanggal": "",
+            "jam": "",
+            "ttd_nama": "",
+            "ttd_stroke": ""
         },
-        "rujukan_balik": {
-            "no_rujukan": "",
-            "kode_rs": "",
-            "rumah_sakit": "",
-            "diagnosa_group": "",
-            "diagnosa_freetext": "",
-            "diagnosa_list_autocomplete": [],
-            "terapi": "",
-            "pengobatan_dengan_obat": false,
-            "pengobatan_dengan_obat_text": "",
-            "perlu_rawat_inap": false,
-            "kontrol_kembali": false,
-            "kontrol_kembali_tanggal": "",
-            "konsultasi_selesai": false,
-            "lain_lain": false,
-            "lain_lain_text": ""
+        "external_link": {
+            "px_data": {}
         }
     }
 }
