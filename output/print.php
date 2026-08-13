@@ -577,12 +577,16 @@ function tgl_indo($tanggal)
                             $tindakan_text = "";
                             $petugas_stroke = "";
                             $pasien_stroke = "";
+                            $petugas_nama = "";
+                            $pasien_nama = "";
 
                             if (isset($chunk[$col]->tindakan_list[$row])) {
                                 $tindakan_item = $chunk[$col]->tindakan_list[$row];
                                 $tindakan_text = $tindakan_item->tindakan ?? "";
                                 $petugas_stroke = $tindakan_item->ttd_petugas_stroke ?? "";
                                 $pasien_stroke = $tindakan_item->ttd_pasien_stroke ?? "";
+                                $petugas_nama = $tindakan_item->ttd_petugas_nama ?? "";
+                                $pasien_nama = $tindakan_item->ttd_pasien_nama ?? "";
                             }
                         ?>
                             <td style="vertical-align: top; height: 30px;"><?php echo $tindakan_text; ?></td>
@@ -590,11 +594,13 @@ function tgl_indo($tanggal)
                                 <?php if (!empty($petugas_stroke)) { ?>
                                     <img src="<?php echo $petugas_stroke; ?>" style="height:40px;width:auto;display:inline-block;">
                                 <?php } ?>
+                                <p style="font-size:10pt"><?php echo $petugas_nama; ?></p>
                             </td>
                             <td style="vertical-align: top; text-align: center;">
                                 <?php if (!empty($pasien_stroke)) { ?>
                                     <img src="<?php echo $pasien_stroke; ?>" style="height:40px;width:auto;display:inline-block;">
                                 <?php } ?>
+                                <p style="font-size:10pt"><?php echo $pasien_nama; ?></p>
                             </td>
                         <?php } ?>
                     </tr>

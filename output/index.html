@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulir PPI </title>
-
-    <!-- Tambahkan Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <!-- Tambahkan pustaka Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <!-- Tambahkan pustaka Font Awesome jika menggunakan ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- Tambahkan SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" />
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
-        integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Highcharts -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-</head>
-
-<body>
-    <!-- === START CONTAINER CODE === -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -672,6 +639,38 @@
                         },
                     });
                 },
+                addRiwayatTerapi: async function () {
+                    const newEntry = {
+                        id: null,
+                        tanggal: "",
+                        tindakan_list: []
+                    };
+                    await apiHelper({
+                        url: `/api/patient_document_item/add`,
+                        method: "POST",
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        requestData: {
+                            patient_document_id: this.doc_id,
+                            entry_data: newEntry
+                        },
+                        renderSuccess: (response) => {
+                            this.loadPage(this.pagination.page);
+                            this.$nextTick(() => {
+                                const newIdx = this.sortOrder === "DESC" ? 0 : this.riwayat_terapi.length - 1;
+                                const el = document.getElementById('terapi_row_' + newIdx);
+                                if (el) {
+                                    el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                                    const oldBg = el.style.background;
+                                    el.style.background = '#ECCB5C';
+                                    setTimeout(() => {
+                                        el.style.background = oldBg;
+                                    }, 1500);
+                                }
+                            });
+                        }
+                    });
+                },
                 loadPage: async function (page) {
                     if (page < 1 || (page > this.totalPages && this.totalPages > 0)) return;
                     this.list_data = null;
@@ -686,7 +685,7 @@
                         renderSuccess: (response) => {
                             this.$set(this, "list_data", response.data);
                             this.riwayat_terapi = response.data.map(x => ({
-                                id: x.id,
+                                id: x.patient_document_item_id,
                                 tanggal: x.entry_data.tanggal || "",
                                 tindakan_list: x.entry_data.tindakan_list || []
                             }));
@@ -695,6 +694,9 @@
                             this.pagination.total = response.total;
                         },
                     });
+
+
+                    console.log("this.riwayat_terapi : ", this.riwayat_terapi)
                 },
                 hapusItem: async function (id) {
                     await apiHelper({
@@ -725,6 +727,8 @@
                             }
                         }
                     });
+
+                    console.log("Riwayat Terapi after edit : ", this.riwayat_terapi)
                 },
 
                 init: function () {
@@ -1080,38 +1084,9 @@
                         }
                     });
                 },
-                addRiwayatTerapi: async function () {
-                    const newEntry = {
-                        tanggal: "",
-                        tindakan_list: []
-                    };
-                    await apiHelper({
-                        url: `/api/patient_document_item/add`,
-                        method: "POST",
-                        notifyOnError: true,
-                        notifyOnSuccess: true,
-                        requestData: {
-                            patient_document_id: this.doc_id,
-                            entry_data: newEntry
-                        },
-                        renderSuccess: (response) => {
-                            this.loadPage(this.pagination.page);
-                            this.$nextTick(() => {
-                                const newIdx = this.sortOrder === "DESC" ? 0 : this.riwayat_terapi.length - 1;
-                                const el = document.getElementById('terapi_row_' + newIdx);
-                                if (el) {
-                                    el.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                                    const oldBg = el.style.background;
-                                    el.style.background = '#ECCB5C';
-                                    setTimeout(() => {
-                                        el.style.background = oldBg;
-                                    }, 1500);
-                                }
-                            });
-                        }
-                    });
-                },
                 delRiwayatTerapi: function (i) {
+                    console.log("list data i : ", this.list_data[i])
+                    // const id = this.list_data[i].patient_document_item_id;
                     const id = this.riwayat_terapi[i].id;
                     this.hapusItem(id);
                 },
@@ -1845,19 +1820,19 @@
 
     .unsaved-notification-bar {
         position: fixed;
-        top: 20px;
+        bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #ffc107;
-        color: #333;
-        padding: 10px 20px;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1050;
+        background-color: #333;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 15px;
-        font-weight: bold;
+        gap: 20px;
     }
 </style>
 <form id="formadd" class="form-label-left input_mask col-md-12">
@@ -2113,18 +2088,14 @@
                                             :key="'tindak_'+idxT+'_'+idxC">
                                             <td>{{ tindak.tindakan }}</td>
                                             <td class="text-center">
-                                                <div v-if="tindak.ttd_petugas_stroke">
-                                                    <img :src="tindak.ttd_petugas_stroke"
-                                                        style="height: 60px; object-fit: contain;">
-                                                    <div class="small">{{ tindak.ttd_petugas_nama }}</div>
-                                                </div>
+                                                <img v-if="tindak.ttd_petugas_stroke" :src="tindak.ttd_petugas_stroke"
+                                                    style="height: 60px; object-fit: contain;">
+                                                <div class="small">{{ tindak.ttd_petugas_nama }}</div>
                                             </td>
                                             <td class="text-center">
-                                                <div v-if="tindak.ttd_pasien_stroke">
-                                                    <img :src="tindak.ttd_pasien_stroke"
-                                                        style="height: 60px; object-fit: contain;">
-                                                    <div class="small">{{ tindak.ttd_pasien_nama }}</div>
-                                                </div>
+                                                <img v-if="tindak.ttd_pasien_stroke" :src="tindak.ttd_pasien_stroke"
+                                                    style="height: 60px; object-fit: contain;">
+                                                <div class="small">{{ tindak.ttd_pasien_nama }}</div>
                                             </td>
                                             <td class="text-center align-middle">
                                                 <button type="button" class="btn btn-warning btn-sm"
@@ -2244,8 +2215,8 @@
                                             v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select :key="'input_dokter'" class="form-control"
-                                            id="dokter_ttd_modal_auto" style="width: 100%"></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
                                         <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
@@ -2258,8 +2229,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        @click="saveTTDHandler(true)">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
                         Simpan
                     </button>
                 </div>
@@ -2291,8 +2261,7 @@
                             <div v-for="(DiagUtamaItem, j) in jenisLayanan.layanan" :key="j" class="mb-1 mx-2">
                                 <div class="col-12 row justify-content-between px-3 rounded border-bottom font-weight-bold"
                                     :class="{'bg-primary':index_expand_diagnosa[i][j].expand, 'bg-light': !index_expand_diagnosa[i][j].expand }">
-                                    <a class="nav-link col"
-                                        :class="{'text-white':index_expand_diagnosa[i][j].expand}"
+                                    <a class="nav-link col" :class="{'text-white':index_expand_diagnosa[i][j].expand}"
                                         href="javascript:;" data-toggle="collapse" role="button"
                                         :aria-expanded="index_expand_diagnosa[i][j].expand"
                                         @click.prevent="navCollapse(i, j, 'index_expand_diagnosa')">
@@ -2383,8 +2352,7 @@
                             <h6 class="text-center font-weight-bold">Tanda Tangan Pasien</h6>
                             <ttd-section mode="IMAGE" label="" select_id="" name_input_type="TEXT"
                                 v-model="tmp_tindakan.ttd_pasien_nama" path_name="tmp_tindakan.ttd_pasien_nama"
-                                :stroke="tmp_tindakan.ttd_pasien_stroke"
-                                path_stroke="tmp_tindakan.ttd_pasien_stroke"
+                                :stroke="tmp_tindakan.ttd_pasien_stroke" path_stroke="tmp_tindakan.ttd_pasien_stroke"
                                 @update-stroke="tmp_tindakan.ttd_pasien_stroke = $event"
                                 @open-ttd-modal="openTTDModalHandler" />
                         </div>
@@ -2401,16 +2369,3 @@
     <!-- AI will insert modal HTML here -->
 
 </form>
-    <!-- === END CONTAINER CODE === -->
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="../vendor/cutomLib.js"></script>
-    <!-- Tambahkan JSON Data -->
-    <script src="json.js"></script>
-    <!-- Tambahkan script Vue Anda di sini -->
-    <script>
-        init_doc(1, data.sample, 'add');
-    </script>
-</body>
-
-</html>
