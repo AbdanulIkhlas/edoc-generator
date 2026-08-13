@@ -597,6 +597,39 @@
                         }
                     });
                 },
+                stopPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/stop/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin menyelesaikan dokumen Ini?",
+                            confirmText: "Ya, selesaikan!",
+                            icon: "warning",
+                            confirmButtonColor: "#dc3545",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "CLOSED";
+                        },
+                    });
+                },
+                startPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/start/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin melanjutkan dokumen Ini?",
+                            icon: "warning",
+                            confirmButtonColor: "#28a745",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "ACTIVE";
+                        },
+                    });
+                },
                 saveStaticJson: async function () {
                     if (this.unsavedTimer) {
                         clearTimeout(this.unsavedTimer);
@@ -1080,7 +1113,8 @@
         ]);
 
 
-
+        setSelect2($("#dokter_auto1"), data.ttd_data.dokter, data.ttd_data.dokter);
+        setSelect2($("#nakes_auto1"), data.ttd_data.perawat, data.ttd_data.perawat);
     }
 
     // === [BRIDGING_FUNCTION_HOOK] ===
@@ -2052,11 +2086,27 @@
             <!--    <i class="fa fa-save"></i>-->
             <!--    Simpan-->
             <!--</button>-->
-            <!-- buatkan button nya disini -->
-            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
-                <i class="fa fa-check-square-o"></i>
-                Check Data
-            </button>
+            <div class="card-footer text-muted">
+                <button type="button" v-on:click="saveStaticJson" class="btn btn-primary">
+                    <i class="fa fa-refresh"></i>
+                    Perbarui
+                </button>
+                <button v-if="doc_status === 'ACTIVE'" type="button" v-on:click="stopPatientDocument"
+                    class="btn btn-danger">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    Selesaikan Dokumen
+                </button>
+                <button v-else-if="doc_status === 'CLOSED'" type="button" v-on:click="startPatientDocument"
+                    class="btn btn-success">
+                    <i class="fa fa-unlock" aria-hidden="true"></i>
+                    Lanjutkan Dokumen
+                </button>
+                <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
+                    <i class="fa fa-check-square-o"></i>
+                    Check Data
+                </button>
+            </div>
+            
         </div>
     </div>
 
