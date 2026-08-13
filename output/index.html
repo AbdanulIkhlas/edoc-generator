@@ -528,6 +528,39 @@
                 saveDoc: function () {
                     this.saveStaticJson();
                 },
+                stopPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/stop/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin menyelesaikan dokumen Ini?",
+                            confirmText: "Ya, selesaikan!",
+                            icon: "warning",
+                            confirmButtonColor: "#dc3545",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "CLOSED";
+                        },
+                    });
+                },
+                startPatientDocument: async function () {
+                    await apiHelper({
+                        url: `/api/patient_document/start/${this.doc_id}`,
+                        notifyOnError: true,
+                        notifyOnSuccess: true,
+                        confirm: {
+                            title: "Yakin ingin melanjutkan dokumen Ini?",
+                            icon: "warning",
+                            confirmButtonColor: "#28a745",
+                            cancelButtonColor: "#6c757d",
+                        },
+                        renderSuccess: (result) => {
+                            this.doc_status = "ACTIVE";
+                        },
+                    });
+                },
                 checkData: function () {
                     /* built in function from edoc */
                     preview_emr_data(data);
@@ -1124,6 +1157,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="button" v-on:click="saveStaticJson" class="btn btn-primary">
+                <i class="fa fa-refresh"></i>
+                Perbarui
+            </button>
+            <button v-if="doc_status === 'ACTIVE'" type="button" v-on:click="stopPatientDocument" class="btn btn-danger">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                Selesaikan Dokumen
+            </button>
+            <button v-else-if="doc_status === 'CLOSED'" type="button" v-on:click="startPatientDocument" class="btn btn-success">
+                <i class="fa fa-unlock" aria-hidden="true"></i>
+                Lanjutkan Dokumen
+            </button>
         </div>
     </div>
 
