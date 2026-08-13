@@ -414,7 +414,7 @@ function tgl_indo($tanggal)
                     <tr>
                         <td style="width: 20%; padding: 5px; vertical-align: top;">No.Rujukan</td>
                         <td style="width: 2%; padding: 5px; vertical-align: top;">:</td>
-                        <td style="padding: 5px; vertical-align: top;"></td>
+                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan->no_rujukan ?? ""; ?></td>
                         <td style="width: 15%; padding: 5px; vertical-align: top;"></td>
                         <td style="width: 20%; padding: 5px; vertical-align: top;"></td>
                     </tr>
@@ -423,7 +423,7 @@ function tgl_indo($tanggal)
                         <td style="padding: 5px; vertical-align: top;">:</td>
                         <td style="padding: 5px; vertical-align: top; font-weight: bold;"><?php echo $params->rujukan->rumah_sakit ?? ""; ?></td>
                         <td style="padding: 5px; vertical-align: top;">Kode RS :</td>
-                        <td style="padding: 5px; vertical-align: top;"></td>
+                        <td style="padding: 5px; vertical-align: top;"><?php echo $params->rujukan->kode_rs ?? ""; ?></td>
                     </tr>
                     <tr>
                         <td style="padding: 5px; vertical-align: top;">Kabupaten/ Kota</td>
@@ -438,7 +438,7 @@ function tgl_indo($tanggal)
                     <tr>
                         <td style="width: 20%; padding-bottom: 5px; vertical-align: top;">Kepada Yth.</td>
                         <td style="width: 2%; padding-bottom: 5px; vertical-align: top;">:</td>
-                        <td style="padding-bottom: 5px; vertical-align: top;"></td>
+                        <td style="padding-bottom: 5px; vertical-align: top;"><?php echo $params->rujukan->kepada_yth ?? ""; ?></td>
                     </tr>
                     <tr>
                         <td style="padding-bottom: 5px; vertical-align: top;">RSU</td>
@@ -663,7 +663,7 @@ function tgl_indo($tanggal)
                                     <td style="width: 30%; text-align: right; padding-right: 5px; vertical-align: top;"><?php echo $static_label->hospital_city ?? ""; ?>, </td>
                                     <td style="width: 70%; text-align: left; vertical-align: top; padding-left: 5px;">
                                         <?= isset($params->ttd_data->tanggal_rujukan_balik) && !empty($params->ttd_data->tanggal_rujukan_balik) ? tgl_indo($params->ttd_data->tanggal_rujukan_balik) : "" ?>,
-                                        <?= isset($params->ttd_data->jam_rujukan_balik) && !empty($params->ttd_data->jam_rujukan_balik) ? ' Jam ' . tgl_indo($params->ttd_data->jam_rujukan_balik) . ' WIB' : "" ?>
+                                        <?= isset($params->ttd_data->jam_rujukan_balik) && !empty($params->ttd_data->jam_rujukan_balik) ? ' Jam ' . $params->ttd_data->jam_rujukan_balik . ' WIB' : "" ?>
                                     </td>
                                 </tr>
                                 <tr>

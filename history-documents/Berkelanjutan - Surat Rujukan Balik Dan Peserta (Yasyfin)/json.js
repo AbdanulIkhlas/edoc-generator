@@ -86,7 +86,7 @@ const data = {
                 "cara_bayar": "Tunai",
                 "nama_penjamin": "",
                 "klinik": "Umum",
-                "nopolish": "",
+                "nopolish": "999999999",
                 "no_sep": "0144R0010923V000645",
                 "no_rujukan": "111502020923Y000193",
                 "bpjs_information": [
