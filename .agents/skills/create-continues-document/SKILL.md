@@ -890,10 +890,10 @@ Salin elemen pemberitahuan (_Floating Warning Unsaved_) di bagian atas/bawah `<f
 ```
 
 **Informasi Identitas Pasien (contoh):**
-Ganti bagian atas form HTML identitas lama dengan Card Info Pasien:
+Ganti bagian atas form HTML identitas lama dengan Card Info Pasien dan tambahkan `id="pasien-info"`. Di bagian bawah card ini (footer), letakkan tombol-tombol untuk memanajemen status dokumen (Perbarui, Selesaikan, Lanjutkan) yang memanggil fungsi `saveStaticJson`, `stopPatientDocument`, dan `startPatientDocument`:
 
 ```html
-<div class="card patient-card shadow-sm mb-3">
+<div class="card patient-card shadow-sm mb-3" id="pasien-info">
   <div class="card-header bg-light">
     <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
   </div>
@@ -901,6 +901,22 @@ Ganti bagian atas form HTML identitas lama dengan Card Info Pasien:
     <div class="row" v-if="static_json">
       <!-- Isi dengan kolom nama, no_rm, kelamin dll menggunakan v-model="static_json.px_data.nama" -->
     </div>
+  </div>
+  <div class="card-footer">
+      <button type="button" v-on:click="saveStaticJson" class="btn btn-primary">
+          <i class="fa fa-refresh"></i>
+          Perbarui
+      </button>
+      <button v-if="doc_status === 'ACTIVE'" type="button" v-on:click="stopPatientDocument"
+          class="btn btn-danger">
+          <i class="fa fa-lock" aria-hidden="true"></i>
+          Selesaikan Dokumen
+      </button>
+      <button v-else-if="doc_status === 'CLOSED'" type="button" v-on:click="startPatientDocument"
+          class="btn btn-success">
+          <i class="fa fa-unlock" aria-hidden="true"></i>
+          Lanjutkan Dokumen
+      </button>
   </div>
 </div>
 ```
