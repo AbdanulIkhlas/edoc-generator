@@ -1,67 +1,38 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-        "ttd_data": {
-            "type": "object",
-            "properties": {
-                "dokter_pengirim": {
-                    "type": "string"
-                },
-                "dokter_pengirim_stroke": {
-                    "type": "string"
-                },
-                "dokter_penerima": {
-                    "type": "string"
-                },
-                "dokter_penerima_stroke": {
-                    "type": "string"
-                }
-            }
-        },
         "pasien": {
             "type": "object",
             "properties": {
-                "no_sep": {
-                    "type": "string"
-                },
-                "data_peserta_bpjs_jkn": {
-                    "type": "string"
-                },
                 "nama": {
                     "type": "string"
                 },
                 "no_rm": {
                     "type": "string"
                 },
-                "nik": {
-                    "type": "string"
-                },
-                "tanggal": {
-                    "type": "string"
-                },
-                "tanggal_indo": {
-                    "type": "string"
-                },
-                "alamat": {
-                    "type": "string"
-                },
-                "umur": {
-                    "type": "string"
-                },
-                "pekerjaan": {
+                "tanggal_lahir": {
                     "type": "string"
                 },
                 "kelamin": {
                     "type": "string"
                 },
-                "kelamin_text": {
+                "alamat": {
                     "type": "string"
                 },
-                "tanggal_lahir": {
+                "tempat_lahir": {
                     "type": "string"
                 },
-                "tanggal_lahir_indo": {
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
                     "type": "string"
                 },
                 "ruang": {
@@ -73,115 +44,105 @@
                 "kelas": {
                     "type": "string"
                 },
-                "dokter_pengirim": {
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "jam_masuk": {
                     "type": "string"
                 }
             }
         },
-        "nomor_surat": {
-            "type": "string"
-        },
-        "di_bagian": {
-            "type": "string"
-        },
-        "keterangan_klinis": {
-            "type": "string"
-        },
-        "pengobatan": {
-            "type": "string"
-        },
-        "diagnosis": {
-            "type": "string"
-        },
-        "indikasi_rujuk": {
-            "type": "string"
-        },
-        "sebelum_transfer": {
+        "ttd_data": {
             "type": "object",
             "properties": {
-                "kesadaran": {
+                "kota": {
                     "type": "string"
                 },
-                "sistole": {
-                    "type": "string"
-                },
-                "diastole": {
-                    "type": "string"
-                },
-                "hr": {
-                    "type": "string"
-                },
-                "rr": {
-                    "type": "string"
-                }
-            }
-        },
-        "proses_transfer": {
-            "type": "object",
-            "properties": {
-                "kesadaran": {
-                    "type": "string"
-                },
-                "sistole": {
-                    "type": "string"
-                },
-                "diastole": {
-                    "type": "string"
-                },
-                "hr": {
-                    "type": "string"
-                },
-                "rr": {
-                    "type": "string"
-                }
-            }
-        },
-        "catatan_tambahan": {
-            "type": "string"
-        },
-        "bagian_kiri": {
-            "type": "object",
-            "properties": {
                 "tanggal": {
-                    "type": "string"
-                },
-                "tanggal_indo": {
                     "type": "string"
                 },
                 "jam": {
                     "type": "string"
                 },
-                "dokter": {
-                    "type": "string"
-                }
-            }
-        },
-        "bagian_kanan": {
-            "type": "object",
-            "properties": {
-                "tanggal": {
+                "perawat": {
                     "type": "string"
                 },
-                "tanggal_indo": {
-                    "type": "string"
-                },
-                "jam": {
+                "perawat_stroke": {
                     "type": "string"
                 },
                 "dokter": {
                     "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
                 }
             }
         },
-        "diagnosa_masuk_group": {
+        "diagnosa_group": {
             "type": "string"
         },
-        "diagnosa_masuk_freetext": {
+        "diagnosa_freetext": {
             "type": "string"
         },
-        "diagnosa_masuk_autocomplete": {
+        "diagnosa_list_autocomplete": {
             "type": "array",
-            "items": {}
+            "items": {
+                "type": "object",
+                "properties": {
+                    "icd_x": {
+                        "type": "string"
+                    },
+                    "nama_sebab_sakit": {
+                        "type": "string"
+                    },
+                    "deskripsi": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "fungsional": {
+            "type": "string"
+        },
+        "program_tindakan": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "riwayat_terapi": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "tanggal": {
+                        "type": "string"
+                    },
+                    "tindakan_list": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tindakan": {
+                                    "type": "string"
+                                },
+                                "ttd_petugas_nama": {
+                                    "type": "string"
+                                },
+                                "ttd_petugas_stroke": {
+                                    "type": "string"
+                                },
+                                "ttd_pasien_nama": {
+                                    "type": "string"
+                                },
+                                "ttd_pasien_stroke": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

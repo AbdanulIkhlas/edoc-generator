@@ -853,6 +853,93 @@ saveStaticJson: async function () {
         },
     });
 },
+async saveEntryItemHandler() {
+    const payload = {
+        patient_document_id: this.doc_id,
+        entry_data: this.cppt_tmp,
+    };
+
+    await apiHelper({
+        url: `/api/patient_document_item/add`,
+        method: "POST",
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        requestData: payload,
+        renderSuccess: (response) => {
+            this.loadPage(this.pagination.page);
+        },
+    });
+},
+async editDataHandler() {
+    if (!this.edit_id) {
+        console.warn("edit ID tidak ditemukan");
+        return;
+    }
+
+    this.pendingScrollAfterEdit = this.edit_id;
+
+    const payload = {
+        emr_data: {
+            entry: this.cppt_edit,
+        },
+    };
+
+    await apiHelper({
+        url: `/api/patient_document_item/update-entry/${this.edit_id}`,
+        method: "PUT",
+        requestData: payload,
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        renderSuccess: (response) => {
+            $("#modal_edit").modal("hide");
+            this.loadPage(this.pagination.page);
+        },
+    });
+},
+async hapusItem(id) {
+    await apiHelper({
+        url: `/api/patient_document_item/delete/${id}`,
+        method: "DELETE",
+        notifyOnError: true,
+        notifyOnSuccess: true,
+        confirm: {
+            title: "Yakin ingin menghapus data ini?",
+            icon: "warning",
+        },
+        renderSuccess: (response) => {
+            this.loadPage(this.pagination.page);
+        },
+    });
+},
+applyFilter: function () {
+    if (this.filterStartDate && this.filterEndDate) {
+        if (this.filterEndDate < this.filterStartDate) {
+            console.error("Filter error: Tanggal selesai tidak boleh sebelum tanggal mulai.");
+
+            showNotification({
+                variant: "info",
+                message: "Tanggal Selesai tidak boleh lebih awal dari Tanggal Mulai.",
+                position: "top-right",
+                autoClose: true,
+                duration: 3000,
+            });
+
+            return;
+        }
+    }
+
+    this.loadPage(1);
+    $("#filterModal").modal("hide");
+},
+clearFilter: function () {
+    console.log("Membersihkan filter...");
+    // Reset nilai filter
+    this.filterStartDate = null;
+    this.filterEndDate = null;
+
+    this.loadPage(1);
+    $("#filterModal").modal("hide");
+},
 ```
 
 ### 7. Hapus/Sesuaikan Pemanggilan Save yang Lama
