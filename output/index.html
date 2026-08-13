@@ -150,8 +150,8 @@
         </div>
 
         <div class="col-md-12 text-center mb-2">
-            <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
-            <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+            <img v-if="mode === 'IMAGE' && stroke" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+            <img v-else-if="stroke" :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
         </div>
 
         <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
@@ -508,6 +508,10 @@
                 'rujukan': { handler: 'checkUnsaved', deep: true },
                 'rujukan_balik': { handler: 'checkUnsaved', deep: true },
                 'ttd_data': { handler: 'checkUnsaved', deep: true },
+                'index_expand_diagnosa_rujukan': { handler: 'checkUnsaved', deep: true },
+                'index_expand_diagnosa_rujukan_check_all': { handler: 'checkUnsaved', deep: true },
+                'index_expand_diagnosa_rujukan_balik': { handler: 'checkUnsaved', deep: true },
+                'index_expand_diagnosa_rujukan_balik_check_all': { handler: 'checkUnsaved', deep: true },
                 'rujukan_balik.pengobatan_dengan_obat': function (newVal) {
                     if (!newVal) {
                         this.rujukan_balik.pengobatan_dengan_obat_text = "";
@@ -531,7 +535,11 @@
                         pasien: this.pasien,
                         rujukan: this.rujukan,
                         rujukan_balik: this.rujukan_balik,
-                        ttd_data: this.ttd_data
+                        ttd_data: this.ttd_data,
+                        index_expand_diagnosa_rujukan: this.index_expand_diagnosa_rujukan,
+                        index_expand_diagnosa_rujukan_check_all: this.index_expand_diagnosa_rujukan_check_all,
+                        index_expand_diagnosa_rujukan_balik: this.index_expand_diagnosa_rujukan_balik,
+                        index_expand_diagnosa_rujukan_balik_check_all: this.index_expand_diagnosa_rujukan_balik_check_all
                     });
                     this.isDirty = current_state_string !== this.original_state_string;
 
@@ -560,7 +568,11 @@
                                     pasien: this.pasien,
                                     rujukan: this.rujukan,
                                     rujukan_balik: this.rujukan_balik,
-                                    ttd_data: this.ttd_data
+                                    ttd_data: this.ttd_data,
+                                    index_expand_diagnosa_rujukan: this.index_expand_diagnosa_rujukan,
+                                    index_expand_diagnosa_rujukan_check_all: this.index_expand_diagnosa_rujukan_check_all,
+                                    index_expand_diagnosa_rujukan_balik: this.index_expand_diagnosa_rujukan_balik,
+                                    index_expand_diagnosa_rujukan_balik_check_all: this.index_expand_diagnosa_rujukan_balik_check_all
                                 }
                             }
                         };
@@ -578,19 +590,29 @@
                         url: `/api/patient_document/get_static/${this.doc_id}`,
                         notifyOnError: true,
                         renderSuccess: (response) => {
+                            console.log("response.data : ", response.data);
+
                             if (response.data && response.data.static_json) {
                                 const st = response.data.static_json;
                                 if (st.pasien) this.pasien = st.pasien;
                                 if (st.rujukan) this.rujukan = st.rujukan;
                                 if (st.rujukan_balik) this.rujukan_balik = st.rujukan_balik;
                                 if (st.ttd_data) this.ttd_data = st.ttd_data;
+                                if (st.index_expand_diagnosa_rujukan) this.index_expand_diagnosa_rujukan = st.index_expand_diagnosa_rujukan;
+                                if (st.index_expand_diagnosa_rujukan_check_all !== undefined) this.index_expand_diagnosa_rujukan_check_all = st.index_expand_diagnosa_rujukan_check_all;
+                                if (st.index_expand_diagnosa_rujukan_balik) this.index_expand_diagnosa_rujukan_balik = st.index_expand_diagnosa_rujukan_balik;
+                                if (st.index_expand_diagnosa_rujukan_balik_check_all !== undefined) this.index_expand_diagnosa_rujukan_balik_check_all = st.index_expand_diagnosa_rujukan_balik_check_all;
                             }
 
                             this.original_state_string = JSON.stringify({
                                 pasien: this.pasien,
                                 rujukan: this.rujukan,
                                 rujukan_balik: this.rujukan_balik,
-                                ttd_data: this.ttd_data
+                                ttd_data: this.ttd_data,
+                                index_expand_diagnosa_rujukan: this.index_expand_diagnosa_rujukan,
+                                index_expand_diagnosa_rujukan_check_all: this.index_expand_diagnosa_rujukan_check_all,
+                                index_expand_diagnosa_rujukan_balik: this.index_expand_diagnosa_rujukan_balik,
+                                index_expand_diagnosa_rujukan_balik_check_all: this.index_expand_diagnosa_rujukan_balik_check_all
                             });
                             this.isDirty = false;
                             this.showUnsavedWarning = false;
@@ -657,7 +679,11 @@
                                 pasien: this.pasien,
                                 rujukan: this.rujukan,
                                 rujukan_balik: this.rujukan_balik,
-                                ttd_data: this.ttd_data
+                                ttd_data: this.ttd_data,
+                                index_expand_diagnosa_rujukan: this.index_expand_diagnosa_rujukan,
+                                index_expand_diagnosa_rujukan_check_all: this.index_expand_diagnosa_rujukan_check_all,
+                                index_expand_diagnosa_rujukan_balik: this.index_expand_diagnosa_rujukan_balik,
+                                index_expand_diagnosa_rujukan_balik_check_all: this.index_expand_diagnosa_rujukan_balik_check_all
                             }
                         }
                     };
@@ -673,7 +699,11 @@
                                 pasien: this.pasien,
                                 rujukan: this.rujukan,
                                 rujukan_balik: this.rujukan_balik,
-                                ttd_data: this.ttd_data
+                                ttd_data: this.ttd_data,
+                                index_expand_diagnosa_rujukan: this.index_expand_diagnosa_rujukan,
+                                index_expand_diagnosa_rujukan_check_all: this.index_expand_diagnosa_rujukan_check_all,
+                                index_expand_diagnosa_rujukan_balik: this.index_expand_diagnosa_rujukan_balik,
+                                index_expand_diagnosa_rujukan_balik_check_all: this.index_expand_diagnosa_rujukan_balik_check_all
                             });
                             this.isDirty = false;
                         }
