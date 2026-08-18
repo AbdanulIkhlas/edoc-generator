@@ -1,178 +1,269 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "YATI PURBA NN RAWRRAWR RAWR",
-            "no_rm": "00116356",
-            "kelamin": "P",
-            "tanggal_lahir": "1985-10-24",
-            "tanggal_lahir_indo": "24 Oktober 1985"
+            "nama": "",
+            "no_rm": "",
+            "kelamin": "",
+            "tanggal_lahir": "",
+            "tanggal_lahir_indo": ""
         },
-        "dokter_pelaksana": "Rawr",
-        "diagnosa_group": "",
-        "diagnosa_freetext": "",
-        "diagnosa_list_autocomplete": [],
-        "checkAll": false,
-        "checkAll_2": false,
-        "jenis_tindakan": "SCTP",
-        "tanggal_pemberian": "",
-        "tanggal_pemberian_indo": "",
-        "jam_pemberian": "",
-        "jenis_informasi": {
-            "diagnosa": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
+        "data_list": [
+            {
+                "tanggal_cppt": "2025-07-31",
+                "tanggal_cppt_indo": "31 Juli 2025",
+                "jam_cppt": "10:07",
+                "profesional_pemberi_asuhan": "dr. Agus Nurohman Sp.PD FINASIM.",
+                "profesi": "",
+                "klinik": "Gigi",
+                "bangsal": "Yudhistira (Neurologi)",
+                "ruang": "1",
+                "kelas": "III",
+                "igd": "",
+                "pilihan": "SBAR",
+                "hasil_asesmen": {
+                    "catatan_s": "sesak nafas, badan kaku2 linu2, nyeri ulu hati, pusing., mata berkunang2",
+                    "catatan_o": "Pemeriksaan fisik : k/l dbn pulmo sdv +/+\r\nSistole : 140\r\nDiastole : 77\r\nNadi : 98\r\nSuhu : 36\r\nNafas : 24\r\nPemeriksaan penunjang : Test pemeriksaan penunjang",
+                    "catatan_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "catatan_p": "pake nanya"
+                },
+                "hasil_adime": {
+                    "adime_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "adime_d": "1. J18.0 - Bronchopneumonia, unspecified \n2. J18.0 - Bronchopneumonia, unspecified - BP",
+                    "adime_i": "Energi: Kuat;\nProtein: Baik;\nLemak: Dikit;\nKarbohidrat: Ada;\nJenis Diet: Bagus;\nBentuk Makanan: Sehat;\nFrekuensi Pemberian: Sering;\nRute Pemberian: Ada;\nEdukasi Gizi: Sudah;\n",
+                    "adime_me": "Dipantau secara berkala dan rutin ya bunda;\n"
+                },
+                "hasil_sbar": {
+                    "sbar_s": "",
+                    "sbar_b": "",
+                    "sbar_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "sbar_r": ""
+                },
+                "instruksi_ppa": "",
+                "perawat_harian": "",
+                "tanda_tangan_harian": "",
+                "perawat_menyerahkan": "",
+                "tanda_tangan_menyerahkan": "",
+                "perawat_menerima": "",
+                "tanda_tangan_menerima": "",
+                "apoteker": "",
+                "tanda_tangan_apoteker": "",
+                "ahli_gizi": "",
+                "tanda_tangan_ahli_gizi": "",
+                "sbar_pelapor": "Adhesty Marlinda Utami, A.Md Kep",
+                "tanda_tangan_sbar_pelapor": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "tanggal_tanda_tangan_sbar_pelapor": "2025-07-31",
+                "tanggal_indo_tanda_tangan_sbar_pelapor": "31 Juli 2025",
+                "jam_tanda_tangan_sbar_pelapor": "10:07",
+                "sbar_penerima": "Aprilia Dwi Anggraeni, A.Md Kep",
+                "tanda_tangan_sbar_penerima": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "tanggal_tanda_tangan_sbar_penerima": "2025-07-31",
+                "tanggal_indo_tanda_tangan_sbar_penerima": "31 Juli 2025",
+                "jam_tanda_tangan_sbar_penerima": "10:07",
+                "verifikasi_dpjp": {
+                    "tanda_tangan": "http://172.16.17.20:1201/das",
+                    "tanda_tangan_2": "",
+                    "nama_dpjp": "Agustin Kurniawati, A.Md Keb",
+                    "tanggal_dpjp": "2025-07-31",
+                    "tanggal_dpjp_indo": "31 Juli 2025",
+                    "jam_dpjp": "10:07",
+                    "all_status_verif": false,
+                    "status_verif": false,
+                    "nama_verif": "dr. Agus Nurohman Sp.PD FINASIM.",
+                    "tanggal_verif": "2025-07-31",
+                    "tanggal_indo_verif": "31 Juli 2025",
+                    "jam_verif": "10:07"
+                }
             },
-            "dasar_diagnosa": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tindakan_medis": {
-                "isi_informasi": "SCTP",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tindakan_pemeriksaan_penunjang": {
-                "isi_informasi": "DL / CTBT / HbSAg / USG / CTG PEB ( OT / PT/ UR, CR )",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "alat_kesehatan": {
-                "isi_informasi": "DC, O 2, Infus + PEB ( Syringe Pump MgSO4 )",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "indikasi_tindakan": {
-                "isi_informasi": "Sesuai Diagnosis",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tata_cara": {
-                "isi_informasi": "Sesuai SOP",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tujuan": {
-                "isi_informasi": "Terminasi Kehamilan",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "risiko": {
-                "isi_informasi": "Perdarahan, Cidera Organ",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "komplikasi": {
-                "isi_informasi": "Syok, Sepsis, Nyeri Luka Operasi",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "prognosis": {
-                "isi_informasi": "Dubia",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "risiko_bila_tidak_dilakukan_tindakan": {
-                "isi_informasi": "Kematian Janin, Komplikasi pada ibu",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "alternatif": {
-                "isi_informasi": "Persalinan Pervaginam",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "lain_lain": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            }
-        },
-        "yang_menyatakan": "",
-        "persetujuan_tindakan_kedokteran": {
-            "yang_bertandatangan": {
-                "nama": "Rawr setuju",
-                "umur": "Rawr setuju 2",
-                "kelamin": "",
-                "pekerjaan": "Rawr setuju 3",
-                "no_identitas": "",
-                "alamat": "",
-                "telp": ""
-            },
-            "tindakan": "",
-            "terhadap": {
-                "value": "",
-                "nama": "YATI PURBA NN",
-                "umur": "40",
-                "kelamin": "P",
-                "alamat": "Alamat diganti",
+            {
+                "tanggal_cppt": "2023-01-01",
+                "tanggal_cppt_indo": "01 Januari 2023",
+                "jam_cppt": "10:10",
+                "profesional_pemberi_asuhan": "testing",
+                "profesi": "Perawat",
+                "klinik": "",
                 "bangsal": "",
                 "ruang": "",
                 "kelas": "",
-                "no_rm": "00116356",
-                "tanggal_lahir": "1985-10-24",
-                "tanggal_lahir_indo": "24 Oktober 1985"
-            },
-            "hubungan_pasien": {
-                "value": "",
-                "lain_lain": ""
+                "igd": "",
+                "pilihan": "SOAP",
+                "hasil_asesmen": {
+                    "catatan_s": "testing",
+                    "catatan_o": "testing",
+                    "catatan_a": "testing",
+                    "catatan_p": "testing"
+                },
+                "hasil_adime": {
+                    "adime_a": "adime_a",
+                    "adime_d": "adime_b",
+                    "adime_i": "adime_i",
+                    "adime_me": "adime_me"
+                },
+                "hasil_sbar": {
+                    "sbar_s": "",
+                    "sbar_b": "",
+                    "sbar_a": "",
+                    "sbar_r": ""
+                },
+                "instruksi_ppa": "testing",
+                "perawat_harian": "tes",
+                "tanda_tangan_harian": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "perawat_menyerahkan": "Agus Usman, S Kep. Ners",
+                "tanda_tangan_menyerahkan": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "perawat_menerima": "Arif Putra Purnama, S Kep Ners",
+                "tanda_tangan_menerima": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "apoteker": "",
+                "tanda_tangan_apoteker": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "ahli_gizi": "",
+                "tanda_tangan_ahli_gizi": "",
+                "sbar_pelapor": "",
+                "tanda_tangan_sbar_pelapor": "",
+                "sbar_penerima": "",
+                "tanda_tangan_sbar_penerima": "",
+                "verifikasi_dpjp": {
+                    "tanda_tangan": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                    "tanda_tangan_2": "",
+                    "nama_dpjp": "dr. Agus Nurohman Sp.PD FINASIM.",
+                    "tanggal_dpjp": "2023-01-01",
+                    "tanggal_dpjp_indo": "01 Januari 2023",
+                    "jam_dpjp": "10:10",
+                    "all_status_verif": true,
+                    "status_verif": true,
+                    "nama_verif": "AGUS",
+                    "tanggal_verif": "2025-07-31",
+                    "tanggal_indo_verif": "31 Juli 2025",
+                    "jam_verif": "10:11"
+                }
             }
-        },
-        "ttd_data": {
-            "tanggal": "2026-07-15",
-            "tanggal_indo": "15 Juli 2026",
-            "jam": "10:09",
-            "dokter": "dr. Efraim Petrick",
-            "dokter_stroke": "http://192.168.0.201:1201/000002_682b2a74c336d.png",
-            "penerima_stroke": "http://192.168.0.201:1201/patient/00116356.png?t=1784084995449",
-            "penerima": "YATI PURBA NN",
-            "menyatakan": "Villi M",
-            "menyatakan_stroke": "",
-            "dokter1": "dr. Efraim Petrick",
-            "dokter1_stroke": "http://192.168.0.201:1201/000002_682b2a74c336d.png",
-            "saksi1": "Admin Farmagitechs",
-            "saksi1_stroke": "http://192.168.0.201:1201/000115_6928ff2b754a7.png",
-            "saksi2": "Anita Pramulina Mulasih, A.Md.Kep.",
-            "saksi2_stroke": "http://192.168.0.201:1201/000020_694b931f82958.jfif",
-            "pasien": "YATI PURBA NN"
-        },
+        ],
+        "data_list_sorted": [
+            {
+                "tanggal_cppt": "2025-07-31",
+                "tanggal_cppt_indo": "31 Juli 2025",
+                "jam_cppt": "10:07",
+                "profesional_pemberi_asuhan": "dr. Agus Nurohman Sp.PD FINASIM.",
+                "profesi": "",
+                "klinik": "Gigi",
+                "bangsal": "Yudhistira (Neurologi)",
+                "ruang": "1",
+                "kelas": "III",
+                "igd": "",
+                "pilihan": "SBAR",
+                "hasil_asesmen": {
+                    "catatan_s": "sesak nafas, badan kaku2 linu2, nyeri ulu hati, pusing., mata berkunang2",
+                    "catatan_o": "Pemeriksaan fisik : k/l dbn pulmo sdv +/+\r\nSistole : 140\r\nDiastole : 77\r\nNadi : 98\r\nSuhu : 36\r\nNafas : 24\r\nPemeriksaan penunjang : Test pemeriksaan penunjang",
+                    "catatan_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "catatan_p": "pake nanya"
+                },
+                "hasil_adime": {
+                    "adime_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "adime_d": "1. J18.0 - Bronchopneumonia, unspecified \n2. J18.0 - Bronchopneumonia, unspecified - BP",
+                    "adime_i": "Energi: Kuat;\nProtein: Baik;\nLemak: Dikit;\nKarbohidrat: Ada;\nJenis Diet: Bagus;\nBentuk Makanan: Sehat;\nFrekuensi Pemberian: Sering;\nRute Pemberian: Ada;\nEdukasi Gizi: Sudah;\n",
+                    "adime_me": "Dipantau secara berkala dan rutin ya bunda;\n"
+                },
+                "hasil_sbar": {
+                    "sbar_s": "",
+                    "sbar_b": "",
+                    "sbar_a": "\nN40 - HYPERPLASIA OFPROSTATE - ,\n - Belum diketahui - fff\r\nDiagnosis : Nyeri otot pegal linu",
+                    "sbar_r": ""
+                },
+                "instruksi_ppa": "",
+                "perawat_harian": "",
+                "tanda_tangan_harian": "",
+                "perawat_menyerahkan": "",
+                "tanda_tangan_menyerahkan": "",
+                "perawat_menerima": "",
+                "tanda_tangan_menerima": "",
+                "apoteker": "",
+                "tanda_tangan_apoteker": "",
+                "ahli_gizi": "",
+                "tanda_tangan_ahli_gizi": "",
+                "sbar_pelapor": "Adhesty Marlinda Utami, A.Md Kep",
+                "tanda_tangan_sbar_pelapor": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "tanggal_tanda_tangan_sbar_pelapor": "2025-07-31",
+                "tanggal_indo_tanda_tangan_sbar_pelapor": "31 Juli 2025",
+                "jam_tanda_tangan_sbar_pelapor": "10:07",
+                "sbar_penerima": "Aprilia Dwi Anggraeni, A.Md Kep",
+                "tanda_tangan_sbar_penerima": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "tanggal_tanda_tangan_sbar_penerima": "2025-07-31",
+                "tanggal_indo_tanda_tangan_sbar_penerima": "31 Juli 2025",
+                "jam_tanda_tangan_sbar_penerima": "10:07",
+                "verifikasi_dpjp": {
+                    "tanda_tangan": "http://172.16.17.20:1201/das",
+                    "tanda_tangan_2": "",
+                    "nama_dpjp": "Agustin Kurniawati, A.Md Keb",
+                    "tanggal_dpjp": "2025-07-31",
+                    "tanggal_dpjp_indo": "31 Juli 2025",
+                    "jam_dpjp": "10:07",
+                    "all_status_verif": false,
+                    "status_verif": false,
+                    "nama_verif": "dr. Agus Nurohman Sp.PD FINASIM.",
+                    "tanggal_verif": "2025-07-31",
+                    "tanggal_indo_verif": "31 Juli 2025",
+                    "jam_verif": "10:07"
+                }
+            },
+            {
+                "tanggal_cppt": "2023-01-01",
+                "tanggal_cppt_indo": "01 Januari 2023",
+                "jam_cppt": "10:10",
+                "profesional_pemberi_asuhan": "testing",
+                "profesi": "Perawat",
+                "klinik": "",
+                "bangsal": "",
+                "ruang": "",
+                "kelas": "",
+                "igd": "",
+                "pilihan": "SOAP",
+                "hasil_asesmen": {
+                    "catatan_s": "testing",
+                    "catatan_o": "testing",
+                    "catatan_a": "testing",
+                    "catatan_p": "testing"
+                },
+                "hasil_adime": {
+                    "adime_a": "adime_a",
+                    "adime_d": "adime_b",
+                    "adime_i": "adime_i",
+                    "adime_me": "adime_me"
+                },
+                "hasil_sbar": {
+                    "sbar_s": "",
+                    "sbar_b": "",
+                    "sbar_a": "",
+                    "sbar_r": ""
+                },
+                "instruksi_ppa": "testing",
+                "perawat_harian": "tes",
+                "tanda_tangan_harian": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "perawat_menyerahkan": "Agus Usman, S Kep. Ners",
+                "tanda_tangan_menyerahkan": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "perawat_menerima": "Arif Putra Purnama, S Kep Ners",
+                "tanda_tangan_menerima": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "apoteker": "",
+                "tanda_tangan_apoteker": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                "ahli_gizi": "",
+                "tanda_tangan_ahli_gizi": "",
+                "sbar_pelapor": "",
+                "tanda_tangan_sbar_pelapor": "",
+                "sbar_penerima": "",
+                "tanda_tangan_sbar_penerima": "",
+                "verifikasi_dpjp": {
+                    "tanda_tangan": "http://12.12.1.112:1201/743_68a2dbea8e6aa.jpeg",
+                    "tanda_tangan_2": "",
+                    "nama_dpjp": "dr. Agus Nurohman Sp.PD FINASIM.",
+                    "tanggal_dpjp": "2023-01-01",
+                    "tanggal_dpjp_indo": "01 Januari 2023",
+                    "jam_dpjp": "10:10",
+                    "all_status_verif": true,
+                    "status_verif": true,
+                    "nama_verif": "AGUS",
+                    "tanggal_verif": "2025-07-31",
+                    "tanggal_indo_verif": "31 Juli 2025",
+                    "jam_verif": "10:11"
+                }
+            }
+        ],
         "external_link": {
-            "px_data": {
-                "no_rm": "00116356",
-                "nama": "YATI PURBA NN",
-                "kelamin": "P",
-                "tanggal_lahir": "1985-10-24",
-                "alamat": "Alamat diganti",
-                "tempat_lahir": "Kuningan",
-                "pekerjaan": "Wiraswasta",
-                "agama": "Islam",
-                "pendidikan": "SMA",
-                "status_perkawinan": "Belum Kawin",
-                "no_identitas": "1234",
-                "kelurahan": "14 ILIR",
-                "kecamatan": "ILIR TIMUR",
-                "kabupaten": "Palembang",
-                "provinsi": "SUMATERA SELATAN",
-                "telp": "085647387654",
-                "email": "yati@gmail.com",
-                "nama_ibu": "Ani",
-                "nama_ayah": "Budi",
-                "gol_darah": "A"
-            },
-            "dokter_dpjp_data": {
-                "no_register": "2212120001",
-                "id_pasien": "00000006",
-                "id_pendaftaran": 11,
-                "id_layanan_pendaftaran": 16,
-                "id_dokter_dpjp": 37,
-                "nama_dokter_dpjp": "dr. Efraim Petrick",
-                "id_spesialis": 2,
-                "nama_spesialis": "Umum",
-                "id_profesi": 1,
-                "nama_profesi": "Dokter",
-                "ttd_image": "000002_682b2a74c336d.png"
-            },
             "diagnosa_list": [
                 {
                     "no_register": "2202230010",
@@ -182,40 +273,42 @@ const data = {
                     "jenis": "Rawat Inap",
                     "tanggal": "2022-03-01",
                     "jam": "09:27:15",
-                    "layanan": [{
-                        "id_diagnosa": 823,
-                        "id_dokter": 177,
-                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA",
-                        "id_spesialis": 1,
-                        "nama_spesialis": "Anak",
-                        "id_profesi": 2,
-                        "nama_profesi": "Dokter Spesialis",
-                        "id_sebab_sakit": 3504,
-                        "kode_sebab_sakit": "J180",
-                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                        "icd_x": "J18.0",
-                        "deskripsi": "",
-                        "kasus": "Baru",
-                        "post": "Diagnosa Sementara",
-                        "primer": "Primer"
-                    },
-                    {
-                        "id_diagnosa": 826,
-                        "id_dokter": 177,
-                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA",
-                        "id_spesialis": 1,
-                        "nama_spesialis": "Anak",
-                        "id_profesi": 2,
-                        "nama_profesi": "Dokter Spesialis",
-                        "id_sebab_sakit": 3504,
-                        "kode_sebab_sakit": "J180",
-                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                        "icd_x": "J18.0",
-                        "deskripsi": "BP_sekunder",
-                        "kasus": "Baru",
-                        "post": "Diagnosa Akhir",
-                        "primer": "sekunder"
-                    }]
+                    "layanan": [
+                        {
+                            "id_diagnosa": 823,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Sementara",
+                            "primer": "Primer"
+                        },
+                        {
+                            "id_diagnosa": 826,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "BP",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Akhir",
+                            "primer": "Primer"
+                        }
+                    ]
                 },
                 {
                     "no_register": "2202230010",
@@ -225,42 +318,129 @@ const data = {
                     "jenis": "Rawat Inap",
                     "tanggal": "2022-03-01",
                     "jam": "09:27:15",
-                    "layanan": [{
-                        "id_diagnosa": 823,
-                        "id_dokter": 177,
-                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA",
-                        "id_spesialis": 1,
-                        "nama_spesialis": "Anak",
-                        "id_profesi": 2,
-                        "nama_profesi": "Dokter Spesialis",
-                        "id_sebab_sakit": 3504,
-                        "kode_sebab_sakit": "J180",
-                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                        "icd_x": "J18.0",
-                        "deskripsi": "",
-                        "kasus": "Baru",
-                        "post": "Diagnosa Sementara",
-                        "primer": "Primer"
-                    },
-                    {
-                        "id_diagnosa": 826,
-                        "id_dokter": 177,
-                        "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA",
-                        "id_spesialis": 1,
-                        "nama_spesialis": "Anak",
-                        "id_profesi": 2,
-                        "nama_profesi": "Dokter Spesialis",
-                        "id_sebab_sakit": 3504,
-                        "kode_sebab_sakit": "J180",
-                        "nama_sebab_sakit": "Bronchopneumonia, unspecified",
-                        "icd_x": "J18.0",
-                        "deskripsi": "BP_sekunder",
-                        "kasus": "Baru",
-                        "post": "Diagnosa Akhir",
-                        "primer": "sekunder"
-                    }]
+                    "layanan": [
+                        {
+                            "id_diagnosa": 823,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Sementara",
+                            "primer": "Primer"
+                        },
+                        {
+                            "id_diagnosa": 826,
+                            "id_dokter": 177,
+                            "nama_dokter": "Reizkiana Feva K.D. dr.Hj.,SpA                    ",
+                            "id_spesialis": 1,
+                            "nama_spesialis": "Anak",
+                            "id_profesi": 2,
+                            "nama_profesi": "Dokter Spesialis",
+                            "id_sebab_sakit": 3504,
+                            "kode_sebab_sakit": "J180",
+                            "nama_sebab_sakit": "Bronchopneumonia, unspecified",
+                            "icd_x": "J18.0",
+                            "deskripsi": "BP",
+                            "kasus": "Baru",
+                            "post": "Diagnosa Akhir",
+                            "primer": "Primer"
+                        }
+                    ]
                 }
             ],
+            "vital_sign_data": {
+                "no_register": "2303190004",
+                "id_pasien": "00014882",
+                "id_pendaftaran": 27070,
+                "id_layanan_pendaftaran": 49976,
+                "jenis_igd": "Umum",
+                "alergi": "tidak ada",
+                "tinggi_badan": 175,
+                "berat_badan": 70,
+                "buta_warna": "Tidak",
+                "tensi": {
+                    "sistole": 140,
+                    "diastole": 77
+                },
+                "nadi": 98,
+                "suhu": 36,
+                "nafas": 24,
+                "anamnesis": "sesak, pusing mata kunang2 sejak 1 jam smrs",
+                "anamnesis_lalu": "mabok",
+                "keluhan_utama": "sesak nafas, badan kaku2 linu2, nyeri ulu hati, pusing., mata berkunang2",
+                "pemeriksaan_fisik": "k\/l dbn pulmo sdv +\/+",
+                "pemeriksaan_penunjang": "Test pemeriksaan penunjang",
+                "diagnosis": "Nyeri otot pegal linu",
+                "plan": "pake nanya",
+                "instansi_perujuk": "Pribadi",
+                "assesmen_igd": {
+                    "disability_keadaan_umum": "Baik",
+                    "gcs_e": "4",
+                    "gcs_v": "5",
+                    "gcs_m": "6",
+                    "disability_kesadaran": "Compos Mentis",
+                    "refleks_cahaya": "\/",
+                    "pulang_pukul": "",
+                    "pulang_gcs_e": "",
+                    "pulang_gcs_v": "",
+                    "pulang_gcs_m": "",
+                    "pulang_nadi": 0,
+                    "pulang_nafas": 0,
+                    "pulang_tensi": {
+                        "sistole": 0,
+                        "diastole": 0
+                    },
+                    "pulang_suhu": 0,
+                    "pulang_spo2": 0,
+                    "transportasi_pulang": "",
+                    "pendidikan_pasien": ""
+                }
+            },
+            "px_data": {
+                "no_rm": "076085",
+                "nama": "INDAH SULISTYOWATI NY",
+                "kelamin": "P",
+                "tanggal_lahir": "1975-05-09",
+                "alamat": "Tegalrejo 4/14 Winong Byl",
+                "tempat_lahir": "-",
+                "agama": "Islam",
+                "status_perkawinan": "Kawin",
+                "no_identitas": "3309044905750002",
+                "kelurahan": "Winong",
+                "kecamatan": "Boyolali",
+                "kabupaten": "Boyolali",
+                "provinsi": "Jawa Tengah",
+                "telp": "081226617919",
+                "nama_ibu": "",
+                "nama_ayah": ""
+            },
+            "dokter_dpjp_data": {
+                "nama_dokter_dpjp": "Agustin Kurniawati, A.Md Keb",
+                "ttd_image": "das"
+            },
+            "patient_info_data": {
+                "no_register": "2212070001",
+                "id_pasien": "00000003",
+                "id_pendaftaran": 10,
+                "id_layanan_pendaftaran": 13,
+                "waktu_daftar": "2022-12-07 09:55:17",
+                "waktu_keluar": "2022-11-17 14:41:51",
+                "jenis": "Poliklinik",
+                "klinik": "Gigi",
+                "nama_pjwb": "",
+                "telp_pjwb": "",
+                "alamat_pjwb": "",
+                "nama_ayah": "ANDI NUGROHO",
+                "nama_ibu": "ANI PUTRI SETYAWATI"
+            },
             "inpatient_information": {
                 "no_register": "2305010009",
                 "id_pasien": "000151",
@@ -280,20 +460,204 @@ const data = {
                 "waktu_masuk": "2023-05-01 20:41:38",
                 "waktu_keluar": "2023-05-01 20:43:46"
             },
-            "patient_info_data": {
-                "no_register": "2212070001",
-                "id_pasien": "00000003",
-                "id_pendaftaran": 10,
-                "id_layanan_pendaftaran": 13,
-                "waktu_daftar": "2022-12-07 09:55:17",
-                "waktu_keluar": "2022-11-17 14:41:51",
-                "jenis": "Poliklinik",
-                "nama_pjwb": "Villi M",
-                "telp_pjwb": "",
-                "alamat_pjwb": "",
-                "nama_ayah": "ANDI NUGROHO",
-                "nama_ibu": "ANI PUTRI SETYAWATI"
-            }
+            "adime_data": [
+                {
+                    "no_register": "2401100559",
+                    "id_pasien": "333655",
+                    "id_pendaftaran": 101957,
+                    "id_layanan_pendaftaran": 111563,
+                    "adime": [
+                        {
+                            "id": 6,
+                            "id_layanan_pendaftaran": "111563",
+                            "waktu": "2024-06-12 09:37:52",
+                            "alergi_makanan": "1",
+                            "antropometri_target": "",
+                            "kebiasaan_makan": "Kn",
+                            "antropometri_pelaksanaan": "",
+                            "status_gizi": "Si",
+                            "biokimia_target": "",
+                            "biokimia": "",
+                            "biokomia_pelaksanaan": "",
+                            "fisik_klinik": "Fk",
+                            "fisik_klinis_target": "",
+                            "riwayat_diet": "Rt",
+                            "fisik_klinis_pelaksanaan": "",
+                            "energi": "",
+                            "keluhan_target": "",
+                            "protein": "",
+                            "keluhan_pelaksanaan": "",
+                            "lemak": "",
+                            "sikap_perilaku_target": "",
+                            "karbohidrat": "",
+                            "sikap_perilaku_pelaksanaan": "",
+                            "biokimia_medis": "Dh",
+                            "jenis_diet": "",
+                            "instruksi": "Ii",
+                            "bentuk_makanan": "",
+                            "asupan_makanan_target": "",
+                            "frekuensi_pemberiaan": "",
+                            "rute_pemberian": "",
+                            "edukasi_gizi": "",
+                            "monitoring_evaluasi": "",
+                            "diagnosa": [
+                                {
+                                    "id_diet_diagnosa_gizi": 58,
+                                    "nama_diet_diagnosa_gizi": "Kesulitan Menyusui",
+                                    "kode_nama": "NC.1.3 - Kesulitan Menyusui"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 7,
+                            "id_layanan_pendaftaran": "111563",
+                            "waktu": "2024-06-12 09:36:17",
+                            "alergi_makanan": "",
+                            "antropometri_target": "",
+                            "kebiasaan_makan": "G",
+                            "antropometri_pelaksanaan": "",
+                            "status_gizi": "F",
+                            "biokimia_target": "",
+                            "biokimia": "",
+                            "biokomia_pelaksanaan": "",
+                            "fisik_klinik": "F",
+                            "fisik_klinis_target": "",
+                            "riwayat_diet": "D",
+                            "fisik_klinis_pelaksanaan": "",
+                            "energi": "A",
+                            "keluhan_target": "",
+                            "protein": "B",
+                            "keluhan_pelaksanaan": "",
+                            "lemak": "C",
+                            "sikap_perilaku_target": "",
+                            "karbohidrat": "D",
+                            "sikap_perilaku_pelaksanaan": "",
+                            "biokimia_medis": "S",
+                            "jenis_diet": "E",
+                            "instruksi": "SA",
+                            "bentuk_makanan": "F",
+                            "asupan_makanan_target": "",
+                            "frekuensi_pemberiaan": "G",
+                            "rute_pemberian": "H",
+                            "edukasi_gizi": "I",
+                            "monitoring_evaluasi": "",
+                            "diagnosa": [
+                                {
+                                    "id_diet_diagnosa_gizi": 14,
+                                    "nama_diet_diagnosa_gizi": "Ganguan pola makan",
+                                    "kode_nama": "NB.1.5 - Ganguan pola makan"
+                                },
+                                {
+                                    "id_diet_diagnosa_gizi": 72,
+                                    "nama_diet_diagnosa_gizi": "Aktivitas Fisik Kurang",
+                                    "kode_nama": "NB.2.1 - Aktivitas Fisik Kurang"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 8,
+                            "id_layanan_pendaftaran": "111563",
+                            "waktu": "2024-06-12 09:43:49",
+                            "alergi_makanan": "1",
+                            "antropometri_target": "",
+                            "kebiasaan_makan": "Biasa",
+                            "antropometri_pelaksanaan": "",
+                            "status_gizi": "Baik",
+                            "biokimia_target": "",
+                            "biokimia": "",
+                            "biokomia_pelaksanaan": "",
+                            "fisik_klinik": "Tidak",
+                            "fisik_klinis_target": "",
+                            "riwayat_diet": "Aman",
+                            "fisik_klinis_pelaksanaan": "",
+                            "energi": "Kuat",
+                            "keluhan_target": "",
+                            "protein": "Baik",
+                            "keluhan_pelaksanaan": "",
+                            "lemak": "Dikit",
+                            "sikap_perilaku_target": "",
+                            "karbohidrat": "Ada",
+                            "sikap_perilaku_pelaksanaan": "",
+                            "biokimia_medis": "Data",
+                            "jenis_diet": "Bagus",
+                            "instruksi": "Senam",
+                            "bentuk_makanan": "Sehat",
+                            "asupan_makanan_target": "",
+                            "frekuensi_pemberiaan": "Sering",
+                            "rute_pemberian": "Ada",
+                            "edukasi_gizi": "Sudah",
+                            "monitoring_evaluasi": "Dipantau secara berkala dan rutin ya bunda",
+                            "diagnosa": [
+                                {
+                                    "id_diet_diagnosa_gizi": 76,
+                                    "nama_diet_diagnosa_gizi": "Kualitas Hidup yang Buruk",
+                                    "kode_nama": "NB.2.5 - Kualitas Hidup yang Buruk"
+                                },
+                                {
+                                    "id_diet_diagnosa_gizi": 76,
+                                    "nama_diet_diagnosa_gizi": "Kualitas Hidup yang Buruk",
+                                    "kode_nama": "NB.2.5 - Kualitas Hidup yang Buruk222"
+                                },
+                                {
+                                    "id_diet_diagnosa_gizi": 76,
+                                    "nama_diet_diagnosa_gizi": "Kualitas Hidup yang Buruk",
+                                    "kode_nama": "NB.2.5 - Kualitas Hidup yang Buruk333"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "diagnosa_data": [
+                {
+                    "no_register": "2305100322",
+                    "id_pasien": "715803",
+                    "id_pendaftaran": 13262,
+                    "id_layanan_pendaftaran": 14973,
+                    "jenis": "Poliklinik",
+                    "id_dokter": 551,
+                    "nama_dokter": "dr. Firmantya Hadi Pranata, SpU, M.Ked.Klin, FICS",
+                    "id_spesialis": 62,
+                    "nama_spesialis": "Urologi",
+                    "id_profesi": 2,
+                    "nama_profesi": "Dokter Spesialis",
+                    "id_sebab_sakit": 7922,
+                    "kode_sebab_sakit": "N40",
+                    "nama_sebab_sakit": "HYPERPLASIA OFPROSTATE",
+                    "icd_x": "N40",
+                    "deskripsi": "",
+                    "kasus": "Lama",
+                    "post": "Diagnosa Akhir",
+                    "primer": "Primer"
+                },
+                {
+                    "no_register": "2305100322",
+                    "id_pasien": "715803",
+                    "id_pendaftaran": 13262,
+                    "id_layanan_pendaftaran": 14973,
+                    "jenis": "Poliklinik",
+                    "id_dokter": 551,
+                    "nama_dokter": "dr. Firmantya Hadi Pranata, SpU, M.Ked.Klin, FICS",
+                    "id_spesialis": 62,
+                    "nama_spesialis": "Urologi",
+                    "id_profesi": 2,
+                    "nama_profesi": "Dokter Spesialis",
+                    "id_sebab_sakit": 32927,
+                    "kode_sebab_sakit": "",
+                    "nama_sebab_sakit": "Belum diketahui",
+                    "icd_x": "",
+                    "deskripsi": "fff",
+                    "kasus": "Lama",
+                    "post": "Diagnosa Akhir",
+                    "primer": "Sekunder"
+                }
+            ]
+        },
+        "user_session_data": {
+            "user_id": 1,
+            "fullname": "dr. Agus Nurohman Sp.PD FINASIM.",
+            "username": "fgadmin",
+            "group_name": "gizi"
         }
     },
     "default": {
@@ -304,132 +668,7 @@ const data = {
             "tanggal_lahir": "",
             "tanggal_lahir_indo": ""
         },
-        "dokter_pelaksana": "",
-        "diagnosa_group": "",
-        "diagnosa_freetext": "",
-        "diagnosa_list_autocomplete": [],
-        "checkAll": false,
-        "checkAll_2": false,
-        "jenis_tindakan": "SCTP",
-        "tanggal_pemberian": "",
-        "tanggal_pemberian_indo": "",
-        "jam_pemberian": "",
-        "jenis_informasi": {
-            "diagnosa": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "dasar_diagnosa": {
-                "isi_informasi": "Anamnesa, Pmx Fisik, Pmx Penunjang (USG,Lab)",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tindakan_medis": {
-                "isi_informasi": "Currettage",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tindakan_pemeriksaan_penunjang": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "alat_kesehatan": {
-                "isi_informasi": "INT",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "indikasi_tindakan": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tata_cara": {
-                "isi_informasi": "Pengerokan pada dinding rahim (Currettage)",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "tujuan": {
-                "isi_informasi": "Mengeluarkan jaringan pada dinding rahim (Currettage)",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "risiko": {
-                "isi_informasi": "Pendarahan Perforasi",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "komplikasi": {
-                "isi_informasi": "Pendarahan infeksi",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "prognosis": {
-                "isi_informasi": "Diharapkan baik",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "risiko_bila_tidak_dilakukan_tindakan": {
-                "isi_informasi": "Pendarahan, infeksi, terjadi keganasan ysng tidak diketahui",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "alternatif": {
-                "isi_informasi": "Terapi obat, terapi hormone dilanjut laparatomi (TAH)",
-                "tanda": "",
-                "tanda_2": ""
-            },
-            "lain_lain": {
-                "isi_informasi": "",
-                "tanda": "",
-                "tanda_2": ""
-            }
-        },
-        "yang_menyatakan": "",
-        "persetujuan_tindakan_kedokteran": {
-            "yang_bertandatangan": {
-                "nama": "",
-                "umur": "",
-                "kelamin": "",
-                "pekerjaan": "",
-                "no_identitas": "",
-                "alamat": "",
-                "telp": ""
-            },
-            "tindakan": "",
-            "terhadap": {
-                "value": "",
-                "nama": "",
-                "umur": "",
-                "kelamin": "",
-                "alamat": "",
-                "bangsal": "",
-                "ruang": "",
-                "kelas": "",
-                "no_rm": ""
-            },
-            "hubungan_pasien": {
-                "value": "",
-                "lain_lain": ""
-            }
-        },
-        "ttd_data": {
-            "tanggal": "",
-            "tanggal_indo": "",
-            "jam": "",
-            "dokter": "",
-            "dokter_stroke": "",
-            "penerima_stroke": "",
-            "penerima": "",
-            "menyatakan": "",
-            "menyatakan_stroke": "",
-            "dokter1": "",
-            "dokter1_stroke": "",
-            "saksi1": "",
-            "saksi1_stroke": "",
-            "saksi2": "",
-            "saksi2_stroke": ""
-        }
+        "data_list": [],
+        "data_list_sorted": []
     }
 }
