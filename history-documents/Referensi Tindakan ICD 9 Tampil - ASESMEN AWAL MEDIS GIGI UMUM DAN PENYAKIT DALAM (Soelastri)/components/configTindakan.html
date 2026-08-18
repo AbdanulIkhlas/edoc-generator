@@ -1,0 +1,106 @@
+<script>
+    function configTindakan(data) {
+        return {
+            element: '#tindakan_auto',
+            url: '/api/emr/autocomplete?source_name=tindakan',
+            query_params: {
+                kelas: '',
+                jenis_tindakan: '',
+                jenis: '',
+                id_penjamin: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.layanan || ''}</b>`; // Default ke string kosong jika repo.layanan undefined
+            },
+            selection_template: function (repo) {
+                // Jika `repo.layanan` ada, gunakan nilainya; fallback ke `data.tindakan_tmp.nama_layanan`
+                if (repo && repo.layanan !== undefined) {
+                    console.log("configTindakan : ", repo)
+                    TINDAKAN_TMP = {
+                        "nama_layanan": repo.layanan || "",
+                        "icd_9_code": repo.code_icd9 || "",
+                        "icd_9_name": repo.description_icd9 || ""
+                    }
+                } else {
+                    TINDAKAN_TMP = {
+                        "nama_layanan": "",
+                        "icd_9_code": "",
+                        "icd_9_name": ""
+                    }
+                }
+
+                let result = ""
+
+                if (repo.layanan === undefined) {
+                    result = ""
+                } else {
+                    result = repo.layanan + " | ICD 9 : (" + repo.code_icd9 + ") " + repo.description_icd9
+                }
+
+                console.log("result : ", result)
+
+                return result || "";
+            }
+        };
+    }
+</script>
+
+<html>
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="aspek_medis_tindakan_medis">
+                    <button v-if="external_link.tindakan_data_list.length > 1" type="button" title="Tindakan"
+                        data-toggle="modal" data-target="#hasilTindakanModal" class="btn btn-info btn-sm">
+                        Hasil tindakan
+                    </button>
+                </label>
+                <textarea class="form-control" id="aspek_medis_tindakan_medis" rows="3"
+                    v-model="tindakan_freetext"></textarea>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-12">
+                <div class="row mb-2 justify-content-center">
+                    <div class="col-md-8 pr-0">
+                        <select class="form-control" id="tindakan_auto" name="tindakan_auto" title="Tindakan"
+                            style="width: 100%"></select>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" style="width: 100%; height: 100%" @click="addTindakan()"
+                            class="btn btn-sm btn-success">
+                            <i class="fa fa-plus"></i>
+                            Tambah Data
+                        </button>
+                        &ensp;
+                    </div>
+                </div>
+            </div>
+            <!-- perulangan untuk list tindakan -->
+            <div class="col-md-12" v-for="(item, key) in tindakan_list" :key="key">
+                <div class="row mb-2">
+                    <div class="col-md-8">
+                        <div>
+                            {{ key + 1 }}.
+                            <!--&nbsp;{{ item.id_layanan }}&nbsp;-&nbsp;-->
+                            <span v-html="item.nama_layanan"></span>
+                            <span v-if="item.nama_layanan === 'Belum diketahui'">Belum Di
+                                ketahui</span>
+                            <span v-if="item.icd_9_code !== ''">
+                                | ICD 9 : ({{item.icd_9_code}}) {{item.icd_9_name}}
+                            </span>
+                            <span v-else>
+                                | ICD 9 : -
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-left">
+                        <button type="button" @click="deleteTindakan(key)" class="btn btn-sm btn-danger" title="Hapus3">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
