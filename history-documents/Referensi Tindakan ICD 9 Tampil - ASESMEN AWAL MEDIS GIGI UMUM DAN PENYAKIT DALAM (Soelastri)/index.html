@@ -1176,7 +1176,10 @@
                         x.layanan.forEach((v, j) => {
                             if (this.index_expand_tindakan[i][j].selected) {
                                 const tindak = this.external_link.tindakan_data_list[i].layanan[j];
-                                this.tindakan_freetext += `${no}. ${tindak.id_tarif_tindakan} - ${tindak.nama_layanan}\n`;
+                                const icd9 = (tindak.code_icd_9 || tindak.description_icd_9)
+                                    ? `(${tindak.code_icd_9}) ${tindak.description_icd_9}`
+                                    : '-';
+                                this.tindakan_freetext += `${no}. ${tindak.nama_layanan} | ICD 9 : ${icd9}\n`;
                                 no++;
                             }
                         });
@@ -3119,6 +3122,8 @@
             </div>
         </div>
         <!--  END RADIOLOGI MODAL -->
+        
+        
         <!--START TINDAKAN MODAL-->
         <div class="modal fade" id="hasilTindakanModal" tabindex="-1" role="dialog"
             aria-labelledby="hasilTindakanModalTitle" aria-hidden="true">
@@ -3142,6 +3147,12 @@
                                             :class="{'text-white':index_expand_tindakan[i][j].expand}"
                                             @click="navCollapse(i, j, 'index_expand_tindakan')">
                                             {{ TindakanItem.nama_layanan }}
+                                            <span v-if="TindakanItem.code_icd_9 || TindakanItem.description_icd_9">
+                                                | ICD 9 : ({{ TindakanItem.code_icd_9 }}) {{ TindakanItem.description_icd_9 }}
+                                            </span>
+                                            <span v-else>
+                                                | ICD 9 : -
+                                            </span>
                                         </label>
                                         <div class="nav-link">
                                             <div class="custom-control custom-checkbox">
@@ -3179,7 +3190,10 @@
                 </div>
             </div>
         </div>
-        <!--END TINDAKAN MODAL--><!--START DIAGNOSA MASUK MODAL-->
+        <!--END TINDAKAN MODAL-->
+        
+        
+        <!--START DIAGNOSA MASUK MODAL-->
         <div class="modal fade" id="hasilDiagMasukModal" tabindex="-1" role="dialog"
             aria-labelledby="hasilDiagUtamaModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -3335,6 +3349,7 @@
             </div>
         </div>
         <!--END DIAGNOSA SEKUNDER MODAL-->
+
         <!-- VITAL SIGN MODAL -->
         <div style="overflow-y: scroll;" class="modal fade" id="patient_vital_sign_modal" tabindex="-1" role="dialog"
             aria-labelledby="patient_vital_sign_modalModalTitle" aria-hidden="true">

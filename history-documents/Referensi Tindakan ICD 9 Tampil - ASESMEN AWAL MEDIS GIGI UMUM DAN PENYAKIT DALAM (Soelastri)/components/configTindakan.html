@@ -43,6 +43,28 @@
             }
         };
     }
+
+
+    saveTindakan: function () {
+            this.tindakan_freetext = "";
+            let no = 1;
+            this.external_link.tindakan_data_list.forEach((x, i) => {
+                x.layanan.forEach((v, j) => {
+                    if (this.index_expand_tindakan[i][j].selected) {
+                        const tindak = this.external_link.tindakan_data_list[i].layanan[j];
+                        const icd9 = (tindak.code_icd_9 || tindak.description_icd_9)
+                            ? `(${tindak.code_icd_9}) ${tindak.description_icd_9}`
+                            : '-';
+                        this.tindakan_freetext += `${no}. ${tindak.nama_layanan} | ICD 9 : ${icd9}\n`;
+                        no++;
+                    }
+                });
+            });
+            this.tindakan_freetext = this.tindakan_freetext.trim();
+            $("#hasilTindakanModal").modal("toggle");
+        },
+
+
 </script>
 
 <html>
@@ -104,5 +126,72 @@
         </div>
     </div>
 </div>
+
+
+<!--START TINDAKAN MODAL-->
+<div class="modal fade" id="hasilTindakanModal" tabindex="-1" role="dialog" aria-labelledby="hasilTindakanModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hasil Tindakan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="mb-3" v-for="(jenisLayanan,i) in external_link.tindakan_data_list" :key="i">
+                        <h6><u>{{jenisLayanan.jenis}} {{jenisLayanan.tanggal}} {{jenisLayanan.jam}}</u></h6>
+                        <div v-for="(TindakanItem,j) in jenisLayanan.layanan" :key="j" class="mb-1 mx-2">
+                            <div class="col-12 row justify-content-between px-3 rounded border-bottom font-weight-bold"
+                                :class="{'bg-primary':index_expand_tindakan[i][j].expand, 'bg-light': !index_expand_tindakan[i][j].expand }">
+                                <label style="cursor: pointer" :for="'customCheckTindakan'+i+j"
+                                    class="nav-link col mb-0" :class="{'text-white':index_expand_tindakan[i][j].expand}"
+                                    @click="navCollapse(i, j, 'index_expand_tindakan')">
+                                    {{ TindakanItem.nama_layanan }}
+                                    <span v-if="TindakanItem.code_icd_9 || TindakanItem.description_icd_9">
+                                        | ICD 9 : ({{ TindakanItem.code_icd_9 }}) {{ TindakanItem.description_icd_9 }}
+                                    </span>
+                                    <span v-else>
+                                        | ICD 9 : -
+                                    </span>
+                                </label>
+                                <div class="nav-link">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            @change="checkAllBridgingList('index_expand_tindakan', true)"
+                                            class="custom-control-input" :id="'customCheckTindakan'+i+j"
+                                            v-model="index_expand_tindakan[i][j].selected" />
+                                        <label class="custom-control-label" :for="'customCheckTindakan'+i+j"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="input-group mb-0"
+                    style="display: flex; flex-wrap: nowrap; align-items: stretch; width: fit-content; height: 38px">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input id="checkAllButtonTindakan" type="checkbox"
+                                @change="checkAllBridgingList('index_expand_tindakan')"
+                                v-model="index_expand_tindakan_check_all" />
+                        </div>
+                    </div>
+                    <label for="checkAllButtonTindakan" class="form-check-label font-weight-bold rounded-right"
+                        style="padding: 0.375rem 0.75rem; border: 1px solid #ced4da; display: flex; align-items: center; font-size: 16px">
+                        Pilih semua
+                    </label>
+                </div>
+                <button type="button" class="btn btn-primary" @click="saveTindakan">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TINDAKAN MODAL-->
 
 </html>

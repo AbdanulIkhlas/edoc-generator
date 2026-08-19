@@ -368,84 +368,196 @@ const data = {
             ],
             "tindakan_data_list": [
                 {
-                    "no_register": "",
-                    "id_pasien": "",
-                    "id_pendaftaran": 0,
-                    "id_layanan_pendaftaran": 0,
-                    "jenis": "",
-                    "tanggal": "",
-                    "jam": "",
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158740,
+                    "jenis": "IGD",
+                    "tanggal": "2025-11-08",
+                    "jam": "06:06:05",
                     "layanan": [
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655606,
+                            "nama_layanan": "Tindakan Perawatan IGD",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
                         },
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655617,
+                            "nama_layanan": "Tindakan Pasang Infus / Aff Infus",
+                            "code_icd_9": "99.18",
+                            "description_icd_9": "Injection or infusion of electrolytes",
+                            "qty": 1
                         },
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
-                        },
-                        {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
-                        },
-                        {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
-                        },
-                        {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
-                        },
-                        {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
-                        },
-                        {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655618,
+                            "nama_layanan": "Observasi 2 s/d 4 jam",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
                         }
                     ]
                 },
                 {
-                    "no_register": "",
-                    "id_pasien": "",
-                    "id_pendaftaran": 0,
-                    "id_layanan_pendaftaran": 0,
-                    "jenis": "",
-                    "tanggal": "",
-                    "jam": "",
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158761,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2025-11-08",
+                    "jam": "09:03:22",
                     "layanan": [
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655694,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
                         },
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655695,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        }
+                    ]
+                },
+                {
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158774,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2025-11-08",
+                    "jam": "12:05:55",
+                    "layanan": [
+                        {
+                            "id_tarif_tindakan": 655726,
+                            "nama_layanan": "Rujuk RO-Thorax AP Rawat Inap - RSMB",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
                         },
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655917,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
                         },
                         {
-                            "id_tarif_tindakan": 0,
-                            "nama_layanan": "",
-                            "qty": 0
+                            "id_tarif_tindakan": 655918,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 655961,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655962,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656036,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656272,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656273,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656327,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 656489,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656527,
+                            "nama_layanan": "Dressing Infus Ringan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656605,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656606,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656709,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656710,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656741,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 656759,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656823,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
                         }
                     ]
                 }
