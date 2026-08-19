@@ -84,8 +84,9 @@
                             {{ key + 1 }}.
                             <!--&nbsp;{{ item.id_layanan }}&nbsp;-&nbsp;-->
                             <span v-html="item.nama_layanan"></span>
-                            <span v-if="item.nama_layanan === 'Belum diketahui'">Belum Di
-                                ketahui</span>
+                            <span v-if="item.nama_layanan === 'Belum diketahui'">
+                                Belum Di ketahui
+                            </span>
                             <span v-if="item.icd_9_code !== ''">
                                 | ICD 9 : ({{item.icd_9_code}}) {{item.icd_9_name}}
                             </span>
