@@ -1,0 +1,84 @@
+{
+    "pasien": {
+        "nama": "SYAFIQ AL FAIZ AN",
+        "no_rm": "00017240",
+        "kelamin": "L",
+        "tanggal_lahir": "2019-07-11",
+        "tanggal_lahir_indo": "11 Juli 2019"
+    },
+    "data_list": [{
+        "igd": "",
+        "kelas": "III",
+        "ruang": "210",
+        "klinik": "",
+        "bangsal": "KELAS 3 KAMAR RAWAT ANAK",
+        "jam_cppt": "23:14",
+        "tanggal_cppt": "2026-08-17",
+        "hasil_asesmen": {
+            "catatan_a": "nausea and vomiting ",
+            "catatan_o": "\nNadi : 110\nSuhu : 36.9\nNafas : 22\n",
+            "catatan_p": "menginformasikan hasil pemeriksaan \nivfd d51/2 ns 15 gtt/makro \nth inksi \ninvomit 2x4 mg (stop) \ngastaridin 2x 25 mg \ncefotaxime 3x750 mg \nskintes(-) \nth oral \nturfas f syr 3x5 mg",
+            "catatan_s": "Mual (-), Muntah 1 kali, nyeri perut, Lemas"
+        },
+        "instruksi_ppa": "observasi ttv / 4 jm ",
+        "verifikasi_dpjp": {
+            "jam_dpjp": "14:14",
+            "nama_dpjp": "dr. Mina Sp.A",
+            "tanggal_dpjp": "2026-08-18",
+            "tanggal_dpjp_indo": "18 Agustus 2026"
+        },
+        "tanggal_cppt_indo": "17 Agustus 2026",
+        "profesional_pemberi_asuhan": "dita"
+    }, {
+        "igd": "",
+        "kelas": "III",
+        "ruang": "210",
+        "klinik": "",
+        "bangsal": "KELAS 3 KAMAR RAWAT ANAK",
+        "jam_cppt": "11:29",
+        "tanggal_cppt": "2026-08-18",
+        "hasil_asesmen": {
+            "catatan_a": "\n -  - \nDiagnosis : nausea and vomiting ",
+            "catatan_o": "\nNadi : 110\nSuhu : 36.9\nNafas : 22",
+            "catatan_p": "menginformasikan hasil pemeriksaan \nivfd d51/2 ns 15 gtt/makro \nth inksi \ninvomit 2x4 mg (stop) \ngastaridin 2x 25 mg \ncefotaxime 3x750 mg \nskintes(-) \nth oral \nturfas f syr 3x5 mg",
+            "catatan_s": "Mual (-), Muntah (-), nyeri perut, Lemas"
+        },
+        "instruksi_ppa": "observasi ttv / 4 jm ",
+        "verifikasi_dpjp": {
+            "jam_dpjp": "11:29",
+            "nama_dpjp": "dr. Mina Sp.A",
+            "tanggal_dpjp": "2026-08-18",
+            "tanggal_dpjp_indo": "18 Agustus 2026"
+        },
+        "tanggal_cppt_indo": "18 Agustus 2026",
+        "profesional_pemberi_asuhan": "julianti"
+    }],
+    "external_link": {
+        "px_data": {
+            "nama": "SYAFIQ AL FAIZ AN",
+            "telp": "000000000",
+            "agama": "Islam",
+            "no_rm": "00017240",
+            "alamat": "UNAR",
+            "kelamin": "L",
+            "nama_ibu": "NANIK SUNDARI",
+            "provinsi": "Bangka Belitung",
+            "kabupaten": "Bangka Barat",
+            "kecamatan": "Jebus",
+            "kelurahan": "Jebus",
+            "nama_ayah": "ABDULLAH",
+            "pekerjaan": "-",
+            "pendidikan": "Tidak / Belum Sekolah",
+            "no_identitas": "1905031107190001",
+            "tempat_lahir": "BANGKA BARAT",
+            "tanggal_lahir": "2019-07-11",
+            "status_perkawinan": "Belum Kawin"
+        }
+    },
+    "user_session_data": {
+        "user_id": 19,
+        "fullname": "dita",
+        "username": "dita",
+        "group_name": "Bidan"
+    }
+}

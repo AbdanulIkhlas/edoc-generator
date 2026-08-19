@@ -1435,9 +1435,14 @@
         // Jika hanya ada satu data tindakan
         if (data.external_link.tindakan_data_list.length === 1) {
             let hasil_tindakan = "";
+            let no = 1;
             data.external_link.tindakan_data_list.forEach((v, i) => {
                 v.layanan.forEach((x, j) => {
-                    hasil_tindakan += `${j + 1}. ${x.id_tarif_tindakan} - ${x.nama_layanan}\n`;
+                    const icd9 = (x.code_icd_9 || x.description_icd_9)
+                        ? `(${x.code_icd_9}) ${x.description_icd_9}`
+                        : '-';
+                    hasil_tindakan += `${no}. ${x.nama_layanan} | ICD 9 : ${icd9}\n`;
+                    no++;
                 });
             });
 
