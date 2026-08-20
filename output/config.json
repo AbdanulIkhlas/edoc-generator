@@ -8,30 +8,9 @@
                 "embeded"
             ]
         },
-        "vital_sign_data": {
+        "inpatient_information": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "patient_info_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "diagnosa_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/diagnosa/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
-        },
-        "diagnosa_list": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
             "data_usage": [
                 "copy"
             ]
@@ -43,20 +22,38 @@
                 "copy"
             ]
         },
-        "adime_data": {
+        "vital_sign_data_list": {
+        	"source_type": "ws",
+        	"source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
+        	"data_usage": [
+        		"copy"
+        	]
+        },
+        "laboratorium_data_list": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/adime/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/laboratorium_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
         },
-        "inpatient_information": {
+        "radiologi_list_data": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/radiologi_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
+        },
+        "diagnosa_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "tindakan_data_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/action_patient_list/<reg_number>",
+            "data_usage": ["copy"]
         }
-    },
-    "session": true
+    }
 }
