@@ -72,22 +72,24 @@ flowchart TD
 ```text
 edoc-generator/
 ├── .agents/skills/                   # Daftar Skill AI Agent
-│   ├── create-json-and-schema/       # Skill untuk generate JSON & Schema
-│   ├── create-html-form/             # Skill untuk generate UI Form Vue 2
-│   ├── create-print-php/             # Skill untuk generate Layout Print
 │   └── bridging-docs/                # Dokumentasi dan Snippet Bridging SIMRS
-├── actual-file/                      # File template form untuk run dilocal
+│   ├── create-continues-document/    # Skill untuk membuat dokumen berkelanjutan
+│   ├── create-html-form/             # Skill untuk generate UI Form Vue 2
+│   ├── create-json-and-schema/       # Skill untuk generate JSON & Schema
+│   ├── create-print-php/             # Skill untuk generate Layout Print
+├── actual-file/                      # Folder template form untuk run dilocal
+├── components/                       # Folder komponen yang biasa digunakan
 ├── history-documents/                # History dokumen apa saja yang pernah dibuat, bisa jadi referensi
 ├── images/                           # Gambar yang dibutuhkan di index.html (jika butuh gambar)
 ├── input/                            # Tempat template dokumen yang akan dikerjakan
-├── templates/                        # File boilerplate/template dasar (index.html, print.php, dll)
-├── ztemplate-promts/                 # Referensi prompt dan guideline (contoh: bridging_anything.md)
 └── output/                           # Hasil generasi file dari AI Agent
     ├── config.json
     ├── json.js
     ├── schema.json
     ├── index.html
     └── print.php
+├── templates/                        # File boilerplate/template dasar (index.html, print.php, dll)
+├── ztemplate-promts/                 # Referensi prompt dan guideline (contoh: bridging_anything.md)
 ```
 
 ---
