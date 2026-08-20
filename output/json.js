@@ -1,298 +1,423 @@
 const data = {
     "sample": {
         "pasien": {
-        "nama": "",
-        "no_rm": "",
-        "tanggal_lahir": "",
-        "tanggal_lahir_indo": "",
-        "kelamin": "",
-        "alamat": "",
-        "tempat_lahir": "",
-        "pekerjaan": "",
-        "pendidikan": "",
-        "agama": "",
-        "umur": "",
-        "ruang": "",
-        "bangsal": "",
-        "kelas": "",
-        "tanggal_masuk": "",
-        "tanggal_masuk_indo": "",
-        "jam_masuk": ""
-    },
-        "ttd_data": {
-            "kota": "Labuhanhaji",
-            "tanggal": "2000-08-08",
-            "tanggal_indo": "8 Agustus 2000",
-            "jam": "20:00",
-            "pasien": "Sunarni",
-            "pasien_stroke": "",
-            "dokter": "dr. Sunarno",
-            "dokter_stroke": ""
+            "nama": "",
+            "no_rm": "",
+            "tanggal_lahir": "",
+            "tanggal_lahir_indo": "",
+            "kelamin": "",
+            "alamat": "",
+            "tempat_lahir": "",
+            "pekerjaan": "",
+            "pendidikan": "",
+            "agama": "",
+            "umur": "",
+            "ruang": "",
+            "bangsal": "",
+            "kelas": "",
+            "tanggal_masuk": "",
+            "tanggal_masuk_indo": "",
+            "jam_masuk": "",
+            "tanggal_keluar": "",
+            "tanggal_keluar_indo": "",
+            "jam_keluar": ""
         },
-        "datang": {
+        "ttd_data": {
+            "kota": "",
             "tanggal": "",
             "tanggal_indo": "",
-            "waktu": ""
+            "jam": "",
+            "perawat": "",
+            "perawat_stroke": "",
+            "dokter": "",
+            "dokter_stroke": "",
+            "pasien": "",
+            "pasien_stroke": ""
         },
-        "sumber": {
-            "data": "",
+        "sumber_data": {
+            "sumber": "",
             "dengan": "",
-            "hubungan": "",
+            "hubungan": ""
+        },
+        "riwayat_alergi": {
             "riwayat": "",
-            "value_riwayat": "",
+            "riwayat_text": ""
+        },
+        "hamil": {
             "hamil": "",
-            "value_hamil": {
-                "umur": "",
-                "g": "",
-                "p": "",
-                "a": ""
-            }
+            "umur": "",
+            "g": "",
+            "p": "",
+            "a": ""
         },
-        "data": {
+        "vital_sign": {
+            "tinggi_badan": 0,
+            "berat_badan": 0,
+            "buta_warna": "",
+            "keadaan_umum": "",
+            "alergi": "",
+            "gcs_e": "",
+            "gcs_v": "",
+            "gcs_m": "",
+            "skala_nyeri": 0,
+            "kesadaran": "",
+            "tensi_sistole": 0,
+            "tensi_diastole": 0,
+            "nadi": 0,
+            "suhu": 0,
+            "nafas": 0,
+            "anamnesis": "",
+            "riwayat_penyakit_keluarga": "",
+            "anamnesis_lalu": "",
             "keluhan_utama": "",
-            "riwayat_sekarang": "",
-            "alloanamnesa": "",
-            "riwayat_dulu": "",
-            "riwayat_obat": "",
-            "fisik": {
-                "vital_sign": {
-                    "tinggi_badan": 0.0,
-                    "berat_badan": 0.0,
-                    "buta_warna": "",
-                    "keadaan_umum": "",
-                    "alergi": "",
-                    "gcs_e": "",
-                    "gcs_v": "",
-                    "gcs_m": "",
-                    "skala_nyeri": 0.0,
-                    "kesadaran": "",
-                    "tensi_sistole": 0.0,
-                    "tensi_diastole": 0.0,
-                    "nadi": 0.0,
-                    "suhu": 0.0,
-                    "nafas": 0.0,
-                    "anamnesis": "",
-                    "riwayat_penyakit_keluarga": "",
-                    "anamnesis_lalu": "",
-                    "keluhan_utama": "",
-                    "pemeriksaan_fisik": "",
-                    "pemeriksaan_penunjang": "",
-                    "plan": "",
-                    "spo2": ""
-                },
-                "kondisi_saat_ini": "",
-                "intruksi": ""
-            },
-            "status": {
-                "kepala": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "mata": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "telinga": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "hidung": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "mulut": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "gigi": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "leher": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "thorax": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "jantung": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "paru": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "abdomen": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "hepar": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "lien": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "ginjal": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "genitalia": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "extremitas_atas": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "extremitas_bawah": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                }
-            },
-            "fisik_tambahan": {
-                "1": "",
-                "2": "",
-                "3": "",
-                "4": "",
-                "5": "",
-                "6": "",
-                "7": "",
-                "8": "",
-                "9": "",
-                "10": ""
-            }
+            "pemeriksaan_fisik": "",
+            "pemeriksaan_penunjang": "",
+            "plan": "",
+            "spo2": ""
         },
+        "vital_sign_pulang": {
+            "gcs_e": "",
+            "gcs_m": "",
+            "gcs_v": "",
+            "tensi_sistole": 0,
+            "tensi_diastole": 0,
+            "nadi": 0,
+            "suhu": 0,
+            "nafas": 0,
+            "spo2": "",
+            "kondisi": "",
+            "instruksi": ""
+        },
+        "hasil_alloanamnesis": "",
+        "penggunaan_obat": "",
+        "kesadaran": "",
+        "status_general": {
+            "kepala": "",
+            "kepala_text": "",
+            "mata": "",
+            "mata_text": "",
+            "telinga": "",
+            "telinga_text": "",
+            "hidung": "",
+            "hidung_text": "",
+            "mulut": "",
+            "mulut_text": "",
+            "gigi": "",
+            "gigi_text": "",
+            "leher": "",
+            "leher_text": "",
+            "thorax": "",
+            "thorax_text": "",
+            "jantung": "",
+            "jantung_text": "",
+            "paru": "",
+            "paru_text": "",
+            "abdomen": "",
+            "abdomen_text": "",
+            "hepar": "",
+            "hepar_text": "",
+            "lien": "",
+            "lien_text": "",
+            "ginjal": "",
+            "ginjal_text": "",
+            "genitalia": "",
+            "genitalia_text": "",
+            "atas": "",
+            "atas_text": "",
+            "bawah": "",
+            "bawah_text": ""
+        },
+        "resep_freetext": "",
         "image_canvas": {
             "canvas1": {
-                "stroke": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAC8klEQVR4AeyZy6tNYRiHt0skkUuJ5B+QgbkRA/dyJ7kzMmAgEzMlmRElUSgJRRRyiWQgUZTcUgwoMpPccuf57c4aWM7L2fvsvfa39v6d3ue8e73ts896n/Pu9X1rn74Vf3VrwGK61VKpWIzFBAaCsifGYgIDQdkTYzGBgaDsibGYwEBQ9sRYTGAgKHtiLCYwEJTTn5jgxJtdtpjAsMVYTGAgKHtiLCYwEJQ9MRYTGAjKnhiLCQwEZU+MxQQGgrInplIZhZu5cA0eQjU6XcwqLJyDo/AOdEzqzP9EjqTz2XAbdsNbWACamrvkatQwMdXnl/lbf05+HZyBw/Ac5oOkXCb/EZ0gZhAdz4JHsBcGwBxYArqufCD/Fe0sZjjdrgBdQw6R78MimAQ34Z/RrmIW0vUNOAj9YBosA0n6Qf5vtIuYPnQ6DtbAAzgBT0GCJpPvwVfocbSDmIF0uwkuwX7QKjOdrLfRWXJdUVYxmpDRdLwcHsM20EVU+5ApPL4K76HuKKOYIXS7Gc7DAXgGun7MIB+Hb9DrKIsYTYiErKTjF7AdRsBikBDtTd7wuGFRBjFj6HYDXIF9oB3rWvIE0NT8JDc8Uhajjdh6Or4DO2EoaKM2j6x7m0/kpkVqYvSWyZbdW3S9C56AtvITydfhMzQ9UhKTX3Y/0v1M0G71CLmmfQjP71WkImY8XWgTpouq3iKrOdayq3sZXVR/cVxopCBGU3GKrr/AUtD2/Ri55mWXn2lYtFKMPgbQ8nuabrRbbcqyy2vXFa0SM5az3QM7QHe+uo685nEy0Qox2pecxID2IlvIG+EVJBVFi5lK9xdhGOjTM60233mcXBQtZisGBoM+DrhATjaKFqOV5yU2dEdMSjeKFqNrikjXSNeZFS1G23zR9evTTUWLSddE7swsJickO7SYzEQuW0xOSHZoMZmJXLaYnJDssDlislcvcbaY4I9nMRYTGAjKnhiLCQwEZU+MxQQGgrInxmICA0HZE2MxgYGg/BsAAP//89CWfgAAAAZJREFUAwBttmGNURJjaQAAAABJRU5ErkJggg==",
-                "image_base64": "data:image/jpeg;base64,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",
-                "is_changed": true
+                "stroke": "",
+                "image_base64": "",
+                "is_changed": false
             },
             "canvas2": {
-                "stroke": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAADOUlEQVR4AeyaS6hNURjHj7cMlCKZmEjG5JFEHikpE4UBZWBEyqMYSPJIUR55hPIqrxgbYGLCRJQwQMzMhDKgvP3+t/Zkucvp3NZe61u37/b/9e29771nrfNrr7PXXvsM7fhPvwZcTL9aOh0X42IiBiKH/YxxMREDkcN+xriYiIHIYT9jXEzEQOSwnzEuJmIgcrimM2Yl7+EhZEktYsZj4yQ8gSyxL6bTGYUJSflOPQ9ZUoOYRZhYDsfgJWSJdTHDsbAHnsJp+A1ZYlmM+rYPC5NhO2SNGs/aYA+NzeNvt8B1eAZZY1WMPnC3YeIdHIZsQ4i2+mJVzCp6txDWwSfIHotipmDhLFyD7EOINvtiTcwYeqWr0FfqKfgJRWJNzGwsaOqvD903bBeLJTHjsHACbsNNKBorYoZg4RBMgKNQPFbELMCEhtBFqma5lLKxImY3Gl6Bzprscxba/SelxWgIbaZXM0DT/i9UE+lBTCv9nc6r6n7oFvU5mElJMSOwsBWGgeYu36hmUlLMMiysAU37P1BNpZSYiVi4CjfgHphLCTGjsXAAfoAmdKps2koJMTNRsBp2QrGbRNr+b3KLGUtvtLB9n3oZ/oDJ5BSjq89eLEwCLT5R7CanmLlo0BXoCvURmE4uMTpbdmHiNewH88klRuu3c7ChambaT3+iySFG90Ga2Wqp0tS0P2qFX7QtZiRt7IDPcBD0mJViP22LWYoCPV7VvOU929WkTTHTsHABNO1/TG09KRtoS4yGkBafVLVUWWy1f6Cy2hKzmA7p7lmr/W/Zri5tiNHj1XOYuAsaRpT6klpMM3S0CHUcHSbWb+lHz0ktZgk9WA9aTjB750z/uialGC1sb6DFj3AEfkG1SSlmPhY0b9G0v9ohxHvoSyox+kw5wyu+gAdQfVKJWYGJqaBvP5lb2KZfPSeFGF2etc4iIZd67oHRf0ghZi3vTWfMJqqpZ0P0Z8BJIWYjretLPneogyYpxMzChp47V7OkQH+7JoWYro3U+AftiKnRRNBnFxMIaXZdTGMiqC4mENLsupjGRFBdTCCk2XUxjYmguphASLPrYhoTQXUxgZBm18U0JoLqYgIhze5fAAAA///xnc+dAAAABklEQVQDACU0XY2e8KWqAAAAAElFTkSuQmCC",
-                "image_base64": "data:image/jpeg;base64,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",
-                "is_changed": true
+                "stroke": "",
+                "image_base64": "",
+                "is_changed": false
             },
             "canvas3": {
-                "stroke": "data:image/png;base64,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",
-                "image_base64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAEsASwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAUBAwQGAgf/xABOEAABBAEBBQMIBQYMBAYDAAABAAIDBBEFEhMhMUEGUWEUIiMycYGRoTNCUrHBFRYkYtHhByU0NkNTY3JzgpKzNYSi8SZFZLLC8HWDk//EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/AO8y8yYGA0eHNe0IQC8NmjecNkaT3Ar2Vy1PRdQqPvPjc0Psl5Y7a4x8eGPag6nKFy8Wmaq+VwdJNDA5zPNM5ccDO1x8UTadrAhawSSyANc1obNskHPAk9eCDqMoXPR6bqgtNmdYflr4vN3hxshuHcPauhQCFKEEIUoQQhShBCrfPEwkPkY0jmCVYVzmoaRbl7QDUIw18TWNG7cfWPHJ9oQPHTDZEjZ4hHkDJHj35VwzjiVzEej6iWv25D6zCxu3wHnEu4exdQOQQCFKEEKt08TXFpkYCDjBKsK5uXSLg7QS6g1rJInENDHHlw9YeKDoN/FsNfvGbLjhpzwJVi5ipo2oMjiMshLmTscG7fANHPgunHJAIUoQQhShBCFKEEIUqEFb5o2Eh0jWkdCVOH/ab8Ei1LSbU2vR6hEGPjja0bpx4P4n7lTJp+ruu7Qe/G9c4vE3mlpBwNnwQldKpXNN0zVIotkTyyBzGmRpl4lwPEA9OC8w6VqsgDZp5Y2DeENExJGfVGUHTqVnpNlZUibYOZQwB57ytCCFKhSghClCCEKUIIUoVc00cEZklcGsHMlB7UrALVqfjWrYZ0dK7GfdzXpo1AjLnVwe4AoNiFhMuoRcXwxSj+zdg/NX1bcdoHZy17eDmO4FqDQhCEEIUoQQhShAIQhBCFKEEIUoQCEKEAhZbN+Gu8Rkl8p5RsGXFVeU35BmOkGj+0kA+5BvUpf5Vdj4y0tod8UgPyKvq3oLRc2N2Ht9Zjhhw9yDShQpQQhShBCFKEEKUIQQpUKUAhCEAhCEEJdaAsapBA/ixjTIR3nkExSXULZr9oKLNjAlaWl2efggdAISjUdVnpCSR8bIoI+b5MnPuC20rT7NBtjDcubtDBOCg1YS6/itdrWW8C5+6d4g8ljp63PcL3QMimDHbLmt2gR7yML1qlw/lbTq272tt22W9R4+5A7ClQFKAQhCAQhCAQhCAQhCAQhCAWXUbBqUZZgMuaOA8VqWLWN3+SrJlcGsDCcnp3IDTqba0Ic7z5n+dJIeZK2YVFCTe0YJM52mA59y0IIwl+rQDcm1F5s8I2muHUDofBMUt16URaXKS7ZDsNJ8CUG6CTewsk+00FWKuDZELAw5bsjHsViAQhCAQhCAQhCCFKhSgEIQgEIQghKteovsxRTxvIfVfvAMethNUOGRg8igqY6OzXa7Acx4BwRnKyz3GQSOixIDwDQ2Mke5YtLuGvPPWnGzAJnNhf0HgV7saNYmub9mq2o25zuwRhQNY42MBLGNbtcTgYyUqrVvKtdk1DbIZEN0wd/eVZqGotjdHRgk2rMp2NrnseJW+rXZVrsiZyaOZ6+KouUoQgEIQgEIQgEIQgEv13U/yNpE9/c77dbPmbWznLgOeD3pgud7eux2RuD7RjH/AFtQdEhCEAs2oVW3aM1d4yJGke9aVCBR2cdNHQ8itjFisdh3HOR0KcJNejkHaClJFLuw5jg8dHgdE4CASHtHFNqMlfT63PbEkpzyaE+dySfQoXslvSSy717pyNrwHRA2iYI42saMBowAvahSgEIQgEIQgEIQghSoUoBCFCCVGQst26K5bGxpknk9SMdfE9wVLaM1g7d6Zzj/AFcZ2Wj9qDTLdrRcJJ42nu2lnfqO8GKcT53nkcYaPeVojqVoR6OGNp7w1UluoRuOwYJWZ4bWWkIPEWn40+WGYh75tpzzjqe5ZKNSNukh8j52ljSHt3ruYV1SK828+S2wuDj5pZJ5rR3EL3LqO5fLBJD6bPomgcJFBRV00jSoN2Ayw129BPU+PuK1s1ERjFyJ8DhzyMtPvCi+yxLVa2ON29P2JNkNPtXiBuqiBjJG19sDDnlxOfdhBriuVpvo543HuDlflZWUY3RAWWRyv6u2AFU6lNAS+lM5v9nIdpp/YqN6lZKtzfOdFIwxTs9Zh+8d4WpBKEIQCEIQC5f+ER2z2WkH2pWD55/BdQuS/hKds9m4x9qy0f8AS4/gg61Qoe9rGFznBrQMknol4t2bhIpMDIv66Tr7B1QMcgLNYv1q/CSVu10a3iT7gqBpm2dq1YmmPdtbLfgFphp1q/GKFjD3gcUC9tWTUtRhuWI3QxV87phPFxPUpuvMjXOY4MdsuI4HuWKnckEoqXRsz/VcB5sg7x4+CDc4bTSDyKT1Y36I6SMsdJUe8vEjeJZnoQmhnYLAgzl5btY8FbjPNBTBbr2G7UMrXjwKuys0tCrKdp8DNr7QGD8VR+T5YeNS3Kz9WTz2/NAwUpdHelhlEN6MRlxw2Rpyxx/ApgEEoQhAIQhBClQpQCgqVB5IF2ms309m2/i9zyxp7mjgmKU6ZdrwssxyzMYWTv4OcAeatluPt+iognPB0xHmtHh3lATyOuXW14XERxEOmcDzPRqYgYVNWvHWhEcY4DmTzJ7yrkAqJ5mxzQtLcmRxaD3cFoWG6M3aXhIf/aUG1ClQgEIWKW5JWsETxncH1ZGjOPag86pGGsZabwkhcCD4Z4hetW1Fml6TYvSYIjZloP1ndB7zhU6jdrTUJGRTxvc4DADhnmluqg6t2ioaTjNes0W7Hc7HBjfj07igq7Hz6kdT1KDVrMk0+7gkDXHAZtNJIA5DmAcdy6tc9/J+33c21Q+Lmv8A2LoUAhCEAuF/hRnxToVx9aR0h9wA/wDku6Xz7t/+kX7TebatFjvY50zR9yDrtRzZuV6P1H5kk8Wjp8Uxa0NaA0YA4ABYGN2tckd9mAD4lb3ODGlzjgAZJKCVKrZNHISGPa4jng5wvaAWW/UNqNmw/YkjeHtd3YVlqyysxrng4c8MGO8q7KDLDVLL81lz9reNa0DuAWteHvbG0ueQ0DqV6BQShQoLgOZCCuxAyxA+KQZa4YWbSJJHVnRTO2pIHmMuPXHIrcl9DzdSvt/Wa75IGKEIQCEIQQpUKUAoKlUXJvJ6ksv2GkoE8Ylk1K5WgjZxeHOmc0ENyOQ8Uyg06KIhxfJJJj1nPP8A2U6ZXFemwc3u8957yea1O4NKBPUtSV7Gw97n13yOjaXnJY4dM9QVuo347pmEbJGbp+wdtuM+xKtEsV9SrWq8mcidxGeBIzzCYbFumzhYjezOBvRg/EIGCx22udcqEAkNeSfgVAOou4EV2eIJcrm2YxZFVzwZ9jbxjogvWXUbzNPrb6Rkj27QGI25PFeZG3w47uWAt/WaVW1tyxHkWoQ0/WYzP3oK9W1Hc1w2Eu3j27RIHFjepVvkMVmNsrJJWPc0EPDyD7xyWDWDV0vSrJc4yTysIyTlzv3JvROaUJHVg+5Ao1LfVa5jmibIHOaGzMbgjj9ZeOyn6XPqerHiLVjdxHvjZ5oP3rX2rsNqdnLsp9Yx7LMc9onA+ZVnZuu2r2fowtGNmIZ9vM/PKDDrnoO0+g2eQL5YXeO03h810KQdsYnjSY70QJk0+dlkAdQ08R8Dn3J5DKyeFksZ2mSNDmnvB4hB7SPVp5o+1OgwslkbFL5RvGNcQ1+GAjI64Txc/rP87+zn/M/7YQdAvn3aD08Hay1zDXVoG+Gy5ufmvoK+fWPS/wAH+s3OfldwzA+G9aPwQdS7yx2sz+TNiDQxrXPeTw59ExYyR0BZYLHOIIOyMDCXV7scPlMzgXSSTljWN4l2OGFsq3mWHOicx0MzeJjfzx3+KBHpbpHST+SH09R5icx3ASMzw96cM1WADEzZIX9WvYVj0qni1LZjdskTSNePtDOQneyD0QKpHv1SxC2KN7a0bw9z3txtEcgAVbrZcKGGEhzpGAEe0JhhL9ZBcyswdZ2INViBtiq+F/J7cZ7liguuqsEF5r2uZwEgaS147+HJM0EA80C6XUXTDYoRPleeG25pDG+JKzRV3N1SvWlkdJsMdM4k+s/KdYAS3H/iEH/0/wCKg22I5Xx4hl3bs89nKW6abDNXuR2tjbLWuaWfWHLK02NTayUxwQyWXM9fd4839/gswnim1SpZgdkSsdG4Y48OPFUN1KhSgEIQghSoUoBYNZeG6dKOZfhoHeSVuS+YC5qAiJJZB5zv7x5IN0Ywxo7gqNRsCvTe76xGy0d5PILNHYs0wYrEM0+D5skbc5Hj3KrbsWdVrb+ERxAOcxpOXZ7ygXaDDu7U9WSBsrYJfNePWjOM8fBdBehbNTkY4ZGzke1YNNqRHULs+CJBPjIOMjA5ps4ZBB5FAsqQXH1YXi+7JaCQ5gKVPZe/O5n6RHtbjZ2tj38srdpt2WASwSQSviikcxkjBtcO4rAL7T2rLt1NgMx9Gc8u5Ay1OG7Fp88pvvyG8A1gCZVYmQ1Y2MGGhoSu/blsyV67K8jIJZA2SR42fHACdAYGAg5vtPJC2hajqwtktSjZe4fVz3n8E10R+3pNYE+e2MNcD0I5rLrFQvG+mkzG2RuxG0Y45HE968vsy6dduytjD6rGiSTzsFvDiR8EGXXy7Vdeo6RGcxwfpdjHh6jfefvTfRSDpcAHNo2SO4grnuzTbl0WdQML45NQl3jpXcNmIcGtb38E9gBo6g6D+hny5ng7qPeg32IWWa8kEozHKwscO8EYKS9j5nnRzSmOZ6Erqz/8p4H2Yx8E9XPxfxd22lj5RanAJG/4jOBH+nig6Fc/rP8AO/s5/wAz/thdAuf1n+d/Zz/mf9sIG2qWPJdLt2M43UL3/AErktQg8m/gpbHjGYYn/wCqRrvxTrtrKYuy1wM9eQNjA79pwH3ZWbtoxlbsTYgBGGNiY3xw9v7EG/SacYs2Z3ZMjZXtGfqjOeC1X6e/aJInbFiPix4+72LzpbRFGY5JA6w70kjc8QSjU55Y2RxQYEk79gOP1fFBl7OWTaitvc3YcJyHN7jgZTaSRkTdp7g0cskpVpUDaF+zUaTh4EoJPFxPAlaXUn2LW8tSB8bDmOIDAHie8oNwWDUPOt0mdd4XfALXNPFXZtTSNjb3uOEvrudqF9tpoIrQgiMkeuTzPsQNFmdbLdRbWc3Aezaa7vOeIWepbdDPJWuO2X7ZMbncA9p5YPerr9V1ljXRP3c0Z2mO8e4+CDWuZ1ATWO1ba8Vh1cGAbTmniRnkE2i1NkZ3d4eTyj7Xqu9hWKOCLVZrlmN44ODYZW9C3qPeoG9atFWhEcLQ1o+Z70umqxw63WkjyDIXOc3PDOOa26bYdZpse8YeMtd4kcFRqbHDYtQDalrnJaDxLeoVDFSqoJmzwslYctcMhWoBCEIIUqEIPE8rYYXyvOGsBJWXSonCrvZPpJjtu9/L5Lzq52qzIB/TSNZ7uq3NGy0AcgMIJS9rzY1ghvqV2YJ/WPRabtgVaz5TxIGGjvPQLxp9d1et6TjK87ch7yUFOl/ym/8A4/4BMClmkyMfNe2XtJM54A8RwATNBh0sgxzgcxM/PxSwNA7Xk9SzPyWtsdhmrWGVZmtZstkcx7cjaOf2JY/y49r2NzBtiDa5HGOSB5qRG1UHUztx81tSh0Vh2s1hama9ga57WNbgBwwPxTfogwa1/Im/4rP/AHBIO27n19K1A5IE8cYaR3h7cj4FPNcliZUaJJGsO8aQCeJwQqO1WmP1nQpq1fY3x2XMLjgcCCfllA3ijZDEyONoaxjQ1rRyAHILJqsLpKpfH9JEQ9vuSevY7WWK4miGiOBHq+lz7PattHX4bM/kN+F1C/jG4mPB/wDcdycEDWF+8iY8fWAKR9r2Ohp1tUiaXSafO2Uho4lh4OHwPyTDR5C6q+N3OGR0fwK3SMZLG6ORocx4LXNPIg9EEQysnhZLE4PjkaHNcORB5FItZ/nf2c/5n/bC8dnXu0u/Y7PzuJEXpqjnH1oieXtB/wDvBe9Z/nf2c/5n/bCCO1/pItLq/wBfqETSP1Rkn8Eq/hCnlmoy14mZiha18rugJcAE01v03anQYOjDNM7ww3h80v7SYk7HarZ6yyt4+AkaAgcaPt19J3rY3TzF7to585/HmrLMkk0tB0kRicZj5pOSBgrTpUZi02BpHEt2j7+KpDjb1fzfoqoxnvef2BBXq8zKuoafM52xtSGMu7wRy+KbBKtThZb1GpXkbtMw9zh7sLdTgdXgbE6R0mzwDnc8ILJIY5cbxjX4ORtDOF7AAGByRyWWfVNPr/T3q0WPtytH4oLbFeKzEY5mBzT39FFWA14RGZHSbPIu54SubtdoMHB2oxuP9m1z/uBVP53VJP5JQ1K13GGsSPnhA7shu4eSAcNJ4hZNEY1mjwbAA2m7Rx3nmk2paxq9yhPFW7P2mNewgvllawgexUaHY7SWNJhbSg06KFo2Q6dzy7h4BA50+aeOiwQV996R4d5wbjj4rzrcD442WqpEVkva0u6EHoR1SqrQ19luSm/WYau1mUbqsHh2TxwXK69oNqKq6zPrV6y6Lz93kNY7HeAg2dnLTy61SmYY5YH52T3Hu8E8SqRrRqFG4zhvW7t2OoIyE1CCUIQghCF4mlZDGXyODWtGSSgw3CJNUpxYzs7Uh8MDH4phngsFFr5p5LsrS3b82Np5ho/avFq55WfI6riJXHEmRgsb1KCWH8o3BIONaA+b+u/v9gWnUJ/JqUkg4uAw0d5PJXQRMgibGwYa0YAWK96a9Ur9NoyOHgOXzUHmPSoxWjDSY52j6VnA58e9WQW3xzCtcAbKfUePVf8Av8Fu6Km1WjtRGOUZHQ9Qe8KjMA6LWHPLDsTRgBw7xn9q8eSE9oDbLTgQbAPTmtUIdWrfpEofsAkvxjgvYsRGFsu0Nh2MHvzyQZCHy6wxwYd3DGQXEdTjl8F6s3HGbyaoA+f6xPJg7ytUzHPhc2N+w4jAdjOF5qVY6sWwziebnHm495QZo9Li3b9/maWQYdI/ifd3BTpT3GsYJDmSA7snvxyPwW5ce3XL1zVphoNJr2SEs8osu2YyW8CRjiQge/8ADrx4Hyew7n0Y/wDetOoadU1OsYLsDJo+mebT3g8wfYkh7N377S7WNbtOJH0VQiJg/b71ij0HTInug1Kxckma7ADrDvPHQgIPel3H9m9Xl0rUJnyVZng17UhyQTya8/j4fDr1weq6T2SpPjeXwkcRIwWXOfx+sBnokenns7XllrWtPm1JrpMVrEJkaZM/VLSRx9iDvO1FKaStFqVIfp2nu3sePrt+sz3hY7V2G/rfZe/AcxS7/HgSwDHtBBCTHs820MVOyIgaeUlq88f9IdlKpdF1bSNc02pJbFZs8uYHwuc9kTicHAdjjxHx5oOt1GYDtjJJ0q6acf33PwPkqu1Zgq9h5qjpoxNsx4YXDaJ22k8Piuc/Imrahr19m/OoGs5rZXOlMW84cB7lZrdSvS0OxG/szPSsHZxY2981p2hnL88MjI96Dqb/AGx0mKF0dKc2bGMMZFG53H4YVNHWL8dVsdDs/dlJyXSWCIQ4nmeOVOha1oU875hZrwTElrInjd7De4ZwMp5qVkRadJJG4O2xssIPMngEHLmz2jsvk1BjaVUH0LAcyOJz06c+qYx9n9VstDtR7Q3Mu5sqgRAeGQntWsyGrFDgEMA596vQc/8AmbpT/wCVG3bP9vYcfuIRJoOj0J6+70quYnO2XOfHt4PTnldCs96Qw05pAcFrCR7cIJgq1q49BXii/uMDfuV6opue6rC6Q5eWAk+OFegz3pjXpzTNGSxhcB7kr0QPpSeSzPLhON8xx6k8wm9iJs8L4neq9paUjfI+OjG5/wBPQlAd4t5fMIGepVnysZNAPTwHaZ49496srTxXqoeBlrhhzT0PUFaGkOaCORGUstN/J9xtthIhkcGzN6ZPJyC3UmNgotexuG13NeAOgB/YtzHB7A5pyCMgqHtbJGWOGWuGCO8JdTe6hOKM5JjP0Mh6j7J8QgaIUKUEFKJpo7Mzp7LgKkLsMaf6R3f4prKC6NzWnBIwCuZrtmpzzyXCx7KkQEbG8to9fagYiSXUHu/STUY31WNI2z4nu9i80JS+1BLIWmV4fE5wHrbPIrxY3016OF1Kq9z49vbc4gjlw5eKik6aezTe9sUbGOkAZGOWBhA9S6D0muWXE/RxtaB3ZyUxS6n/AMYvexn3IGKFKhApvOe65aYXeY2rnHiSV6nAGj1w3lmP7wo1RhhsGcgmKSIxSEfU7iuXHaOlXhrQi5atTRuAfDGwOBx3f90HYRvcNXljydkxNdjxyVtXJwW+0WoWZLNLToaccgDWyXHEkAfqjitX5t3LvHV9btTg84oMQs9hxzQHbDXoNO0iaGGzH5ZN6JrQ7LmZ5uIHEYGffhKqupuig06roelWrDYBstllbumSEjicnxyVdomi0PzttvrVWR1tNa2Jg4uL5HDJcSeo5fBdFfP6dRH9oT8kCzyLtNfH6VqNfT4z/R1Y9t2P7zuR9iVWezdMSWXWpbN50ZYxrrM5PE8ycYXb9Fz9yWWvNecxsUjTIzajkHPIwgqr6Vp+jPZuq9adruYMbTIPEcMkL1epUrlcwvIdQsnHDgYZOjh3LRAJ4bMkbadVjo49sOa4kn5LHYjmt2YXVCxsduHL2HgNoHmPFBo0HUbFe0dE1V2bcTcwTHlYjHX+8OqX/wAIErnwadXrHZtm2x0b842TggcenHHwTvWdHGqUWNbIYbcBD4J282PH4HquD1fVpbU0NfUYd1diuxb7B4ANBHDwOcoGvZDVmVdItWZGl9mzcd5o9jefx+a19rr8GpdlLpZtNfC5mWn++AlGi6I9+iVdU02YeWh3pIJDhk+HbQHgcYVmqy1bnZK/NC98dmItbYrvGHMJlacEeHeoO2k0uhcrRss1IZmhoA22AkcO9c/qPZSjDYrt06SxSdLJx3Upxw45wcrqa/0Ef90fcslzzdTpOJ83Lh78KhYanaijxrahV1Bg+pZi3bseBb19qPzpkp+brWk2qWOcrBvYv9QXQSbewd2QH44Z5LEZNSbwNeCTxbIR94Qe6GrafqTc0rkM36rXecPaOYWftHbjqaPO6Q42m7IA5kpde7Ow6kdqXSqkMuc71kha4Hv83Gfelmsdnrmmac61Hq80zIx6SKx542DzDc5wUHYUJWT0YJInBzCwYI9i0JPQqSxUoJqL2tD42l0T/VJxzHctQsXxwNFpPeJRj7kG5ZblWOSvYIYNuSMgkczwRWktvf8ApEEcTcdH7R+5aJSGxOJ5AEoKNNfvNPgceZYMrPr4e7SpY48B8hDGk9CSrNGBGmQ56gkewleNZPoq/jOz71Bmu6v+T4RCGmaaNg2z05L267T1KrGx5c3feqSMbLh49Ch2lV5p5MzlzsuMg6+cMD4Ly+hWbVtVYnl0gYHEHo4Dgfkg1abYkeJK9j6eA7Lj9odCt65jQdSlv6m1zq74yINmVzuTiDwwunVEFINS0uzMyzl7d0X70YPnOI5Ap+gjKDnRqBOqx2mkuqtg3b3AcA/mrtCgt+bJZj2GDaLDnido55J02NjRhrQB3AL1gIBLoDjXbLccDEw595TJL3gs1uJ2eD4S3HiCgs1LU6ek1hYvTbqIuDdrZLuJ9gPckx7TWNRJZ2e02S2OXlMw3cQ+PE+zgukQg5odm7epEP7QalJYbz8lr+jiHt6n5LzBQr0e1kEdSvHDA2AtLWNxx8fFOJZHQarFlx3c7S3HQOHFYC3+PHTg8N+1h/0lAz1SR0dGTdnEj/Mb7TwWiFu6gY1zs7LeJJWG5mbU6lf6rMyu93AfMqO0dryLs9fnzgthcGnxPAfMhBh7Fgy6VYvuHG9aln492cD7kxskO1aowjk1zgp0Or5FolKtjBjhaHe3HH55UEl2tgY4Mhz7yUG9INcqWw+WWrE2RsgaX8cEbJT9GEHN+XubqU9pwxXfBu43EYy4cfxV2m6XZgbVw8GFh3nnHzhkcQnjo2OGHNBHcQvSA6Lgf4S6WW1rscB2m+a+Vo5Dpn3/AHrvkYQfPdMvV6vZ2gyGXbey0JHNHrBuOJWXtZTN6K7rVU/o4LWOcOBcMgce8Zx8An+lUKuldqbWnSwN3dlpnqOI6H12e77lp7aV4a3Yu7HBG2Ng3eGtGB9I1Br0PWRbcaFyI1dRgGJIHH1h9pp6hX61mOKCcf0UzSfYeB+9Gs6LBq0TCXOgtRHahsR8Hxn8R4JSNUnMUuj641sN4sO5lHCOxjkWnofD/sg6gcQhUUZd9Shk+0wFaEEJP2pZvdFkhzgyuDPmnKWa20SMrRH60w+QJQX6SQdMrY6RgLWsWjf8MgHcMfNbUAsmqy7nTZ3DnsED2ngtaW6wN42tAP6SZoI8BxKDZTj3VOGP7LAPksutsldS24IzJJE9rwwfWweSYDkhBx81uzDR1aW2N1Yl2CxgPEA8MLRJc8k1h9h5c6qazGyFozsnHAp3b0qncsMnsQh8jAQDnoo07Sa2mseyBrjvDlxeckqCNE46XAS0tyOGRg4zwTBQAByUqiFKhSgEIQgEvvkR3aUp+2WE+0JgsGsMJoOe31oiHj3FBuCF5jcHxteOThkL0gX6yNiiZ8cYHCT4c/ksUTt5obroHnPfvh7M/sTLVXbOm2MAHLCOPihlZrNMFceqI9n5IKNPeLN61YBy1uzG0+GMn71h7Zje6fRqH1Ld6GF/sJJ/BbezkW60aDLtpzgXOcepysfa3/yT/wDKwf8AyQP0vqjb1a3Jk4aGs/FMCcDKwaRh8Ms/9dI5w9nIfcg3qUIQCEIQCEIQI+1VKWfT2Xag/TaD9/D449ZvvHTwWHtVdi1LsBPcgPo5mRuHh6RuR7jwXUr532j/AIloaxozuFazsWafcPSN22D2c8d3tQfRVi1XTKurU3Vrce008WuHBzD3g9CtqhByOjaxLosn5N1g5rtkMcN08s/Zf3HxXXA5GRySh9aCXVLVSzEyWCzGHljxkEg4P4LJ+T9S0Hz9IcblEc6MrvOYP7Nx+4oOiWC+dq9TZ+s53wCyw9o6dusTVLjazseTSDZka7uI6e1eYoZxrVc2J3SSbpznNHqt6cAg16Ic6ePB7h8ymCQV5JqsLpm53cFh7ZGfqE8/cnsb2yRtewhzXDII6oPSWyem16Jg5QRFx9p4BMku0zEtm3Z57UmwD4N4IGKlCEAhCEAhCEEKVClAIQhALxI0Pjc08iML2oKDDpEhNMRP+khcY3e7l8lrmLxE4xAF4Hmg9SlMkMzdVsuqvLZA1smyT5r+YIPwTGpaZZiLsFrm8HtPNpQYLt6Ozo9gA7MzWedGeBBTIfyTj9j8Eh1CNmpWGyloLS/dwY5u4+c72cF0OyNjZ6YwoFGnXYquiVuO1KWeZG3iXHKy9pjIYdCMoDXnVINoDofOXnT4maZK6RrABG8xzjuBPmuHxU9spdiHR3tG0RqcLg0czjaVDrU5TDRlc31iNlvtPBWUofJ6kUP2GgJVM2cWaQtP2nTzZLAfNYACQAnaCUIQgEIQgEIQgFyH8JVVsugRz7I24Jhh3cCCCPjj4Lr1z3bwA9kLpI5bsj/+jUHQqF4gkE0Eco5PaHD3hWIFl47vVaEn2i6P4jP4LVauR1QNsPc48msaSSs2r5DqbxzbYaM+1McKDn59BGqzOvWXPqXOG5khOHxgd/f7FgrarY0vWJRrvnsY1sIuxMOx3jbH1Sc+xdc4hoJPABLtJY2xWsSyMDm2JHEhwyC3kPkqPGnujfeusYWyRShsrXA5DgRj8EROdpUphkDjUccxuAzu/wBU+CU2dKsaJqbJ9BLGNmBDqkp9G8jjhp+qfkmdHtFTtF8NkOp24/pK84w4eI+0PEII1LVA+u9tR5DGtLpZ8cGDw8Vd2dj2NFrYJdtt28nmc8Vi1mR+o05mwNLa0bC973NxtkDgB4Jxp7AyhXaBgCNvD3KDShCFQIQhAIQhBClQpQCEIQChSoPJAujkA1O5KT5scbGnA49SvTq1Szmy15AkaNotfgOHio0sbzymw7+mlOPYOH4JPdqQV7JpGMbdl4ML8ngM+cEG+vLHY1aBkERbBBG7YcRgE8BwTlLi0Q6tWYwAM3LmgewhMUCa3NHBqssc0RdBNCN4QMgcSOKWdpq9eqNGnbK5zW6lD6z8hreJ/BPDGJdXla8BzDAGn3krk9apMl0q1VrR+no5me/jyacgfBB1F5zZJ9NsA+YJeGR3tICaJVZmbb0KK5EMNLGTNx05FM43B7GuHIjKD2hCEAhCEAhCEAuf7d/zQvf/AK/9xq6BZdT0+DVNPmpWg4xSjB2TgjByCPYQCgq0FxdoGmucck1YiT/kC3KqnWZTpwVYi4sgjbG0u5kAYGfgrUC3VSX2KMA+tNtH2NGUyPLglxG914A8oYMj2uP7kxQJtUuWYIH15ovpvRxys5Ak449ya14mwQRxM5MaAFVqMO/oTR9S048D0Rp03lFGGU83MGfagz62Ayl5TjLq7hIPdz+Srs6fU1+lG+3WfG71opAdmSPuIPRW6tmTyauOImlAd7BxP3JgBgIOO1OXXNFpTRWv4xouYWiw1vpI+H1wPvXR6Lbju6TWnie17XRjJBzg44hbiMjC5OtoU0E1mbRbXklmOYhzHDMUw54c3pzxkIOtQklHtA02W0dVhOn3jwa158yXxY7kfZzTtAIQhAIQhBClQpQCEIQCh3qlSoKBPotogR1Czo9214hxGFtuUmWZ60pxtwP2gUoJ8g7Qwxu4Mlc4x92HDiPiF0SgwWzs6rS/WDx8lvWCfjrNVvdG933LeqMNbJ1S3k8A1gHwVjdPrtdZcGcbP0njwwq6zS3VbZJ9ZrCPmtxQcR5bP2fqv0PUy11fdlte2wEAg5w13cef/wB4rs6wxXjGc4aOPuSC82PUNWnoPjEjZNhsgPEBg4n54XmOjrmhudFpRhv0OccNiQtkj/VDuWPb/wBw6ZC5385563DU9Ev1u98bRKwf5gtdTtPotzAi1GFrvsyHdn/qwgboXlrmvaHMcHNPIg5BXpAIQhAIQhAKFKhAubhmvv731x8nfvW6SaOEZke1g73HCXaw7yN8GofVhOzJj7B/Ytw3FuFrsMljcMgkZBQeZblZsRc+aMNxz2gsnZ6VsulRuZ6m04N9mV7sR6bUjfLIyszYGckALPo92lX02Pe268bnkvIdI0Yyc96g1WQH6nUB+qHuHyH4rd0SO7remR36kn5QqEZc1xEzTsgjnz8Fc7tNojOep1vc/P3Ki+xqsMTixjJJZAcBrRniqOz7ppIrM07Q18k7jsjp0WW32x0SKCR0V6OSQA7LWtccn4LLp3avRK1NkbbUk0nFz9iB5848T0QdHeo1dQrOr3IGTRO+q4cvEdx8Uk8n1bQONQv1PTx/QPPpoh+qfrDwK9fndUd9Dp+qTf4dUlH5y2H/AEPZ7Vj/AIkQZ+KBnpmrU9VhL6ku0W8HxuGHsPc4dFuXE6ozU9SlFqp2csVb7R5lptpkbv8AMPrDwK06ff7YwNDb2ixWsfWbPHG4+3BI+SDrUIQghSoUoBCEIBQpQgXa1UFmntgelgIkjPUELXVmE9eOVvJ7QVa4ZBB6pVoNqN0MtUZEkD3NIPdngUFswxrlYnkYnj5hMEu1DzL9GTJxtubw8QmI5IMMeTrMpHqiFoPtyVtcQ1pJ5BYKJ29RvOxyc1nwH70a3ejpafI57iHPGy0DmSVBTodUDyi84ZktSF2f1egTZU02COpEwfVYAr1QLJb0uheB8rpwTHvfGCfitaEHPO7H6cxxfQlt6e88c1p3D5HKBouus82PtPIIxyD6jHO95J4roUIOe/Iutn1u00vuqsCPyDqx9btJa90LAuhQg5783tQPrdo7/uDQj827R9btDqnukA/BdChBz35sSH1u0Gs+6xj8Efmow+vrWsyf3rf7l0KEHOSdjdPkYWyWL0mRjz7LilFPslULCXVDa2CY3xunc0tcOvA8l3KWRHybWp2HhHMzeD2jgUCGfsdplahNPLWZvMea1rnYZ8TxTmDsxojY2/xZXPDm5ufvWrVCJdIsOjIcDGSCOq01H7yrE8HO0wHPuQJ9T0TSoKm1FptRpD28RC3PMeC2eS6ZBYjg8hrsc8EtIhaAfkp1c5hhj6vmYB8VZqEVeZkcc7yxxf6NzTgh3ggRbmPU+00TGRNbWqZdhoADnD966kcAlGhV2RutSRjzDJsMJ54H78puglCEIBCEIBCEIIUqFKAQhCAQhCCDwCR6NBJLcltuAbG1z2x4+sCea36vP5Pp0r9sMJAaHHpk4VtQQw1o443tLQ3hg8/FAu1hlqOSKZrg6u2VrnZ5s49E4yNnPRVzCKeJ0TiCHt5Z6JYJpRpjq5f6YP3Aeevj8EHnSG2pZp5toMrOmc5vUv6fBR2jrybjymJm82W7Lm9wPUJtWYyGBkUZGywY4L3IGujcHY2SMFBEBDoWEcQWjCsS3RJg+q+IPD9zI6MOB5gckxQShCEAhCEAhCEAhCEAhCEAlmp+jtU5e+Tdn2EJkk2tWWyNZBAx80scjXuEYzsgHqgqbK+vSsVRgiOcRnP2HH963aQ8thkqvOXV3bA8W9Pks0UX5QmvEMkZFKxrQXNLfOGeKr0p8zNZmisRlkjoW5ceTyOGQoLNXmzP5p/kjDN/m5D8UanMT5E53rNBmd7m/vWeGOW/q1xuwRAJWh7+jg36o96t1ytZc58kELpg6ExgNIBac5ygY6VHutPhb1Ldo+08VsWPT7cU8IYzLXxgB7HDBafYtaolCEIBCEIBCEIIUqFKAQhCAQhCCqxXiswuimYHxuGC09Und2WpbZdFLYiHINZIQADzAT1CDnXdl2xvjkrWpdpuQWyvJBC1jRnDS3VfKXmUu2t71BTZSg5xvZy218j49RdAZAGlsQ80jv49V6Z2etlwE+rTyR4DXM5bQC6FCDPTpwUoBDXjDGA5wFoQhAIQhAIQhAIQhAIQhAIQhBBGQlVejqFQPbDLWLXOLtp7DtHPfxTZQgwbGq/1tT/Q79q8sqXH3YrFiWHEbSMRtIJz7UxUoFVenqNVrmRTVi0vLsuYc8T7Vbsar/W1P9Dv2pgoQLYaNs6iy1Ylh81hbiJpG1nvymSFKAQhCAQhCAQhCD//2Q==",
-                "is_changed": true
+                "stroke": "",
+                "image_base64": "",
+                "is_changed": false
+            },
+            "canvas4": {
+                "stroke": "",
+                "image_base64": "",
+                "is_changed": false
             }
         },
+        "ekstra": {
+            "wajah": "",
+            "bibir": "",
+            "bibir_text": "",
+            "kgb": "",
+            "kgb_text": "",
+            "salvia": "",
+            "salvia_text": ""
+        },
+        "keterangan": "",
+        "odontogram_keterangan_freetext": "",
+        "isRestoringOdontogram": false,
+        "keterangan_odontogram": "",
+        "oklusi": "",
+        "torus_platinus": "",
+        "torus_mandibula": "",
+        "palatum": "",
+        "diastema": "",
+        "diastema_detail": "",
+        "gigi_anomali": "",
+        "gigi_anomali_detail": "",
+        "lain_lain": "",
+        "jumlah_dan_jenis_foto_yang_diambil": "",
+        "palatinus": "",
+        "mandibula": "",
+        "diastema_text": "",
+        "gigi_anomali_text": "",
+        "deskripsi_lesi": "",
         "laboratorium_freetext": "",
         "radiologi_freetext": "",
-        "ekg": "",
-        "lainnya": "",
-    "diagnosa_masuk_group": "",
+        "pemeriksaan_ekg": "",
+        "pemeriksaan_lain": "",
+        "diagnosa_masuk_group": "",
         "diagnosa_masuk_freetext": "",
-        "diagnosa_masuk_autocomplete": [
-            {
-                "icd_x": "",
-                "nama_sebab_sakit": ""
-            }
-        ],
+        "diagnosa_masuk_autocomplete": [],
         "diagnosa_banding_group": "",
         "diagnosa_banding_freetext": "",
-        "diagnosa_banding_autocomplete": [
-            {
-                "icd_x": "",
-                "nama_sebab_sakit": ""
-            }
-        ],
-        "diagnosa_sekunder_group": "",
-        "diagnosa_sekunder_freetext": "",
-        "diagnosa_sekunder_autocomplete": [
-            {
-                "icd_x": "",
-                "nama_sebab_sakit": ""
-            }
-        ],
+        "diagnosa_banding_autocomplete": [],
+        "diagnosa_group": "",
+        "diagnosa_freetext": "",
+        "diagnosa_list_autocomplete": [],
         "masalah_medis": "",
-        "masalah_keperawatan": "",
-        "sasaran": "",
-        "rencana": "",
-        "tindakan_group": "",
-        "tindakan_freetext": "",
-        "tindakan_list": [
-            {
-                "nama_layanan": "",
-                "icd_9_code": "",
-                "icd_9_name": ""
-            }
-        ],
+        "masalah_rawat": "",
+        "target_terapi": "",
+        "rencana_asuhan": "",
         "rencana_pulang": {
-            "tindakan_asuhan": "",
-            "pemulangan": {
-                "jenis": "",
-                "dokter_ranap": "",
-                "dokter_ranap_check": "",
-                "dokter_ranap_stroke": "",
-                "rujuk": {
-                    "jenis": "",
-                    "spesalis_value": "",
-                    "rs_value": "",
-                    "puskesmas_value": "",
-                    "dokter_keluarga": "",
-                    "homecare": ""
-                },
-                "out_rs": {
-                    "waktu": ""
-                },
-                "atas_dasar": "",
-                "indikasi": "",
-                "diantar": ""
-            }
-        },
-        "kondisi_keluar": {
-            "gcs": {
-                "e": "",
-                "v": "",
-                "m": ""
-            },
-            "vital_sign": {
-                "td_s": "",
-                "td_ds": "",
-                "n": "",
-                "r": "",
-                "s": "",
-                "sp02": ""
-            },
-            "kondisi": "",
-            "intruksi": ""
+            "rajal": "",
+            "aps": "",
+            "observasi": "",
+            "ranap": "",
+            "dokter_dpjp": "",
+            "nama_dpjp": "",
+            "rujuk_ke": "",
+            "dokter_spesialis_text": "",
+            "rs_text": "",
+            "puskesmas_text": "",
+            "atas_dasar": "",
+            "indikasi": "",
+            "diantar": ""
         },
         "edukasi": {
-            "materi": "",
-            "eduksi_awal": {
-                "pasien": "",
-                "keluarga_pasien": "",
-                "nama": "",
-                "hubungan": "",
-                "karena": "",
-                "karena_value": ""
-            }
+            "edukasi": "",
+            "edukasi_text": "",
+            "edukasi_awal": "",
+            "nama": "",
+            "hubungan": "",
+            "tidak_dapat_text": ""
         },
+        "tindakan_group": "",
+        "tindakan_freetext": "",
+        "tindakan_list": [],
         "external_link": {
+            "tindakan_data_list": [
+                {
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158740,
+                    "jenis": "IGD",
+                    "tanggal": "2025-11-08",
+                    "jam": "06:06:05",
+                    "layanan": [
+                        {
+                            "id_tarif_tindakan": 655606,
+                            "nama_layanan": "Tindakan Perawatan IGD",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655617,
+                            "nama_layanan": "Tindakan Pasang Infus / Aff Infus",
+                            "code_icd_9": "99.18",
+                            "description_icd_9": "Injection or infusion of electrolytes",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655618,
+                            "nama_layanan": "Observasi 2 s/d 4 jam",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        }
+                    ]
+                },
+                {
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158761,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2025-11-08",
+                    "jam": "09:03:22",
+                    "layanan": [
+                        {
+                            "id_tarif_tindakan": 655694,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655695,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        }
+                    ]
+                },
+                {
+                    "no_register": "2511080003",
+                    "id_pasien": "00007659",
+                    "id_pendaftaran": 145126,
+                    "id_layanan_pendaftaran": 158774,
+                    "jenis": "Rawat Inap",
+                    "tanggal": "2025-11-08",
+                    "jam": "12:05:55",
+                    "layanan": [
+                        {
+                            "id_tarif_tindakan": 655726,
+                            "nama_layanan": "Rujuk RO-Thorax AP Rawat Inap - RSMB",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655917,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 655918,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 655961,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 655962,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656036,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656272,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656273,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656327,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 656489,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656527,
+                            "nama_layanan": "Dressing Infus Ringan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656605,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656606,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656709,
+                            "nama_layanan": "Tindakan Perawat (VT, Injeksi, dll)",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656710,
+                            "nama_layanan": "Jasa Keperawatan",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656741,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 2
+                        },
+                        {
+                            "id_tarif_tindakan": 656759,
+                            "nama_layanan": "Nebulizer/Inhalasi Dewasa /Anak",
+                            "code_icd_9": "93.94",
+                            "description_icd_9": "Respiratory medication administered by nebulizer",
+                            "qty": 1
+                        },
+                        {
+                            "id_tarif_tindakan": 656823,
+                            "nama_layanan": "Makan Persaji",
+                            "code_icd_9": "",
+                            "description_icd_9": "",
+                            "qty": 1
+                        }
+                    ]
+                }
+            ],
             "px_data": {
                 "no_rm": "",
                 "nama": "",
@@ -318,18 +443,18 @@ const data = {
             "inpatient_information": {
                 "no_register": "",
                 "id_pasien": "",
-                "id_pendaftaran": "",
-                "id_layanan_pendaftaran": "",
-                "id_bangsal": "",
+                "id_pendaftaran": 0,
+                "id_layanan_pendaftaran": 0,
+                "id_bangsal": 0,
                 "nama_bangsal": "",
-                "id_kelas": "",
+                "id_kelas": 0,
                 "nama_kelas": "",
                 "no_ruang": "",
                 "nomor_bed": "",
                 "titipan": "",
-                "id_bangsal_titipan": "",
+                "id_bangsal_titipan": 0,
                 "nama_bangsal_titipan": "",
-                "id_kelas_titipan": "",
+                "id_kelas_titipan": 0,
                 "nama_kelas_titipan": "",
                 "waktu_masuk": "",
                 "waktu_keluar": ""
@@ -337,21 +462,517 @@ const data = {
             "dokter_dpjp_data": {
                 "no_register": "",
                 "id_pasien": "",
-                "id_pendaftaran": "",
-                "id_layanan_pendaftaran": "",
-                "id_dokter_dpjp": "",
+                "id_pendaftaran": 0,
+                "id_layanan_pendaftaran": 0,
+                "id_dokter_dpjp": 0,
                 "nama_dokter_dpjp": "",
-                "id_spesialis": "",
+                "id_spesialis": 0,
                 "nama_spesialis": "",
-                "id_profesi": "",
+                "id_profesi": 0,
                 "nama_profesi": "",
                 "ttd_image": ""
             },
-            "vital_sign_data_list": [],
-            "laboratorium_data_list": [],
-            "radiologi_list_data": [],
-            "diagnosa_list": [],
-            "tindakan_data_list": []
+            "vital_sign_data_list": [
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "jenis_layanan": "",
+                    "jenis_igd": "",
+                    "alergi": "",
+                    "nama": "",
+                    "tanggal_lahir": "",
+                    "tinggi_badan": "",
+                    "berat_badan": "",
+                    "buta_warna": "",
+                    "instansi_perujuk": "",
+                    "layanan": [
+                        {
+                            "id_layanan_pendaftaran": 0,
+                            "dokter": "",
+                            "id_dokter": "",
+                            "jenis_layanan": "",
+                            "jenis_igd": "",
+                            "waktu_visitasi": "",
+                            "tensi": {
+                                "sistole": 0,
+                                "diastole": 0
+                            },
+                            "nadi": 0,
+                            "suhu": 0,
+                            "nafas": 0,
+                            "anamnesis": "",
+                            "riwayat_penyakit_keluarga": "",
+                            "anamnesis_lalu": "",
+                            "keluhan_utama": "",
+                            "pemeriksaan_fisik": "",
+                            "pemeriksaan_penunjang": "",
+                            "diagnosis": "",
+                            "plan": "",
+                            "spo2": "",
+                            "id_pendaftaran": 0,
+                            "tinggi_badan": 0,
+                            "berat_badan": 0
+                        }
+                    ],
+                    "assesmen_igd": {
+                        "disability_keadaan_umum": "",
+                        "gcs_e": "",
+                        "gcs_v": "",
+                        "gcs_m": "",
+                        "skala_nyeri": 0,
+                        "wajah": 0,
+                        "kaki": 0,
+                        "aktivitas": 0,
+                        "menangis": 0,
+                        "bersuara": 0,
+                        "disability_kesadaran": "",
+                        "refleks_cahaya": "",
+                        "pulang_pukul": "",
+                        "pulang_gcs_e": "",
+                        "pulang_gcs_v": "",
+                        "pulang_gcs_m": "",
+                        "pulang_nadi": 0,
+                        "pulang_nafas": 0,
+                        "pulang_tensi": {
+                            "sistole": 0,
+                            "diastole": 0
+                        },
+                        "pulang_suhu": 0,
+                        "pulang_spo2": 0,
+                        "transportasi_pulang": "",
+                        "pendidikan_pasien": "",
+                        "spo2": 0
+                    }
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "jenis_layanan": "",
+                    "jenis_igd": "",
+                    "alergi": "",
+                    "nama": "",
+                    "tanggal_lahir": "",
+                    "tinggi_badan": "",
+                    "berat_badan": "",
+                    "buta_warna": "",
+                    "instansi_perujuk": "",
+                    "layanan": [
+                        {
+                            "id_layanan_pendaftaran": 0,
+                            "dokter": "",
+                            "id_dokter": "",
+                            "jenis_layanan": "",
+                            "jenis_igd": "",
+                            "waktu_visitasi": "",
+                            "tensi": {
+                                "sistole": 0,
+                                "diastole": 0
+                            },
+                            "gcs": {
+                                "e": 0,
+                                "v": 0,
+                                "m": 0,
+                                "total": 0
+                            },
+                            "nadi": 0,
+                            "suhu": 0,
+                            "nafas": 0,
+                            "anamnesis": "",
+                            "riwayat_penyakit_keluarga": "",
+                            "anamnesis_lalu": "",
+                            "keluhan_utama": "",
+                            "pemeriksaan_fisik": "",
+                            "pemeriksaan_penunjang": "",
+                            "diagnosis": "",
+                            "plan": "",
+                            "spo2": "",
+                            "id_pendaftaran": 0,
+                            "tinggi_badan": 0,
+                            "berat_badan": 0
+                        }
+                    ],
+                    "assesmen_igd": []
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "jenis_layanan": "",
+                    "jenis_igd": "",
+                    "alergi": "",
+                    "nama": "",
+                    "tanggal_lahir": "",
+                    "tinggi_badan": "",
+                    "berat_badan": "",
+                    "buta_warna": "",
+                    "instansi_perujuk": "",
+                    "layanan": [
+                        {
+                            "id_layanan_pendaftaran": 0,
+                            "dokter": "",
+                            "id_dokter": "",
+                            "jenis_layanan": "",
+                            "jenis_igd": "",
+                            "waktu_visitasi": "",
+                            "tensi": {
+                                "sistole": 0,
+                                "diastole": 0
+                            },
+                            "gcs": {
+                                "e": 0,
+                                "v": 0,
+                                "m": 0,
+                                "total": 0
+                            },
+                            "nadi": 0,
+                            "suhu": 0,
+                            "nafas": 0,
+                            "anamnesis": "",
+                            "riwayat_penyakit_keluarga": "",
+                            "anamnesis_lalu": "",
+                            "keluhan_utama": "",
+                            "pemeriksaan_fisik": "",
+                            "pemeriksaan_penunjang": "",
+                            "diagnosis": "",
+                            "plan": "",
+                            "spo2": "",
+                            "id_pendaftaran": 0,
+                            "tinggi_badan": 0,
+                            "berat_badan": 0
+                        }
+                    ],
+                    "assesmen_igd": []
+                }
+            ],
+            "prescription_data_list": [
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_resep": 0,
+                    "id_resep_tebus": "",
+                    "status_obat_pulang": "",
+                    "status_approval": "",
+                    "telaah_resep": null,
+                    "telaah_obat": null,
+                    "status_farmasi": "",
+                    "order_resep": [
+                        {
+                            "r_no": 0,
+                            "nama_pendek": "",
+                            "nama_obat": "",
+                            "qty": 0,
+                            "nama_satuan": "",
+                            "kekuatan": 0,
+                            "nama_kekuatan": "",
+                            "aturan_pakai": "",
+                            "ket_aturan_pakai": "",
+                            "timing": "",
+                            "admintime": "",
+                            "kronis": "",
+                            "id_kategori": "",
+                            "nama_kategori_barang": "",
+                            "high_alert": ""
+                        }
+                    ],
+                    "resep": [
+                        {
+                            "id_penjualan": 0,
+                            "r_no": 0,
+                            "nama_pendek": "",
+                            "nama_obat": "",
+                            "qty": 0,
+                            "nama_satuan": "",
+                            "kekuatan": 0,
+                            "nama_kekuatan": "",
+                            "aturan_pakai": "",
+                            "ket_aturan_pakai": "",
+                            "timing": "",
+                            "admintime": "",
+                            "kronis": "",
+                            "id_kategori": "",
+                            "nama_kategori_barang": "",
+                            "high_alert": ""
+                        },
+                        {
+                            "id_penjualan": 0,
+                            "r_no": 0,
+                            "nama_pendek": "",
+                            "nama_obat": "",
+                            "qty": 0,
+                            "nama_satuan": "",
+                            "kekuatan": 0,
+                            "nama_kekuatan": "",
+                            "aturan_pakai": "",
+                            "ket_aturan_pakai": "",
+                            "timing": "",
+                            "admintime": "",
+                            "kronis": "",
+                            "id_kategori": "",
+                            "nama_kategori_barang": "",
+                            "high_alert": ""
+                        }
+                    ]
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_resep": 0,
+                    "id_resep_tebus": "",
+                    "status_obat_pulang": "",
+                    "status_approval": "",
+                    "telaah_resep": null,
+                    "telaah_obat": null,
+                    "status_farmasi": "",
+                    "order_resep": [
+                        {
+                            "r_no": 0,
+                            "nama_pendek": "",
+                            "nama_obat": "",
+                            "qty": 0,
+                            "nama_satuan": "",
+                            "kekuatan": 0,
+                            "nama_kekuatan": "",
+                            "aturan_pakai": "",
+                            "ket_aturan_pakai": "",
+                            "timing": "",
+                            "admintime": "",
+                            "kronis": "",
+                            "id_kategori": "",
+                            "nama_kategori_barang": "",
+                            "high_alert": ""
+                        }
+                    ],
+                    "resep": []
+                }
+            ], "laboratorium_data_list": [
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_laboratorium": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "layanan": [
+                        {
+                            "id_detail_laboratorium": 0,
+                            "nama_layanan": "",
+                            "hasil_laboratorium": [
+                                {
+                                    "item_laboratorium": "",
+                                    "id_item_laboratorium": "",
+                                    "hasil": "",
+                                    "abnormal": "",
+                                    "catatan": "",
+                                    "nama_satuan": "",
+                                    "nilai_normal": ""
+                                },
+                                {
+                                    "item_laboratorium": "",
+                                    "id_item_laboratorium": "",
+                                    "hasil": "",
+                                    "abnormal": "",
+                                    "catatan": "",
+                                    "nama_satuan": "",
+                                    "nilai_normal": ""
+                                }
+                            ]
+                        },
+                        {
+                            "id_detail_laboratorium": 0,
+                            "nama_layanan": "",
+                            "hasil_laboratorium": []
+                        }
+                    ]
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_laboratorium": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "layanan": [
+                        {
+                            "id_detail_laboratorium": 0,
+                            "nama_layanan": "",
+                            "hasil_laboratorium": [
+                                {
+                                    "item_laboratorium": "",
+                                    "id_item_laboratorium": "",
+                                    "hasil": "",
+                                    "abnormal": "",
+                                    "catatan": "",
+                                    "nama_satuan": "",
+                                    "nilai_normal": ""
+                                },
+                                {
+                                    "item_laboratorium": "",
+                                    "id_item_laboratorium": "",
+                                    "hasil": "",
+                                    "abnormal": "",
+                                    "catatan": "",
+                                    "nama_satuan": "",
+                                    "nilai_normal": ""
+                                }
+                            ]
+                        },
+                        {
+                            "id_detail_laboratorium": 0,
+                            "nama_layanan": "",
+                            "hasil_laboratorium": []
+                        }
+                    ]
+                }
+            ],
+            "radiologi_list_data": [
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_radiologi": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "status_expertise": "",
+                    "final": "",
+                    "layanan": [
+                        {
+                            "id_detail_radiologi": 0,
+                            "hasil": "",
+                            "kesan": "",
+                            "anjuran": "",
+                            "status_expertise": "",
+                            "final": "",
+                            "nama_layanan": ""
+                        }
+                    ]
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "id_radiologi": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "status_expertise": "",
+                    "final": "",
+                    "layanan": [
+                        {
+                            "id_detail_radiologi": 0,
+                            "hasil": "",
+                            "kesan": "",
+                            "anjuran": "",
+                            "status_expertise": "",
+                            "final": "",
+                            "nama_layanan": ""
+                        }
+                    ]
+                }
+            ],
+            "diagnosa_list": [
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "layanan": [{
+                        "id_diagnosa": 0,
+                        "id_dokter": 0,
+                        "nama_dokter": "",
+                        "id_spesialis": 0,
+                        "nama_spesialis": "",
+                        "id_profesi": 0,
+                        "nama_profesi": "",
+                        "id_sebab_sakit": 0,
+                        "kode_sebab_sakit": "",
+                        "nama_sebab_sakit": "",
+                        "icd_x": "",
+                        "deskripsi": "",
+                        "kasus": "",
+                        "post": "",
+                        "primer": ""
+                    },
+                    {
+                        "id_diagnosa": 0,
+                        "id_dokter": 0,
+                        "nama_dokter": "",
+                        "id_spesialis": 0,
+                        "nama_spesialis": "",
+                        "id_profesi": 0,
+                        "nama_profesi": "",
+                        "id_sebab_sakit": 0,
+                        "kode_sebab_sakit": "",
+                        "nama_sebab_sakit": "",
+                        "icd_x": "",
+                        "deskripsi": "",
+                        "kasus": "",
+                        "post": "",
+                        "primer": ""
+                    }]
+                },
+                {
+                    "no_register": "",
+                    "id_pasien": "",
+                    "id_pendaftaran": 0,
+                    "id_layanan_pendaftaran": 0,
+                    "jenis": "",
+                    "tanggal": "",
+                    "jam": "",
+                    "layanan": [{
+                        "id_diagnosa": 0,
+                        "id_dokter": 0,
+                        "nama_dokter": "",
+                        "id_spesialis": 0,
+                        "nama_spesialis": "",
+                        "id_profesi": 0,
+                        "nama_profesi": "",
+                        "id_sebab_sakit": 0,
+                        "kode_sebab_sakit": "",
+                        "nama_sebab_sakit": "",
+                        "icd_x": "",
+                        "deskripsi": "",
+                        "kasus": "",
+                        "post": "",
+                        "primer": ""
+                    },
+                    {
+                        "id_diagnosa": 0,
+                        "id_dokter": 0,
+                        "nama_dokter": "",
+                        "id_spesialis": 0,
+                        "nama_spesialis": "",
+                        "id_profesi": 0,
+                        "nama_profesi": "",
+                        "id_sebab_sakit": 0,
+                        "kode_sebab_sakit": "",
+                        "nama_sebab_sakit": "",
+                        "icd_x": "",
+                        "deskripsi": "",
+                        "kasus": "",
+                        "post": "",
+                        "primer": ""
+                    }]
+                }
+            ]
         }
     },
     "default": {
@@ -372,260 +993,209 @@ const data = {
             "kelas": "",
             "tanggal_masuk": "",
             "tanggal_masuk_indo": "",
-            "jam_masuk": ""
+            "jam_masuk": "",
+            "tanggal_keluar": "",
+            "tanggal_keluar_indo": "",
+            "jam_keluar": ""
         },
         "ttd_data": {
-            "kota": "",
+            "kota": "Yogyakarta",
             "tanggal": "",
             "tanggal_indo": "",
             "jam": "",
-            "pasien": "",
-            "pasien_stroke": "",
+            "perawat": "",
+            "perawat_stroke": "",
             "dokter": "",
-            "dokter_stroke": ""
+            "dokter_stroke": "",
+            "pasien": "",
+            "pasien_stroke": ""
         },
-        "datang": {
-            "tanggal": "",
-            "tanggal_indo": "",
-            "waktu": ""
-        },
-        "sumber": {
-            "data": "",
+        "sumber_data": {
+            "sumber": "",
             "dengan": "",
-            "hubungan": "",
+            "hubungan": ""
+        },
+        "riwayat_alergi": {
             "riwayat": "",
-            "value_riwayat": "",
+            "riwayat_text": ""
+        },
+        "hamil": {
             "hamil": "",
-            "value_hamil": {
-                "umur": "",
-                "g": "",
-                "p": "",
-                "a": ""
-            }
+            "umur": "",
+            "g": "",
+            "p": "",
+            "a": ""
         },
-        "data": {
+        "vital_sign": {
+            "tinggi_badan": 0.0,
+            "berat_badan": 0.0,
+            "buta_warna": "",
+            "keadaan_umum": "",
+            "alergi": "",
+            "gcs_e": "",
+            "gcs_v": "",
+            "gcs_m": "",
+            "skala_nyeri": 0.0,
+            "kesadaran": "",
+            "tensi_sistole": 0.0,
+            "tensi_diastole": 0.0,
+            "nadi": 0.0,
+            "suhu": 0.0,
+            "nafas": 0.0,
+            "anamnesis": "",
+            "riwayat_penyakit_keluarga": "",
+            "anamnesis_lalu": "",
             "keluhan_utama": "",
-            "riwayat_sekarang": "",
-            "alloanamnesa": "",
-            "riwayat_dulu": "",
-            "riwayat_obat": "",
-            "fisik": {
-                "vital_sign": {
-                    "tinggi_badan": 0.0,
-                    "berat_badan": 0.0,
-                    "buta_warna": "",
-                    "keadaan_umum": "",
-                    "alergi": "",
-                    "gcs_e": "",
-                    "gcs_v": "",
-                    "gcs_m": "",
-                    "skala_nyeri": 0.0,
-                    "kesadaran": "",
-                    "tensi_sistole": 0.0,
-                    "tensi_diastole": 0.0,
-                    "nadi": 0.0,
-                    "suhu": 0.0,
-                    "nafas": 0.0,
-                    "anamnesis": "",
-                    "riwayat_penyakit_keluarga": "",
-                    "anamnesis_lalu": "",
-                    "keluhan_utama": "",
-                    "pemeriksaan_fisik": "",
-                    "pemeriksaan_penunjang": "",
-                    "plan": "",
-                    "spo2": ""
-                },
-                "kondisi_saat_ini": "",
-                "intruksi": ""
-            },
-            "status": {
-                "kepala": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "mata": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "telinga": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "hidung": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "mulut": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "gigi": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "leher": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "thorax": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "jantung": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "paru": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "abdomen": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "hepar": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "lien": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "ginjal": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "genitalia": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "extremitas_atas": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                },
-                "extremitas_bawah": {
-                    "value": "",
-                    "dbn": "",
-                    "check": ""
-                }
-            },
-            "fisik_tambahan": {
-                "1": "",
-                "2": "",
-                "3": "",
-                "4": "",
-                "5": "",
-                "6": "",
-                "7": "",
-                "8": "",
-                "9": "",
-                "10": ""
-            }
+            "pemeriksaan_fisik": "",
+            "pemeriksaan_penunjang": "",
+            "plan": "",
+            "spo2": ""
         },
+        "vital_sign_pulang": {
+            "gcs_e": "",
+            "gcs_m": "",
+            "gcs_v": "",
+            "tensi_sistole": 0.0,
+            "tensi_diastole": 0.0,
+            "nadi": 0.0,
+            "suhu": 0.0,
+            "nafas": 0.0,
+            "spo2": "",
+            "kondisi": "",
+            "instruksi": ""
+        },
+        "hasil_alloanamnesis": "",
+        "penggunaan_obat": "",
+        "kesadaran": "",
+        "status_general": {
+            "kepala": "",
+            "kepala_text": "",
+            "mata": "",
+            "mata_text": "",
+            "telinga": "",
+            "telinga_text": "",
+            "hidung": "",
+            "hidung_text": "",
+            "mulut": "",
+            "mulut_text": "",
+            "gigi": "",
+            "gigi_text": "",
+            "leher": "",
+            "leher_text": "",
+            "thorax": "",
+            "thorax_text": "",
+            "jantung": "",
+            "jantung_text": "",
+            "paru": "",
+            "paru_text": "",
+            "abdomen": "",
+            "abdomen_text": "",
+            "hepar": "",
+            "hepar_text": "",
+            "lien": "",
+            "lien_text": "",
+            "ginjal": "",
+            "ginjal_text": "",
+            "genitalia": "",
+            "genitalia_text": "",
+            "atas": "",
+            "atas_text": "",
+            "bawah": "",
+            "bawah_text": ""
+        },
+        "resep_freetext": "",
         "image_canvas": {
             "canvas1": {
                 "stroke": "",
                 "image_base64": "",
-                "is_changed": true
+                "is_changed": false
             },
             "canvas2": {
                 "stroke": "",
                 "image_base64": "",
-                "is_changed": true
+                "is_changed": false
             },
             "canvas3": {
                 "stroke": "",
                 "image_base64": "",
-                "is_changed": true
+                "is_changed": false
+            },
+            "canvas4": {
+                "stroke": "",
+                "image_base64": "",
+                "is_changed": false
             }
         },
+        "ekstra": {
+            "wajah": "",
+            "bibir": "",
+            "bibir_text": "",
+            "kgb": "",
+            "kgb_text": "",
+            "salvia": "",
+            "salvia_text": ""
+        },
+        "keterangan": "",
+        "odontogram_keterangan_freetext": "",
+        "isRestoringOdontogram": false,
+        "keterangan_odontogram": "",
+        "oklusi": "",
+        "torus_platinus": "",
+        "torus_mandibula": "",
+        "palatum": "",
+        "diastema": "",
+        "diastema_detail": "",
+        "gigi_anomali": "",
+        "gigi_anomali_detail": "",
+        "lain_lain": "",
+        "jumlah_dan_jenis_foto_yang_diambil": "",
+        "palatinus": "",
+        "mandibula": "",
+        "diastema_text": "",
+        "gigi_anomali_text": "",
+        "deskripsi_lesi": "",
         "laboratorium_freetext": "",
         "radiologi_freetext": "",
-        "ekg": "",
-        "lainnya": "",
+        "pemeriksaan_ekg": "",
+        "pemeriksaan_lain": "",
         "diagnosa_masuk_group": "",
         "diagnosa_masuk_freetext": "",
         "diagnosa_masuk_autocomplete": [],
         "diagnosa_banding_group": "",
         "diagnosa_banding_freetext": "",
         "diagnosa_banding_autocomplete": [],
-        "diagnosa_sekunder_group": "",
-        "diagnosa_sekunder_freetext": "",
-        "diagnosa_sekunder_autocomplete": [],
+        "diagnosa_group": "",
+        "diagnosa_freetext": "",
+        "diagnosa_list_autocomplete": [],
         "masalah_medis": "",
-        "masalah_keperawatan": "",
-        "sasaran": "",
-        "rencana": "",
-        "tindakan_group": "",
-        "tindakan_freetext": "",
-        "tindakan_list": [
-        ],
+        "masalah_rawat": "",
+        "target_terapi": "",
+        "rencana_asuhan": "",
         "rencana_pulang": {
-            "tindakan_asuhan": "",
-            "pemulangan": {
-                "jenis":"",
-                "dokter_ranap": "",
-                "dokter_ranap_check": "",
-                "dokter_ranap_stroke": "",
-                "rujuk": {
-                    "jenis":"",
-                    "spesalis_value": "",
-                    "rs_value": "",
-                    "puskesmas_value": "",
-                    "dokter_keluarga": "",
-                    "homecare": ""
-                },
-                "out_rs": {
-                    "waktu": ""
-                },
-                "atas_dasar": "",
-                "indikasi": "",
-                "diantar": ""
-            }
-        },
-        "kondisi_keluar": {
-            "gcs": {
-                "e" : "",
-                "v" : "",
-                "m" : ""
-            },
-            "vital_sign": {
-                "td_s":0.0,
-                "td_ds":0.0,
-                "n":0.0,
-                "r":0.0,
-                "s":0.0,
-                "sp02":""
-            },
-            "kondisi": "",
-            "intruksi": ""
+            "rajal": "",
+            "aps": "",
+            "observasi": "",
+            "ranap": "",
+            "dokter_dpjp": "",
+            "nama_dpjp": "",
+            "rujuk_ke": "",
+            "dokter_spesialis_text": "",
+            "rs_text": "",
+            "puskesmas_text": "",
+            "atas_dasar": "",
+            "indikasi": "",
+            "diantar": ""
         },
         "edukasi": {
-            "materi": "",
-            "eduksi_awal": {
-                "pasien": "",
-                "keluarga_pasien": "",
-                "nama": "",
-                "hubungan": "",
-                "karena": "",
-                "karena_value": ""
-            }
-        }
+            "edukasi": "",
+            "edukasi_text": "",
+            "edukasi_awal": "",
+            "nama": "",
+            "hubungan": "",
+            "tidak_dapat_text": ""
+        },
+        "tindakan_group": "",
+        "tindakan_freetext": "",
+        "tindakan_list": []
     }
 }

@@ -86,6 +86,52 @@
                     "type": "string"
                 }
             }
+        },
+        "table_ass": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "tanggal_ass": {
+                            "type": "string"
+                        },
+                        "tanggal_ass_indo": {
+                            "type": "string"
+                        },
+                        "jam_ass": {
+                            "type": "string"
+                        },
+                        "skala": {
+                            "type": "string"
+                        },
+                        "nama_obat": {
+                            "type": "string"
+                        },
+                        "dosis": {
+                            "type": "string"
+                        },
+                        "rute": {
+                            "type": "string"
+                        },
+                        "non_farmakologi": {
+                            "type": "string"
+                        },
+                        "ttd_satu": {
+                            "type": "string"
+                        },
+                        "ttd_satu_stroke": {
+                            "type": "string"
+                        },
+                        "ttd_dua": {
+                            "type": "string"
+                        },
+                        "ttd_dua_stroke": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
         }
     }
 }

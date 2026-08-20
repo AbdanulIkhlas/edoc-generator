@@ -1126,7 +1126,17 @@
         const serviceItemsArray = serviceList.map(item => {
             // Logika pemformatan KHUSUS untuk objek layanan/tindakan
             // Perhatikan penggunaan String() dan replace HTML untuk membersihkan output
-            return String(item.nama_layanan || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
+            const namaLayanan = String(item.nama_layanan || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
+            const icdCode = String(item.icd_9_code || '').trim();
+            const icdName = String(item.icd_9_name || '').trim();
+
+            if (!namaLayanan) return '';
+
+            if (icdCode && icdName) {
+                return `${namaLayanan} | ICD 9 : (${icdCode}) ${icdName}`;
+            } else {
+                return `${namaLayanan} | ICD 9 : -`;
+            }
         }).filter(item => item !== '');
 
         const combinedItems = [...textItemsArray, ...serviceItemsArray];

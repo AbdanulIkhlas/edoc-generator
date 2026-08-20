@@ -23,11 +23,18 @@
             ]
         },
         "vital_sign_data_list": {
-        	"source_type": "ws",
-        	"source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
-        	"data_usage": [
-        		"copy"
-        	]
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "prescription_data_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/prescription_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
         },
         "laboratorium_data_list": {
             "source_type": "ws",
