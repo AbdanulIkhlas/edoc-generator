@@ -1,0 +1,208 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "properties": {
+                "nama": { "type": "string" },
+                "no_rm": { "type": "string" },
+                "tanggal_lahir": { "type": "string" },
+                "kelamin": { "type": "string" },
+                "alamat": { "type": "string" },
+                "tempat_lahir": { "type": "string" },
+                "pekerjaan": { "type": "string" },
+                "pendidikan": { "type": "string" },
+                "agama": { "type": "string" },
+                "umur": { "type": "string" },
+                "ruang": { "type": "string" },
+                "bangsal": { "type": "string" },
+                "kelas": { "type": "string" },
+                "tanggal_masuk": { "type": "string" },
+                "jam_masuk": { "type": "string" },
+                "telp": { "type": "string" },
+                "dokter_merawat": { "type": "string" }
+            }
+        },
+        "asesmen_edukasi": {
+            "type": "object",
+            "properties": {
+                "bahasa": { "type": "string" },
+                "bahasa_daerah": { "type": "string" },
+                "bahasa_lain": { "type": "string" },
+                "kebutuhan_penerjemah": { "type": "boolean" },
+                "pendidikan_pasien": { "type": "string" },
+                "baca_dan_tulis": { "type": "string" },
+                "pilihan_cara_belajar": { "type": "string" },
+                "keyakinan_kebiasaan": { "type": "string" }
+            }
+        },
+        "hambatan_edukasi": {
+            "type": "object",
+            "properties": {
+                "tidak_ada": { "type": "boolean" },
+                "budaya_agama_spiritual": { "type": "boolean" },
+                "gangguan_bicara": { "type": "boolean" },
+                "bahasa": { "type": "boolean" },
+                "emosional": { "type": "boolean" },
+                "cacat_fisik": { "type": "boolean" },
+                "kognitif_terbatas": { "type": "boolean" },
+                "pendengaran_terganggu": { "type": "boolean" },
+                "motivasi_kurang": { "type": "boolean" },
+                "lain_lain": { "type": "boolean" },
+                "lain_lain_text": { "type": "string" }
+            }
+        },
+        "kesediaan_edukasi": { "type": "string" },
+        "diagnosis_utama": { "type": "string" },
+        "diagnosis_skunder": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "diagnosis": { "type": "string" }
+                }
+            }
+        },
+        "pemeriksaan_penunjang": { "type": "string" },
+        "intervensi_tindakan": { "type": "string" },
+        "transfer_pasien": {
+            "type": "object",
+            "properties": {
+                "ruangan_tujuan": { "type": "string" },
+                "jam_pengiriman": { "type": "string" }
+            }
+        },
+        "informasi_medis": {
+            "type": "object",
+            "properties": {
+                "disabilitas": { "type": "boolean" },
+                "kontraktur": { "type": "boolean" },
+                "amputasi": { "type": "boolean" },
+                "ulkus_debitus": { "type": "boolean" },
+                "paralisis": { "type": "boolean" }
+            }
+        },
+        "gangguan": {
+            "type": "object",
+            "properties": {
+                "mental": { "type": "boolean" },
+                "pendengaran": { "type": "boolean" },
+                "sensasi": { "type": "boolean" },
+                "bicara": { "type": "boolean" },
+                "penglihatan": { "type": "boolean" }
+            }
+        },
+        "inkontinensia": {
+            "type": "object",
+            "properties": {
+                "urin": { "type": "boolean" },
+                "saliva": { "type": "boolean" },
+                "alvi": { "type": "boolean" }
+            }
+        },
+        "potensi_rehabilitasi": { "type": "string" },
+        "keadaan_pasien": {
+            "type": "object",
+            "properties": {
+                "umum": { "type": "string" },
+                "kesadaran": { "type": "string" }
+            }
+        },
+        "tanda_vital": {
+            "type": "object",
+            "properties": {
+                "tekanan_darah": { "type": "string" },
+                "nadi": { "type": "string" },
+                "suhu": { "type": "string" },
+                "pernafasan": { "type": "string" },
+                "status": { "type": "string" }
+            }
+        },
+        "pendamping_pindah": {
+            "type": "object",
+            "properties": {
+                "nama_petugas": { "type": "string" }
+            }
+        },
+        "pemeriksaan_fisik": {
+            "type": "object",
+            "properties": {
+                "status_generalis": { "type": "string" },
+                "status_lokalis": { "type": "string" }
+            }
+        },
+        "alasan_pemindahan": {
+            "type": "object",
+            "properties": {
+                "kondisi": { "type": "string" },
+                "fasilitas": { "type": "string" },
+                "lain_lain": { "type": "string" }
+            }
+        },
+        "perlu_perhatian": {
+            "type": "object",
+            "properties": {
+                "alergi": { "type": "boolean" },
+                "alergi_text": { "type": "string" },
+                "lain_lain": { "type": "boolean" },
+                "lain_lain_text": { "type": "string" }
+            }
+        },
+        "metode_pemindahan": {
+            "type": "object",
+            "properties": {
+                "kursi_roda": { "type": "boolean" },
+                "brankar": { "type": "boolean" },
+                "tempat_tidur": { "type": "boolean" },
+                "lain_lain": { "type": "boolean" },
+                "lain_lain_text": { "type": "string" }
+            }
+        },
+        "persetujuan_keluarga": {
+            "type": "object",
+            "properties": {
+                "mengetahui": { "type": "boolean" },
+                "nama": { "type": "string" },
+                "hubungan": { "type": "string" }
+            }
+        },
+        "peralatan_pindah": {
+            "type": "object",
+            "properties": {
+                "portable_o2": { "type": "boolean" },
+                "kebutuhan_o2": { "type": "string" },
+                "alat_penghisap": { "type": "boolean" },
+                "ventilator": { "type": "boolean" },
+                "bagging": { "type": "boolean" },
+                "kateter_urin": { "type": "boolean" },
+                "ngt": { "type": "boolean" },
+                "pompa_infus": { "type": "boolean" }
+            }
+        },
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "kota": { "type": "string" },
+                "tanggal": { "type": "string" },
+                "jam": { "type": "string" },
+                "perawat": { "type": "string" },
+                "perawat_stroke": { "type": "string" },
+                "dokter": { "type": "string" },
+                "dokter_stroke": { "type": "string" },
+                "dokter_mengirim": { "type": "string" },
+                "dokter_mengirim_stroke": { "type": "string" },
+                "dokter_mengirim_jam": { "type": "string" },
+                "dokter_menerima": { "type": "string" },
+                "dokter_menerima_stroke": { "type": "string" },
+                "dokter_menerima_jam": { "type": "string" },
+                "perawat_igd": { "type": "string" },
+                "perawat_igd_stroke": { "type": "string" },
+                "petugas_pengantar": { "type": "string" },
+                "petugas_pengantar_stroke": { "type": "string" },
+                "perawat_ruangan": { "type": "string" },
+                "perawat_ruangan_stroke": { "type": "string" }
+            }
+        }
+    }
+}
