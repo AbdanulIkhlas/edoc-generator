@@ -1,14 +1,89 @@
 <?php
 // EMR Data
-$params = json_decode($argv[1]);
+$params = json_decode($argv[1] ?? '{}');
+$params = is_object($params) ? $params : (object)[];
 
-$base_url = $argv[2]; // Base_url
+$base_url = $argv[2] ?? ''; // Base_url
 $title = 'Ringkasan Masuk Keluar';
-$static_label = json_decode($argv[3]);
+$static_label = json_decode($argv[3] ?? '{}');
+$static_label = is_object($static_label) ? $static_label : (object)[];
+
+// Helper untuk membersihkan format tanggal jika kosong, NaN, undefined, dsb.
+function clean_date($date)
+{
+    if (empty($date)) {
+        return '';
+    }
+    $str = trim((string)$date);
+    if ($str === '' || $str === '0000-00-00' || $str === '0000-00-00 00:00:00' || strtolower($str) === 'null' || strtolower($str) === 'undefined') {
+        return '';
+    }
+    if (stripos($str, 'NaN') !== false || stripos($str, 'undefined') !== false || stripos($str, 'null') !== false) {
+        return '';
+    }
+    return $str;
+}
+
+// Helper untuk format tanggal Indonesia
+function tgl_indo($tanggal)
+{
+    $clean = clean_date($tanggal);
+    if (empty($clean)) {
+        return '';
+    }
+
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    $timestamp = strtotime($clean);
+    if ($timestamp === false) {
+        return $clean;
+    }
+
+    $hari = date('j', $timestamp);   // tanpa leading zero
+    $bulan_ke = (int)date('n', $timestamp);
+    $tahun = date('Y', $timestamp);
+
+    if ($tahun < 1900) {
+        return $clean;
+    }
+
+    return $hari . ' ' . ($bulan[$bulan_ke] ?? '') . ' ' . $tahun;
+}
+
+// Helper untuk membersihkan format waktu / jam jika NaN:NaN, undefined, dsb.
+function clean_time($time)
+{
+    if (empty($time)) {
+        return '';
+    }
+    $str = trim((string)$time);
+    if ($str === '' || strtolower($str) === 'null' || strtolower($str) === 'undefined') {
+        return '';
+    }
+    if (stripos($str, 'NaN') !== false || stripos($str, 'undefined') !== false || stripos($str, 'null') !== false) {
+        return '';
+    }
+    return $str;
+}
 
 // Fungsi untuk menampilkan hubungan dengan lingkaran
 function displayHubungan($selected, $options, $lainnya = '')
 {
+    $selected = $selected ?? '';
+    $lainnya = $lainnya ?? '';
     $out = '';
     $first = true;
 
@@ -38,6 +113,8 @@ function displayHubungan($selected, $options, $lainnya = '')
 // tampilkan angka rawat inap dengan lingkaran tanpa tanda /
 function displayInapKe($selected, $options, $lainnya = '')
 {
+    $selected = $selected ?? '';
+    $lainnya = $lainnya ?? '';
     $out = '';
 
     foreach ($options as $opt) {
@@ -65,7 +142,10 @@ function displayInapKe($selected, $options, $lainnya = '')
 function extractIcdCodes($text)
 {
     $codes = [];
-    $lines = explode("\n", $text);
+    if (empty($text)) {
+        return $codes;
+    }
+    $lines = explode("\n", (string)$text);
 
     foreach ($lines as $line) {
         $line = trim($line);
@@ -81,7 +161,7 @@ $diagnosa_utama_codes = [];
 if (!empty($params->diagnosa_masuk_freetext)) {
     $diagnosa_utama_codes = array_merge($diagnosa_utama_codes, extractIcdCodes($params->diagnosa_masuk_freetext));
 }
-if (!empty($params->diagnosa_masuk_autocomplete)) {
+if (!empty($params->diagnosa_masuk_autocomplete) && is_iterable($params->diagnosa_masuk_autocomplete)) {
     foreach ($params->diagnosa_masuk_autocomplete as $item) {
         if (!empty($item->icd_x)) {
             $diagnosa_utama_codes[] = $item->icd_x;
@@ -94,7 +174,7 @@ $diagnosa_sekunder_codes = [];
 if (!empty($params->diagnosa_sekunder_freetext)) {
     $diagnosa_sekunder_codes = array_merge($diagnosa_sekunder_codes, extractIcdCodes($params->diagnosa_sekunder_freetext));
 }
-if (!empty($params->diagnosa_sekunder_autocomplete)) {
+if (!empty($params->diagnosa_sekunder_autocomplete) && is_iterable($params->diagnosa_sekunder_autocomplete)) {
     foreach ($params->diagnosa_sekunder_autocomplete as $item) {
         if (!empty($item->icd_x)) {
             $diagnosa_sekunder_codes[] = $item->icd_x;
@@ -104,7 +184,7 @@ if (!empty($params->diagnosa_sekunder_autocomplete)) {
 
 // Tindakan
 $tindakan_codes = [];
-if (!empty($params->tindakan_list)) {
+if (!empty($params->tindakan_list) && is_iterable($params->tindakan_list)) {
     foreach ($params->tindakan_list as $item) {
         if (!empty($item->icd_9_code)) {
             $tindakan_codes[] = $item->icd_9_code;
@@ -493,14 +573,14 @@ if (!empty($params->tindakan_list)) {
         <tr>
             <!-- Logo -->
             <td style="width:120px; text-align:center;" align="center">
-                <img src="<?= $base_url . '/images/rs/LogoRS.png' ?>" style="width:100px;" />
+                <img src="<?= ($base_url ?? '') . '/images/rs/LogoRS.png' ?>" style="width:100px;" />
             </td>
             <td style="padding-top: 20px;" align="center" valign="top">
                 <div class="hospital-agen">
-                    <?php echo$static_label->hospital_agency ?>
+                    <?= $static_label->hospital_agency ?? "" ?>
                 </div>
-                <div class="hospital-name"><?= $static_label->hospital_name ?></div>
-                <div class="hospital-address"><?= $static_label->hospital_address ?></div>
+                <div class="hospital-name"><?= $static_label->hospital_name ?? "" ?></div>
+                <div class="hospital-address"><?= $static_label->hospital_address ?? "" ?></div>
             </td>
             <td
                 style="width:200px; heigth: 200px; text-align:center; vertical-align:middle; font-weight:bold; font-size:25px; border:1px solid black;">
@@ -523,25 +603,38 @@ if (!empty($params->tindakan_list)) {
                     <tr>
                         <td width="30%">Nama</td>
                         <td width="3%">:</td>
-                        <td width="67%"><?= $params->pasien->nama ?></td>
+                        <td width="67%"><?= $params->pasien->nama ?? "" ?></td>
                     </tr>
                     <tr>
                         <td>No. RM</td>
                         <td>:</td>
-                        <td><?= $params->pasien->no_rm ?></td>
+                        <td><?= $params->pasien->no_rm ?? "" ?></td>
                     </tr>
                     <tr>
                         <td>Tgl Lahir/Umur</td>
                         <td>:</td>
                         <td>
-                            <?= $params->pasien->tanggal_lahir_indo ?> / <?= $params->pasien->umur ?> Tahun
+                            <?php
+                            $tgl_lahir = clean_date($params->pasien->tanggal_lahir_indo ?? ($params->pasien->tanggal_lahir ?? ''));
+                            $umur_val = $params->pasien->umur ?? '';
+                            $umur_clean = (!empty($umur_val) && stripos((string)$umur_val, 'NaN') === false && stripos((string)$umur_val, 'undefined') === false) ? $umur_val . ' Tahun' : '';
+                            if (!empty($tgl_lahir) && !empty($umur_clean)) {
+                                echo $tgl_lahir . ' / ' . $umur_clean;
+                            } elseif (!empty($tgl_lahir)) {
+                                echo $tgl_lahir;
+                            } elseif (!empty($umur_clean)) {
+                                echo $umur_clean;
+                            } else {
+                                echo '';
+                            }
+                            ?>
                         </td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td>:</td>
                         <td>
-                            <?= $params->pasien->kelamin === 'Laki-laki' ? 'Laki-laki' : 'Perempuan' ?>
+                            <?= ($params->pasien->kelamin ?? '') === 'Laki-laki' ? 'Laki-laki' : (($params->pasien->kelamin ?? '') === 'Perempuan' ? 'Perempuan' : ($params->pasien->kelamin ?? '')) ?>
                         </td>
                     </tr>
                 </table>
@@ -553,10 +646,10 @@ if (!empty($params->tindakan_list)) {
         <table class="table-bordered">
             <tr>
                 <td width="50%">
-                    Tanggal Kedatangan : <?= $params->tanggal_datang_indo ?>
+                    Tanggal Kedatangan : <?= clean_date($params->tanggal_datang_indo ?? ($params->tanggal_datang ?? '')) ?>
                 </td>
                 <td width="50%">
-                    Waktu Pemeriksaan: <?= $params->waktu_pemeriksaan ?>
+                    Waktu Pemeriksaan: <?= clean_time($params->waktu_pemeriksaan ?? '') ?>
                 </td>
             </tr>
         </table>
@@ -565,27 +658,27 @@ if (!empty($params->tindakan_list)) {
             <!--Penididkan-->
             <tr>
                 <td class="border-right" style="padding-left: 10px;" width="23%"><b>Pendidikan Pasien</b></td>
-                <td style="padding-left: 10px;padding-right: 10px" width="77%"><?= $params->pasien->pendidikan ?></td>
+                <td style="padding-left: 10px;padding-right: 10px" width="77%"><?= $params->pasien->pendidikan ?? "" ?></td>
             </tr>
             <!--Perkawinan-->
             <tr>
                 <td class="border-right" style="padding-left: 10px;"><b>Status Perkawinan</b></td>
-                <td style="padding-left: 10px;padding-right: 10px"><?= $params->status_kawin ?></td>
+                <td style="padding-left: 10px;padding-right: 10px"><?= $params->status_kawin ?? "" ?></td>
             </tr>
             <!--Pekerjaan-->
             <tr>
                 <td class="border-right" style="padding-left: 10px;"><b>Status Pekerjaan</b></td>
-                <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word"><?= $params->pasien->pekerjaan ?></td>
+                <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word"><?= $params->pasien->pekerjaan ?? "" ?></td>
             </tr>
             <!--Agama-->
             <tr>
                 <td class="border-right" style="padding-left: 10px;"><b>Agama</b></td>
-                <td style="padding-left: 10px;padding-right: 10px;"><?= $params->pasien->agama ?></td>
+                <td style="padding-left: 10px;padding-right: 10px;"><?= $params->pasien->agama ?? "" ?></td>
             </tr>
             <!--Suku-->
             <tr>
                 <td class="border-right" style="padding-left: 10px;"><b>Suku Bangsa</b></td>
-                <td style="padding-left: 10px;padding-right: 10px"><?= $params->suku_bangsa ?></td>
+                <td style="padding-left: 10px;padding-right: 10px"><?= $params->suku_bangsa ?? "" ?></td>
             </tr>
             <!--Penerjemah-->
             <tr>
@@ -593,14 +686,14 @@ if (!empty($params->tindakan_list)) {
                 <td style="padding-right: 10px">
                     <div style="display: flex; flex-wrap: wrap;">
                         <label style="margin-left: 10px; margin-right: 19px;white-space: normal; word-break: break-word">
-                            <input type="checkbox" <?= $params->penerjemah->bahasa === 'Tidak' ? 'checked' : '' ?>>
+                            <input type="checkbox" <?= ($params->penerjemah->bahasa ?? '') === 'Tidak' ? 'checked' : '' ?>>
                             Tidak
                         </label>
                         <label>
-                            <input type="checkbox" <?= $params->penerjemah->bahasa === 'Ya' ? 'checked' : '' ?>>
+                            <input type="checkbox" <?= ($params->penerjemah->bahasa ?? '') === 'Ya' ? 'checked' : '' ?>>
                             <span>Ya, Bahasa </span>
                             <span>
-                                <?= $params->penerjemah->bahasa_apa ?>
+                                <?= $params->penerjemah->bahasa_apa ?? "" ?>
                             </span>
                         </label>
                     </div>
@@ -613,13 +706,13 @@ if (!empty($params->tindakan_list)) {
                     <table class="table-borderless">
                         <tr>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->kendala_komunikasi === 'Pendengaran' ? 'checked' : '' ?>> Pendengaran
+                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Pendengaran' ? 'checked' : '' ?>> Pendengaran
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->kendala_komunikasi === 'Penglihatan' ? 'checked' : '' ?>> Penglihatan
+                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Penglihatan' ? 'checked' : '' ?>> Penglihatan
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->kendala_komunikasi === 'Bicara' ? 'checked' : '' ?>> Bicara
+                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Bicara' ? 'checked' : '' ?>> Bicara
                             </td>
                         </tr>
                     </table>
@@ -633,13 +726,13 @@ if (!empty($params->tindakan_list)) {
                     <table class="table-borderless">
                         <tr>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->alat_bantu === 'Kursi Roda' ? 'checked' : '' ?>> Kursi Roda
+                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Kursi Roda' ? 'checked' : '' ?>> Kursi Roda
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->alat_bantu === 'Brankar' ? 'checked' : '' ?>> Brankar
+                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Brankar' ? 'checked' : '' ?>> Brankar
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->alat_bantu === 'Kruk' ? 'checked' : '' ?>> Kruk
+                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Kruk' ? 'checked' : '' ?>> Kruk
                             </td>
                         </tr>
                     </table>
@@ -652,20 +745,20 @@ if (!empty($params->tindakan_list)) {
                     <table class="table-borderless">
                         <tr>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->rujukan->rujukan_dari === 'Klinik Dokter' ? 'checked' : '' ?>> Klinik Dokter
+                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Klinik Dokter' ? 'checked' : '' ?>> Klinik Dokter
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->rujukan->rujukan_dari === 'Puskesmas' ? 'checked' : '' ?>> Puskesmas
+                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Puskesmas' ? 'checked' : '' ?>> Puskesmas
                             </td>
                             <td width="33.34%">
-                                <input type="checkbox" <?= $params->rujukan->rujukan_dari === 'Rumah Sakit' ? 'checked' : '' ?>> Rumah Sakit
+                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Rumah Sakit' ? 'checked' : '' ?>> Rumah Sakit
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <input type="checkbox" <?= $params->rujukan->rujukan_dari === 'Lainnya' ? 'checked' : '' ?>> Lainnya,
+                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Lainnya' ? 'checked' : '' ?>> Lainnya,
                                 <span>
-                                    <?= $params->rujukan->rujukan_dari_lainnya ?>
+                                    <?= $params->rujukan->rujukan_dari_lainnya ?? "" ?>
                                 </span>
                             </td>
                         </tr>
@@ -676,7 +769,7 @@ if (!empty($params->tindakan_list)) {
             <tr>
                 <td class="border-right" style="padding-left: 10px;" valign="top"><b>Status
                         Pembiayaan</b></td>
-                <td style="padding-left: 10px;"><?= $params->status_pembiayaan ?></td>
+                <td style="padding-left: 10px;"><?= $params->status_pembiayaan ?? "" ?></td>
             </tr>
         </table>
 
@@ -692,14 +785,14 @@ if (!empty($params->tindakan_list)) {
                 <td width="8%;" style="padding-left: 10px;" valign="top">Nama</td>
                 <td width="1%;" valign="top">:</td>
                 <td width="20%;" valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->keluarga->nama ?>
+                    <?= $params->keluarga->nama ?? "" ?>
                 </td>
                 <td width="10%;" valign="top">Hubungan:</td>
                 <td width="33%;" valign="top">
                     <?php
                     $options = ['Ayah', 'Ibu', 'Sdr Kandung'];
-                    $selected = $params->keluarga->hubungan_pasien->hubungan;
-                    $lainnya = $params->keluarga->hubungan_pasien->hubungan_lainnya;
+                    $selected = $params->keluarga->hubungan_pasien->hubungan ?? '';
+                    $lainnya = $params->keluarga->hubungan_pasien->hubungan_lainnya ?? '';
 
                     echo displayHubungan($selected, $options, $lainnya);
                     ?>
@@ -766,7 +859,7 @@ if (!empty($params->tindakan_list)) {
     <table class="border-left border-right border-bottom">
         <thead>
             <tr>
-                <td style="padding-left: 10px;padding: 10px;"   align="center" class="border-right border-bottom"><b>Riwayat Rawat Inap</b></td>
+                <td style="padding-left: 10px;padding: 10px;" align="center" class="border-right border-bottom"><b>Riwayat Rawat Inap</b></td>
                 <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Masuk RS</b></td>
                 <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Keluar RS</b></td>
                 <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Lama Rawat</b></td>
@@ -783,8 +876,8 @@ if (!empty($params->tindakan_list)) {
                                 Rawat inap ke :
                                 <?php
                                 $options = ['1', '2', '3', '4', '5', '6', '7'];
-                                $selected = $params->rawat_inap->inap_ke;
-                                $lainnya = $params->rawat_inap->inap_ke_lainnya;
+                                $selected = $params->rawat_inap->inap_ke ?? '';
+                                $lainnya = $params->rawat_inap->inap_ke_lainnya ?? '';
 
                                 echo displayInapKe($selected, $options, $lainnya);
                                 ?>
@@ -792,7 +885,7 @@ if (!empty($params->tindakan_list)) {
                         </div>
                         <div style="margin-bottom: 5px;">
                             <span>
-                                Dirawat terakhir tgl : <?= $params->rawat_inap->rawat_terakhir_tanggal_indo ?? "" ?>
+                                Dirawat terakhir tgl : <?= clean_date($params->rawat_inap->rawat_terakhir_tanggal_indo ?? ($params->rawat_inap->rawat_terakhir_tanggal ?? '')) ?>
                             </span>
                         </div>
                         <div>
@@ -807,13 +900,13 @@ if (!empty($params->tindakan_list)) {
                         <div style="margin-bottom: 5px;">
                             <span>Tanggal :</span>
                             <span style="display: block;">
-                                <?= $params->masuk_tanggal_indo ?? "" ?>
+                                <?= clean_date($params->masuk_tanggal_indo ?? ($params->masuk_tanggal ?? '')) ?>
                             </span>
                         </div>
                         <div>
                             <span>Waktu :</span>
                             <span style="display: block;" align="center">
-                                <?= $params->waktu_masuk ?? "" ?>
+                                <?= clean_time($params->waktu_masuk ?? '') ?>
                             </span>
                         </div>
                     </div>
@@ -823,13 +916,13 @@ if (!empty($params->tindakan_list)) {
                         <div style="margin-bottom: 5px;">
                             <span>Tanggal :</span>
                             <span style="display: block;">
-                                <?= $params->keluar_tanggal_indo ?? "" ?>
+                                <?= clean_date($params->keluar_tanggal_indo ?? ($params->keluar_tanggal ?? '')) ?>
                             </span>
                         </div>
                         <div>
                             <span>Waktu :</span>
                             <span style="display: block;" align="center">
-                                <?= $params->waktu_keluar ?? "" ?>
+                                <?= clean_time($params->waktu_keluar ?? '') ?>
                             </span>
                         </div>
                     </div>
@@ -871,23 +964,23 @@ if (!empty($params->tindakan_list)) {
                         <table class="table-borderless">
                             <tr>
                                 <td>
-                                    <input type="checkbox" <?= $params->pelayanan->prioritas === 'Promotif' ? 'checked' : '' ?>> Promotif
+                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Promotif' ? 'checked' : '' ?>> Promotif
                                 </td>
                                 <td>
-                                    <input type="checkbox" <?= $params->pelayanan->prioritas === 'Kuratif' ? 'checked' : '' ?>> Kuratif
+                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Kuratif' ? 'checked' : '' ?>> Kuratif
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" <?= $params->pelayanan->prioritas === 'Paliatif' ? 'checked' : '' ?>> Paliatif
+                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Paliatif' ? 'checked' : '' ?>> Paliatif
                                 </td>
                                 <td>
-                                    <input type="checkbox" <?= $params->pelayanan->prioritas === 'Preventif' ? 'checked' : '' ?>> Preventif
+                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Preventif' ? 'checked' : '' ?>> Preventif
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <input type="checkbox" <?= $params->pelayanan->prioritas === 'Rehabilitatif' ? 'checked' : '' ?>> Rehabilitatif
+                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Rehabilitatif' ? 'checked' : '' ?>> Rehabilitatif
                                 </td>
                             </tr>
                         </table>
@@ -923,7 +1016,7 @@ if (!empty($params->tindakan_list)) {
                         // Proses freetext jika ada
                         if (!empty($params->diagnosa_banding_freetext)) {
                             // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", $params->diagnosa_banding_freetext), function ($line) {
+                            $lines = array_filter(explode("\n", (string)$params->diagnosa_banding_freetext), function ($line) {
                                 return trim($line) !== '';
                             });
 
@@ -942,7 +1035,7 @@ if (!empty($params->tindakan_list)) {
                         }
 
                         // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_banding_autocomplete)) {
+                        if (!empty($params->diagnosa_banding_autocomplete) && is_iterable($params->diagnosa_banding_autocomplete)) {
                             // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
                             if (!empty($diagnosa_banding)) {
                                 $diagnosa_banding .= "\n";
@@ -950,7 +1043,10 @@ if (!empty($params->tindakan_list)) {
 
                             foreach ($params->diagnosa_banding_autocomplete as $item) {
                                 $last_number++;
-                                $diagnosa_banding .= $last_number . '. ' . $item->icd_x . ' - ' . $item->nama_sebab_sakit . (!empty($item->deskripsi) ? ' - ' . $item->deskripsi : '') . "\n";
+                                $icd_x = $item->icd_x ?? '';
+                                $sebab = $item->nama_sebab_sakit ?? '';
+                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
+                                $diagnosa_banding .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
                             }
                             // Hapus newline ekstra di akhir
                             $diagnosa_banding = trim($diagnosa_banding);
@@ -964,10 +1060,12 @@ if (!empty($params->tindakan_list)) {
                 <td style="padding-left: 10px;padding-right: 10px;" width="40%" valign="top">
                     <label>Dokter Jaga/ DPJP :</label>
                     <div align="center">
-                        <img src="<?= $params->ttd_data->dokter_jaga_stroke ?>" class="tanda-tangan"
-                            style="display: block;margin-top: 10px">
+                        <?php if (!empty($params->ttd_data->dokter_jaga_stroke)): ?>
+                            <img src="<?= $params->ttd_data->dokter_jaga_stroke ?>" class="tanda-tangan"
+                                style="display: block;margin-top: 10px">
+                        <?php endif; ?>
                         <p style="margin-top: 10px">
-                            <?= $params->ttd_data->dokter_jaga  ?? "" ?>
+                            <?= $params->ttd_data->dokter_jaga ?? "" ?>
                         </p>
                     </div>
                 </td>
@@ -985,18 +1083,18 @@ if (!empty($params->tindakan_list)) {
                     <table class="table-borderless">
                         <tr>
                             <td>
-                                <input type="checkbox" <?= $params->izin_keluar_rs === 'Atas Persetujuan' ? 'checked' : '' ?>> Atas Persetujuan
+                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Atas Persetujuan' ? 'checked' : '' ?>> Atas Persetujuan
                             </td>
                             <td>
-                                <input type="checkbox" <?= $params->izin_keluar_rs === 'Atas Permintaan Sendiri' ? 'checked' : '' ?>> Atas Permintaan Sendiri
+                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Atas Permintaan Sendiri' ? 'checked' : '' ?>> Atas Permintaan Sendiri
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" <?= $params->izin_keluar_rs === 'Pindah Rumah Sakit Lain' ? 'checked' : '' ?>> Pindah Rumah Sakit Lain
+                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Pindah Rumah Sakit Lain' ? 'checked' : '' ?>> Pindah Rumah Sakit Lain
                             </td>
                             <td>
-                                <input type="checkbox" <?= $params->izin_keluar_rs === 'Melarikan Diri' ? 'checked' : '' ?>> Melarikan Diri
+                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Melarikan Diri' ? 'checked' : '' ?>> Melarikan Diri
                             </td>
                         </tr>
                     </table>
@@ -1021,7 +1119,7 @@ if (!empty($params->tindakan_list)) {
                         // Proses freetext jika ada
                         if (!empty($params->diagnosa_masuk_freetext)) {
                             // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", $params->diagnosa_masuk_freetext), function ($line) {
+                            $lines = array_filter(explode("\n", (string)$params->diagnosa_masuk_freetext), function ($line) {
                                 return trim($line) !== '';
                             });
 
@@ -1040,7 +1138,7 @@ if (!empty($params->tindakan_list)) {
                         }
 
                         // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_masuk_autocomplete)) {
+                        if (!empty($params->diagnosa_masuk_autocomplete) && is_iterable($params->diagnosa_masuk_autocomplete)) {
                             // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
                             if (!empty($diagnosa_utama)) {
                                 $diagnosa_utama .= "\n";
@@ -1048,7 +1146,10 @@ if (!empty($params->tindakan_list)) {
 
                             foreach ($params->diagnosa_masuk_autocomplete as $item) {
                                 $last_number++;
-                                $diagnosa_utama .= $last_number . '. ' . $item->icd_x . ' - ' . $item->nama_sebab_sakit . (!empty($item->deskripsi) ? ' - ' . $item->deskripsi : '') . "\n";
+                                $icd_x = $item->icd_x ?? '';
+                                $sebab = $item->nama_sebab_sakit ?? '';
+                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
+                                $diagnosa_utama .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
                             }
                             // Hapus newline ekstra di akhir
                             $diagnosa_utama = trim($diagnosa_utama);
@@ -1072,7 +1173,7 @@ if (!empty($params->tindakan_list)) {
                         // Proses freetext jika ada
                         if (!empty($params->diagnosa_sekunder_freetext)) {
                             // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", $params->diagnosa_sekunder_freetext), function ($line) {
+                            $lines = array_filter(explode("\n", (string)$params->diagnosa_sekunder_freetext), function ($line) {
                                 return trim($line) !== '';
                             });
 
@@ -1091,7 +1192,7 @@ if (!empty($params->tindakan_list)) {
                         }
 
                         // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_sekunder_autocomplete)) {
+                        if (!empty($params->diagnosa_sekunder_autocomplete) && is_iterable($params->diagnosa_sekunder_autocomplete)) {
                             // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
                             if (!empty($diagnosa_sekunder)) {
                                 $diagnosa_sekunder .= "\n";
@@ -1099,7 +1200,10 @@ if (!empty($params->tindakan_list)) {
 
                             foreach ($params->diagnosa_sekunder_autocomplete as $item) {
                                 $last_number++;
-                                $diagnosa_sekunder .= $last_number . '. ' . $item->icd_x . ' - ' . $item->nama_sebab_sakit . (!empty($item->deskripsi) ? ' - ' . $item->deskripsi : '') . "\n";
+                                $icd_x = $item->icd_x ?? '';
+                                $sebab = $item->nama_sebab_sakit ?? '';
+                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
+                                $diagnosa_sekunder .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
                             }
                             // Hapus newline ekstra di akhir
                             $diagnosa_sekunder = trim($diagnosa_sekunder);
@@ -1131,7 +1235,7 @@ if (!empty($params->tindakan_list)) {
                 <td class="border-right" style="white-space: normal; word-break: break-word;" valign="top">
                     <div style="padding-top: 5px;padding-left: 15px;padding-right: 10px;">
                         <?php
-                        echo nl2br($params->tindakan_group);
+                        echo nl2br($params->tindakan_group ?? "");
                         ?>
                     </div>
                 </td>
@@ -1173,7 +1277,7 @@ if (!empty($params->tindakan_list)) {
                 valign="top">
                 <span><b>Penyebab Infeksi Nosokomial :</b></span>
                 <div>
-                    <?= $params->penyebab_infeksi ?>
+                    <?= $params->penyebab_infeksi ?? "" ?>
                 </div>
             </td>
         </tr>
@@ -1187,31 +1291,31 @@ if (!empty($params->tindakan_list)) {
                 valign="top">
                 <span><b>Riwayat Imunisasi :</b></span>
                 <div>
-                    <?= $params->riwayat_imunisasi_text ?>
+                    <?= $params->riwayat_imunisasi_text ?? "" ?>
                 </div>
             </td>
             <td valign="top">
                 <table class="table-borderless">
                     <tr>
                         <td width="33.34%">
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'BCG' ? 'checked' : '' ?>> BCG
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'BCG' ? 'checked' : '' ?>> BCG
                         </td>
                         <td width="33.34%">
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'Poliomielitis' ? 'checked' : '' ?>> Poliomielitis
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Poliomielitis' ? 'checked' : '' ?>> Poliomielitis
                         </td>
                         <td width="33.34%">
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'Campak' ? 'checked' : '' ?>> Campak
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Campak' ? 'checked' : '' ?>> Campak
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'DPT' ? 'checked' : '' ?>> DPT
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'DPT' ? 'checked' : '' ?>> DPT
                         </td>
                         <td>
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'Tetanus Toxoid' ? 'checked' : '' ?>> Tetanus Toxoid
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Tetanus Toxoid' ? 'checked' : '' ?>> Tetanus Toxoid
                         </td>
                         <td>
-                            <input type="checkbox" <?= $params->riwayat_imunisasi === 'Hepatitis B' ? 'checked' : '' ?>> Hepatitis B
+                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Hepatitis B' ? 'checked' : '' ?>> Hepatitis B
                         </td>
                     </tr>
                 </table>
@@ -1234,37 +1338,39 @@ if (!empty($params->tindakan_list)) {
                     <div style="display: flex; flex-wrap: wrap;">
                         <div style="margin-right: 20px;">
                             <div>
-                                <input type="checkbox" <?= $params->keadaan_keluar === 'Sembuh' ? 'checked' : '' ?>>
+                                <input type="checkbox" <?= ($params->keadaan_keluar ?? '') === 'Sembuh' ? 'checked' : '' ?>>
                                 Sembuh
                             </div>
                             <div>
-                                <input type="checkbox" <?= $params->keadaan_keluar === 'Membaik' ? 'checked' : '' ?>>
+                                <input type="checkbox" <?= ($params->keadaan_keluar ?? '') === 'Membaik' ? 'checked' : '' ?>>
                                 Membaik
                             </div>
                             <div>
                                 <input type="checkbox"
-                                    <?= $params->keadaan_keluar === 'Belum Sembuh' ? 'checked' : '' ?>>
+                                    <?= ($params->keadaan_keluar ?? '') === 'Belum Sembuh' ? 'checked' : '' ?>>
                                 Belum Sembuh
                             </div>
                         </div>
                         <div>
                             <div>
                                 <input type="checkbox"
-                                    <?= $params->keadaan_keluar === 'Mati sblm 48 jam' ? 'checked' : '' ?>>
+                                    <?= ($params->keadaan_keluar ?? '') === 'Mati sblm 48 jam' ? 'checked' : '' ?>>
                                 Mati &lt; 48 jam
                             </div>
                             <div>
                                 <input type="checkbox"
-                                    <?= $params->keadaan_keluar === 'Mati stlh 48 jam' ? 'checked' : '' ?>>
+                                    <?= ($params->keadaan_keluar ?? '') === 'Mati stlh 48 jam' ? 'checked' : '' ?>>
                                 Mati &gt; 48 jam
                             </div>
                         </div>
                     </div>
                 </td>
-                <td  align="center" style="padding: 8px;"><p><?= $params->ttd_data->dokter_pj ?></p></td>
+                <td  align="center" style="padding: 8px;"><p><?= $params->ttd_data->dokter_pj ?? "" ?></p></td>
                 <td  align="center">
-                    <img src="<?= $params->ttd_data->dokter_pj_stroke ?>" class="tanda-tangan"
-                        style="display: block;">
+                    <?php if (!empty($params->ttd_data->dokter_pj_stroke)): ?>
+                        <img src="<?= $params->ttd_data->dokter_pj_stroke ?>" class="tanda-tangan"
+                            style="display: block;">
+                    <?php endif; ?>
                 </td>
             </tr>
         </tbody>
