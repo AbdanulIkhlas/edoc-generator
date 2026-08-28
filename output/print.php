@@ -1,1380 +1,1670 @@
 <?php
-// EMR Data
-$params = json_decode($argv[1] ?? '{}');
-$params = is_object($params) ? $params : (object)[];
+    // EMR Data
+    $params = json_decode($argv[1]);
 
-$base_url = $argv[2] ?? ''; // Base_url
-$title = 'Ringkasan Masuk Keluar';
-$static_label = json_decode($argv[3] ?? '{}');
-$static_label = is_object($static_label) ? $static_label : (object)[];
+    $base_url = $argv[2]; // Base_url
+    $title = "Formulir Edukasi Pasien Dan Keluarga Terintegrasi";
+	$static_label = json_decode($argv[3]);
 
-// Helper untuk membersihkan format tanggal jika kosong, NaN, undefined, dsb.
-function clean_date($date)
-{
-    if (empty($date)) {
-        return '';
-    }
-    $str = trim((string)$date);
-    if ($str === '' || $str === '0000-00-00' || $str === '0000-00-00 00:00:00' || strtolower($str) === 'null' || strtolower($str) === 'undefined') {
-        return '';
-    }
-    if (stripos($str, 'NaN') !== false || stripos($str, 'undefined') !== false || stripos($str, 'null') !== false) {
-        return '';
-    }
-    return $str;
-}
-
-// Helper untuk format tanggal Indonesia
-function tgl_indo($tanggal)
-{
-    $clean = clean_date($tanggal);
-    if (empty($clean)) {
-        return '';
-    }
-
-    $bulan = [
-        1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
-    ];
-
-    $timestamp = strtotime($clean);
-    if ($timestamp === false) {
-        return $clean;
-    }
-
-    $hari = date('j', $timestamp);   // tanpa leading zero
-    $bulan_ke = (int)date('n', $timestamp);
-    $tahun = date('Y', $timestamp);
-
-    if ($tahun < 1900) {
-        return $clean;
-    }
-
-    return $hari . ' ' . ($bulan[$bulan_ke] ?? '') . ' ' . $tahun;
-}
-
-// Helper untuk membersihkan format waktu / jam jika NaN:NaN, undefined, dsb.
-function clean_time($time)
-{
-    if (empty($time)) {
-        return '';
-    }
-    $str = trim((string)$time);
-    if ($str === '' || strtolower($str) === 'null' || strtolower($str) === 'undefined') {
-        return '';
-    }
-    if (stripos($str, 'NaN') !== false || stripos($str, 'undefined') !== false || stripos($str, 'null') !== false) {
-        return '';
-    }
-    return $str;
-}
-
-// Fungsi untuk menampilkan hubungan dengan lingkaran
-function displayHubungan($selected, $options, $lainnya = '')
-{
-    $selected = $selected ?? '';
-    $lainnya = $lainnya ?? '';
-    $out = '';
-    $first = true;
-
-    foreach ($options as $opt) {
-        if (!$first) {
-            $out .= ' / ';
-        }
-        // bungkus setiap opsi dalam span agar width & font konsisten
-        if ($selected === $opt) {
-            $out .= "<span class='hubungan-item circle'>$opt</span>";
-        } else {
-            $out .= "<span class='hubungan-item'>$opt</span>";
-        }
-        $first = false;
-    }
-
-    // lainnya
-    if ($selected === 'Lainnya' && !empty($lainnya)) {
-        $out .= " / <span class='hubungan-item circle'>$lainnya</span>";
-    } elseif (!in_array($selected, $options) && !empty($selected)) {
-        $out .= " / <span class='hubungan-item circle'>$selected</span>";
-    }
-
-    return $out;
-}
-
-// tampilkan angka rawat inap dengan lingkaran tanpa tanda /
-function displayInapKe($selected, $options, $lainnya = '')
-{
-    $selected = $selected ?? '';
-    $lainnya = $lainnya ?? '';
-    $out = '';
-
-    foreach ($options as $opt) {
-        // bungkus tiap angka
-        if ($selected === $opt) {
-            $out .= "<span class='hubungan-item circle'>$opt</span>";
-        } else {
-            $out .= "<span class='hubungan-item'>$opt</span>";
-        }
-        // tambahkan spasi antar angka, bukan slash
-        $out .= ' ';
-    }
-
-    // jika pilih lainnya
-    if ($selected === 'Lainnya' && !empty($lainnya)) {
-        $out .= "<span class='hubungan-item circle'>$lainnya</span>";
-    } elseif (!in_array($selected, $options) && !empty($selected)) {
-        $out .= "<span class='hubungan-item circle'>$selected</span>";
-    }
-
-    return trim($out);
-}
-
-// Fungsi untuk mengekstrak kode ICD dari teks
-function extractIcdCodes($text)
-{
-    $codes = [];
-    if (empty($text)) {
-        return $codes;
-    }
-    $lines = explode("\n", (string)$text);
-
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if (preg_match('/^(\d+)\.\s*([A-Z][0-9]{2}(?:\.[0-9])?)/', $line, $matches)) {
-            $codes[] = $matches[2]; // Kode ICD
-        }
-    }
-
-    return $codes;
-}
-// Diagnosa utama
-$diagnosa_utama_codes = [];
-if (!empty($params->diagnosa_masuk_freetext)) {
-    $diagnosa_utama_codes = array_merge($diagnosa_utama_codes, extractIcdCodes($params->diagnosa_masuk_freetext));
-}
-if (!empty($params->diagnosa_masuk_autocomplete) && is_iterable($params->diagnosa_masuk_autocomplete)) {
-    foreach ($params->diagnosa_masuk_autocomplete as $item) {
-        if (!empty($item->icd_x)) {
-            $diagnosa_utama_codes[] = $item->icd_x;
-        }
-    }
-}
-
-// Diagnosa sekunder
-$diagnosa_sekunder_codes = [];
-if (!empty($params->diagnosa_sekunder_freetext)) {
-    $diagnosa_sekunder_codes = array_merge($diagnosa_sekunder_codes, extractIcdCodes($params->diagnosa_sekunder_freetext));
-}
-if (!empty($params->diagnosa_sekunder_autocomplete) && is_iterable($params->diagnosa_sekunder_autocomplete)) {
-    foreach ($params->diagnosa_sekunder_autocomplete as $item) {
-        if (!empty($item->icd_x)) {
-            $diagnosa_sekunder_codes[] = $item->icd_x;
-        }
-    }
-}
-
-// Tindakan
-$tindakan_codes = [];
-if (!empty($params->tindakan_list) && is_iterable($params->tindakan_list)) {
-    foreach ($params->tindakan_list as $item) {
-        if (!empty($item->icd_9_code)) {
-            $tindakan_codes[] = $item->icd_9_code;
-        }
-    }
-}
-
+    $pasien = $params->pasien; 
+    $pengkajian = $params->pengkajian;
+    $edukasiData = $params->edukasiData; 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
-</head>
-<style>
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    ol,
-    ul {
-        margin: 0;
-        padding: 0;
-        font-weight: normal;
-    }
-
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <?= $title ?>
+  </title>
+  <style>
     body {
-        font: 12pt times new roman;
-        size: f4;
-        padding-bottom: 10px;
+      font: 10pt times new roman;
+      size: f4;
+      line-height: 1.4;
+      /*padding-bottom: 10px;*/
     }
 
     table {
-        width: 100%;
-        border-collapse: collapse;
+      border: 1px solid #000000;
+      border-collapse: collapse;
+      text-align: left;
+      page-break-after: auto;
+      width: 100%;
     }
 
-    th td {
-        width: 30px;
+    table tr {
+      /*border: 1px solid #000000;*/
+      border-collapse: collapse;
+      /* padding: 10px;
+            margin: 10px; */
+      page-break-inside: avoid;
+      page-break-after: auto;
     }
 
-    td {
-        height: 25px;
-        box-sizing: border-box;
+    table th {
+      border-collapse: collapse;
+      font-weight: bold;
+      padding: 10px;
     }
 
-    .table-bordered,
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: .2em;
+    table td {
+      border: 1px solid #000000;
+      border-collapse: collapse;
+      padding-left: 5px;
+      padding-right: 5px;
+      /*padding: 1px 0.5em;*/
+      page-break-inside: avoid;
+      page-break-after: avoid;
+      vertical-align: top;
+      word-wrap: break-word;
     }
 
-    .table-borderless,
-    .table-borderless th,
-    .table-borderless td {
-        border: none;
-        border-collapse: collapse;
+    .mini-table {
+      margin: 0;
+      padding: 0;
+      border: none;
     }
 
-    .img-logo {
-        width: 250px;
-        height: 70px;
+    .mini-table tr {
+      margin: 0;
+      padding: 0;
+      border: none;
     }
 
-    .vertical-text {
-        padding: 0;
-        margin: 0;
-        writing-mode: tb-rl;
-        filter: flipv fliph;
-        -webkit-transform: rotate(90deg);
-        white-space: nowrap;
-        text-orientation: mixed;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle;
+    .mini-table tr td {
+      margin: 0;
+      /* padding: 1px 0.5em 1px 0.5em; */
+      border: none;
+      vertical-align: top;
     }
 
-    .txt-vertical-1 {
-        transform: translate(-40%, -50%) rotate(-90deg);
-        -webkit-transform: translate(-40%, -50%) rotate(-90deg);
-        position: absolute;
+    /* Table border tr */
+    .mini-table-2 {
+      margin: 0;
+      padding: 0;
+      border-collapse: collapse;
+      /* Menghindari duplikasi border */
     }
 
-    .txt-vertical-2 {
-        transform: translate(-50%, -50%) rotate(-90deg);
-        -webkit-transform: translate(-50%, -50%) rotate(-90deg);
-        position: absolute;
+    .mini-table-2 tr {
+      border: 1px solid #000000;
+      /* Hanya memberikan border pada tr */
     }
 
-    .textbottomup {
-        transform: rotate(180deg);
-        writing-mode: vertical-rl;
-        text-align: center;
+    .mini-table-2 tr td {
+      margin: 0;
+      /*padding: 1px 0.5em;*/
+      border: none;
+      /* Menghapus border pada td */
+      text-align: left;
+      vertical-align: top;
     }
 
-    .tanda-tangan {
-        width: 100px;
-        height: 100px;
+    .numbering {
+      margin: 0 0.5em;
     }
 
-    .text {
-        padding: 4px 0px;
-    }
-
-    .td-default {
-        border: 1px solid black;
-        padding: 0.5em 1em;
-    }
-
-    .td-borderless {
-        border: 1px solid none;
-        padding: 1em 1em;
-    }
-
-    .flex {
-        display: table;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .flex-text-start {
-        display: table-cell;
-        text-align: right;
-        text-wrap: nowrap;
-        white-space: nowrap;
-    }
-
-    .flex-text-end {
-        display: table-cell;
-        text-align: left;
-        text-wrap: nowrap;
-        white-space: nowrap;
-        white-space: nowrap;
-    }
-
-    .flex-text {
-        display: table-cell;
-        text-align: center;
-        text-wrap: nowrap;
-    }
-
-    .flex-blank {
-        display: table-cell;
-        text-align: center;
-    }
-
-    .flex-dotted {
-        display: table-cell;
-        border-bottom: 2px dotted black;
-        text-align: center;
-    }
-
-    .flex-solid {
-        display: table-cell;
-        border-bottom: 2px solid black;
-        text-align: center;
-    }
-
-    .rectangle {
-        display: inline-block;
-        margin-right: 1em;
-        border: 1px solid black;
-        width: 11px;
-        height: 11px;
+    .paragraph {
+      text-align: justify;
+      text-rendering: geometricPrecision;
     }
 
     .flex-container {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        list-style: none;
-        -ms-box-orient: horizontal;
-        -webkit-box-pack: left;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -moz-flex;
-        display: -webkit-flex;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: stretch;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: left;
+      flex-wrap: wrap;
+      margin-right: 11px;
+      /*padding-right: 11px;*/
     }
 
-    .flex-item {
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+    .flex-child {
+      flex: 1;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
     }
 
-    .flex-solid {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 1px solid black;
+    .flex-child-dotted {
+      flex: 1;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      border-bottom: 2px dotted black;
+      margin: 0.25em 0.25em 0 0.25em;
     }
 
-    .flex-dotted {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 2px dotted black;
+    /* checkbox / kotak centang */
+    .checkbox {
+      width: 0.25em;
+      height: 1em;
+      border: 1px solid black;
+      padding: 2px 0.5em 2px 0.5em;
+      margin-right: 0.5em;
     }
 
-    .flex-blank {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-    }
-
-    .w100 {
-        width: 100%;
-    }
-
-    .w80 {
-        width: 80%;
-    }
-
-    .w70 {
-        width: 70%;
-    }
-
-    .w65 {
-        width: 65%;
-    }
-
-    .w60 {
-        width: 60%;
-    }
-
-    .w55 {
-        width: 55%;
-    }
-
-    .w50 {
-        width: 50%;
-    }
-
-    .w45 {
-        width: 45%;
-    }
-
-    .w40 {
-        width: 40%;
-    }
-
-    .w35 {
-        width: 35%;
-    }
-
-    .w30 {
-        width: 30%;
-    }
-
-    .w25 {
-        width: 25%;
-    }
-
-    .w20 {
-        width: 20%;
-    }
-
-    .w15 {
-        width: 15%;
-    }
-
-    .w10 {
-        width: 10%
-    }
-
-    .w5 {
-        width: 5%
-    }
-
-    .w3 {
-        width: 3%
-    }
-
-    .w1 {
-        width: 1%
-    }
-    
     .pagebreak {
-        min-height: 1px;
-        page-break-before: always;
+      min-height: 1px;
+      page-break-before: always;
     }
 
-    .hubungan-item {
-        display: inline-block;
-        text-align: center;
-        font-family: "Times New Roman", serif;
-        line-height: 1;
+    .text-top {
+      vertical-align: top;
     }
 
-    .circle {
-        border: 2px solid black;
-        border-radius: 50%;
-        padding: 2px 4px;
-        margin: 0 2px;
+    p {
+      margin: 0;
     }
 
-
-    .table-kop {
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border-bottom: 3px solid black;
+    ul {
+      margin: 0;
     }
 
-    .tabel-info {
-        margin-bottom: 10px;
-    }
-    .hospital-agen{
-        font-size: 16px;
-    }
-    .hospital-name {
-        font-size: 20px;
+    .label {
+      border: 1px solid red;
+      background-color: red;
+      color: white;
+      padding: 2px;
     }
 
-    .hospital-address {
-        font-size: 16px;
-    }
+    /*.kotak-nomor {*/
+    /*  border: 1px solid black;*/
+    /*  padding: 4px;*/
+    /*  margin: 2px;*/
+    /*  text-align: center;*/
+    /*  width: 30px;*/
+    /*}*/
+    
+    .kotak-nomor {
+  /*display: inline-block;*/
+  width: 30px;
+  height: 30px;
+  border: 1px solid #000;
+  text-align: center;
+  line-height: 30px;
+  margin: 2px;
+  position: relative; /* penting untuk posisi absolut anak */
+  /*font-size: 14px;*/
+}
 
-    .table_data {
-        margin-top: 0;
-        border: 1px solid black;
-        padding: 10px;
-    }
+.kotak-nomor.checked::before {
+  content: "✔";
+  position: absolute;
+  /*top: 10px;*/
+  left: 30%;
+  height: 30px;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: black;
+}
 
-    input[type=checkbox] {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
+/* Supaya angka tetap kelihatan jelas, kamu bisa geser sedikit ke bawah */
+.kotak-nomor.checked {
+  /*padding-top: 10px;*/
+  /*line-height: 10px;*/
+}
 
-        width: 16px;
-        height: 16px;
-        border: 1px solid black;
-        border-radius: 2px;
-        display: inline-block;
-        vertical-align: top; 
-        cursor: pointer;
-        margin-right: 5px;
-    }
 
-    input[type=checkbox]:checked::after {
-        content: "✓";
-        font-size: 20px;
-        font-weight: bold;
-        color: black;
-        line-height: 1;
-    }
-
-    .border-left {
-        border-left: 1px solid black;
-    }
-
-    .border-right {
-        border-right: 1px solid black;
-    }
-
-    .border-top {
-        border-bottom: 1px solid black
-    }
-    .border-bottom {
-        border-bottom: 1px solid black
-    }
-</style>
+  </style>
+</head>
 
 <body>
-
-    <!--KOP-->
-    <table style="width:100%; border-collapse:collapse; border:1px solid black;">
+  <!--<table  class="mini-table">-->
+  <!--    <tr>-->
+  <!--        <td><img src="<?= "$base_url/images/rs/logoRS.png" ?>" style="width: 80px;" alt=""></td>-->
+  <!--        <td align="center">-->
+  <!--            <span style="margin:0; font-size: .9rem;">DINAS KESEHATAN ACEH TENGAH</span>-->
+  <!--            <h4 style="margin:0; font-size: 1.3rem; text-transform: uppercase;">-->
+  <!--                <b><?= $static_label->hospital_name ?? '' ?></b>-->
+  <!--            </h4>-->
+  <!--            <small style="font-size: .8rem;"><i><?= $static_label->hospital_address ?? '' . ' Telp. ' . $static_label->hospital_phone ?? '' ?></i></small>-->
+  <!--        </td>-->
+  <!--        <td>-->
+              <!--<img src=">" style="width: 80px;" alt="">-->
+  <!--        </td>-->
+  <!--    </tr>-->
+  <!--    <tr>-->
+  <!--        <td colspan="3">-->
+  <!--            <hr style="height: 2px; border-width: 0; color: gray; background-color: black;" />-->
+  <!--        </td>-->
+  <!--    </tr>-->
+  <!--</table>-->
+  
+  <!-- Start Header -->
+    <table class="mini-table">
         <tr>
-            <!-- Logo -->
-            <td style="width:120px; text-align:center;" align="center">
-                <img src="<?= ($base_url ?? '') . '/images/rs/LogoRS.png' ?>" style="width:100px;" />
+            <td width="50%">
+                <table class="mini-table">
+                    <tr>
+                        <td><img src="<?= "$base_url/images/rs/LogoRS.png" ?>" style="width: 60px;" alt=""></td>
+                        <td align="center">
+                            <span style="margin:0; font-size: .9rem;"></span>
+                            <h4 style="margin:0; font-size: 1.3rem; text-transform: uppercase;">
+                                <b><?= $static_label->hospital_name ?></b>
+                            </h4>
+                            <small style="font-size: .8rem;"><i><?= $static_label->hospital_address . ' Telp. ' . $static_label->hospital_phone ?></i></small>
+                        </td>
+                        <!--<td>-->
+                            <!--<img src="<?= "$base_url/images/rs/paripurna-kars.png" ?>" style="width: 60px;" alt="">-->
+                        <!--</td>-->
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <hr style="height: 2px; border-width: 0; color: gray; background-color: black;" />
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td style="padding-top: 20px;" align="center" valign="top">
-                <div class="hospital-agen">
-                    <?= $static_label->hospital_agency ?? "" ?>
+            <td style="vertical-align: top; padding-left: 1rem">
+                <div style="border:1px solid black; padding: 1rem; border-radius: 1rem">
+                    <table class="mini-table">
+                        <tr>
+                            <td>Nama</td>
+                            <td>:</td>
+                            <td>
+                                <?= $params->pasien->nama_pasien ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tgl Lahir</td>
+                            <td>:</td>
+                            <td>
+                                <?= $params->pasien->tgl_lahir_indo ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%">No. RM</td>
+                            <td width="1%">:</td>
+                            <td>
+                                <?= $params->pasien->no_rm ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ruang</td>
+                            <td>:</td>
+                            <td>
+                                <?= $params->pasien->bangsal ?> <?= $params->pasien->ruang ? " - Ruang {$params->pasien->ruang}" : '' ?> <?= $params->pasien->kelas ? " - Kelas {$params->pasien->kelas}" : '' ?>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="hospital-name"><?= $static_label->hospital_name ?? "" ?></div>
-                <div class="hospital-address"><?= $static_label->hospital_address ?? "" ?></div>
-            </td>
-            <td
-                style="width:200px; heigth: 200px; text-align:center; vertical-align:middle; font-weight:bold; font-size:25px; border:1px solid black;">
-                RM<br />01
             </td>
         </tr>
     </table>
-    <!--KOP end-->
+    <!-- End Header -->
+  <h3 align="center">
+    <b>FORMULIR EDUKASI PASIEN DAN KELUARGA TERINTEGRASI</b>
+  </h3>
+  <table>
+    <tr>
+      <td style="border: none">
+        <table class="mini-table">
+          <tr>
+            <td colspan="3">
+              Beri ceklis (&#10003;) untuk pengisian formulir dibawah ini
+            </td>
+          </tr>
+          <tr>
+            <th>
+              I. Assesmen <br />
+              &ensp;&ensp;Data Pasien
+            </th>
+          </tr>
+        </table>
+
+        <table class="mini-table">
+          <tr>
+            <td width="1%">a.</td>
+            <td width="20%">Tingkat Pendidikan</td>
+            <td width="1%">:</td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->tingkat_pendidikan === 'Tidak Sekolah' ? 'checked' : '');
+              ?>> Tidak Sekolah
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->tingkat_pendidikan === 'SD' ? 'checked' : ''); ?>> SD
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->tingkat_pendidikan === 'SMU' ? 'checked' : ''); ?>> SMU
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->tingkat_pendidikan === 'Perguruan Tinggi' ? 'checked' :
+              ''); ?>> Perguruan Tinggi
+            </td>
+          </tr>
+          <tr>
+            <td>b.</td>
+            <td>Kemampuan Bahasa</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->bahasa->value === 'Indonesia' ? 'checked' : ''; ?>>
+              Indonesia
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->bahasa->value === 'Daerah' ? 'checked' : ''; ?>>
+              Daerah <?= $pengkajian->bahasa->isi_daerah ? " : {$pengkajian->bahasa->isi_daerah}" : '' ?>
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->bahasa->value === 'Asing' ? 'checked' : ''; ?>>
+              Asing <?= $pengkajian->bahasa->isi_asing ? " : {$pengkajian->bahasa->isi_asing}" : '' ?>
+            </td>
+          </tr>
+          <tr>
+            <td>c.</td>
+            <td>Perlu Penterjemah</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->penerjemah === 'Ya' ? 'checked' : ''; ?>>
+              Ya
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->penerjemah === 'Tidak' ? 'checked' : ''; ?>>
+              Tidak
+            </td>
+          </tr>
+          <tr>
+            <td>d.</td>
+            <td>Baca & Tulis</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->baca === 'Bisa' ? 'checked' : ''; ?>>
+              Bisa
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->baca === 'Tidak' ? 'checked' : ''; ?>>
+              Tidak
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="2">e.</td>
+            <td>Hambatan</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->hambatan->value === 'Ada' ? 'checked' : ''; ?>>
+              Ada
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->hambatan->value === 'Tidak' ? 'checked' : ''; ?>>
+              Tidak
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">
+              <table class="mini-table">
+                <tr>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->g_pendengaran === true ? 'checked' : '';
+                    ?>>
+                    Gangguan Pendengaran
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->g_emosional === true ? 'checked' : ''; ?>>
+                    Gangguan Emosi
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->g_penglihatan === true ? 'checked' : '';
+                    ?>>
+                    Gangguan penglihatan
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->g_bicara === true ? 'checked' : ''; ?>>
+                    Gangguan Bicara
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->motivasi_kurang === true ? 'checked' : '';
+                    ?>>
+                    Motivasi Kurang/buruk
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->memori_hilang === true ? 'checked' : '';
+                    ?>>
+                    Memori Hilang
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->fisik_lemah === true ? 'checked' : ''; ?>>
+                    Fisik Lemah
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->alkoholik === true ? 'checked' : ''; ?>>
+                    Alkoholik
+                  </td>
+                  <td>
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->perokok === true ? 'checked' : ''; ?>>
+                    Perokok aktif/pasif *
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <input type="checkbox" <?php echo $pengkajian->hambatan->fisiologis === true ? 'checked' : ''; ?>>
+                    Secara Fisiologis tdk mampu belajar
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>f.</td>
+            <td>Agama</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->agama === 'Islam' ? 'checked' : ''; ?>>
+              Islam
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->agama === 'Protestan' ? 'checked' : ''; ?>>
+              Protestan
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->agama === 'Katolik' ? 'checked' : ''; ?>>
+              Katolik
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->agama === 'Hindu' ? 'checked' : ''; ?>>
+              Hindu
+            </td>
+          </tr>
+          <tr>
+            <td>g.</td>
+            <td colspan="4">Nilai-nilai/ Keyakinan/ kepercayaan/ pantangan pada pasien :</td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->nilai_keyakinan->value === 'Tidak' ? 'checked' : ''; ?>>
+              Tidak
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->nilai_keyakinan->value === 'Ya' ? 'checked' : ''; ?>>
+              Ya <?= $pengkajian->nilai_keyakinan->isian ? " : {$pengkajian->nilai_keyakinan->isian}" : '' ?>
+            </td>
+          </tr>
+          <tr>
+            <td>h.</td>
+            <td>Cara Edukasi</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->cara_edukasi === 'Lisan' ? 'checked' : ''; ?>>
+              Lisan
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->cara_edukasi === 'Tulisan' ? 'checked' : ''; ?>>
+              Tulisan
+            </td>
+          </tr>
+          <tr>
+            <td>i.</td>
+            <td>Kesediaan menerima informasi</td>
+            <td>:</td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->kesediaan->value === 'Ya' ? 'checked' : ''; ?>>
+              Ya
+            </td>
+            <td>
+              <input type="checkbox" <?php echo $pengkajian->kesediaan->value === 'Tidak' ? 'checked' : ''; ?>>
+              Tidak <?= $pengkajian->kesediaan->isian ? " : {$pengkajian->kesediaan->isian}" : '' ?>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5"><i>*Diisi Oleh Petugas Admisi</i></td>
+          </tr>
+        </table>
+      </td>
+      <td style=" width: 18%">
+        <table class="mini-table">
+          <tr>
+            <td>
+              Metode: <br>
+              1 = Audio <br>
+              2 = Demontrasi <br>
+              3 = Lisan <br>
+              4 = Tulisan <br>
+              5 = Visualisasi
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              Evaluasi Respon: <br>
+              1 = Tidak Mengerti <br>
+              2 = Menyatakan Paham <br>
+              3 = Mampu menjelaskan <br>
+              4 = Mampu demontrasi / simulasi
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              Tingkat pemahaman: <br>
+              1 = Edukasi pertama <br>
+              2 = Re – edukasi ke 2/3 atau lebih
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table class="mini-table">
+          <tr>
+            <th colspan="2">Kebutuhan Edukasi</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->kondisi_kesehatan === true ? 'checked' : '');
+              ?>> Kondisi kesehatan, diagnosa pasti dan penatalaksanaannya
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->inform_consent === true ? 'checked' : '');
+              ?>> Proses pemberian Informed Consent
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->hak_partisipasi === true ? 'checked' : '');
+              ?>> Hak untuk berpatisipasi pada proses pelayanan
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->diet === true ? 'checked' : '');
+              ?>> Diet dan Nutrisi
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->p_pemeriksaan === true ? 'checked' : '');
+              ?>> Prosedur pemeriksaan
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->nyeri === true ? 'checked' : '');
+              ?>> Manajemen Nyeri
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->alat_medis === true ? 'checked' : '');
+              ?>> Penggunaan alat medis yang aman
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->cuci_tangan === true ? 'checked' : '');
+              ?>> Cuci tangan yang benar
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->rehabilitasi === true ? 'checked' : '');
+              ?>> Teknik rehabilitasi
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->merokok === true ? 'checked' : '');
+              ?>> Bahaya Merokok
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->obat_efektif === true ? 'checked' : '');
+              ?>> Penggunaan obat secara efektif dan aman, efek samping serta interaksinya
+            </td>
+            <td>
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->rujukan_edukasi === true ? 'checked' : '');
+              ?>> Rujukan Edukasi
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="checkbox" <?php echo ($pengkajian->kebutuhan->lainnya === true ? 'checked' : '');
+              ?>> Lain –lain  <?= $pengkajian->kebutuhan->isi_lainnya ? " : {$pengkajian->kebutuhan->isi_lainnya}" : '' ?>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table class="mini-table">
+          <tr>
+            <th colspan="2">Catatan:</th>
+          </tr>
+          <tr>
+            <td width="1%">1.</td>
+            <td>
+              Pemberi edukasi adalah semua petugas rumah sakit yang melayani pasien ( Dokter, perawat, bidan, ahli gizi,
+              apoteker, fisioterapis, radiographer dan tenaga kesehatan lainnya)
+            </td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td>
+              Edukasi diberikan sesuai kebutuhan pasien berdasarkan pengkajian awal pasien dan rencana penanganan pasien
+              assesmen data pasien diisi oleh perawat
+            </td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>
+              Pemberian edukasi dicatat kemudian dibubuhi tanda tangan dan nama jelas pemberi edukasi serta tandatangani
+              pasien / keluarga
+            </td>
+          </tr>
+      </td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <div class="pagebreak">
+      
+  </div>
+  <table>
+    <tr style="text-align: center; font-weight: bold">
+      <td rowspan="2" style="vertical-align: middle;">Hari/ Tanggal/ Jam</td>
+      <td rowspan="2" style="vertical-align: middle;">Metode</td>
+      <td rowspan="2" style="vertical-align: middle;">Profesi/ Perihal</td>
+      <td rowspan="2" style="vertical-align: middle;">Materi Pendidikan</td>
+      <td rowspan="2" style="vertical-align: middle;">Estimasi Waktu</td>
+      <td rowspan="2" style="vertical-align: middle;">Tingkat Pemaham an</td>
+      <td rowspan="2" style="vertical-align: middle;">Evaluasi Respon</td>
+      <td colspan="2" style="vertical-align: middle;">Nama & Tanda Tangan</td>
+    </tr>
+    <tr style="text-align: center; font-weight: bold">
+      <td style="vertical-align: middle;">Pasien/ Keluarga</td>
+      <td style="vertical-align: middle;">Pemberi Edukasi</td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->dokter->hari ? "{$edukasiData->dokter->hari} / " : '' ?>
+            <?= $edukasiData->dokter->tanggal_indo ? "{$edukasiData->dokter->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->dokter->jam ? "{$edukasiData->dokter->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->dokter->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Penjelasan penyakit, penyebab tanda & gejala, penatalaksana
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Hasil Pemeriksaan dan pengobatan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Tindakan Medis ( Operasi )
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Perkiraan hari Rawat
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Penjelasan Komplikasi yang mungkin terjadi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Penjelasan tentang Informed Consent
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->dokter->no_7 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->dokter->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->dokter->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->dokter->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_1 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->dokter->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_2 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->dokter->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->mpp->hari ? "{$edukasiData->mpp->hari} / " : '' ?>
+            <?= $edukasiData->mpp->tanggal_indo ? "{$edukasiData->mpp->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->mpp->jam ? "{$edukasiData->mpp->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->mpp->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->mpp->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Pelayanan Pasien Pulang dengan masalah Kompleks
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->mpp->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Edukasi Pasien dengan perawatan lanjutan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->mpp->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Pelayanan pasien rujuk
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->mpp->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->mpp->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->mpp->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->mpp->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_3 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->mpp->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_4 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->mpp->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->bidan->hari ? "{$edukasiData->bidan->hari} / " : '' ?>
+            <?= $edukasiData->bidan->tanggal_indo ? "{$edukasiData->bidan->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->bidan->jam ? "{$edukasiData->bidan->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->bidan->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Pendidikan Kesehatan Tentang : <?= $edukasiData->bidan->no_1_isian ?>
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Hasil Asuhan perawatan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Penanganan & cara perawatan di rumah
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Perawatan Luka
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Alat-alat yang perlu disiapkan di rumah
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Informasi pasien baru
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_7 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Penggunaan peralatan medis yang aman (infus pump, siringe pump, injeksi insulin, dsb)
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->bidan->no_8 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Lain-lain : <?= $edukasiData->bidan->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->bidan->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->bidan->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_5 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->bidan->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_6 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->bidan->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->kebersihan->hari ? "{$edukasiData->kebersihan->hari} / " : '' ?>
+            <?= $edukasiData->kebersihan->tanggal_indo ? "{$edukasiData->kebersihan->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->kebersihan->jam ? "{$edukasiData->kebersihan->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->kebersihan->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Cara cuci tangan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Etika Batuk
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Cara Buang sampah medis dan non medis
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Tempat Toileting
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Bahaya merokok
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->kebersihan->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->kebersihan->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->kebersihan->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->kebersihan->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_7 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->kebersihan->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_8 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->kebersihan->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->farmasis->hari ? "{$edukasiData->farmasis->hari} / " : '' ?>
+            <?= $edukasiData->farmasis->tanggal_indo ? "{$edukasiData->farmasis->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->farmasis->jam ? "{$edukasiData->farmasis->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->farmasis->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Nama Obat dan Kegunaannya
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Aturan pemakaian obat & dosis
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Kontraindikasi obat & efek samping obat
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Aturan & cara pemakaian obat high alert
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Efek samping dan interaksi obat high alert
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->farmasis->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->farmasis->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->farmasis->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->farmasis->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_9 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->farmasis->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_10 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->farmasis->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->nutrisionis->hari ? "{$edukasiData->nutrisionis->hari} / " : '' ?>
+            <?= $edukasiData->nutrisionis->tanggal_indo ? "{$edukasiData->nutrisionis->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->nutrisionis->jam ? "{$edukasiData->nutrisionis->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->nutrisionis->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Diet dan Nutrisi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Konsultasi gizi rawat inap
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Konsultasi gizi rawat jalan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Diet selama perawatan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Diet untuk dirumah
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Alergi Makanan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nutrisionis->no_7 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->nutrisionis->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->nutrisionis->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nutrisionis->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_11 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->nutrisionis->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_12 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->nutrisionis->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->nyeri->hari ? "{$edukasiData->nyeri->hari} / " : '' ?>
+            <?= $edukasiData->nyeri->tanggal_indo ? "{$edukasiData->nyeri->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->nyeri->jam ? "{$edukasiData->nyeri->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->nyeri->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Farmakologi : Obat oral / Injeksi / sedasi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Non Farmakologi : Latihan nafas dalam
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Non Farmakologi : Distraksi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Pengalihan Perhatian
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Evaluasi Nyeri sesuai derajat
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->nyeri->no_6 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->nyeri->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->nyeri->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->nyeri->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_13 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->nyeri->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_14 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->nyeri->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->medik->hari ? "{$edukasiData->medik->hari} / " : '' ?>
+            <?= $edukasiData->medik->tanggal_indo ? "{$edukasiData->medik->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->medik->jam ? "{$edukasiData->medik->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->medik->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medik->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Fisioterapi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medik->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Okupasi Terapi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medik->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Terapi Wicara
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medik->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Ortotik Prostetik
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medik->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->medik->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->medik->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medik->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_15 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->medik->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_16 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->medik->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->medis->hari ? "{$edukasiData->medis->hari} / " : '' ?>
+            <?= $edukasiData->medis->tanggal_indo ? "{$edukasiData->medis->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->medis->jam ? "{$edukasiData->medis->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->medis->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medis->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Persiapan Pemeriksaan radiodiagnostik
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medis->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Pengawasan diri selama dan setelah radiasi Persiapan pemeriksaan darah / urine / dan sampel lainnya
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->medis->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->medis->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->medis->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->medis->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_17 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->medis->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_18 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->medis->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->rohaniawan->hari ? "{$edukasiData->rohaniawan->hari} / " : '' ?>
+            <?= $edukasiData->rohaniawan->tanggal_indo ? "{$edukasiData->rohaniawan->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->rohaniawan->jam ? "{$edukasiData->rohaniawan->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->rohaniawan->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->rohaniawan->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Bimbingan Rohani
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->rohaniawan->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Konseling spiritual akhir hayat
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->rohaniawan->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Bimbingan Ibadah
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->rohaniawan->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Doa
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->rohaniawan->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->rohaniawan->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->rohaniawan->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->rohaniawan->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_19 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->rohaniawan->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_20 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->rohaniawan->pemberi_edu ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <?= $edukasiData->lain_lain->hari ? "{$edukasiData->lain_lain->hari} / " : '' ?>
+            <?= $edukasiData->lain_lain->tanggal_indo ? "{$edukasiData->lain_lain->tanggal_indo} / " : '' ?>
+            <?= $edukasiData->lain_lain->jam ? "{$edukasiData->lain_lain->jam} WIB " : '' ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->metode === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->metode === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->metode === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->metode === "4" ? 'checked' : '' ); ?>"> 4 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->metode === "5" ? 'checked' : '' ); ?>"> 5 </div>
+        </td>
+        <td>
+            <?= $edukasiData->lain_lain->profesi ?>
+        </td>
+        <td>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->lain_lain->no_1 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Hak dan Kewajiban Pasien
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->lain_lain->no_2 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Jam Konsultasi
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->lain_lain->no_3 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Tata tertib dan fasilitas RS
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->lain_lain->no_4 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    Informasi kejadian yang tidak diharapkan
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <input type="checkbox" <?php echo ($edukasiData->lain_lain->no_5 === true ? 'checked' : ''); ?>>
+                </div>
+                <div>
+                    <?= $edukasiData->lain_lain->no_isian ?>
+                </div>
+            </div>
+        </td>
+        <td>
+            <?= $edukasiData->lain_lain->estimasi ?>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->pemahaman === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->pemahaman === "2" ? 'checked' : '' ); ?>"> 2 </div>
+        </td>
+        <td align="center">
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->evaluasi === "1" ? 'checked' : '' ); ?>"> 1 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->evaluasi === "2" ? 'checked' : '' ); ?>"> 2 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->evaluasi === "3" ? 'checked' : '' ); ?>"> 3 </div>
+            <div class="kotak-nomor <?php echo ($edukasiData->lain_lain->evaluasi === "4" ? 'checked' : '' ); ?>"> 4 </div>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_21 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->lain_lain->pasien_edu ?>
+        </td>
+        <td>
+            <div style="text-align: center; vertical-align:middle">
+                <img src="<?php echo $params->paraf->ttd_22 ?>" width="100%" height="50px" >
+            </div>
+            <?= $edukasiData->lain_lain->pemberi_edu ?>
+        </td>
+    </tr>
     
-    <!--Table Info-->
-    <table class="tabel-info table-bordered">
-        <tr>
-            <td align="center" width="50%">
-                <h3>
-                    <b>RINGKASAN MASUK KELUAR</b>
-                </h3>
-            </td>
-            <td width="50%" style="padding: 10px">
-                <table class="table-borderless">
-                    <tr>
-                        <td width="30%">Nama</td>
-                        <td width="3%">:</td>
-                        <td width="67%"><?= $params->pasien->nama ?? "" ?></td>
-                    </tr>
-                    <tr>
-                        <td>No. RM</td>
-                        <td>:</td>
-                        <td><?= $params->pasien->no_rm ?? "" ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tgl Lahir/Umur</td>
-                        <td>:</td>
-                        <td>
-                            <?php
-                            $tgl_lahir = clean_date($params->pasien->tanggal_lahir_indo ?? ($params->pasien->tanggal_lahir ?? ''));
-                            $umur_val = $params->pasien->umur ?? '';
-                            $umur_clean = (!empty($umur_val) && stripos((string)$umur_val, 'NaN') === false && stripos((string)$umur_val, 'undefined') === false) ? $umur_val . ' Tahun' : '';
-                            if (!empty($tgl_lahir) && !empty($umur_clean)) {
-                                echo $tgl_lahir . ' / ' . $umur_clean;
-                            } elseif (!empty($tgl_lahir)) {
-                                echo $tgl_lahir;
-                            } elseif (!empty($umur_clean)) {
-                                echo $umur_clean;
-                            } else {
-                                echo '';
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Kelamin</td>
-                        <td>:</td>
-                        <td>
-                            <?= ($params->pasien->kelamin ?? '') === 'Laki-laki' ? 'Laki-laki' : (($params->pasien->kelamin ?? '') === 'Perempuan' ? 'Perempuan' : ($params->pasien->kelamin ?? '')) ?>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+  </table>
 
-
-        <table class="table-bordered">
-            <tr>
-                <td width="50%">
-                    Tanggal Kedatangan : <?= clean_date($params->tanggal_datang_indo ?? ($params->tanggal_datang ?? '')) ?>
-                </td>
-                <td width="50%">
-                    Waktu Pemeriksaan: <?= clean_time($params->waktu_pemeriksaan ?? '') ?>
-                </td>
-            </tr>
-        </table>
-
-        <table class="border-left border-right border-bottom">
-            <!--Penididkan-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;" width="23%"><b>Pendidikan Pasien</b></td>
-                <td style="padding-left: 10px;padding-right: 10px" width="77%"><?= $params->pasien->pendidikan ?? "" ?></td>
-            </tr>
-            <!--Perkawinan-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Status Perkawinan</b></td>
-                <td style="padding-left: 10px;padding-right: 10px"><?= $params->status_kawin ?? "" ?></td>
-            </tr>
-            <!--Pekerjaan-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Status Pekerjaan</b></td>
-                <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word"><?= $params->pasien->pekerjaan ?? "" ?></td>
-            </tr>
-            <!--Agama-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Agama</b></td>
-                <td style="padding-left: 10px;padding-right: 10px;"><?= $params->pasien->agama ?? "" ?></td>
-            </tr>
-            <!--Suku-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Suku Bangsa</b></td>
-                <td style="padding-left: 10px;padding-right: 10px"><?= $params->suku_bangsa ?? "" ?></td>
-            </tr>
-            <!--Penerjemah-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Penerjemah</b></td>
-                <td style="padding-right: 10px">
-                    <div style="display: flex; flex-wrap: wrap;">
-                        <label style="margin-left: 10px; margin-right: 19px;white-space: normal; word-break: break-word">
-                            <input type="checkbox" <?= ($params->penerjemah->bahasa ?? '') === 'Tidak' ? 'checked' : '' ?>>
-                            Tidak
-                        </label>
-                        <label>
-                            <input type="checkbox" <?= ($params->penerjemah->bahasa ?? '') === 'Ya' ? 'checked' : '' ?>>
-                            <span>Ya, Bahasa </span>
-                            <span>
-                                <?= $params->penerjemah->bahasa_apa ?? "" ?>
-                            </span>
-                        </label>
-                    </div>
-                </td>
-            </tr>
-            <!--Kendala-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;"><b>Kendala komunikasi</b></td>
-                <td style="padding-right: 10px; padding-left: 10px;">
-                    <table class="table-borderless">
-                        <tr>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Pendengaran' ? 'checked' : '' ?>> Pendengaran
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Penglihatan' ? 'checked' : '' ?>> Penglihatan
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->kendala_komunikasi ?? '') === 'Bicara' ? 'checked' : '' ?>> Bicara
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <!--Alat Bantu-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;padding-right: 10px;"><b>Alat
-                        Bantu</b></td>
-                <td style="padding-right: 10px; padding-left: 10px;">
-                    <table class="table-borderless">
-                        <tr>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Kursi Roda' ? 'checked' : '' ?>> Kursi Roda
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Brankar' ? 'checked' : '' ?>> Brankar
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->alat_bantu ?? '') === 'Kruk' ? 'checked' : '' ?>> Kruk
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <!--Rujukan-->
-            <tr>
-                <td class="border-right" style="align-text: top; padding-left: 10px;"><b>Rujukan Dari</b></td>
-                <td style="padding-right: 10px; padding-left: 10px">
-                    <table class="table-borderless">
-                        <tr>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Klinik Dokter' ? 'checked' : '' ?>> Klinik Dokter
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Puskesmas' ? 'checked' : '' ?>> Puskesmas
-                            </td>
-                            <td width="33.34%">
-                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Rumah Sakit' ? 'checked' : '' ?>> Rumah Sakit
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <input type="checkbox" <?= ($params->rujukan->rujukan_dari ?? '') === 'Lainnya' ? 'checked' : '' ?>> Lainnya,
-                                <span>
-                                    <?= $params->rujukan->rujukan_dari_lainnya ?? "" ?>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <!--Status Pembiayaan-->
-            <tr>
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Status
-                        Pembiayaan</b></td>
-                <td style="padding-left: 10px;"><?= $params->status_pembiayaan ?? "" ?></td>
-            </tr>
-        </table>
-
-    <!--Keluarga & Pembayar-->
-        <!--Keluarga Terdekat-->
-        <table class="border-left border-right">
-            <tr>
-                <td style="padding-left: 10px;"><b>KELUARGA TERDEKAT :</b></td>
-            </tr>
-        </table>
-        <table class="border-left border-right">
-            <tr>
-                <td width="8%;" style="padding-left: 10px;" valign="top">Nama</td>
-                <td width="1%;" valign="top">:</td>
-                <td width="20%;" valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->keluarga->nama ?? "" ?>
-                </td>
-                <td width="10%;" valign="top">Hubungan:</td>
-                <td width="33%;" valign="top">
-                    <?php
-                    $options = ['Ayah', 'Ibu', 'Sdr Kandung'];
-                    $selected = $params->keluarga->hubungan_pasien->hubungan ?? '';
-                    $lainnya = $params->keluarga->hubungan_pasien->hubungan_lainnya ?? '';
-
-                    echo displayHubungan($selected, $options, $lainnya);
-                    ?>
-                </td>
-                <td width="12%;" valign="top"></td>
-                <td width="16%;" valign="top">
-
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-left: 10px;" valign="top">Pekerjaan</td>
-                <td valign="top">:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->keluarga->pekerjaan ?? "" ?>
-                </td>
-                <td valign="top">Alamat:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->keluarga->alamat ?? "" ?>
-                </td>
-                <td valign="top">No. Telp/HP:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->keluarga->no_hp ?? "" ?>
-                </td>
-            </tr>
-        </table>
-
-        <!--PJ Pembayaran-->
-        <table class="border-left border-right">
-            <tr>
-                <td style="padding-left: 10px;"><b>PENANGGUNG JAWAB PEMBAYARAN :</b></td>
-            </tr>
-        </table>
-        <table class="border-left border-right border-bottom">
-            <tr>
-                <td width="8%;" style="padding-left: 10px;" valign="top">Nama</td>
-                <td width="1%;" valign="top">:</td>
-                <td width="20%;" valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->pembayaran->nama ?? "" ?>
-                </td>
-                <td width="10%;" valign="top">Hubungan:</td>
-                <td width="33%;" valign="top"><?= $params->pembayaran->hubungan ?? "" ?></td>
-                <td width="12%;" valign="top"></td>
-                <td width="16%;" valign="top"></td>
-            </tr>
-            <tr>
-                <td style="padding-left: 10px;" valign="top">Pekerjaan</td>
-                <td valign="top">:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->pembayaran->pekerjaan ?? "" ?>
-                </td>
-                <td valign="top">Alamat:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->pembayaran->alamat ?? "" ?>
-                </td>
-                <td valign="top">No. Telp/HP:</td>
-                <td valign="top" style="white-space: normal; word-break: break-word;">
-                    <?= $params->pembayaran->no_hp ?? "" ?>
-                </td>
-            </tr>
-        </table>
-    <!--Keluarga & Pembayar END-->
-
-    <!--Rawat Inap-->
-    <table class="border-left border-right border-bottom">
-        <thead>
-            <tr>
-                <td style="padding-left: 10px;padding: 10px;" align="center" class="border-right border-bottom"><b>Riwayat Rawat Inap</b></td>
-                <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Masuk RS</b></td>
-                <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Keluar RS</b></td>
-                <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Lama Rawat</b></td>
-                <td style="padding: 10px;" class="border-right border-bottom" align="center"><b>Ruang Rawat</b></td>
-                <td style="padding: 10px;" class="border-bottom" align="center"><b>Kelas Perawatan</b></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding-left: 10px;" class="border-right" valign="top">
-                    <div class="riwayat">
-                        <div style="margin-bottom: 5px;">
-                            <span>
-                                Rawat inap ke :
-                                <?php
-                                $options = ['1', '2', '3', '4', '5', '6', '7'];
-                                $selected = $params->rawat_inap->inap_ke ?? '';
-                                $lainnya = $params->rawat_inap->inap_ke_lainnya ?? '';
-
-                                echo displayInapKe($selected, $options, $lainnya);
-                                ?>
-                            </span>
-                        </div>
-                        <div style="margin-bottom: 5px;">
-                            <span>
-                                Dirawat terakhir tgl : <?= clean_date($params->rawat_inap->rawat_terakhir_tanggal_indo ?? ($params->rawat_inap->rawat_terakhir_tanggal ?? '')) ?>
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Di Ruang : <?= $params->pasien->ruang ?? "" ?>
-                            </span>
-                        </div>
-                    </div>
-                </td>
-                <td style="padding-left: 10px;" class="border-right" valign="top">
-                    <div class="masuk">
-                        <div style="margin-bottom: 5px;">
-                            <span>Tanggal :</span>
-                            <span style="display: block;">
-                                <?= clean_date($params->masuk_tanggal_indo ?? ($params->masuk_tanggal ?? '')) ?>
-                            </span>
-                        </div>
-                        <div>
-                            <span>Waktu :</span>
-                            <span style="display: block;" align="center">
-                                <?= clean_time($params->waktu_masuk ?? '') ?>
-                            </span>
-                        </div>
-                    </div>
-                </td>
-                <td style="padding-left: 10px;" class="border-right" valign="top">
-                    <div class="keluar">
-                        <div style="margin-bottom: 5px;">
-                            <span>Tanggal :</span>
-                            <span style="display: block;">
-                                <?= clean_date($params->keluar_tanggal_indo ?? ($params->keluar_tanggal ?? '')) ?>
-                            </span>
-                        </div>
-                        <div>
-                            <span>Waktu :</span>
-                            <span style="display: block;" align="center">
-                                <?= clean_time($params->waktu_keluar ?? '') ?>
-                            </span>
-                        </div>
-                    </div>
-                </td>
-                <td style="padding-left: 10px;" class="border-right" valign="top">
-                    <?= $params->lama_rawat ?? "" ?>
-                </td>
-                <td style="padding-left: 10px;" class="border-right" valign="top" align="center">
-                    <?= $params->ruang_rawat->ruang ?? "" ?>
-                </td>
-                <td style="padding-left: 10px;" valign="top" align="center">
-                    <?= $params->ruang_rawat->kelas ?? "" ?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <!--Rawat Inap END-->
-
-    <!--Pelayanan-->
-    <!--<table>-->
-        <table class="border-right border-left">
-            <tr>
-                <td align="center">
-                    <h4><b>PELAYANAN</b></h4>
-                </td>
-            </tr>
-        </table>
-        <table class="table-bordered">
-            <thead>
-                <tr>
-                    <td width="40%" align="center"><b>Prioritas Pelayanan</b></td>
-                    <td width="30%" align="center"><b>Jenis Pelayanan</b></td>
-                    <td width="30%" align="center"><b>Staf Medis Fungsional</b></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding-left: 10px;padding-right: 10px;">
-                        <table class="table-borderless">
-                            <tr>
-                                <td>
-                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Promotif' ? 'checked' : '' ?>> Promotif
-                                </td>
-                                <td>
-                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Kuratif' ? 'checked' : '' ?>> Kuratif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Paliatif' ? 'checked' : '' ?>> Paliatif
-                                </td>
-                                <td>
-                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Preventif' ? 'checked' : '' ?>> Preventif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input type="checkbox" <?= ($params->pelayanan->prioritas ?? '') === 'Rehabilitatif' ? 'checked' : '' ?>> Rehabilitatif
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word;"
-                        valign="top">
-                        <?= $params->pelayanan->jenis ?? "" ?>
-                    </td>
-                    <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word;"
-                        valign="top">
-                        <?= $params->pelayanan->staf ?? "" ?>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    <!--</table>-->
-    <!--Pelayanan END-->
-
-    <!-- Diagnosis Sementara -->
-        <table class="table-bordered">
-            <tr>
-                <td style="padding-left: 10px;padding-right: 10px;white-space: normal; word-break: break-word;"
-                    width="60%" valign="top">
-                    <span>
-                        Diagnosis Sementara :
-                    </span>
-                    <div style="padding-top: 5px;padding-left: 15px;padding-right: 10px;">
-                        <?php
-                        // Gabungkan diagnosa dari freetext dan autocomplete
-                        $diagnosa_banding = '';
-                        $last_number = 0;
-
-                        // Proses freetext jika ada
-                        if (!empty($params->diagnosa_banding_freetext)) {
-                            // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", (string)$params->diagnosa_banding_freetext), function ($line) {
-                                return trim($line) !== '';
-                            });
-
-                            // Gabungkan kembali dengan newline
-                            $diagnosa_banding = implode("\n", $lines);
-
-                            // Ekstrak nomor terakhir dari freetext
-                            foreach ($lines as $line) {
-                                if (preg_match('/^(\d+)\./', trim($line), $matches)) {
-                                    $current_number = (int) $matches[1];
-                                    if ($current_number > $last_number) {
-                                        $last_number = $current_number;
-                                    }
-                                }
-                            }
-                        }
-
-                        // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_banding_autocomplete) && is_iterable($params->diagnosa_banding_autocomplete)) {
-                            // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
-                            if (!empty($diagnosa_banding)) {
-                                $diagnosa_banding .= "\n";
-                            }
-
-                            foreach ($params->diagnosa_banding_autocomplete as $item) {
-                                $last_number++;
-                                $icd_x = $item->icd_x ?? '';
-                                $sebab = $item->nama_sebab_sakit ?? '';
-                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
-                                $diagnosa_banding .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
-                            }
-                            // Hapus newline ekstra di akhir
-                            $diagnosa_banding = trim($diagnosa_banding);
-                        }
-
-                        // Tampilkan hasil
-                        echo nl2br($diagnosa_banding);
-                        ?>
-                    </div>
-                </td>
-                <td style="padding-left: 10px;padding-right: 10px;" width="40%" valign="top">
-                    <label>Dokter Jaga/ DPJP :</label>
-                    <div align="center">
-                        <?php if (!empty($params->ttd_data->dokter_jaga_stroke)): ?>
-                            <img src="<?= $params->ttd_data->dokter_jaga_stroke ?>" class="tanda-tangan"
-                                style="display: block;margin-top: 10px">
-                        <?php endif; ?>
-                        <p style="margin-top: 10px">
-                            <?= $params->ttd_data->dokter_jaga ?? "" ?>
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    <!--Diagnosis Sementara END-->
-
-    <!--Keluar RS-->
-        <table class="border-left border-right border-bottom">
-            <tr>
-                <td style="padding-left: 10px;padding-right: 10px;" width="30%" valign="top">
-                    <b>Izin Keluar Rumah Sakit :</b>
-                </td>
-                <td class="border-right" valign="top">
-                    <table class="table-borderless">
-                        <tr>
-                            <td>
-                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Atas Persetujuan' ? 'checked' : '' ?>> Atas Persetujuan
-                            </td>
-                            <td>
-                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Atas Permintaan Sendiri' ? 'checked' : '' ?>> Atas Permintaan Sendiri
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Pindah Rumah Sakit Lain' ? 'checked' : '' ?>> Pindah Rumah Sakit Lain
-                            </td>
-                            <td>
-                                <input type="checkbox" <?= ($params->izin_keluar_rs ?? '') === 'Melarikan Diri' ? 'checked' : '' ?>> Melarikan Diri
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    <!--Keluar RS End-->
-
-    <!--Diagnosis Utama -- Morfologi Neoplasma/ Patologi Anatomi-->
-        <table class="border-left border-right">
-            <tr class="border-bottom">
-                <td class="border-right" style="padding-left: 10px;" width="23%" valign="top"><b>Diagnosis
-                        Utama</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word;" width="65%"
-                    valign="top">
-                    <div style="padding-top: 5px;padding-left: 15px;padding-right: 10px;">
-                        <?php
-                        // Gabungkan diagnosa dari freetext dan autocomplete
-                        $diagnosa_utama = '';
-                        $last_number = 0;
-
-                        // Proses freetext jika ada
-                        if (!empty($params->diagnosa_masuk_freetext)) {
-                            // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", (string)$params->diagnosa_masuk_freetext), function ($line) {
-                                return trim($line) !== '';
-                            });
-
-                            // Gabungkan kembali dengan newline
-                            $diagnosa_utama = implode("\n", $lines);
-
-                            // Ekstrak nomor terakhir dari freetext
-                            foreach ($lines as $line) {
-                                if (preg_match('/^(\d+)\./', trim($line), $matches)) {
-                                    $current_number = (int) $matches[1];
-                                    if ($current_number > $last_number) {
-                                        $last_number = $current_number;
-                                    }
-                                }
-                            }
-                        }
-
-                        // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_masuk_autocomplete) && is_iterable($params->diagnosa_masuk_autocomplete)) {
-                            // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
-                            if (!empty($diagnosa_utama)) {
-                                $diagnosa_utama .= "\n";
-                            }
-
-                            foreach ($params->diagnosa_masuk_autocomplete as $item) {
-                                $last_number++;
-                                $icd_x = $item->icd_x ?? '';
-                                $sebab = $item->nama_sebab_sakit ?? '';
-                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
-                                $diagnosa_utama .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
-                            }
-                            // Hapus newline ekstra di akhir
-                            $diagnosa_utama = trim($diagnosa_utama);
-                        }
-
-                        // Tampilkan hasil
-                        echo nl2br($diagnosa_utama);
-                        ?>
-                    </div>
-                </td>
-            </tr>
-            <tr class="border-bottom">
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Diagnosis Sekunder</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word" valign="top">
-                    <div style="padding-top: 5px;padding-left: 15px;padding-right: 10px;">
-                        <?php
-                        // Gabungkan diagnosa dari freetext dan autocomplete
-                        $diagnosa_sekunder = '';
-                        $last_number = 0;
-
-                        // Proses freetext jika ada
-                        if (!empty($params->diagnosa_sekunder_freetext)) {
-                            // Bersihkan baris kosong di freetext
-                            $lines = array_filter(explode("\n", (string)$params->diagnosa_sekunder_freetext), function ($line) {
-                                return trim($line) !== '';
-                            });
-
-                            // Gabungkan kembali dengan newline
-                            $diagnosa_sekunder = implode("\n", $lines);
-
-                            // Ekstrak nomor terakhir dari freetext
-                            foreach ($lines as $line) {
-                                if (preg_match('/^(\d+)\./', trim($line), $matches)) {
-                                    $current_number = (int) $matches[1];
-                                    if ($current_number > $last_number) {
-                                        $last_number = $current_number;
-                                    }
-                                }
-                            }
-                        }
-
-                        // Proses autocomplete jika ada
-                        if (!empty($params->diagnosa_sekunder_autocomplete) && is_iterable($params->diagnosa_sekunder_autocomplete)) {
-                            // Jika sudah ada isi di freetext, tambahkan newline di awal untuk memisah
-                            if (!empty($diagnosa_sekunder)) {
-                                $diagnosa_sekunder .= "\n";
-                            }
-
-                            foreach ($params->diagnosa_sekunder_autocomplete as $item) {
-                                $last_number++;
-                                $icd_x = $item->icd_x ?? '';
-                                $sebab = $item->nama_sebab_sakit ?? '';
-                                $deskripsi = !empty($item->deskripsi) ? ' - ' . $item->deskripsi : '';
-                                $diagnosa_sekunder .= $last_number . '. ' . $icd_x . ' - ' . $sebab . $deskripsi . "\n";
-                            }
-                            // Hapus newline ekstra di akhir
-                            $diagnosa_sekunder = trim($diagnosa_sekunder);
-                        }
-
-                        // Tampilkan hasil
-                        echo nl2br($diagnosa_sekunder);
-                        ?>
-                    </div>
-                </td>
-            </tr>
-            <tr class="border-bottom">
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Komplikasi</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word;padding-left: 10px;"
-                    valign="top">
-                    <?= $params->komplikasi ?? "" ?>
-                </td>
-            </tr>
-            <tr class="border-bottom">
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Penyebab Ruda Paksa/
-                        Keracunan/ Kecelakaan</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word;padding-left: 10px;"
-                    valign="top">
-                    <?= $params->penyebab_ruda ?? "" ?>
-                </td>
-            </tr>
-            <tr class="border-bottom">
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Operasi/ Tindakan</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word;" valign="top">
-                    <div style="padding-top: 5px;padding-left: 15px;padding-right: 10px;">
-                        <?php
-                        echo nl2br($params->tindakan_group ?? "");
-                        ?>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="border-right" style="padding-left: 10px;" valign="top"><b>Morfologi Neoplasma/ Patologi
-                        Anatomi</b></td>
-                <td class="border-right" style="white-space: normal; word-break: break-word;padding-left: 10px;"
-                    valign="top">
-                    <?= $params->morfologi ?? "" ?>
-                </td>
-            </tr>
-        </table>
-    <!--Diagnosis Utama -- Morfologi Neoplasma/ Patologi Anatomi END-->
-
-    <!--CATATAn-->
-    <table class="table-bordered">
-        <tr>
-            <td valign="top" style="white-space: normal; word-break: break-word;padding-left: 10px;">
-                <span><b>Catatan :</b></span>
-                <div>
-                    <?= $params->catatan ?? "" ?>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <!--INFEKSi-->
-    <table class="border-left border-right border-bottom">
-        <tr>
-            <td class="border-right" style="white-space: normal; word-break: break-word;padding-left: 10px;"
-                width="50%" valign="top">
-                <span><b>Infeksi Nosokomial :</b></span>
-                <div>
-                    <?= $params->infeksi ?? "" ?>
-                </div>
-            </td>
-            <td style="white-space: normal; word-break: break-word;padding-left: 10px;" width="50%"
-                valign="top">
-                <span><b>Penyebab Infeksi Nosokomial :</b></span>
-                <div>
-                    <?= $params->penyebab_infeksi ?? "" ?>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-
-    <!--Imunisasi-->
-    <table class="border-left border-right">
-        <tr>
-            <td style="white-space: normal; word-break: break-word;padding-left: 10px;" width="35%"
-                valign="top">
-                <span><b>Riwayat Imunisasi :</b></span>
-                <div>
-                    <?= $params->riwayat_imunisasi_text ?? "" ?>
-                </div>
-            </td>
-            <td valign="top">
-                <table class="table-borderless">
-                    <tr>
-                        <td width="33.34%">
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'BCG' ? 'checked' : '' ?>> BCG
-                        </td>
-                        <td width="33.34%">
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Poliomielitis' ? 'checked' : '' ?>> Poliomielitis
-                        </td>
-                        <td width="33.34%">
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Campak' ? 'checked' : '' ?>> Campak
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'DPT' ? 'checked' : '' ?>> DPT
-                        </td>
-                        <td>
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Tetanus Toxoid' ? 'checked' : '' ?>> Tetanus Toxoid
-                        </td>
-                        <td>
-                            <input type="checkbox" <?= ($params->riwayat_imunisasi ?? '') === 'Hepatitis B' ? 'checked' : '' ?>> Hepatitis B
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <!--Tanda Tangan-->
-    <table class="table-bordered">
-        <thead>
-            <tr>
-                <td align="center"><b>KEADAAN KELUAR</b></td>
-                <td align="center"><b>Dokter Penanggung Jawab Pelayanan</b></td>
-                <td align="center"><b>Tanda Tangan</b></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td valign="top">
-                    <div style="display: flex; flex-wrap: wrap;">
-                        <div style="margin-right: 20px;">
-                            <div>
-                                <input type="checkbox" <?= ($params->keadaan_keluar ?? '') === 'Sembuh' ? 'checked' : '' ?>>
-                                Sembuh
-                            </div>
-                            <div>
-                                <input type="checkbox" <?= ($params->keadaan_keluar ?? '') === 'Membaik' ? 'checked' : '' ?>>
-                                Membaik
-                            </div>
-                            <div>
-                                <input type="checkbox"
-                                    <?= ($params->keadaan_keluar ?? '') === 'Belum Sembuh' ? 'checked' : '' ?>>
-                                Belum Sembuh
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <input type="checkbox"
-                                    <?= ($params->keadaan_keluar ?? '') === 'Mati sblm 48 jam' ? 'checked' : '' ?>>
-                                Mati &lt; 48 jam
-                            </div>
-                            <div>
-                                <input type="checkbox"
-                                    <?= ($params->keadaan_keluar ?? '') === 'Mati stlh 48 jam' ? 'checked' : '' ?>>
-                                Mati &gt; 48 jam
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td  align="center" style="padding: 8px;"><p><?= $params->ttd_data->dokter_pj ?? "" ?></p></td>
-                <td  align="center">
-                    <?php if (!empty($params->ttd_data->dokter_pj_stroke)): ?>
-                        <img src="<?= $params->ttd_data->dokter_pj_stroke ?>" class="tanda-tangan"
-                            style="display: block;">
-                    <?php endif; ?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <div align="right"><b>RI RM 15 / Rev.0 / 2022</b></div>
 </body>
 
 </html>
