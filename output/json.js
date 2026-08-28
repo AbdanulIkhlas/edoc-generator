@@ -3,8 +3,8 @@ const data = {
     "sample": {
         "index": 1,
         "paraf": {
-            "ttd_1": "",
-            "ttd_2": "",
+            "ttd_1": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABeUlEQVRYR91Y7RKDIAyT939oJ55wWNsmnZyr291+bGgb+pEGyrIs6/YNfdZVf6WUcrHTntXWGKfV4maDw9iceE7lmvUbgWu+3gXQSgMbBSbFKOVy/RTBvwMoNzTWslWvj0YwPcDWiTJa9f8UEXwcIMtNXldr0dQiyvqawoNec3hR9kCeiBrtRq570wJNkqivPYLRlx4FSA9iZxdW3UU3rj1f0gNkUsyyf4T/UK329fQAa4pncxdTe0ghdZpJD3BMMbsrT/Kj2mrRlTYs4aHyoPUyMhpJrZww5jDQmiQdQDa1Mj2apGJt0Qe18VSHuvknAO9MkoiitmrOa7id+NMDZCYJK7eYUSdtwZPkKwDSHXXcvbA0xPAiurO5Jfm/lfMj8BBAWA8igt5l0t2Rd5JbrN6LnHXTA7Tqjw1GLx9tkrC0wtwXIlvW+lSAoxOUWpYx3gkQ8RZKaY0Oog2kKS/rYw2mBYiARQqd1YNSulmkP+Xqg2kSVm7JMvoAukWg4LxkKQAAAAAASUVORK5CYII=",
+            "ttd_2": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACJElEQVRYR91Y0Y6DMAyD//9objAFecZ20wfu2E2aNAY0bmI7gXVZlu31jZ9te1+yrutSv+sYb9zP7dfsn/rdvdcB2Fd7reExIqgKXoshoAJV5xAo/ucAM8C6/wSogqusqcyl9KcM4jlXif8NkKnBHMVsJ04m6kxlkBdyvOuKZKrEVkWgXKViJ7C6tqvqoUgeDXDWBztZ6WRwFPfgcDRBWoGDoh+y/Sh+Jb+1FXw8wL2TsEl2soEKduoetUYVl2MfJcYAXBrlda60qk/zf+ka2R4ZIHqY4kUKqNqg87pUNezxlww+DmBxcFTa2vGonTnDTeur0p7xSsXJ25Bz3fFL9V4WFk86Ugt7BrHmvDDySvmYymjd0+VrzO5XAGTeuJ279uXUrvyR6aKOP1TcySACSCNXR0CKZ0wJvOYyDyoO/jnATttyzVyZc2phaYhQ1TmNeqS4pOZuq3SKR4/FZB0xnVF3s9Dp1cgx9ltVvYtIZkrMRn07QDUPcsnccbc9Jv4q6nwkgUvMfHDtSYmjM0qNwPL56ZH/QmJ6XxMJH65VbfRIgiqx26UcKO8GWCVOqe9Mxd3S8QQzUvj02y20gAKlgiouMz1GdDh90NUfd6d2+qsAuc24rKSuocrceSapzCoTn3p5xNaSgquJWg3GCE7Z1BRAVnFnvEKeMX872f0egMn73E5Vq+sMpIoq9tlmxgd55OdNJQtyjtDywZHJsqLds8YdAH8A1savChqgYDIAAAAASUVORK5CYII=",
             "ttd_3": "",
             "ttd_4": "",
             "ttd_5": "",
@@ -116,6 +116,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "bidan": {
@@ -139,6 +141,8 @@ const data = {
                 "no_1_isian": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "medik": {
@@ -158,6 +162,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "medis": {
@@ -175,6 +181,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "alifiya",
                 "pemberi_edu": "ACHIYYATUZ ZAKHIYAH KUSUMANING HAPSARI",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "nyeri": {
@@ -195,6 +203,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "dokter": {
@@ -214,8 +224,10 @@ const data = {
                 "evaluasi": "",
                 "no_isian": "",
                 "pemahaman": "",
-                "pasien_edu": "",
-                "pemberi_edu": "",
+                "pasien_edu": "alifiya",
+                "pemberi_edu": "ACHIYYATUZ ZAKHIYAH KUSUMANING HAPSARI",
+                "dpjp_verifikasi": "Admin Farmagitechs",
+                "dpjp_verifikasi_stroke": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACJElEQVRYR91Y0Y6DMAyD//9objAFecZ20wfu2E2aNAY0bmI7gXVZlu31jZ9te1+yrutSv+sYb9zP7dfsn/rdvdcB2Fd7reExIqgKXoshoAJV5xAo/ucAM8C6/wSogqusqcyl9KcM4jlXif8NkKnBHMVsJ04m6kxlkBdyvOuKZKrEVkWgXKViJ7C6tqvqoUgeDXDWBztZ6WRwFPfgcDRBWoGDoh+y/Sh+Jb+1FXw8wL2TsEl2soEKduoetUYVl2MfJcYAXBrlda60qk/zf+ka2R4ZIHqY4kUKqNqg87pUNezxlww+DmBxcFTa2vGonTnDTeur0p7xSsXJ25Bz3fFL9V4WFk86Ugt7BrHmvDDySvmYymjd0+VrzO5XAGTeuJ279uXUrvyR6aKOP1TcySACSCNXR0CKZ0wJvOYyDyoO/jnATttyzVyZc2phaYhQ1TmNeqS4pOZuq3SKR4/FZB0xnVF3s9Dp1cgx9ltVvYtIZkrMRn07QDUPcsnccbc9Jv4q6nwkgUvMfHDtSYmjM0qNwPL56ZH/QmJ6XxMJH65VbfRIgiqx26UcKO8GWCVOqe9Mxd3S8QQzUvj02y20gAKlgiouMz1GdDh90NUfd6d2+qsAuc24rKSuocrceSapzCoTn3p5xNaSgquJWg3GCE7Z1BRAVnFnvEKeMX872f0egMn73E5Vq+sMpIoq9tlmxgd55OdNJQtyjtDywZHJsqLds8YdAH8A1savChqgYDIAAAAASUVORK5CYII=",
                 "tanggal_indo": ""
             },
             "farmasis": {
@@ -236,6 +248,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "lain_lain": {
@@ -255,6 +269,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "kebersihan": {
@@ -275,6 +291,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "rohaniawan": {
@@ -294,6 +312,8 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             },
             "nutrisionis": {
@@ -315,12 +335,33 @@ const data = {
                 "pemahaman": "",
                 "pasien_edu": "",
                 "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": "",
                 "tanggal_indo": ""
             }
         },
+        "verfikator_nama": "verifikator nama test",
+        "verfikator_stroke": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACJElEQVRYR91Y0Y6DMAyD//9objAFecZ20wfu2E2aNAY0bmI7gXVZlu31jZ9te1+yrutSv+sYb9zP7dfsn/rdvdcB2Fd7reExIqgKXoshoAJV5xAo/ucAM8C6/wSogqusqcyl9KcM4jlXif8NkKnBHMVsJ04m6kxlkBdyvOuKZKrEVkWgXKViJ7C6tqvqoUgeDXDWBztZ6WRwFPfgcDRBWoGDoh+y/Sh+Jb+1FXw8wL2TsEl2soEKduoetUYVl2MfJcYAXBrlda60qk/zf+ka2R4ZIHqY4kUKqNqg87pUNezxlww+DmBxcFTa2vGonTnDTeur0p7xSsXJ25Bz3fFL9V4WFk86Ugt7BrHmvDDySvmYymjd0+VrzO5XAGTeuJ279uXUrvyR6aKOP1TcySACSCNXR0CKZ0wJvOYyDyoO/jnATttyzVyZc2phaYhQ1TmNeqS4pOZuq3SKR4/FZB0xnVF3s9Dp1cgx9ltVvYtIZkrMRn07QDUPcsnccbc9Jv4q6nwkgUvMfHDtSYmjM0qNwPL56ZH/QmJ6XxMJH65VbfRIgiqx26UcKO8GWCVOqe9Mxd3S8QQzUvj02y20gAKlgiouMz1GdDh90NUfd6d2+qsAuc24rKSuocrceSapzCoTn3p5xNaSgquJWg3GCE7Z1BRAVnFnvEKeMX872f0egMn73E5Vq+sMpIoq9tlmxgd55OdNJQtyjtDywZHJsqLds8YdAH8A1savChqgYDIAAAAASUVORK5CYII=",
         "external_link": {
+            "dokter_dpjp_data": {
+                "no_register": "1910250010",
+                "id_pasien": "00002248",
+                "id_pendaftaran": 225,
+                "id_layanan_pendaftaran": 276,
+                "id_dokter_dpjp": 634,
+                "nama_dokter_dpjp": "dr. Priyo Budi Santosa, Sp.A M.Kes",
+                "id_spesialis": 1,
+                "nama_spesialis": "Anak",
+                "id_profesi": 2,
+                "nama_profesi": "Dokter Spesialis",
+                "nip": "",
+                "no_sip": "",
+                "no_str": "",
+                "no_sik": "",
+                "ttd_image": "000002_682b2a74c336d.png"
+            },
             "px_data": {
-                "no_rm": "044330",
+                "no_rm": "00007659",
                 "nama": "ALIFIA NOOR ASMA ARSYANTI NN NN",
                 "kelamin": "P",
                 "tanggal_lahir": "2005-04-06",
@@ -548,7 +589,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "mpp": {
                 "hari": "",
@@ -566,7 +609,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "bidan": {
                 "hari": "",
@@ -589,7 +634,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "kebersihan": {
                 "hari": "",
@@ -609,7 +656,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "farmasis": {
                 "hari": "",
@@ -629,7 +678,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "nutrisionis": {
                 "hari": "",
@@ -650,7 +701,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "nyeri": {
                 "hari": "",
@@ -670,7 +723,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "medik": {
                 "hari": "",
@@ -689,7 +744,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "medis": {
                 "hari": "",
@@ -706,7 +763,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "rohaniawan": {
                 "hari": "",
@@ -725,7 +784,9 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             },
             "lain_lain": {
                 "hari": "",
@@ -744,8 +805,12 @@ const data = {
                 "pemahaman": "",
                 "evaluasi": "",
                 "pasien_edu": "",
-                "pemberi_edu": ""
+                "pemberi_edu": "",
+                "dpjp_verifikasi": "",
+                "dpjp_verifikasi_stroke": ""
             }
-        }
+        },
+        "verfikator_nama": "",
+        "verfikator_stroke": ""
     }
 }

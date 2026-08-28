@@ -3,6 +3,9 @@
   "title": "Generated schema for Root",
   "type": "object",
   "properties": {
+    "index": {
+      "type": "number"
+    },
     "paraf": {
       "type": "object",
       "properties": {
@@ -72,83 +75,81 @@
         "ttd_22": {
           "type": "string"
         }
-      },
-      "required": [
-        "ttd_1",
-        "ttd_2",
-        "ttd_3",
-        "ttd_4",
-        "ttd_5",
-        "ttd_6",
-        "ttd_7",
-        "ttd_8",
-        "ttd_9",
-        "ttd_10",
-        "ttd_11",
-        "ttd_12",
-        "ttd_13",
-        "ttd_14",
-        "ttd_15",
-        "ttd_16",
-        "ttd_17",
-        "ttd_18",
-        "ttd_19",
-        "ttd_20",
-        "ttd_21",
-        "ttd_22"
-      ]
+      }
     },
     "pasien": {
       "type": "object",
       "properties": {
-        "bangsal": {
-          "type": "string"
-        },
-        "ruang": {
-          "type": "string"
-        },
         "kelas": {
-          "type": "string"
-        },
-        "klinik": {
-          "type": "string"
-        },
-        "nama_pasien": {
           "type": "string"
         },
         "no_rm": {
           "type": "string"
         },
-        "tgl_lahir": {
+        "ruang": {
           "type": "string"
         },
-        "tgl_lahir_indo": {
+        "alamat": {
+          "type": "string"
+        },
+        "klinik": {
+          "type": "string"
+        },
+        "bangsal": {
           "type": "string"
         },
         "kelamin": {
           "type": "string"
         },
-        "alamat": {
+        "tgl_lahir": {
+          "type": "string"
+        },
+        "nama_pasien": {
+          "type": "string"
+        },
+        "tgl_lahir_indo": {
           "type": "string"
         }
-      },
-      "required": [
-        "bangsal",
-        "ruang",
-        "kelas",
-        "klinik",
-        "nama_pasien",
-        "no_rm",
-        "tgl_lahir",
-        "tgl_lahir_indo",
-        "kelamin",
-        "alamat"
-      ]
+      }
+    },
+    "drawings": {
+      "type": "object",
+      "properties": {
+        "ttd_1": {
+          "type": "object",
+          "properties": {
+            "lastX": {
+              "type": "number"
+            },
+            "lastY": {
+              "type": "number"
+            },
+            "brushSize": {
+              "type": "number"
+            },
+            "isDrawing": {
+              "type": "boolean"
+            },
+            "isErasing": {
+              "type": "boolean"
+            },
+            "brushColor": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "activeCard": {
+      "type": "string"
     },
     "pengkajian": {
       "type": "object",
       "properties": {
-        "tingkat_pendidikan": {
+        "baca": {
+          "type": "string"
+        },
+        "agama": {
           "type": "string"
         },
         "bahasa": {
@@ -157,24 +158,13 @@
             "value": {
               "type": "string"
             },
-            "isi_daerah": {
-              "type": "string"
-            },
             "isi_asing": {
               "type": "string"
+            },
+            "isi_daerah": {
+              "type": "string"
             }
-          },
-          "required": [
-            "value",
-            "isi_daerah",
-            "isi_asing"
-          ]
-        },
-        "penerjemah": {
-          "type": "string"
-        },
-        "baca": {
-          "type": "string"
+          }
         },
         "hambatan": {
           "type": "object",
@@ -182,25 +172,10 @@
             "value": {
               "type": "string"
             },
-            "g_pendengaran": {
-              "type": "boolean"
-            },
-            "g_emosional": {
-              "type": "boolean"
-            },
-            "g_penglihatan": {
+            "perokok": {
               "type": "boolean"
             },
             "g_bicara": {
-              "type": "boolean"
-            },
-            "motivasi_kurang": {
-              "type": "boolean"
-            },
-            "memori_hilang": {
-              "type": "boolean"
-            },
-            "fisik_lemah": {
               "type": "boolean"
             },
             "alkoholik": {
@@ -209,25 +184,88 @@
             "fisiologis": {
               "type": "boolean"
             },
-            "perokok": {
+            "fisik_lemah": {
+              "type": "boolean"
+            },
+            "g_emosional": {
+              "type": "boolean"
+            },
+            "g_pendengaran": {
+              "type": "boolean"
+            },
+            "g_penglihatan": {
+              "type": "boolean"
+            },
+            "memori_hilang": {
+              "type": "boolean"
+            },
+            "motivasi_kurang": {
               "type": "boolean"
             }
-          },
-          "required": [
-            "value",
-            "g_pendengaran",
-            "g_emosional",
-            "g_penglihatan",
-            "g_bicara",
-            "motivasi_kurang",
-            "memori_hilang",
-            "fisik_lemah",
-            "alkoholik",
-            "fisiologis",
-            "perokok"
-          ]
+          }
         },
-        "agama": {
+        "kebutuhan": {
+          "type": "object",
+          "properties": {
+            "diet": {
+              "type": "boolean"
+            },
+            "nyeri": {
+              "type": "boolean"
+            },
+            "lainnya": {
+              "type": "boolean"
+            },
+            "merokok": {
+              "type": "boolean"
+            },
+            "alat_medis": {
+              "type": "boolean"
+            },
+            "cuci_tangan": {
+              "type": "boolean"
+            },
+            "isi_lainnya": {
+              "type": "string"
+            },
+            "obat_efektif": {
+              "type": "boolean"
+            },
+            "rehabilitasi": {
+              "type": "boolean"
+            },
+            "p_pemeriksaan": {
+              "type": "boolean"
+            },
+            "inform_consent": {
+              "type": "boolean"
+            },
+            "hak_partisipasi": {
+              "type": "boolean"
+            },
+            "rujukan_edukasi": {
+              "type": "boolean"
+            },
+            "kondisi_kesehatan": {
+              "type": "boolean"
+            }
+          }
+        },
+        "kesediaan": {
+          "type": "object",
+          "properties": {
+            "isian": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "penerjemah": {
+          "type": "string"
+        },
+        "cara_edukasi": {
           "type": "string"
         },
         "agama_lainnya": {
@@ -236,222 +274,29 @@
         "nilai_keyakinan": {
           "type": "object",
           "properties": {
-            "value": {
-              "type": "string"
-            },
             "isian": {
               "type": "string"
+            },
+            "value": {
+              "type": "string"
             }
-          },
-          "required": [
-            "value",
-            "isian"
-          ]
+          }
         },
-        "cara_edukasi": {
+        "tingkat_pendidikan": {
           "type": "string"
-        },
-        "kesediaan": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            },
-            "isian": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value",
-            "isian"
-          ]
-        },
-        "kebutuhan": {
-          "type": "object",
-          "properties": {
-            "kondisi_kesehatan": {
-              "type": "boolean"
-            },
-            "hak_partisipasi": {
-              "type": "boolean"
-            },
-            "p_pemeriksaan": {
-              "type": "boolean"
-            },
-            "alat_medis": {
-              "type": "boolean"
-            },
-            "rehabilitasi": {
-              "type": "boolean"
-            },
-            "obat_efektif": {
-              "type": "boolean"
-            },
-            "inform_consent": {
-              "type": "boolean"
-            },
-            "diet": {
-              "type": "boolean"
-            },
-            "nyeri": {
-              "type": "boolean"
-            },
-            "cuci_tangan": {
-              "type": "boolean"
-            },
-            "merokok": {
-              "type": "boolean"
-            },
-            "rujukan_edukasi": {
-              "type": "boolean"
-            },
-            "lainnya": {
-              "type": "boolean"
-            },
-            "isi_lainnya": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "kondisi_kesehatan",
-            "hak_partisipasi",
-            "p_pemeriksaan",
-            "alat_medis",
-            "rehabilitasi",
-            "obat_efektif",
-            "inform_consent",
-            "diet",
-            "nyeri",
-            "cuci_tangan",
-            "merokok",
-            "rujukan_edukasi",
-            "lainnya",
-            "isi_lainnya"
-          ]
         }
-      },
-      "required": [
-        "tingkat_pendidikan",
-        "bahasa",
-        "penerjemah",
-        "baca",
-        "hambatan",
-        "agama",
-        "agama_lainnya",
-        "nilai_keyakinan",
-        "cara_edukasi",
-        "kesediaan",
-        "kebutuhan"
-      ]
-    },
-    "activeCard": {
-      "type": "string"
+      }
     },
     "edukasiData": {
       "type": "object",
       "properties": {
-        "dokter": {
-          "type": "object",
-          "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
-            "jam": {
-              "type": "string"
-            },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
-              "type": "string"
-            },
-            "no_1": {
-              "type": "boolean"
-            },
-            "no_2": {
-              "type": "boolean"
-            },
-            "no_3": {
-              "type": "boolean"
-            },
-            "no_4": {
-              "type": "boolean"
-            },
-            "no_5": {
-              "type": "boolean"
-            },
-            "no_6": {
-              "type": "boolean"
-            },
-            "no_7": {
-              "type": "boolean"
-            },
-            "no_isian": {
-              "type": "string"
-            },
-            "estimasi": {
-              "type": "string"
-            },
-            "pemahaman": {
-              "type": "string"
-            },
-            "evaluasi": {
-              "type": "string"
-            },
-            "pasien_edu": {
-              "type": "string"
-            },
-            "pemberi_edu": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_7",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
         "mpp": {
           "type": "object",
           "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
             "jam": {
               "type": "string"
             },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
+            "hari": {
               "type": "string"
             },
             "no_1": {
@@ -466,16 +311,25 @@
             "no_4": {
               "type": "boolean"
             },
-            "no_isian": {
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
-            "pemahaman": {
+            "evaluasi": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
               "type": "string"
             },
             "pasien_edu": {
@@ -483,53 +337,29 @@
             },
             "pemberi_edu": {
               "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
             }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
+          }
         },
         "bidan": {
           "type": "object",
           "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
             "jam": {
               "type": "string"
             },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
+            "hari": {
               "type": "string"
             },
             "no_1": {
               "type": "boolean"
-            },
-            "no_1_isian": {
-              "type": "string"
             },
             "no_2": {
               "type": "boolean"
@@ -552,16 +382,28 @@
             "no_8": {
               "type": "boolean"
             },
-            "no_isian": {
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
             "pemahaman": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_1_isian": {
               "type": "string"
             },
             "pasien_edu": {
@@ -569,51 +411,143 @@
             },
             "pemberi_edu": {
               "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_1_isian",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_7",
-            "no_8",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "kebersihan": {
-          "type": "object",
-          "properties": {
-            "hari": {
+            },
+            "dpjp_verifikasi": {
               "type": "string"
             },
-            "tanggal": {
+            "dpjp_verifikasi_stroke": {
               "type": "string"
             },
             "tanggal_indo": {
               "type": "string"
-            },
+            }
+          }
+        },
+        "medik": {
+          "type": "object",
+          "properties": {
             "jam": {
               "type": "string"
+            },
+            "hari": {
+              "type": "string"
+            },
+            "no_1": {
+              "type": "boolean"
+            },
+            "no_2": {
+              "type": "boolean"
+            },
+            "no_3": {
+              "type": "boolean"
+            },
+            "no_4": {
+              "type": "boolean"
+            },
+            "no_5": {
+              "type": "boolean"
             },
             "metode": {
               "type": "string"
             },
             "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
+              "type": "string"
+            },
+            "estimasi": {
+              "type": "string"
+            },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
+              "type": "string"
+            },
+            "pasien_edu": {
+              "type": "string"
+            },
+            "pemberi_edu": {
+              "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
+            }
+          }
+        },
+        "medis": {
+          "type": "object",
+          "properties": {
+            "jam": {
+              "type": "string"
+            },
+            "hari": {
+              "type": "string"
+            },
+            "no_1": {
+              "type": "boolean"
+            },
+            "no_2": {
+              "type": "boolean"
+            },
+            "no_3": {
+              "type": "boolean"
+            },
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
+              "type": "string"
+            },
+            "estimasi": {
+              "type": "string"
+            },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
+              "type": "string"
+            },
+            "pasien_edu": {
+              "type": "string"
+            },
+            "pemberi_edu": {
+              "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
+            }
+          }
+        },
+        "nyeri": {
+          "type": "object",
+          "properties": {
+            "jam": {
+              "type": "string"
+            },
+            "hari": {
               "type": "string"
             },
             "no_1": {
@@ -634,16 +568,25 @@
             "no_6": {
               "type": "boolean"
             },
-            "no_isian": {
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
-            "pemahaman": {
+            "evaluasi": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
               "type": "string"
             },
             "pasien_edu": {
@@ -651,127 +594,25 @@
             },
             "pemberi_edu": {
               "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "farmasis": {
-          "type": "object",
-          "properties": {
-            "hari": {
+            },
+            "dpjp_verifikasi": {
               "type": "string"
             },
-            "tanggal": {
+            "dpjp_verifikasi_stroke": {
               "type": "string"
             },
             "tanggal_indo": {
               "type": "string"
-            },
-            "jam": {
-              "type": "string"
-            },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
-              "type": "string"
-            },
-            "no_1": {
-              "type": "boolean"
-            },
-            "no_2": {
-              "type": "boolean"
-            },
-            "no_3": {
-              "type": "boolean"
-            },
-            "no_4": {
-              "type": "boolean"
-            },
-            "no_5": {
-              "type": "boolean"
-            },
-            "no_6": {
-              "type": "boolean"
-            },
-            "no_isian": {
-              "type": "string"
-            },
-            "estimasi": {
-              "type": "string"
-            },
-            "pemahaman": {
-              "type": "string"
-            },
-            "evaluasi": {
-              "type": "string"
-            },
-            "pasien_edu": {
-              "type": "string"
-            },
-            "pemberi_edu": {
-              "type": "string"
             }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
+          }
         },
-        "nutrisionis": {
+        "dokter": {
           "type": "object",
           "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
             "jam": {
               "type": "string"
             },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
+            "hari": {
               "type": "string"
             },
             "no_1": {
@@ -795,16 +636,25 @@
             "no_7": {
               "type": "boolean"
             },
-            "no_isian": {
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
-            "pemahaman": {
+            "evaluasi": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
               "type": "string"
             },
             "pasien_edu": {
@@ -812,49 +662,25 @@
             },
             "pemberi_edu": {
               "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_7",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "nyeri": {
-          "type": "object",
-          "properties": {
-            "hari": {
+            },
+            "dpjp_verifikasi": {
               "type": "string"
             },
-            "tanggal": {
+            "dpjp_verifikasi_stroke": {
               "type": "string"
             },
             "tanggal_indo": {
               "type": "string"
-            },
+            }
+          }
+        },
+        "farmasis": {
+          "type": "object",
+          "properties": {
             "jam": {
               "type": "string"
             },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
+            "hari": {
               "type": "string"
             },
             "no_1": {
@@ -875,92 +701,25 @@
             "no_6": {
               "type": "boolean"
             },
-            "no_isian": {
-              "type": "string"
-            },
-            "estimasi": {
-              "type": "string"
-            },
-            "pemahaman": {
-              "type": "string"
-            },
-            "evaluasi": {
-              "type": "string"
-            },
-            "pasien_edu": {
-              "type": "string"
-            },
-            "pemberi_edu": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_6",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "medik": {
-          "type": "object",
-          "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
-            "jam": {
-              "type": "string"
-            },
             "metode": {
               "type": "string"
             },
             "profesi": {
               "type": "string"
             },
-            "no_1": {
-              "type": "boolean"
-            },
-            "no_2": {
-              "type": "boolean"
-            },
-            "no_3": {
-              "type": "boolean"
-            },
-            "no_4": {
-              "type": "boolean"
-            },
-            "no_5": {
-              "type": "boolean"
-            },
-            "no_isian": {
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
-            "pemahaman": {
+            "evaluasi": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
               "type": "string"
             },
             "pasien_edu": {
@@ -968,189 +727,25 @@
             },
             "pemberi_edu": {
               "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "medis": {
-          "type": "object",
-          "properties": {
-            "hari": {
+            },
+            "dpjp_verifikasi": {
               "type": "string"
             },
-            "tanggal": {
+            "dpjp_verifikasi_stroke": {
               "type": "string"
             },
             "tanggal_indo": {
               "type": "string"
-            },
-            "jam": {
-              "type": "string"
-            },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
-              "type": "string"
-            },
-            "no_1": {
-              "type": "boolean"
-            },
-            "no_2": {
-              "type": "boolean"
-            },
-            "no_3": {
-              "type": "boolean"
-            },
-            "no_isian": {
-              "type": "string"
-            },
-            "estimasi": {
-              "type": "string"
-            },
-            "pemahaman": {
-              "type": "string"
-            },
-            "evaluasi": {
-              "type": "string"
-            },
-            "pasien_edu": {
-              "type": "string"
-            },
-            "pemberi_edu": {
-              "type": "string"
             }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
-        },
-        "rohaniawan": {
-          "type": "object",
-          "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
-            "jam": {
-              "type": "string"
-            },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
-              "type": "string"
-            },
-            "no_1": {
-              "type": "boolean"
-            },
-            "no_2": {
-              "type": "boolean"
-            },
-            "no_3": {
-              "type": "boolean"
-            },
-            "no_4": {
-              "type": "boolean"
-            },
-            "no_5": {
-              "type": "boolean"
-            },
-            "no_isian": {
-              "type": "string"
-            },
-            "estimasi": {
-              "type": "string"
-            },
-            "pemahaman": {
-              "type": "string"
-            },
-            "evaluasi": {
-              "type": "string"
-            },
-            "pasien_edu": {
-              "type": "string"
-            },
-            "pemberi_edu": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
+          }
         },
         "lain_lain": {
           "type": "object",
           "properties": {
-            "hari": {
-              "type": "string"
-            },
-            "tanggal": {
-              "type": "string"
-            },
-            "tanggal_indo": {
-              "type": "string"
-            },
             "jam": {
               "type": "string"
             },
-            "metode": {
-              "type": "string"
-            },
-            "profesi": {
+            "hari": {
               "type": "string"
             },
             "no_1": {
@@ -1168,16 +763,25 @@
             "no_5": {
               "type": "boolean"
             },
-            "no_isian": {
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
               "type": "string"
             },
             "estimasi": {
               "type": "string"
             },
-            "pemahaman": {
+            "evaluasi": {
               "type": "string"
             },
-            "evaluasi": {
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
               "type": "string"
             },
             "pasien_edu": {
@@ -1185,49 +789,622 @@
             },
             "pemberi_edu": {
               "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
             }
-          },
-          "required": [
-            "hari",
-            "tanggal",
-            "tanggal_indo",
-            "jam",
-            "metode",
-            "profesi",
-            "no_1",
-            "no_2",
-            "no_3",
-            "no_4",
-            "no_5",
-            "no_isian",
-            "estimasi",
-            "pemahaman",
-            "evaluasi",
-            "pasien_edu",
-            "pemberi_edu"
-          ]
+          }
+        },
+        "kebersihan": {
+          "type": "object",
+          "properties": {
+            "jam": {
+              "type": "string"
+            },
+            "hari": {
+              "type": "string"
+            },
+            "no_1": {
+              "type": "boolean"
+            },
+            "no_2": {
+              "type": "boolean"
+            },
+            "no_3": {
+              "type": "boolean"
+            },
+            "no_4": {
+              "type": "boolean"
+            },
+            "no_5": {
+              "type": "boolean"
+            },
+            "no_6": {
+              "type": "boolean"
+            },
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
+              "type": "string"
+            },
+            "estimasi": {
+              "type": "string"
+            },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
+              "type": "string"
+            },
+            "pasien_edu": {
+              "type": "string"
+            },
+            "pemberi_edu": {
+              "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
+            }
+          }
+        },
+        "rohaniawan": {
+          "type": "object",
+          "properties": {
+            "jam": {
+              "type": "string"
+            },
+            "hari": {
+              "type": "string"
+            },
+            "no_1": {
+              "type": "boolean"
+            },
+            "no_2": {
+              "type": "boolean"
+            },
+            "no_3": {
+              "type": "boolean"
+            },
+            "no_4": {
+              "type": "boolean"
+            },
+            "no_5": {
+              "type": "boolean"
+            },
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
+              "type": "string"
+            },
+            "estimasi": {
+              "type": "string"
+            },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
+              "type": "string"
+            },
+            "pasien_edu": {
+              "type": "string"
+            },
+            "pemberi_edu": {
+              "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
+            }
+          }
+        },
+        "nutrisionis": {
+          "type": "object",
+          "properties": {
+            "jam": {
+              "type": "string"
+            },
+            "hari": {
+              "type": "string"
+            },
+            "no_1": {
+              "type": "boolean"
+            },
+            "no_2": {
+              "type": "boolean"
+            },
+            "no_3": {
+              "type": "boolean"
+            },
+            "no_4": {
+              "type": "boolean"
+            },
+            "no_5": {
+              "type": "boolean"
+            },
+            "no_6": {
+              "type": "boolean"
+            },
+            "no_7": {
+              "type": "boolean"
+            },
+            "metode": {
+              "type": "string"
+            },
+            "profesi": {
+              "type": "string"
+            },
+            "tanggal": {
+              "type": "string"
+            },
+            "estimasi": {
+              "type": "string"
+            },
+            "evaluasi": {
+              "type": "string"
+            },
+            "no_isian": {
+              "type": "string"
+            },
+            "pemahaman": {
+              "type": "string"
+            },
+            "pasien_edu": {
+              "type": "string"
+            },
+            "pemberi_edu": {
+              "type": "string"
+            },
+            "dpjp_verifikasi": {
+              "type": "string"
+            },
+            "dpjp_verifikasi_stroke": {
+              "type": "string"
+            },
+            "tanggal_indo": {
+              "type": "string"
+            }
+          }
         }
-      },
-      "required": [
-        "dokter",
-        "mpp",
-        "bidan",
-        "kebersihan",
-        "farmasis",
-        "nutrisionis",
-        "nyeri",
-        "medik",
-        "medis",
-        "rohaniawan",
-        "lain_lain"
-      ]
+      }
+    },
+    "verfikator_nama": {
+      "type": "string"
+    },
+    "verfikator_stroke": {
+      "type": "string"
+    },
+    "external_link": {
+      "type": "object",
+      "properties": {
+        "dokter_dpjp_data": {
+          "type": "object",
+          "properties": {
+            "no_register": {
+              "type": "string"
+            },
+            "id_pasien": {
+              "type": "string"
+            },
+            "id_pendaftaran": {
+              "type": "number"
+            },
+            "id_layanan_pendaftaran": {
+              "type": "number"
+            },
+            "id_dokter_dpjp": {
+              "type": "number"
+            },
+            "nama_dokter_dpjp": {
+              "type": "string"
+            },
+            "id_spesialis": {
+              "type": "number"
+            },
+            "nama_spesialis": {
+              "type": "string"
+            },
+            "id_profesi": {
+              "type": "number"
+            },
+            "nama_profesi": {
+              "type": "string"
+            },
+            "nip": {
+              "type": "string"
+            },
+            "no_sip": {
+              "type": "string"
+            },
+            "no_str": {
+              "type": "string"
+            },
+            "no_sik": {
+              "type": "string"
+            },
+            "ttd_image": {
+              "type": "string"
+            }
+          }
+        },
+        "px_data": {
+          "type": "object",
+          "properties": {
+            "no_rm": {
+              "type": "string"
+            },
+            "nama": {
+              "type": "string"
+            },
+            "kelamin": {
+              "type": "string"
+            },
+            "tanggal_lahir": {
+              "type": "string"
+            },
+            "alamat": {
+              "type": "string"
+            },
+            "tempat_lahir": {
+              "type": "string"
+            },
+            "agama": {
+              "type": "string"
+            },
+            "pendidikan": {
+              "type": "string"
+            },
+            "status_perkawinan": {
+              "type": "string"
+            },
+            "no_identitas": {
+              "type": "string"
+            },
+            "kelurahan": {
+              "type": "string"
+            },
+            "kecamatan": {
+              "type": "string"
+            },
+            "kabupaten": {
+              "type": "string"
+            },
+            "provinsi": {
+              "type": "string"
+            },
+            "telp": {
+              "type": "string"
+            },
+            "nama_ibu": {
+              "type": "string"
+            },
+            "nama_ayah": {
+              "type": "string"
+            },
+            "riwayat_penyakit_sebelumnya": {
+              "type": "string"
+            },
+            "riwayat_penyakit_keluarga": {
+              "type": "string"
+            }
+          }
+        },
+        "vital_sign_data": {
+          "type": "object",
+          "properties": {
+            "no_register": {
+              "type": "string"
+            },
+            "id_pasien": {
+              "type": "string"
+            },
+            "id_pendaftaran": {
+              "type": "number"
+            },
+            "id_layanan_pendaftaran": {
+              "type": "number"
+            },
+            "dokter": {
+              "type": "string"
+            },
+            "id_dokter": {
+              "type": "string"
+            },
+            "jenis_layanan": {
+              "type": "string"
+            },
+            "jenis_igd": {
+              "type": "string"
+            },
+            "alergi": {
+              "type": "string"
+            },
+            "nama": {
+              "type": "string"
+            },
+            "tanggal_lahir": {
+              "type": "string"
+            },
+            "tinggi_badan": {
+              "type": "number"
+            },
+            "berat_badan": {
+              "type": "number"
+            },
+            "buta_warna": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "display_prognosis": {
+              "type": "string"
+            },
+            "description_prognosis": {
+              "type": "string"
+            },
+            "waktu_visitasi": {
+              "type": "string"
+            },
+            "tensi": {
+              "type": "object",
+              "properties": {
+                "sistole": {
+                  "type": "number"
+                },
+                "diastole": {
+                  "type": "number"
+                }
+              }
+            },
+            "nadi": {
+              "type": "number"
+            },
+            "suhu": {
+              "type": "number"
+            },
+            "nafas": {
+              "type": "number"
+            },
+            "anamnesis": {
+              "type": "string"
+            },
+            "riwayat_penyakit_keluarga": {
+              "type": "string"
+            },
+            "anamnesis_lalu": {
+              "type": "string"
+            },
+            "keluhan_utama_perawat": {
+              "type": "string"
+            },
+            "keluhan_utama": {
+              "type": "string"
+            },
+            "pemeriksaan_fisik": {
+              "type": "string"
+            },
+            "pemeriksaan_penunjang": {
+              "type": "string"
+            },
+            "diagnosis": {
+              "type": "string"
+            },
+            "hasil_usg": {
+              "type": "string"
+            },
+            "plan": {
+              "type": "string"
+            },
+            "spo2": {
+              "type": "string"
+            },
+            "instansi_perujuk": {
+              "type": "string"
+            },
+            "terapi": {
+              "type": "string"
+            },
+            "konsultasi": {
+              "type": "string"
+            },
+            "assesmen_igd": {
+              "type": "array",
+              "items": {}
+            },
+            "alergi_list": {
+              "type": "array",
+              "items": {}
+            }
+          }
+        },
+        "diagnosa_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "no_register": {
+                "type": "string"
+              },
+              "id_pasien": {
+                "type": "string"
+              },
+              "id_pendaftaran": {
+                "type": "number"
+              },
+              "id_layanan_pendaftaran": {
+                "type": "number"
+              },
+              "jenis": {
+                "type": "string"
+              },
+              "id_dokter": {
+                "type": "number"
+              },
+              "nama_dokter": {
+                "type": "string"
+              },
+              "id_spesialis": {
+                "type": "number"
+              },
+              "nama_spesialis": {
+                "type": "string"
+              },
+              "id_profesi": {
+                "type": "number"
+              },
+              "nama_profesi": {
+                "type": "string"
+              },
+              "id_sebab_sakit": {
+                "type": "number"
+              },
+              "kode_sebab_sakit": {
+                "type": "string"
+              },
+              "nama_sebab_sakit": {
+                "type": "string"
+              },
+              "icd_x": {
+                "type": "string"
+              },
+              "deskripsi": {
+                "type": "string"
+              },
+              "kasus": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "primer": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "inpatient_information": {
+          "type": "object",
+          "properties": {
+            "no_register": {
+              "type": "string"
+            },
+            "id_pasien": {
+              "type": "string"
+            },
+            "id_pendaftaran": {
+              "type": "number"
+            },
+            "id_layanan_pendaftaran": {
+              "type": "number"
+            },
+            "id_dokter_pengirim": {
+              "type": "string"
+            },
+            "nama_dokter_pengirim": {
+              "type": "string"
+            },
+            "id_bangsal": {
+              "type": "number"
+            },
+            "nama_bangsal": {
+              "type": "string"
+            },
+            "id_kelas": {
+              "type": "number"
+            },
+            "nama_kelas": {
+              "type": "string"
+            },
+            "no_ruang": {
+              "type": "string"
+            },
+            "nomor_bed": {
+              "type": "string"
+            },
+            "titipan": {
+              "type": "string"
+            },
+            "id_bangsal_titipan": {
+              "type": "number"
+            },
+            "nama_bangsal_titipan": {
+              "type": "string"
+            },
+            "id_kelas_titipan": {
+              "type": "number"
+            },
+            "nama_kelas_titipan": {
+              "type": "string"
+            },
+            "waktu_masuk": {
+              "type": "string"
+            },
+            "waktu_keluar": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tmp_modal_ttd": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "mode_ttd": {
+          "type": "string"
+        },
+        "path_name": {
+          "type": "string"
+        },
+        "path_stroke": {
+          "type": "string"
+        },
+        "name_input_type": {
+          "type": "string"
+        }
+      }
     }
-  },
-  "required": [
-    "paraf",
-    "pasien",
-    "pengkajian",
-    "activeCard",
-    "edukasiData"
-  ]
+  }
 }
