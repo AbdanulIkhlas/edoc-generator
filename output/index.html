@@ -525,6 +525,26 @@
             name_input_type: "",
         };
 
+        data.tmp_vital_sign = {
+            tanggal: "",
+            tanggal_indo: "",
+            jam: "",
+            tensi_sistole: "",
+            tensi_diastole: "",
+            nadi: "",
+            suhu: "",
+            nafas: "",
+            spo2: "",
+            gcs_e: "",
+            gcs_v: "",
+            gcs_m: "",
+            bb: "",
+            keluhan_utama: "",
+            anamnesis: "",
+        };
+        data.modal_vital_sign_mode = "add";
+        data.modal_vital_sign_index = -1;
+
         // directive autogrow
         Vue.directive('autogrow', {
             inserted(el) {
@@ -803,6 +823,106 @@
                     } else {
                         obj[jsonPathSplit[i]] = "";
                     }
+                },
+                openModalVitalSign: function (index = null) {
+                    if (index !== null && index !== undefined && index > -1) {
+                        this.modal_vital_sign_mode = 'edit';
+                        this.modal_vital_sign_index = index;
+                        this.tmp_vital_sign = JSON.parse(JSON.stringify(this.data_vital_sign[index]));
+                    } else {
+                        this.modal_vital_sign_mode = 'add';
+                        this.modal_vital_sign_index = -1;
+                        this.tmp_vital_sign = {
+                            tanggal: timeNow().date,
+                            tanggal_indo: dateParse(new Date(timeNow().date)),
+                            jam: timeNow().time,
+                            tensi_sistole: '',
+                            tensi_diastole: '',
+                            nadi: '',
+                            suhu: '',
+                            nafas: '',
+                            spo2: '',
+                            gcs_e: '',
+                            gcs_v: '',
+                            gcs_m: '',
+                            bb: '',
+                            keluhan_utama: '',
+                            anamnesis: ''
+                        };
+                    }
+                    $('#modalDataVitalSign').modal('show');
+                },
+                saveVitalSignModal: function () {
+                    if (this.modal_vital_sign_mode === 'edit' && this.modal_vital_sign_index > -1) {
+                        this.$set(this.data_vital_sign, this.modal_vital_sign_index, JSON.parse(JSON.stringify(this.tmp_vital_sign)));
+                    } else {
+                        if (!Array.isArray(this.data_vital_sign)) {
+                            this.data_vital_sign = [];
+                        }
+                        this.data_vital_sign.push(JSON.parse(JSON.stringify(this.tmp_vital_sign)));
+                    }
+                    $('#modalDataVitalSign').modal('hide');
+                },
+                delRow: function (i) {
+                    Swal.fire({
+                        title: "Apa anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "red",
+                        cancelButtonColor: "grey",
+                        confirmButtonText: "Ya, hapus!"
+                    }).then((result) => {
+                        if (result.isConfirmed || result.value) {
+                            if (i > -1) {
+                                this.data_vital_sign.splice(i, 1);
+                            }
+                            Swal.fire({
+                                icon: "success",
+                                title: "Berhasil menghapus data",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    });
+                },
+                setVitalSign_2: function (vital_data, layanan, collapse_id) {
+                    if (collapse_id) {
+                        $('#' + collapse_id).collapse('show');
+                    }
+                    
+                    const gcsFix = vital_data.jenis_layanan === "IGD" ? vital_data?.assesmen_igd : layanan?.gcs;
+                    
+                    let tgl = "";
+                    let jam = "";
+                    if (layanan?.waktu_visitasi) {
+                        const parts = layanan.waktu_visitasi.split(" ");
+                        tgl = parts[0] || "";
+                        jam = parts[1] ? parts[1].substring(0, 5) : "";
+                    } else {
+                        tgl = timeNow().date;
+                        jam = timeNow().time;
+                    }
+
+                    this.tmp_vital_sign.tanggal = tgl;
+                    this.tmp_vital_sign.tanggal_indo = tgl ? dateParse(new Date(tgl)) : "";
+                    this.tmp_vital_sign.jam = jam;
+                    this.tmp_vital_sign.tensi_sistole = parseFloat(layanan?.tensi?.sistole) || 0;
+                    this.tmp_vital_sign.tensi_diastole = parseFloat(layanan?.tensi?.diastole) || 0;
+                    this.tmp_vital_sign.nadi = parseFloat(layanan?.nadi) || 0;
+                    this.tmp_vital_sign.suhu = parseFloat(layanan?.suhu) || 0;
+                    this.tmp_vital_sign.nafas = parseFloat(layanan?.nafas) || 0;
+                    this.tmp_vital_sign.spo2 = parseFloat(layanan?.spo2) || 0;
+                    this.tmp_vital_sign.bb = parseFloat(vital_data?.berat_badan || layanan?.berat_badan) || 0;
+                    this.tmp_vital_sign.keluhan_utama = layanan?.keluhan_utama || layanan?.keluhan_utama_perawat || "";
+                    this.tmp_vital_sign.anamnesis = layanan?.anamnesis || "";
+                    
+                    this.tmp_vital_sign.gcs_e = parseFloat(gcsFix?.gcs_e ?? gcsFix?.e) || 0;
+                    this.tmp_vital_sign.gcs_v = parseFloat(gcsFix?.gcs_v ?? gcsFix?.v) || 0;
+                    this.tmp_vital_sign.gcs_m = parseFloat(gcsFix?.gcs_m ?? gcsFix?.m) || 0;
+                    
+                    $('#patient_vital_sign_modal_data').modal('hide');
+                    $('body').addClass('modal-open');
                 },
                 saveTindakan: function () {
                     this.tindakan_freetext = "";
@@ -4907,15 +5027,75 @@
     </div>
 
     <!-- Start Data Vital Sign -->
-    <div class="card patient-card shadow-sm mt-5" id="data-vital-sign">
-        <div class="card-header bg-light">
-            <h5 class="mb-0 text-dark">Data Vital Sign</h5>
+    <div class="card patient-card shadow-sm mt-5 mb-5" id="data-vital-sign">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 text-dark"><b>13. Data Vital Sign</b></h6>
+            <button type="button" class="btn btn-primary btn-sm" @click="openModalVitalSign()">
+                <i class="fas fa-plus"></i> Tambah Data
+            </button>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- buatkan disini -->
-                </div>
+        <div class="card-body p-1">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-0" style="font-size: 0.9rem;">
+                    <thead class="bg-light text-secondary text-uppercase text-center">
+                        <tr>
+                            <th style="width: 45px; vertical-align: middle;">NO.</th>
+                            <th style="min-width: 120px; vertical-align: middle;">WAKTU</th>
+                            <th style="min-width: 90px; vertical-align: middle;">TENSI</th>
+                            <th style="min-width: 70px; vertical-align: middle;">NADI</th>
+                            <th style="min-width: 70px; vertical-align: middle;">SUHU</th>
+                            <th style="min-width: 70px; vertical-align: middle;">NAFAS</th>
+                            <th style="min-width: 70px; vertical-align: middle;">SPO2</th>
+                            <th style="min-width: 60px; vertical-align: middle;">BB</th>
+                            <th style="min-width: 70px; vertical-align: middle;">GCS</th>
+                            <th style="min-width: 200px; vertical-align: middle;">KELUHAN UTAMA</th>
+                            <th style="min-width: 220px; vertical-align: middle;">ANAMNESIS</th>
+                            <th style="width: 90px; vertical-align: middle;">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in data_vital_sign" :key="index">
+                            <td class="text-center align-middle">{{ index + 1 }}</td>
+                            <td class="text-center align-middle">
+                                <div>{{ item.tanggal }}</div>
+                                <small class="text-muted">{{ item.jam }}</small>
+                            </td>
+                            <td class="text-center align-middle">
+                                <span v-if="item.tensi_sistole || item.tensi_diastole">{{ item.tensi_sistole }}/{{ item.tensi_diastole }}</span>
+                                <span v-else>-</span>
+                            </td>
+                            <td class="text-center align-middle">{{ item.nadi || '-' }}</td>
+                            <td class="text-center align-middle">{{ item.suhu || '-' }}</td>
+                            <td class="text-center align-middle">{{ item.nafas || '-' }}</td>
+                            <td class="text-center align-middle">{{ item.spo2 || '-' }}</td>
+                            <td class="text-center align-middle">{{ item.bb || '-' }}</td>
+                            <td class="align-middle">
+                                <div style="font-size: 0.85rem; line-height: 1.3;" class="pl-1">
+                                    <div>E : {{ item.gcs_e || '-' }}</div>
+                                    <div>V : {{ item.gcs_v || '-' }}</div>
+                                    <div>M : {{ item.gcs_m || '-' }}</div>
+                                </div>
+                            </td>
+                            <td class="align-middle">{{ item.keluhan_utama || '-' }}</td>
+                            <td class="align-middle">{{ item.anamnesis || '-' }}</td>
+                            <td class="text-center align-middle">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-warning" title="Edit Data" @click="openModalVitalSign(index)">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger" title="Hapus Data" @click="delRow(index)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr v-if="!data_vital_sign || data_vital_sign.length === 0">
+                            <td colspan="12" class="text-center text-muted py-3">
+                                Belum ada data vital sign
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -6302,6 +6482,459 @@
         </div>
     </div>
     <!--END TINDAKAN MODAL-->
+
+    <!-- START MODAL DATA VITAL SIGN LIST DATA -->
+    <div class="modal fade" id="modalDataVitalSign" tabindex="-1" role="dialog" aria-labelledby="modalDataVitalSignTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document" style="max-width: 1140px;">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title font-weight-bold" id="modalDataVitalSignTitle">
+                        {{ modal_vital_sign_mode === 'edit' ? 'Edit Data Vital Sign' : 'Tambah Data Vital Sign' }}
+                    </h5>
+                    <div class="d-flex align-items-center">
+                        <button
+                            v-if="external_link?.vital_sign_data_list && external_link.vital_sign_data_list.length > 0"
+                            type="button" title="Vital sign" data-toggle="modal"
+                            data-target="#patient_vital_sign_modal_data" class="btn btn-info btn-sm mr-3">
+                            Hasil Vital Sign
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row mb-3">
+                        <div class="col-md-6">
+                            <label class="font-weight-bold">Tanggal</label>
+                            <input type="date" class="form-control" v-model="tmp_vital_sign.tanggal" @change="onChDateDynamic($event, 'tmp_vital_sign.tanggal_indo')">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="font-weight-bold">Jam</label>
+                            <input type="time" class="form-control" v-model="tmp_vital_sign.jam">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">Tekanan Darah (Sistole / Diastole)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_sistole" placeholder="Sistole">
+                                <div class="input-group-prepend input-group-append">
+                                    <span class="input-group-text">/</span>
+                                </div>
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_diastole" placeholder="Diastole">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">mmHg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">Nadi</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nadi" placeholder="Nadi">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">x/m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">Suhu</label>
+                            <div class="input-group">
+                                <input type="number" step="0.1" class="form-control" v-model.number="tmp_vital_sign.suhu" placeholder="Suhu">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">&deg;C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">Nafas</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nafas" placeholder="Nafas">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">x/m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">SpO2</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.spo2" placeholder="SpO2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="font-weight-bold">Berat Badan</label>
+                            <div class="input-group">
+                                <input type="number" step="0.1" class="form-control" v-model.number="tmp_vital_sign.bb" placeholder="BB">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-12">
+                            <label class="font-weight-bold">GCS (Glasgow Coma Scale)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text font-weight-bold">E</span>
+                                        </div>
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_e" placeholder="Eye (E)">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text font-weight-bold">V</span>
+                                        </div>
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_v" placeholder="Verbal (V)">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text font-weight-bold">M</span>
+                                        </div>
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_m" placeholder="Motorik (M)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <div class="col-md-12">
+                            <label class="font-weight-bold">Keluhan Utama</label>
+                            <textarea class="form-control" rows="2" v-model="tmp_vital_sign.keluhan_utama" placeholder="Masukkan keluhan utama..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-12">
+                            <label class="font-weight-bold">Anamnesis</label>
+                            <textarea class="form-control" rows="3" v-model="tmp_vital_sign.anamnesis" placeholder="Masukkan anamnesis..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="saveVitalSignModal">
+                        <i class="fas fa-save"></i> Simpan
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL DATA VITAL SIGN LIST DATA -->
+
+    <!-- VITAL SIGN MODAL BRIDGING -->
+    <div style="overflow-y: scroll;" class="modal fade" id="patient_vital_sign_modal_data" tabindex="-1" role="dialog" aria-labelledby="patient_vital_sign_modal_dataModalTitle" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 720px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Vital Sign Data Rawr</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content border" style="border-color: #eeeeee; padding: 5px 5px 0px 5px">
+                        <div class="accordion" id="accordionExample">
+                            <div v-for="(vital_data,i) in external_link.vital_sign_data_list" :key="i">
+                                <div
+                                    class="card"
+                                    v-for="(layanan_data,j) in vital_data.layanan"
+                                    :key="vital_data.id_layanan_pendaftaran+'_'+j"
+                                    style="position: relative"
+                                >
+                                    <div
+                                        style="cursor: pointer"
+                                        class="card-header"
+                                        :id="'heading'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
+                                        data-toggle="collapse"
+                                        :data-target="'#collapse'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
+                                        aria-expanded="false"
+                                        :aria-controls="'collapseOne'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
+                                    >
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h2 class="p-0 m-0">{{layanan_data.jenis_layanan}}</h2>
+                                                <span class="text-muted">{{layanan_data.waktu_visitasi ? layanan_data.waktu_visitasi : "-"}}</span>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    @click.stop="setVitalSign_2(vital_data, layanan_data, 'collapse_'+vital_data.id_layanan_pendaftaran+'_'+j)">
+                                                    Pilih
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        :id="'collapse'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
+                                        class="collapse"
+                                        :aria-labelledby="'heading'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
+                                        data-parent="#accordionExample"
+                                    >
+                                        <div class="card-body px-2">
+                                            <section class="d-flex">
+                                                <div style="width: 50%" class="">
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Jenis kunjungan</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.jenis_igd}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Dokter</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.dokter}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Keluhan Utama (Dokter)</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.keluhan_utama}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Keluhan Utama (Perawat)</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.keluhan_utama_perawat}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Anamnesis</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.anamnesis}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Anamnesis Lalu</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.anamnesis_lalu}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Penyakit Keluarga</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.riwayat_penyakit_keluarga}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Plan</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.plan}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Alergi</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.alergi}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 35%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Pemeriksaan Fisik</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.pemeriksaan_fisik}}</span>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                                <div style="width: 50%" class="">
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Tensi</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.tensi.sistole}}</span>
+                                                            <span>&nbsp;mm/Hg &nbsp;</span>
+                                                            <span>&nbsp;/ &nbsp;</span>
+                                                            <span>{{layanan_data.tensi.diastole}}</span>
+                                                            <span>&nbsp;mm/Hg &nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Nadi</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.nadi}}</span>
+                                                            <span>&nbsp;x/menit &nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Suhu</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.suhu}}</span>
+                                                            <span>&nbsp;&deg;C &nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Napas</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.nafas}}</span>
+                                                            <span>&nbsp;x/menit &nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Berat Badan</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.berat_badan}}</span>
+                                                            <span>&nbsp;Kg&nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Tinggi Badan</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.tinggi_badan}}</span>
+                                                            <span>&nbsp;Cm&nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">spo2</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.spo2}}</span>
+                                                            <span>&nbsp;%&nbsp;</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Kesadaran</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.assesmen_igd.disability_kesadaran}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Keadaan Umun</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{vital_data.assesmen_igd.disability_keadaan_umum}}</span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">GCS E</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span v-if="vital_data.jenis_layanan === 'IGD'">
+                                                              {{ vital_data.assesmen_igd.gcs_e }}
+                                                            </span>
+                                                            <span v-else>
+                                                              {{ layanan_data?.gcs?.e }}
+                                                            </span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">GCS V</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span v-if="vital_data.jenis_layanan === 'IGD'">
+                                                              {{ vital_data.assesmen_igd.gcs_v }}
+                                                            </span>
+                                                            <span v-else>
+                                                              {{ layanan_data?.gcs?.v }}
+                                                            </span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">GCS M</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span v-if="vital_data.jenis_layanan === 'IGD'">
+                                                              {{ vital_data.assesmen_igd.gcs_m }}
+                                                            </span>
+                                                            <span v-else>
+                                                              {{ layanan_data?.gcs?.m }}
+                                                            </span>
+                                                        </div>
+                                                    </section>
+                                                    <section class="d-flex align-items-start border-bottom">
+                                                        <div style="width: 30%" class="d-flex justify-content-between">
+                                                            <p class="d-block mb-0">Pemeriksaan Penunjang</p>
+                                                            <p class="d-block mb-0">:</p>
+                                                        </div>
+                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                            <span>{{layanan_data.pemeriksaan_penunjang}}</span>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- VITAL SIGN MODAL BRIDGING-->
 
 </form>
     <!-- === END CONTAINER CODE === -->
