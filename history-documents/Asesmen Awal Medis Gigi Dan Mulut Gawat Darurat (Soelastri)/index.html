@@ -890,9 +890,9 @@
                     if (collapse_id) {
                         $('#' + collapse_id).collapse('show');
                     }
-                    
+
                     const gcsFix = vital_data.jenis_layanan === "IGD" ? vital_data?.assesmen_igd : layanan?.gcs;
-                    
+
                     let tgl = "";
                     let jam = "";
                     if (layanan?.waktu_visitasi) {
@@ -916,11 +916,11 @@
                     this.tmp_vital_sign.bb = parseFloat(vital_data?.berat_badan || layanan?.berat_badan) || 0;
                     this.tmp_vital_sign.keluhan_utama = layanan?.keluhan_utama || layanan?.keluhan_utama_perawat || "";
                     this.tmp_vital_sign.anamnesis = layanan?.anamnesis || "";
-                    
+
                     this.tmp_vital_sign.gcs_e = parseFloat(gcsFix?.gcs_e ?? gcsFix?.e) || 0;
                     this.tmp_vital_sign.gcs_v = parseFloat(gcsFix?.gcs_v ?? gcsFix?.v) || 0;
                     this.tmp_vital_sign.gcs_m = parseFloat(gcsFix?.gcs_m ?? gcsFix?.m) || 0;
-                    
+
                     $('#patient_vital_sign_modal_data').modal('hide');
                     $('body').addClass('modal-open');
                 },
@@ -5031,7 +5031,7 @@
         <div class="card-header bg-light d-flex justify-content-between align-items-center">
             <h6 class="mb-0 text-dark"><b>13. Data Vital Sign</b></h6>
             <button type="button" class="btn btn-primary btn-sm" @click="openModalVitalSign()">
-                <i class="fas fa-plus"></i> Tambah Data
+                <i class="fa fa-plus"></i> Tambah Data
             </button>
         </div>
         <div class="card-body p-1">
@@ -5061,7 +5061,8 @@
                                 <small class="text-muted">{{ item.jam }}</small>
                             </td>
                             <td class="text-center align-middle">
-                                <span v-if="item.tensi_sistole || item.tensi_diastole">{{ item.tensi_sistole }}/{{ item.tensi_diastole }}</span>
+                                <span v-if="item.tensi_sistole || item.tensi_diastole">{{ item.tensi_sistole }}/{{
+                                    item.tensi_diastole }}</span>
                                 <span v-else>-</span>
                             </td>
                             <td class="text-center align-middle">{{ item.nadi || '-' }}</td>
@@ -5080,11 +5081,13 @@
                             <td class="align-middle">{{ item.anamnesis || '-' }}</td>
                             <td class="text-center align-middle">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-warning" title="Edit Data" @click="openModalVitalSign(index)">
-                                        <i class="fas fa-pencil-alt"></i>
+                                    <button type="button" class="btn btn-warning" title="Edit Data"
+                                        @click="openModalVitalSign(index)">
+                                        <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger" title="Hapus Data" @click="delRow(index)">
-                                        <i class="fas fa-trash-alt"></i>
+                                    <button type="button" class="btn btn-danger" title="Hapus Data"
+                                        @click="delRow(index)">
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
@@ -6484,7 +6487,8 @@
     <!--END TINDAKAN MODAL-->
 
     <!-- START MODAL DATA VITAL SIGN LIST DATA -->
-    <div class="modal fade" id="modalDataVitalSign" tabindex="-1" role="dialog" aria-labelledby="modalDataVitalSignTitle" aria-hidden="true">
+    <div class="modal fade" id="modalDataVitalSign" tabindex="-1" role="dialog"
+        aria-labelledby="modalDataVitalSignTitle" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document" style="max-width: 1140px;">
             <div class="modal-content">
                 <div class="modal-header bg-light">
@@ -6507,7 +6511,8 @@
                     <div class="form-group row mb-3">
                         <div class="col-md-6">
                             <label class="font-weight-bold">Tanggal</label>
-                            <input type="date" class="form-control" v-model="tmp_vital_sign.tanggal" @change="onChDateDynamic($event, 'tmp_vital_sign.tanggal_indo')">
+                            <input type="date" class="form-control" v-model="tmp_vital_sign.tanggal"
+                                @change="onChDateDynamic($event, 'tmp_vital_sign.tanggal_indo')">
                         </div>
                         <div class="col-md-6">
                             <label class="font-weight-bold">Jam</label>
@@ -6519,11 +6524,13 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">Tekanan Darah (Sistole / Diastole)</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_sistole" placeholder="Sistole">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_sistole"
+                                    placeholder="Sistole">
                                 <div class="input-group-prepend input-group-append">
                                     <span class="input-group-text">/</span>
                                 </div>
-                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_diastole" placeholder="Diastole">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.tensi_diastole"
+                                    placeholder="Diastole">
                                 <div class="input-group-append">
                                     <span class="input-group-text">mmHg</span>
                                 </div>
@@ -6532,7 +6539,8 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">Nadi</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nadi" placeholder="Nadi">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nadi"
+                                    placeholder="Nadi">
                                 <div class="input-group-append">
                                     <span class="input-group-text">x/m</span>
                                 </div>
@@ -6541,7 +6549,8 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">Suhu</label>
                             <div class="input-group">
-                                <input type="number" step="0.1" class="form-control" v-model.number="tmp_vital_sign.suhu" placeholder="Suhu">
+                                <input type="number" step="0.1" class="form-control"
+                                    v-model.number="tmp_vital_sign.suhu" placeholder="Suhu">
                                 <div class="input-group-append">
                                     <span class="input-group-text">&deg;C</span>
                                 </div>
@@ -6553,7 +6562,8 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">Nafas</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nafas" placeholder="Nafas">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.nafas"
+                                    placeholder="Nafas">
                                 <div class="input-group-append">
                                     <span class="input-group-text">x/m</span>
                                 </div>
@@ -6562,7 +6572,8 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">SpO2</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.spo2" placeholder="SpO2">
+                                <input type="number" class="form-control" v-model.number="tmp_vital_sign.spo2"
+                                    placeholder="SpO2">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -6571,7 +6582,8 @@
                         <div class="col-md-4">
                             <label class="font-weight-bold">Berat Badan</label>
                             <div class="input-group">
-                                <input type="number" step="0.1" class="form-control" v-model.number="tmp_vital_sign.bb" placeholder="BB">
+                                <input type="number" step="0.1" class="form-control" v-model.number="tmp_vital_sign.bb"
+                                    placeholder="BB">
                                 <div class="input-group-append">
                                     <span class="input-group-text">Kg</span>
                                 </div>
@@ -6588,7 +6600,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text font-weight-bold">E</span>
                                         </div>
-                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_e" placeholder="Eye (E)">
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_e"
+                                            placeholder="Eye (E)">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -6596,7 +6609,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text font-weight-bold">V</span>
                                         </div>
-                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_v" placeholder="Verbal (V)">
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_v"
+                                            placeholder="Verbal (V)">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -6604,7 +6618,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text font-weight-bold">M</span>
                                         </div>
-                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_m" placeholder="Motorik (M)">
+                                        <input type="number" class="form-control" v-model.number="tmp_vital_sign.gcs_m"
+                                            placeholder="Motorik (M)">
                                     </div>
                                 </div>
                             </div>
@@ -6614,20 +6629,22 @@
                     <div class="form-group row mb-3">
                         <div class="col-md-12">
                             <label class="font-weight-bold">Keluhan Utama</label>
-                            <textarea class="form-control" rows="2" v-model="tmp_vital_sign.keluhan_utama" placeholder="Masukkan keluhan utama..."></textarea>
+                            <textarea class="form-control" rows="2" v-model="tmp_vital_sign.keluhan_utama"
+                                placeholder="Masukkan keluhan utama..."></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row mb-0">
                         <div class="col-md-12">
                             <label class="font-weight-bold">Anamnesis</label>
-                            <textarea class="form-control" rows="3" v-model="tmp_vital_sign.anamnesis" placeholder="Masukkan anamnesis..."></textarea>
+                            <textarea class="form-control" rows="3" v-model="tmp_vital_sign.anamnesis"
+                                placeholder="Masukkan anamnesis..."></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" @click="saveVitalSignModal">
-                        <i class="fas fa-save"></i> Simpan
+                        <i class="fa fa-save"></i> Simpan
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 </div>
@@ -6637,7 +6654,8 @@
     <!-- END MODAL DATA VITAL SIGN LIST DATA -->
 
     <!-- VITAL SIGN MODAL BRIDGING -->
-    <div style="overflow-y: scroll;" class="modal fade" id="patient_vital_sign_modal_data" tabindex="-1" role="dialog" aria-labelledby="patient_vital_sign_modal_dataModalTitle" aria-hidden="true">
+    <div style="overflow-y: scroll;" class="modal fade" id="patient_vital_sign_modal_data" tabindex="-1" role="dialog"
+        aria-labelledby="patient_vital_sign_modal_dataModalTitle" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 720px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -6650,25 +6668,19 @@
                     <div class="tab-content border" style="border-color: #eeeeee; padding: 5px 5px 0px 5px">
                         <div class="accordion" id="accordionExample">
                             <div v-for="(vital_data,i) in external_link.vital_sign_data_list" :key="i">
-                                <div
-                                    class="card"
-                                    v-for="(layanan_data,j) in vital_data.layanan"
-                                    :key="vital_data.id_layanan_pendaftaran+'_'+j"
-                                    style="position: relative"
-                                >
-                                    <div
-                                        style="cursor: pointer"
-                                        class="card-header"
+                                <div class="card" v-for="(layanan_data,j) in vital_data.layanan"
+                                    :key="vital_data.id_layanan_pendaftaran+'_'+j" style="position: relative">
+                                    <div style="cursor: pointer" class="card-header"
                                         :id="'heading'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
                                         data-toggle="collapse"
                                         :data-target="'#collapse'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
                                         aria-expanded="false"
-                                        :aria-controls="'collapseOne'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
-                                    >
+                                        :aria-controls="'collapseOne'+'_'+vital_data.id_layanan_pendaftaran+'_'+j">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h2 class="p-0 m-0">{{layanan_data.jenis_layanan}}</h2>
-                                                <span class="text-muted">{{layanan_data.waktu_visitasi ? layanan_data.waktu_visitasi : "-"}}</span>
+                                                <span class="text-muted">{{layanan_data.waktu_visitasi ?
+                                                    layanan_data.waktu_visitasi : "-"}}</span>
                                             </div>
                                             <div>
                                                 <button type="button" class="btn btn-primary btn-sm"
@@ -6679,12 +6691,9 @@
                                         </div>
                                     </div>
 
-                                    <div
-                                        :id="'collapse'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
-                                        class="collapse"
+                                    <div :id="'collapse'+'_'+vital_data.id_layanan_pendaftaran+'_'+j" class="collapse"
                                         :aria-labelledby="'heading'+'_'+vital_data.id_layanan_pendaftaran+'_'+j"
-                                        data-parent="#accordionExample"
-                                    >
+                                        data-parent="#accordionExample">
                                         <div class="card-body px-2">
                                             <section class="d-flex">
                                                 <div style="width: 50%" class="">
@@ -6693,7 +6702,8 @@
                                                             <p class="d-block mb-0">Jenis kunjungan</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.jenis_igd}}</span>
                                                         </div>
                                                     </section>
@@ -6702,7 +6712,8 @@
                                                             <p class="d-block mb-0">Dokter</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.dokter}}</span>
                                                         </div>
                                                     </section>
@@ -6711,7 +6722,8 @@
                                                             <p class="d-block mb-0">Keluhan Utama (Dokter)</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.keluhan_utama}}</span>
                                                         </div>
                                                     </section>
@@ -6720,7 +6732,8 @@
                                                             <p class="d-block mb-0">Keluhan Utama (Perawat)</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.keluhan_utama_perawat}}</span>
                                                         </div>
                                                     </section>
@@ -6729,7 +6742,8 @@
                                                             <p class="d-block mb-0">Anamnesis</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.anamnesis}}</span>
                                                         </div>
                                                     </section>
@@ -6738,7 +6752,8 @@
                                                             <p class="d-block mb-0">Anamnesis Lalu</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.anamnesis_lalu}}</span>
                                                         </div>
                                                     </section>
@@ -6747,7 +6762,8 @@
                                                             <p class="d-block mb-0">Penyakit Keluarga</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.riwayat_penyakit_keluarga}}</span>
                                                         </div>
                                                     </section>
@@ -6756,7 +6772,8 @@
                                                             <p class="d-block mb-0">Plan</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.plan}}</span>
                                                         </div>
                                                     </section>
@@ -6765,7 +6782,8 @@
                                                             <p class="d-block mb-0">Alergi</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.alergi}}</span>
                                                         </div>
                                                     </section>
@@ -6774,7 +6792,8 @@
                                                             <p class="d-block mb-0">Pemeriksaan Fisik</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 65%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 65%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.pemeriksaan_fisik}}</span>
                                                         </div>
                                                     </section>
@@ -6785,7 +6804,8 @@
                                                             <p class="d-block mb-0">Tensi</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.tensi.sistole}}</span>
                                                             <span>&nbsp;mm/Hg &nbsp;</span>
                                                             <span>&nbsp;/ &nbsp;</span>
@@ -6798,7 +6818,8 @@
                                                             <p class="d-block mb-0">Nadi</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.nadi}}</span>
                                                             <span>&nbsp;x/menit &nbsp;</span>
                                                         </div>
@@ -6808,7 +6829,8 @@
                                                             <p class="d-block mb-0">Suhu</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.suhu}}</span>
                                                             <span>&nbsp;&deg;C &nbsp;</span>
                                                         </div>
@@ -6818,7 +6840,8 @@
                                                             <p class="d-block mb-0">Napas</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.nafas}}</span>
                                                             <span>&nbsp;x/menit &nbsp;</span>
                                                         </div>
@@ -6828,7 +6851,8 @@
                                                             <p class="d-block mb-0">Berat Badan</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.berat_badan}}</span>
                                                             <span>&nbsp;Kg&nbsp;</span>
                                                         </div>
@@ -6838,7 +6862,8 @@
                                                             <p class="d-block mb-0">Tinggi Badan</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.tinggi_badan}}</span>
                                                             <span>&nbsp;Cm&nbsp;</span>
                                                         </div>
@@ -6848,7 +6873,8 @@
                                                             <p class="d-block mb-0">spo2</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.spo2}}</span>
                                                             <span>&nbsp;%&nbsp;</span>
                                                         </div>
@@ -6858,7 +6884,8 @@
                                                             <p class="d-block mb-0">Kesadaran</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.assesmen_igd.disability_kesadaran}}</span>
                                                         </div>
                                                     </section>
@@ -6867,7 +6894,8 @@
                                                             <p class="d-block mb-0">Keadaan Umun</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{vital_data.assesmen_igd.disability_keadaan_umum}}</span>
                                                         </div>
                                                     </section>
@@ -6876,12 +6904,13 @@
                                                             <p class="d-block mb-0">GCS E</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span v-if="vital_data.jenis_layanan === 'IGD'">
-                                                              {{ vital_data.assesmen_igd.gcs_e }}
+                                                                {{ vital_data.assesmen_igd.gcs_e }}
                                                             </span>
                                                             <span v-else>
-                                                              {{ layanan_data?.gcs?.e }}
+                                                                {{ layanan_data?.gcs?.e }}
                                                             </span>
                                                         </div>
                                                     </section>
@@ -6890,12 +6919,13 @@
                                                             <p class="d-block mb-0">GCS V</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span v-if="vital_data.jenis_layanan === 'IGD'">
-                                                              {{ vital_data.assesmen_igd.gcs_v }}
+                                                                {{ vital_data.assesmen_igd.gcs_v }}
                                                             </span>
                                                             <span v-else>
-                                                              {{ layanan_data?.gcs?.v }}
+                                                                {{ layanan_data?.gcs?.v }}
                                                             </span>
                                                         </div>
                                                     </section>
@@ -6904,12 +6934,13 @@
                                                             <p class="d-block mb-0">GCS M</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span v-if="vital_data.jenis_layanan === 'IGD'">
-                                                              {{ vital_data.assesmen_igd.gcs_m }}
+                                                                {{ vital_data.assesmen_igd.gcs_m }}
                                                             </span>
                                                             <span v-else>
-                                                              {{ layanan_data?.gcs?.m }}
+                                                                {{ layanan_data?.gcs?.m }}
                                                             </span>
                                                         </div>
                                                     </section>
@@ -6918,7 +6949,8 @@
                                                             <p class="d-block mb-0">Pemeriksaan Penunjang</p>
                                                             <p class="d-block mb-0">:</p>
                                                         </div>
-                                                        <div style="width: 70%" class="d-flex text-left align-items-center pl-1">
+                                                        <div style="width: 70%"
+                                                            class="d-flex text-left align-items-center pl-1">
                                                             <span>{{layanan_data.pemeriksaan_penunjang}}</span>
                                                         </div>
                                                     </section>
