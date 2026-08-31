@@ -1729,26 +1729,26 @@ function clean_date($date)
                 <?php if (!empty($params->data_vital_sign) && is_array($params->data_vital_sign)): ?>
                     <?php foreach ($params->data_vital_sign as $index => $item): ?>
                         <tr>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= $index + 1 ?></td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;">
-                                <div><?= clean_date($item->tanggal ?? '') ?></div>
-                                <div><?= clean_time($item->jam ?? '') ?></div>
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= $index + 1 ?></td>
+                            <td style="text-align: center; vertical-align: top; padding: 4px; font-size:10pt">
+                                <div><?= clean_date($item->tanggal_indo ?? '') ?></div>
+                                <div><?= clean_time($item->jam ?? '') ?> WIB</div>
                             </td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;">
+                            <td style="text-align: center; vertical-align: top; padding: 4px;">
                                 <?= (!empty($item->tensi_sistole) || !empty($item->tensi_diastole)) ? $item->tensi_sistole . '/' . $item->tensi_diastole : '-' ?>
                             </td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= !empty($item->nadi) ? $item->nadi : '-' ?></td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= !empty($item->suhu) ? $item->suhu : '-' ?></td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= !empty($item->nafas) ? $item->nafas : '-' ?></td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= !empty($item->spo2) ? $item->spo2 : '-' ?></td>
-                            <td style="text-align: center; vertical-align: middle; padding: 4px;"><?= !empty($item->bb) ? $item->bb : '-' ?></td>
-                            <td style="vertical-align: middle; padding: 4px; font-size: 10pt;">
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= !empty($item->nadi) ? $item->nadi : '-' ?></td>
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= !empty($item->suhu) ? $item->suhu : '-' ?></td>
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= !empty($item->nafas) ? $item->nafas : '-' ?></td>
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= !empty($item->spo2) ? $item->spo2 : '-' ?></td>
+                            <td style="text-align: center; vertical-align: top; padding: 4px;"><?= !empty($item->bb) ? $item->bb : '-' ?></td>
+                            <td style="vertical-align: top; padding: 4px; font-size: 10pt;">
                                 <div>E : <?= !empty($item->gcs_e) ? $item->gcs_e : '-' ?></div>
                                 <div>V : <?= !empty($item->gcs_v) ? $item->gcs_v : '-' ?></div>
                                 <div>M : <?= !empty($item->gcs_m) ? $item->gcs_m : '-' ?></div>
                             </td>
-                            <td style="vertical-align: middle; padding: 4px; word-break: break-word;"><?= !empty($item->keluhan_utama) ? nl2br(htmlspecialchars($item->keluhan_utama)) : '-' ?></td>
-                            <td style="vertical-align: middle; padding: 4px; word-break: break-word;"><?= !empty($item->anamnesis) ? nl2br(htmlspecialchars($item->anamnesis)) : '-' ?></td>
+                            <td style="vertical-align: top; padding: 4px; word-break: break-word;"><?= !empty($item->keluhan_utama) ? nl2br(htmlspecialchars($item->keluhan_utama)) : '-' ?></td>
+                            <td style="vertical-align: top; padding: 4px; word-break: break-word;"><?= !empty($item->anamnesis) ? nl2br(htmlspecialchars($item->anamnesis)) : '-' ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -1759,6 +1759,7 @@ function clean_date($date)
             </tbody>
         </table>
 
+        <br />
 
         <div class="lable-bold"><b>14. KONDISI SAAT KELUAR IGD :</b></div>
         <table class="poin-fisik-table" style="border: 1px solid #000;">
@@ -1876,6 +1877,7 @@ function clean_date($date)
                     </p>
                 </td>
             </tr>
+
         </table>
     </div>
 

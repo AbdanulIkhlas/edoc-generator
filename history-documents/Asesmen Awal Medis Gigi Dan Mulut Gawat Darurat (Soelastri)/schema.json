@@ -1,0 +1,137 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "no_rm": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "kelamin": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
+                },
+                "pekerjaan": {
+                    "type": "string"
+                },
+                "pendidikan": {
+                    "type": "string"
+                },
+                "agama": {
+                    "type": "string"
+                },
+                "umur": {
+                    "type": "string"
+                },
+                "ruang": {
+                    "type": "string"
+                },
+                "bangsal": {
+                    "type": "string"
+                },
+                "kelas": {
+                    "type": "string"
+                },
+                "tanggal_masuk": {
+                    "type": "string"
+                },
+                "tanggal_masuk_indo": {
+                    "type": "string"
+                },
+                "jam_masuk": {
+                    "type": "string"
+                }
+            }
+        },
+        "ttd_data": {
+            "type": "object",
+            "properties": {
+                "kota": {
+                    "type": "string"
+                },
+                "tanggal": {
+                    "type": "string"
+                },
+                "tanggal_indo": {
+                    "type": "string"
+                },
+                "jam": {
+                    "type": "string"
+                },
+                "perawat": {
+                    "type": "string"
+                },
+                "perawat_stroke": {
+                    "type": "string"
+                },
+                "dokter": {
+                    "type": "string"
+                },
+                "dokter_stroke": {
+                    "type": "string"
+                }
+            }
+        },
+        "table_ass": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "tanggal_ass": {
+                            "type": "string"
+                        },
+                        "tanggal_ass_indo": {
+                            "type": "string"
+                        },
+                        "jam_ass": {
+                            "type": "string"
+                        },
+                        "skala": {
+                            "type": "string"
+                        },
+                        "nama_obat": {
+                            "type": "string"
+                        },
+                        "dosis": {
+                            "type": "string"
+                        },
+                        "rute": {
+                            "type": "string"
+                        },
+                        "non_farmakologi": {
+                            "type": "string"
+                        },
+                        "ttd_satu": {
+                            "type": "string"
+                        },
+                        "ttd_satu_stroke": {
+                            "type": "string"
+                        },
+                        "ttd_dua": {
+                            "type": "string"
+                        },
+                        "ttd_dua_stroke": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
