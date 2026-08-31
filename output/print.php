@@ -1708,7 +1708,7 @@ function clean_date($date)
 
         <br />
 
-        <div class="lable-bold"><b>13. KONDISI SAAT KELUAR IGD :</b></div>
+        <div class="lable-bold"><b>14. KONDISI SAAT KELUAR IGD :</b></div>
         <table class="poin-fisik-table" style="border: 1px solid #000;">
             <tr>
                 <td width="15%" valign="top">Keadaan umum</td>
@@ -1763,7 +1763,7 @@ function clean_date($date)
 
         <br />
 
-        <div class="lable-bold"><b>14. EDUKASI PASIEN ( Edukasi awal, disampaikan tentang dignosis, rencana dan tujuan terapi ) : :</b></div>
+        <div class="lable-bold"><b>15. EDUKASI PASIEN ( Edukasi awal, disampaikan tentang dignosis, rencana dan tujuan terapi ) : :</b></div>
         <table class="poin-fisik-table" style="border: 1px solid #000;">
             <tr>
                 <td width="100%">

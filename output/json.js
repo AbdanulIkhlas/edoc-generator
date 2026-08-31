@@ -222,6 +222,25 @@ const data = {
         "tindakan_group": "1. Tindakan Perawatan IGD | ICD 9 : -\n2. Tindakan Pasang Infus / Aff Infus | ICD 9 : (99.18) Injection or infusion of electrolytes\n3. Observasi 2 s/d 4 jam | ICD 9 : -\n4. (IGD) Rujuk RO-Genu Dextra - RSMB, Rujuk Rontgen IGD, | ICD 9 : -\n5. Nebulizer/Inhalasi Dewasa /Anak, | ICD 9 : (93.94) Respiratory medication administered by nebulizer",
         "tindakan_freetext": "",
         "tindakan_list": [],
+        "data_vital_sign":[
+            {
+                "tanggal": "2026-08-31",
+                "tanggal_indo": "31 Agustus 2026",
+                "jam": "14:15",
+                "tensi_sistole":120,
+                "tensi_diastole":80,
+                "nadi": 80,
+                "suhu": 36.5,
+                "nafas": 20,
+                "spo2": 100,
+                "gcs_e": 4,
+                "gcs_v": 5,
+                "gcs_m": 6,
+                "bb":60,
+                "keluhan_utama": "pasien datangan dengan keluhan gigi nyeri",
+                "anamnesis": "pasien mengaku keluhan di rasakan pada giri ataas kiri sebelah aww"
+            }
+        ],
         "external_link": {
             "vital_sign_data":{
               "no_register": "2606080001",
@@ -1926,6 +1945,7 @@ const data = {
         },
         "tindakan_group": "",
         "tindakan_freetext": "",
-        "tindakan_list": []
+        "tindakan_list": [],
+        "data_vital_sign": []
     }
 }
