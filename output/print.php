@@ -509,6 +509,8 @@ function cekJenisKelamin($kode)
 							<?= $v->verifikasi_dpjp->jam_verif ?>
 						</div>
 					<?php endif; ?>
+
+                    <!-- tampilkan data catatan dpjp -->
 				</td>
 			</tr>
 		<?php endforeach; ?>
