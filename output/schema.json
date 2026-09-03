@@ -3,6 +3,49 @@
   "title": "Generated schema for Root",
   "type": "object",
   "properties": {
+    "indexExpandTindakanUtama": {
+      "type": "array",
+      "items": {}
+    },
+    "ttd_data": {
+      "type": "object",
+      "properties": {
+        "kota": {
+          "type": "string"
+        },
+        "tanggal": {
+          "type": "string"
+        },
+        "tanggal_indo": {
+          "type": "string"
+        },
+        "jam": {
+          "type": "string"
+        },
+        "perawat": {
+          "type": "string"
+        },
+        "perawat_stroke": {
+          "type": "string"
+        },
+        "dokter": {
+          "type": "string"
+        },
+        "dokter_stroke": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kota",
+        "tanggal",
+        "tanggal_indo",
+        "jam",
+        "perawat",
+        "perawat_stroke",
+        "dokter",
+        "dokter_stroke"
+      ]
+    },
     "pasien": {
       "type": "object",
       "properties": {
@@ -12,185 +55,154 @@
         "no_rm": {
           "type": "string"
         },
-        "kelamin": {
-          "type": "string"
-        },
         "tanggal_lahir": {
           "type": "string"
         },
         "tanggal_lahir_indo": {
           "type": "string"
+        },
+        "kelamin": {
+          "type": "string"
+        },
+        "kelas": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "nama",
+        "no_rm",
+        "tanggal_lahir",
+        "tanggal_lahir_indo",
+        "kelamin",
+        "kelas"
+      ]
     },
-    "data_list": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "tanggal_cppt": {
-            "type": "string"
-          },
-          "tanggal_cppt_indo": {
-            "type": "string"
-          },
-          "jam_cppt": {
-            "type": "string"
-          },
-          "profesional_pemberi_asuhan": {
-            "type": "string"
-          },
-          "profesi": {
-            "type": "string"
-          },
-          "klinik": {
-            "type": "string"
-          },
-          "bangsal": {
-            "type": "string"
-          },
-          "ruang": {
-            "type": "string"
-          },
-          "kelas": {
-            "type": "string"
-          },
-          "igd": {
-            "type": "string"
-          },
-          "pilihan": {
-            "type": "string"
-          },
-          "hasil_asesmen": {
-            "type": "object",
-            "properties": {
-              "catatan_s": {
-                "type": "string"
+    "anamnesa": {
+      "type": "string"
+    },
+    "pemeriksaan_fisik": {
+      "type": "object",
+      "properties": {
+        "ttv": {
+          "type": "object",
+          "properties": {
+            "tensi": {
+              "type": "object",
+              "properties": {
+                "sistole": {
+                  "type": "number"
+                },
+                "diastole": {
+                  "type": "number"
+                }
               },
-              "catatan_o": {
-                "type": "string"
-              },
-              "catatan_a": {
-                "type": "string"
-              },
-              "catatan_p": {
-                "type": "string"
-              }
+              "required": [
+                "sistole",
+                "diastole"
+              ]
+            },
+            "nadi": {
+              "type": "number"
+            },
+            "nafas": {
+              "type": "number"
+            },
+            "suhu": {
+              "type": "number"
+            },
+            "bb": {
+              "type": "number"
+            },
+            "tb": {
+              "type": "number"
             }
           },
-          "hasil_adime": {
-            "type": "object",
-            "properties": {
-              "adime_a": {
-                "type": "string"
-              },
-              "adime_d": {
-                "type": "string"
-              },
-              "adime_i": {
-                "type": "string"
-              },
-              "adime_me": {
-                "type": "string"
-              }
-            }
-          },
-          "hasil_sbar": {
-            "type": "object",
-            "properties": {
-              "sbar_s": {
-                "type": "string"
-              },
-              "sbar_b": {
-                "type": "string"
-              },
-              "sbar_a": {
-                "type": "string"
-              },
-              "sbar_r": {
-                "type": "string"
-              }
-            }
-          },
-          "instruksi_ppa": {
-            "type": "string"
-          },
-          "perawat_harian": {
-            "type": "string"
-          },
-          "tanda_tangan_harian": {
-            "type": "string"
-          },
-          "perawat_menyerahkan": {
-            "type": "string"
-          },
-          "tanda_tangan_menyerahkan": {
-            "type": "string"
-          },
-          "perawat_menerima": {
-            "type": "string"
-          },
-          "tanda_tangan_menerima": {
-            "type": "string"
-          },
-          "apoteker": {
-            "type": "string"
-          },
-          "tanda_tangan_apoteker": {
-            "type": "string"
-          },
-          "ahli_gizi": {
-            "type": "string"
-          },
-          "tanda_tangan_ahli_gizi": {
-            "type": "string"
-          },
-          "verifikasi_dpjp": {
-            "type": "object",
-            "properties": {
-              "tanda_tangan": {
-                "type": "string"
-              },
-              "tanda_tangan_2": {
-                "type": "string"
-              },
-              "nama_dpjp": {
-                "type": "string"
-              },
-              "tanggal_dpjp": {
-                "type": "string"
-              },
-              "tanggal_dpjp_indo": {
-                "type": "string"
-              },
-              "jam_dpjp": {
-                "type": "string"
-              },
-              "all_status_verif": {
-                "type": "boolean"
-              },
-              "status_verif": {
-                "type": "boolean"
-              },
-              "nama_verif": {
-                "type": "string"
-              },
-              "tanggal_verif": {
-                "type": "string"
-              },
-              "tanggal_indo_verif": {
-                "type": "string"
-              },
-              "jam_verif": {
-                "type": "string"
-              }
-            }
-          },
-          "catatan_dpjp": {
-            "type": "string"
-          }
+          "required": [
+            "tensi",
+            "nadi",
+            "nafas",
+            "suhu",
+            "bb",
+            "tb"
+          ]
+        },
+        "keterangan": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "ttv",
+        "keterangan"
+      ]
+    },
+    "list_diagnosa": {
+      "type": "array",
+      "items": {}
+    },
+    "diagnosa_freetext": {
+      "type": "string"
+    },
+    "tindakan": {
+      "type": "array",
+      "items": {}
+    },
+    "tindakan_freetext": {
+      "type": "string"
+    },
+    "terapi": {
+      "type": "string"
+    },
+    "ttd": {
+      "type": "object",
+      "properties": {
+        "tanggal_ttd_dokter": {
+          "type": "string"
+        },
+        "tanggal_ttd_dokter_indo": {
+          "type": "string"
+        },
+        "jam_ttd_dokter": {
+          "type": "string"
+        },
+        "dokter_ttd": {
+          "type": "string"
+        },
+        "tanggal_ttd_perawat": {
+          "type": "string"
+        },
+        "tanggal_ttd_perawat_indo": {
+          "type": "string"
+        },
+        "jam_ttd_perawat": {
+          "type": "string"
+        },
+        "perawat_ttd": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tanggal_ttd_dokter",
+        "tanggal_ttd_dokter_indo",
+        "jam_ttd_dokter",
+        "dokter_ttd",
+        "tanggal_ttd_perawat",
+        "tanggal_ttd_perawat_indo",
+        "jam_ttd_perawat",
+        "perawat_ttd"
+      ]
     }
-  }
+  },
+  "required": [
+    "indexExpandTindakanUtama",
+    "ttd_data",
+    "pasien",
+    "anamnesa",
+    "pemeriksaan_fisik",
+    "list_diagnosa",
+    "diagnosa_freetext",
+    "tindakan",
+    "tindakan_freetext",
+    "terapi",
+    "ttd"
+  ]
 }
