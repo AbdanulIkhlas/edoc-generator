@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "indexExpandTindakanUtama": {
+      "type": "array",
+      "items": {}
+    },
+    "ttd_data": {
+      "type": "object",
+      "properties": {
+        "kota": {
+          "type": "string"
+        },
+        "tanggal": {
+          "type": "string"
+        },
+        "tanggal_indo": {
+          "type": "string"
+        },
+        "jam": {
+          "type": "string"
+        },
+        "perawat": {
+          "type": "string"
+        },
+        "perawat_stroke": {
+          "type": "string"
+        },
+        "dokter": {
+          "type": "string"
+        },
+        "dokter_stroke": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kota",
+        "tanggal",
+        "tanggal_indo",
+        "jam",
+        "perawat",
+        "perawat_stroke",
+        "dokter",
+        "dokter_stroke"
+      ]
+    },
+    "pasien": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string"
+        },
+        "no_rm": {
+          "type": "string"
+        },
+        "tanggal_lahir": {
+          "type": "string"
+        },
+        "tanggal_lahir_indo": {
+          "type": "string"
+        },
+        "kelamin": {
+          "type": "string"
+        },
+        "kelas": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "nama",
+        "no_rm",
+        "tanggal_lahir",
+        "tanggal_lahir_indo",
+        "kelamin",
+        "kelas"
+      ]
+    },
+    "anamnesa": {
+      "type": "string"
+    },
+    "pemeriksaan_fisik": {
+      "type": "object",
+      "properties": {
+        "ttv": {
+          "type": "object",
+          "properties": {
+            "tensi": {
+              "type": "object",
+              "properties": {
+                "sistole": {
+                  "type": "number"
+                },
+                "diastole": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "sistole",
+                "diastole"
+              ]
+            },
+            "nadi": {
+              "type": "number"
+            },
+            "nafas": {
+              "type": "number"
+            },
+            "suhu": {
+              "type": "number"
+            },
+            "bb": {
+              "type": "number"
+            },
+            "tb": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "tensi",
+            "nadi",
+            "nafas",
+            "suhu",
+            "bb",
+            "tb"
+          ]
+        },
+        "keterangan": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ttv",
+        "keterangan"
+      ]
+    },
+    "list_diagnosa": {
+      "type": "array",
+      "items": {}
+    },
+    "diagnosa_freetext": {
+      "type": "string"
+    },
+    "tindakan": {
+      "type": "array",
+      "items": {}
+    },
+    "tindakan_freetext": {
+      "type": "string"
+    },
+    "terapi": {
+      "type": "string"
+    },
+    "ttd": {
+      "type": "object",
+      "properties": {
+        "tanggal_ttd_dokter": {
+          "type": "string"
+        },
+        "tanggal_ttd_dokter_indo": {
+          "type": "string"
+        },
+        "jam_ttd_dokter": {
+          "type": "string"
+        },
+        "dokter_ttd": {
+          "type": "string"
+        },
+        "tanggal_ttd_perawat": {
+          "type": "string"
+        },
+        "tanggal_ttd_perawat_indo": {
+          "type": "string"
+        },
+        "jam_ttd_perawat": {
+          "type": "string"
+        },
+        "perawat_ttd": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tanggal_ttd_dokter",
+        "tanggal_ttd_dokter_indo",
+        "jam_ttd_dokter",
+        "dokter_ttd",
+        "tanggal_ttd_perawat",
+        "tanggal_ttd_perawat_indo",
+        "jam_ttd_perawat",
+        "perawat_ttd"
+      ]
+    }
+  },
+  "required": [
+    "indexExpandTindakanUtama",
+    "ttd_data",
+    "pasien",
+    "anamnesa",
+    "pemeriksaan_fisik",
+    "list_diagnosa",
+    "diagnosa_freetext",
+    "tindakan",
+    "tindakan_freetext",
+    "terapi",
+    "ttd"
+  ]
+}
