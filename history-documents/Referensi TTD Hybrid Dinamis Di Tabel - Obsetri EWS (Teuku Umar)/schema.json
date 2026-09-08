@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "title": "Root Schema",
+  "type": "object",
+  "examples": [{
+    "pasien": {
+      "nama": "nama sample",
+      "no_rm": "121212121",
+      "kelamin": "l",
+      "tanggal_lahir": "",
+      "tanggal_lahir_indo": "12 Januari 2022"
+    },
+    "data": [{
+        "tanggal": "",
+        "tanggal_indo": "11 Januari 2024",
+        "pukul": "12:12",
+        "nafas": "",
+        "saturasi": "",
+        "nadi": "",
+        "sistole": "",
+        "diastole": "",
+        "suhu": "",
+        "kesadaran": "",
+        "proteinuria": "",
+        "ketuban": "",
+        "lochea": "",
+        "total_skor": "",
+        "petugas": "Parjono"
+      },
+      {
+        "tanggal": "",
+        "tanggal_indo": "11 Januari 2024",
+        "pukul": "12:12",
+        "nafas": "",
+        "saturasi": "",
+        "nadi": "",
+        "sistole": "",
+        "diastole": "",
+        "suhu": "",
+        "kesadaran": "",
+        "proteinuria": "",
+        "ketuban": "",
+        "lochea": "",
+        "total_skor": "",
+        "petugas": "Sutiyoso"
+      }
+    ]
+  }]
+}

@@ -1,0 +1,1515 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+    integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    /*
+        Data sample ada di variable EMRDATA.init
+    */
+    const URL_IMAGE_SEVER_LOCAL = "http://192.168.0.201:1201/"; // Sesuaikan
+    const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
+    const IP_WG = "11.11.17.4"; // Sesuaikan
+
+    Vue.component("ttd-section", {
+        props: {
+            mode: String,
+            drawer_name: String,
+            label: String,
+            value: String,
+            path_name: String,
+            stroke: String,
+            path_stroke: String,
+            name_input_type: String,
+            select_id: String,
+        },
+        mounted() {
+            $(`#${this.select_id}`).on("select2:select", (e) => {
+                const selected = e.params.data;
+                if (selected) {
+                    // Update nama langsung ke parent via v-model
+                    this.localValue = selected.text || selected.nama || selected.id || "";
+                    // Langsung update stroke tanpa melalui onChangeTTD (bypass debounce + localValue check)
+                    // karena URL sudah tersedia langsung dari data selected
+                    const url = selected.ttd_image ? this.getImageUrl() + selected.ttd_image : "";
+                    this.updateStrokeBaru(url);
+                }
+            });
+
+            $(`#${this.select_id}`).on("select2:clearing", (e) => {
+                this.localValue = "";
+                this.updateStrokeBaru("");
+            });
+
+            setSelect2(`#${this.select_id}`, this.value, this.value);
+        },
+        methods: {
+            getImageUrl() {
+                return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+            },
+            showImageUrl(url) {
+                if (!url || typeof url !== "string" || url.trim() === "") {
+                    console.warn("URL tidak valid atau kosong. Mengembalikan string kosong.");
+                    return "";
+                }
+
+                try {
+                    // 2. Gunakan objek URL untuk mendapatkan pathname
+                    const urlObject = new URL(url);
+                    const pathname = urlObject.pathname.startsWith('/') ? urlObject.pathname.substring(1) : urlObject.pathname;
+
+                    // urlObject.search untuk selalu mengambil data image terbaru pada ttd pasien
+                    const result = this.getImageUrl() + pathname + urlObject.search;
+                    return result;
+                } catch (e) {
+                    console.error("Gagal memproses URL:", e);
+                    // Mengembalikan URL asli jika terjadi kesalahan
+                    return url;
+                }
+            },
+            handleOpenTTDModal({ path_stroke, path_name, mode, label, name_input_type }) {
+                this.$emit("open-ttd-modal", {
+                    path_stroke,
+                    path_name,
+                    label,
+                    name_input_type,
+                    mode_ttd: mode,
+                });
+            },
+            onChangeTTD(url = "") {
+                if (this.mode === "IMAGE" && this.name_input_type === 'TEXT') return;
+
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(() => {
+                    if (this.localValue) {
+                        let stroke = "";
+
+                        if (this.mode === "QRCODE") {
+                            stroke = generatorQr(this.localValue);
+                        } else if (this.mode === "IMAGE") {
+                            stroke = url;
+                        } else {
+                            return;
+                        }
+
+                        this.updateStrokeBaru(stroke);
+                    } else {
+                        this.updateStrokeBaru("");
+                    }
+                }, 500); // delay 500 ms
+            },
+            updateStrokeBaru(url) {
+                // Memberi tahu parent untuk update stroke
+                this.$emit("update-stroke", url);
+            },
+        },
+        computed: {
+            localValue: {
+                get() {
+                    return this.value;
+                },
+                set(val) {
+                    this.$emit("input", val);
+                },
+            },
+        },
+        template: `
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-12">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-12 text-center" style="height:40px">
+                            <p class="mb-0">{{ label }}</p>
+                        </div>
+            
+                        <div class="col-md-12 text-center mb-2">
+                            <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                            <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='/images/blank.png';" />
+                        </div>
+            
+                        <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
+                            <p class="mb-0">{{ localValue }}</p>
+                        </div>
+            
+                        <div v-if="mode === 'IMAGE' || mode === 'QRCODE'" class="col-md-12 text-center" style="height:23px">
+                        </div>
+            
+                        <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
+                            <button style="min-width: 230px;" type="button"
+                            class="btn"
+                            :class="{
+                                'bg-success text-white': (stroke === '' && localValue === ''),
+                                'bg-warning text-black': (stroke !== '' || localValue !== '')
+                            }"
+                            data-toggle="modal"
+                            data-target="#tandaTanganModal"
+                            @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            &nbsp;&nbsp;
+                            {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
+                            </button>
+                        </div>
+            
+                        <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
+                            <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
+                            <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
+                            <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `,
+    });
+
+    function configTTDModalDokter(data) {
+        return {
+            element: "#dokter_ttd_modal_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            // biar bisa ngetik dan search di modal
+            dropdownParent: "#tandaTanganModal",
+            allowClear: true,
+            query_params: {
+                status: "",
+                spesialisasi: "",
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.tmp_modal_ttd.name;
+                    data.tmp_modal_ttd.name = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function configTTDModalNakes(data) {
+        return {
+            element: "#nakes_ttd_modal_auto",
+            url: "/api/emr/autocomplete?source_name=nakes",
+            // biar bisa ngetik dan search di modal
+            dropdownParent: "#tandaTanganModal",
+            allowClear: true,
+            query_params: {
+                status: "",
+                id_profesi_nakes: "",
+            },
+
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.tmp_modal_ttd.name;
+                    data.tmp_modal_ttd.name = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function init_doc(doc_id, data, operation) {
+        data.drawings = {
+            ttd_1: { brushSize: 2, brushColor: "#000000", isDrawing: false, isErasing: false, lastX: 0, lastY: 0 },
+        };
+
+        data.tmp_modal_ttd = {
+            name: "",
+            title: "",
+            label: "",
+            mode: "",
+            mode_ttd: "",
+            path_name: "",
+            path_stroke: "",
+            name_input_type: "",
+        };
+
+        const DATA_TMP = {
+            "tanggal": "",
+            "tanggal_indo": "",
+            // "pukul" : "",
+            // "nafas" : 0,
+            // "saturasi" : 0,
+            // "nadi" : 0,
+            // "sistole" : 0,
+            // "diastole" : 0,
+            // "suhu" : 0,
+            // "kesadaran" : 0,
+            // "proteinuria" : 0,
+            // "ketuban" : 0,
+            // "lochea" : 0,
+            // "total_skor" : 0,
+            "nafas": "",
+            "saturasi": "",
+            "nadi": "",
+            "sistole": "",
+            "diastole": "",
+            "suhu": "",
+            "kesadaran": "",
+            "proteinuria": "",
+            "ketuban": "",
+            "lochea": "",
+            "total_skor": "",
+            "petugas": "",
+            "petugas_stroke": ""
+        }
+        data.data_tmp = DATA_TMP
+
+        const DATA_EDIT = {
+            "tanggal": "",
+            "tanggal_indo": "",
+            "pukul": "",
+            "nafas": "",
+            "saturasi": "",
+            "nadi": "",
+            "sistole": "",
+            "diastole": "",
+            "suhu": "",
+            "kesadaran": "",
+            "proteinuria": "",
+            "ketuban": "",
+            "lochea": "",
+            "total_skor": "",
+            "petugas": "",
+            "petugas_stroke": ""
+        }
+        data.data_edit = DATA_EDIT
+
+        var app = new Vue({
+            el: '#formadd',
+            data: data,
+            mounted: function () {
+                this.init()
+            },
+            methods: {
+                init: function () {
+
+                    setTimeout(() => this.run_autocomplete(), 100)
+                    this.setupSignature(data);
+
+                    if (operation === 'add') {
+                        init_doc_add(data);
+                    }
+                    if (operation === 'edit') {
+                        init_doc_edit(data);
+                    }
+
+                    //alert(JSON.stringify(EMRDATA.init));
+
+                },
+                // start function ttd
+                setupSignature: function (data) {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                    // Start setup Coretan Canvas
+                    // const canvas1 = this.$refs["ttd_1"];
+                    // this.addCanvasListeners("ttd_1", canvas1);
+
+                    this.$nextTick(() => {
+                        const canvas1 = this.$refs["ttd_1"];
+
+                        if (!canvas1) {
+                            console.warn("[setupSignature] canvas ttd_1 tidak ditemukan");
+                            return;
+                        }
+
+                        this.addCanvasListeners("ttd_1", canvas1);
+                    });
+                    // End setup Coraten Canvas
+
+                    // Start setup autocomplete ketika mode ttd canvas
+                    $("#tandaTanganModal").on("shown.bs.modal", () => {
+                        autocomplete(configTTDModalDokter(data));
+                        autocomplete(configTTDModalNakes(data));
+                        setSelect2("#dokter_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
+                        setSelect2("#nakes_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
+
+                        $("#dokter_ttd_modal_auto").on("select2:clearing", (e) => {
+                            this.tmp_modal_ttd.name = "";
+                            this.tmp_modal_ttd.stroke = "";
+                        });
+
+                        $("#nakes_ttd_modal_auto").on("select2:clearing", (e) => {
+                            this.tmp_modal_ttd.name = "";
+                            this.tmp_modal_ttd.stroke = "";
+                        });
+                    });
+                    // End setup autocomplete ketika mode ttd canvas
+                },
+                addCanvasListeners(name, canvas) {
+                    if (!canvas) {
+                        console.warn(`[addCanvasListeners] canvas ${name} undefined`);
+                        return;
+                    }
+
+                    canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("mouseup", () => this.stopDraw(name));
+                    canvas.addEventListener("mouseout", () => this.stopDraw(name));
+                    canvas.addEventListener("touchstart", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("touchmove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("touchend", () => this.stopDraw(name));
+                },
+                getCoordinates(event, canvas) {
+                    const rect = canvas.getBoundingClientRect();
+                    if (event.touches) {
+                        return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
+                    }
+                    return { x: event.offsetX, y: event.offsetY };
+                },
+                startDraw(event, name) {
+                    event.preventDefault();
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    drawing.isDrawing = true;
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                moveDraw(event, name) {
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    if (!drawing.isDrawing) return;
+                    event.preventDefault();
+                    const ctx = canvas.getContext("2d");
+                    ctx.lineWidth = drawing.brushSize;
+                    ctx.strokeStyle = drawing.isErasing ? "rgba(255, 255, 255, 1)" : drawing.brushColor;
+                    ctx.globalCompositeOperation = drawing.isErasing ? "destination-out" : "source-over";
+                    ctx.lineJoin = "round";
+                    ctx.lineCap = "round";
+
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    ctx.beginPath();
+                    ctx.moveTo(drawing.lastX, drawing.lastY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                stopDraw(name) {
+                    this.drawings[name].isDrawing = false;
+                },
+                startDrawing(name) {
+                    this.drawings[name].isErasing = false;
+                },
+                startErasing(name) {
+                    this.drawings[name].isErasing = true;
+                },
+                clearCanvas(name, showConfirm = true) {
+                    if (showConfirm) {
+                        Swal.fire({
+                            title: "Apa kamu yakin?",
+                            text: "Anda tidak akan dapat mengembalikan ini!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Ya, hapus!",
+                        }).then((result) => {
+                            if (result.isConfirmed || result.value) {
+                                setByPath(this, this.tmp_modal_ttd.path_stroke, "");
+                                const canvas = this.$refs[name];
+                                const ctx = canvas.getContext("2d");
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Coretan Anda telah dihapus",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                });
+                            }
+                        });
+                    } else {
+                        const canvas = this.$refs[name];
+                        const ctx = canvas.getContext("2d");
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+                },
+                saveAsImage({ name, path_name, path_stroke, isReturn = false }) {
+                    if (this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        if (isReturn) return generatorQr(this.drawer_ttd[name].name);
+                        else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
+                    } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
+                        const scaleFactor = 1; // Faktor skala, bisa diatur sesuai kebutuhan
+                        const drawingCanvas = this.$refs[name];
+
+                        // Buat canvas baru untuk menampung hasil
+                        const resizedCanvas = document.createElement("canvas");
+                        resizedCanvas.width = drawingCanvas.width * scaleFactor;
+                        resizedCanvas.height = drawingCanvas.height * scaleFactor;
+
+                        const resizedCtx = resizedCanvas.getContext("2d");
+
+                        // Skalakan gambar latar belakang dan coretan ke canvas yang lebih kecil
+                        resizedCtx.drawImage(drawingCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+                        // Konversi hasilnya menjadi PNG base64
+                        const resizedBase64 = resizedCanvas.toDataURL("image/png");
+
+                        // Menyimpan hasil base64 ke array `drawings`
+                        if (isReturn) return resizedBase64;
+                        else setByPath(this, path_stroke, resizedBase64);
+                    }
+                },
+                // Fungsi untuk memuat gambar dari base64 ke canvas
+                loadBase64Image(base64 = null) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+                    const drawingCtx = drawingCanvas.getContext("2d");
+
+                    const drawingImage = new Image();
+                    drawingImage.src = base64; // Muat gambar dari base64 di array drawings
+
+                    drawingImage.onload = () => {
+                        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                        drawingCtx.drawImage(drawingImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+                    };
+                },
+                openTTDModalHandler: function ({
+                    path_name = "",
+                    path_stroke = "",
+                    mode_ttd = "",
+                    label = "Penandatangan",
+                    name_input_type = "TEXT",
+                }) {
+                    this.clearCanvas("ttd_1", false);
+                    this.tmp_modal_ttd.name = "";
+                    const stroke = getByPath(this, path_stroke);
+
+                    this.tmp_modal_ttd.name = getByPath(this, path_name);
+                    this.tmp_modal_ttd.name_input_type = name_input_type;
+                    this.tmp_modal_ttd.label = label;
+                    this.tmp_modal_ttd.path_name = path_name;
+                    this.tmp_modal_ttd.path_stroke = path_stroke;
+                    this.tmp_modal_ttd.mode_ttd = mode_ttd;
+
+                    if (stroke || this.tmp_modal_ttd.name) this.tmp_modal_ttd.mode = "edit";
+                    else this.tmp_modal_ttd.mode = "add";
+
+                    if (this.tmp_modal_ttd.mode === "add") {
+                        this.tmp_modal_ttd.title = "Tambah Tanda Tangan";
+                    } else if (this.tmp_modal_ttd.mode === "edit") {
+                        setSelect2("#dokter_ttd_modal_auto", this.tmp_modal_ttd.name, this.tmp_modal_ttd.name);
+                        this.tmp_modal_ttd.title = "Edit Tanda Tangan";
+                        this.loadBase64Image(getByPath(this, path_stroke));
+                    }
+                },
+                saveTTDHandler: function (isAutoComplete = false) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+
+                    setByPath(this, this.tmp_modal_ttd.path_name, this.tmp_modal_ttd.name);
+
+                    if (!isCanvasBlank(drawingCanvas) || this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        this.saveAsImage({
+                            name: "ttd_1",
+                            path_name: this.tmp_modal_ttd.path_name,
+                            path_stroke: this.tmp_modal_ttd.path_stroke,
+                        });
+                    }
+
+                    this.tmp_modal_ttd = {
+                        name: "",
+                        title: "",
+                        label: "",
+                        mode: "",
+                        mode_ttd: "",
+                        path_name: "",
+                        path_stroke: "",
+                        name_input_type: "",
+                    };
+                },
+                // end function ttd
+                saveDoc: function () {
+
+                    var json = {
+                        'document_history_list_id': doc_id, /* built in variable from edoc */
+                        'patient_id': EMRDATA.patient_id,
+                        'reg_number': EMRDATA.reg_number,
+                        'document': EMRDATA.document_code,
+                        'document_title': EMRDATA.document_name,
+                        'label': 'Poliklinik',
+                        'note': '',
+                        'data': data
+                    };
+
+                    /* built in function from edoc */
+                    save_emr_data(json);
+                },
+                checkData: function () {
+                    /* built in function from edoc */
+                    preview_emr_data(data);
+                },
+                onChDateDynamic: function (dateData, jsonPath) {
+                    let obj = this
+                    jsonPathSplit = jsonPath.split('.');
+                    for (i = 0; i < jsonPathSplit.length - 1; i++) {
+                        obj = obj[jsonPathSplit[i]];
+                    }
+                    if (dateData.target.value != "") {
+                        obj[jsonPathSplit[i]] = dateParse(new Date(dateData.target.value)).dateDisplay;
+                    } else {
+                        obj[jsonPathSplit[i]] = ""
+                    }
+                },
+                onChDateArray: function (dateData, i) {
+                    // console.log(dateData.target.id)
+                    // for(let i=0; i <= array; i++){
+                    if (dateData.target.id == `list_data_tanggal${i}`) {
+                        if (dateData.target.value != "") {
+                            data.data[i].tanggal_indo = dateParse(new Date(dateData.target.value)).dateDisplay;
+                        } else {
+                            data.data[i].tanggal_indo = "";
+                        }
+                    }
+                    // }
+                },
+                add_data: function () {
+                    this.data.push({
+                        "tanggal": "",
+                        "tanggal_indo": "",
+                        "nafas": "",
+                        "saturasi": "",
+                        "nadi": "",
+                        "sistole": "",
+                        "diastole": "",
+                        "suhu": "",
+                        "kesadaran": "",
+                        "proteinuria": "",
+                        "ketuban": "",
+                        "lochea": "",
+                        "total_skor": "",
+                        "petugas": "",
+                        "petugas_stroke": ""
+                    })
+                    setTimeout(() => this.run_autocomplete(), 100)
+                },
+                run_autocomplete: function () {
+                    autocomplete(configNakes1(data));
+                    autocomplete(configNakes2(data));
+                    autocomplete(configNakes3(data));
+                    autocomplete(configNakes4(data));
+                    autocomplete(configNakes5(data));
+                    autocomplete(configNakes6(data));
+                },
+                del_data: function (i) {
+                    if (i > -1) {
+                        this.data.splice(i, 1)
+                    }
+                },
+                onChTotal: function (i) {
+                    // data.data[i].total_skor = data.data[i].nafas + data.data[i].saturasi + data.data[i].nadi + data.data[i].sistole + data.data[i].diastole + 
+                    //                           data.data[i].suhu + data.data[i].kesadaran + data.data[i].proteinuria + data.data[i].ketuban + data.data[i].lochea
+
+                    // Pastikan data dari input diubah menjadi angka
+                    let nafas = parseFloat(this.data[i].nafas) || 0;
+                    let saturasi = parseFloat(this.data[i].saturasi) || 0;
+                    let nadi = parseFloat(this.data[i].nadi) || 0;
+                    let sistole = parseFloat(this.data[i].sistole) || 0;
+                    let diastole = parseFloat(this.data[i].diastole) || 0;
+                    let suhu = parseFloat(this.data[i].suhu) || 0;
+                    let kesadaran = parseFloat(this.data[i].kesadaran) || 0;
+                    let proteinuria = parseFloat(this.data[i].proteinuria) || 0;
+                    let ketuban = parseFloat(this.data[i].ketuban) || 0;
+                    let lochea = parseFloat(this.data[i].lochea) || 0;
+
+                    // Jumlahkan nilai-nilai tersebut
+                    this.data[i].total_skor = nafas + saturasi + nadi + sistole + diastole + suhu + kesadaran + proteinuria + ketuban + lochea;
+                }
+
+            }
+        });
+    }
+
+    function init_doc_add(data) {
+        const ext_px_data = data.external_link.px_data
+        const px_data = data.pasien
+        px_data.nama = ext_px_data.nama
+        px_data.no_rm = ext_px_data.no_rm
+        px_data.kelamin = ext_px_data.kelamin
+        px_data.tanggal_lahir = ext_px_data.tanggal_lahir
+        px_data.tanggal_lahir_indo = dateParse(new Date(ext_px_data.tanggal_lahir)).dateDisplay
+    }
+
+    function init_doc_edit(data) {
+        setSelect2($('#nakes_auto1'), data.data, "")
+        setSelect2($('#nakes_auto2'), data.data, "")
+        setSelect2($('#nakes_auto3'), data.data, "")
+        setSelect2($('#nakes_auto4'), data.data, "")
+        setSelect2($('#nakes_auto5'), data.data, "")
+        setSelect2($('#nakes_auto6'), data.data, "")
+    }
+
+    function dateParse(date) {
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        let dateInput = date;
+        const yyyy = dateInput.getFullYear();
+        let mm = dateInput.getMonth() + 1; // Months start at 0!
+        let dd = dateInput.getDate();
+        let month = monthNames[mm - 1];
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        dateInput = `${yyyy}-${mm}-${dd}`;
+        let dateDisplay = `${dd} ${month} ${yyyy}`;
+        return { dateInput, dateDisplay }
+        // return dateDisplay;
+    }
+
+    function configNakes1(data) {
+        return {
+            element: '#nakes_auto1',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[0].petugas;
+                    data.data[0].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function configNakes2(data) {
+        return {
+            element: '#nakes_auto2',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[1].petugas;
+                    data.data[1].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function configNakes3(data) {
+        return {
+            element: '#nakes_auto3',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[2].petugas;
+                    data.data[2].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function configNakes4(data) {
+        return {
+            element: '#nakes_auto4',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[3].petugas;
+                    data.data[3].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function configNakes5(data) {
+        return {
+            element: '#nakes_auto5',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[4].petugas;
+                    data.data[4].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function configNakes6(data) {
+        return {
+            element: '#nakes_auto6',
+            url: '/api/emr/autocomplete?source_name=nakes',
+            query_params: {
+                status: '',
+                id_profesi_nakes: ''
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = '';
+                if (repo.id != '') {
+                    // Previous Code : Bug when edit doc
+                    // data.ttd.dokter_ttd = repo.nama 
+                    // res = repo.nama ;
+
+                    // Newest code
+                    res = repo.nama || data.data[5].petugas;
+                    data.data[5].petugas = res
+                }
+
+                return res;
+            }
+        }
+    }
+
+    function generatorQr(el) {
+        let elgenerateqr = document.createElement("div");
+        elgenerateqr.id = "elgenerateqr";
+
+        let objqrcode = new QRCode(elgenerateqr, el);
+        return elgenerateqr.querySelector("canvas").toDataURL();
+    }
+
+    function getByPath(obj, path) {
+        return path
+            .replace(/\[(\d+)\]/g, ".$1") // Ubah [0] jadi .0
+            .split(".") // Pisahkan dengan titik
+            .reduce((acc, part) => acc && acc[part], obj);
+    }
+
+    function setByPath(obj, path, value) {
+        const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
+        let current = obj;
+
+        for (let i = 0; i < parts.length - 1; i++) {
+            const part = parts[i];
+            if (!(part in current)) {
+                // otomatis buat objek/array baru jika belum ada
+                current[part] = isNaN(Number(parts[i + 1])) ? {} : [];
+            }
+            current = current[part];
+        }
+
+        current[parts[parts.length - 1]] = value;
+    }
+
+    function isCanvasBlank(canvas) {
+        const context = canvas.getContext("2d");
+        const pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+
+        return !pixelBuffer.some((color) => color !== 0);
+    }
+
+    function getUrlHandler() {
+        return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+    }
+
+
+</script>
+<style>
+    .form-control {
+        border-radius: 5px !important;
+        padding: 0 10px !important;
+        font-size: 13px;
+    }
+
+    textarea.form-control {
+        min-height: 60px;
+    }
+
+    .ttd-img {
+        width: 150px;
+        height: 100px;
+        object-fit: contain;
+        /* atau contain tergantung kebutuhan */
+        border: 1px solid #ccc;
+        /* opsional, agar terlihat jelas */
+    }
+</style>
+<form id="formadd" class="form-label-left input_mask col-md-12">
+    <h6 class="text-center mt-4"><b>LEMBAR OBSERVASI DAN RESPON CHART <br> <i>PEDIATRIC EARLY WARNING SYSTEM</i> (PEWS)
+            Usia 0 - 16 Tahun</b></h6>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label for="pasien_nama" class="col-md-4 col-form-label">Nama</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control-plaintext font-italic" id="pasien_nama" v-model="pasien.nama"
+                        readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="pasien_tgl_lahir" class="col-md-4 col-form-label">Tanggal Lahir</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control-plaintext font-italic" id="pasien_tgl_lahir"
+                        v-model="pasien.tanggal_lahir" readonly
+                        @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label for="pasien_no_rm" class="col-md-4 col-form-label">No RM</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control-plaintext font-italic" id="pasien_no_rm"
+                        v-model="pasien.no_rm" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="kelamin_l" class="col-md-4 col-form-label ">Jenis Kelamin</label>
+                <div class="col-md-8">
+                    <input v-if='pasien.kelamin == "P"' type="text" class="form-control-plaintext font-italic"
+                        id="pasien_kelamin" value="Perempuan" readonly>
+                    <input v-else type="text" class="form-control-plaintext font-italic" id="pasien_kelamin"
+                        value="Laki-laki" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="text-right">
+            <button type="button" class="btn btn-sm btn-primary" @click='add_data()' :disabled='data.length == 6'><i
+                    class="fa fa-plus"></i> Tambah data</button>
+        </div>
+        <div class="table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th class="text-right" colspan="2">Tanggal</th>
+                        <th v-for="(item,index) in data">
+                            <button type="button" @click="del_data(index)" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-minus"></i></button>
+                            <input type="date" class="form-control" :id="'list_data_tanggal'+index"
+                                v-model="item.tanggal" @change="onChDateArray($event, index)">
+                        </th>
+                        <th style="vertical-align:middle;" rowspan="2">
+                            Skor
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-right">Jam</th>
+                        <th v-for="(item,index) in data">
+                            <input type="time" class="form-control" v-model="item.pukul">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">
+                            LAJU PERNAFASAN (per menit)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            11 - 20
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model="item.nafas" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">11 - 20</option>
+                                <option value="1">21 - 30</option>
+                                <option value="2">> 30</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.nafas}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            21 - 30
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            > 30
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            SATURASI O2 (%)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            95 - 100
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.saturasi" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">95 - 100</option>
+                                <option value="1">90 - 94</option>
+                                <option value="2">
+                                    < 90</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.saturasi}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            90 - 94
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            < 90 </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            DENYUT NADI (per menit)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            51 - 99
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.nadi" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">51 - 99</option>
+                                <option value="1">40 - 50 / 100 - 120</option>
+                                <option value="2">
+                                    < 40 /> 120
+                                </option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.nadi}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            40 - 50 / 100 - 120
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            < 40 /> 120
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            TEKANAN DARAH SISTOLIK (mmHg)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            100 - 149
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.sistole" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">100 - 149</option>
+                                <option value="1">90 - 99 / 150 - 159</option>
+                                <option value="2">
+                                    < 90 /> 160
+                                </option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.sistole}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            90 - 99 / 150 - 159
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            < 90 /> 160
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            TEKANAN DARAH DIASTOLIK (mmHg)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            < 90 </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.diastole" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">
+                                    < 90</option>
+                                <option value="1">90 - 109</option>
+                                <option value="2"> >= 110</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.diastole}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            90 - 109
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            >= 110
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            TEMPERATUR (Celcius)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            36 - 37,9
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.suhu" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0"> 36 - 37,9</option>
+                                <option value="1">35 - 35,9</option>
+                                <option value="2">
+                                    < 35 /> 38
+                                </option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.suhu}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            35 - 35,9
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            < 35 /> 38
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            KESADARAN
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            Sadar
+                        </td>
+                        <td rowspan="3" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.kesadaran" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0"> Sadar</option>
+                                <option value="1">Memberi respon terhadap suara</option>
+                                <option value="2"> Memberi respon terhadap nyeri / tidak berespon</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.kesadaran}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            Memberi respon terhadap suara
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            Memberi respon terhadap nyeri / tidak berespon
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            PROTEINURIA (per hari)
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            Negatif to +2
+                        </td>
+                        <td rowspan="2" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.proteinuria" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">Negatif to +2</option>
+                                <option value="1"> '> +3</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.proteinuria}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-warning text-center font-weight-bold">
+                            '> +3
+                        </td>
+                        <td class="table-warning text-center font-weight-bold">
+                            1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            BAU CAIRAN KETUBAN
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            Khas
+                        </td>
+                        <td rowspan="2" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.ketuban" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">Khas</option>
+                                <option value="2"> Busuk (keruh, kental)</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.ketuban}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            Busuk (keruh, kental)
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            DISCHARGE LOCHEA
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            Normal
+                        </td>
+                        <td rowspan="2" v-for="(item,index) in data">
+                            <select class="form-control" v-model.number="item.lochea" @change="onChTotal(index)">
+                                <option value=""></option>
+                                <option value="0">Normal</option>
+                                <option value="2">Banyak (berlebihan)</option>
+                            </select>
+
+                            <br>
+                            <center>
+                                <h5>{{item.lochea}}</h5>
+                            </center>
+                        </td>
+                        <td class="table-success text-center font-weight-bold">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger text-center font-weight-bold">
+                            Banyak (berlebihan)
+                        </td>
+                        <td class="table-danger text-center font-weight-bold">
+                            2
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right font-weight-bold">
+                            TOTAL SKOR
+                        </td>
+                        <td v-for="(item,index) in data" class="text-center font-weight-bold">
+                            <center>
+                                <h5>{{item.total_skor}}</h5>
+                            </center>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right font-weight-bold">
+                            NAMA PETUGAS
+                        </td>
+                        <td v-for="(item,index) in data" :key="index">
+                            <!--<select :id="'nakes_auto'+(index+1)" class="form-control" style="width:100%;"></select>-->
+
+                            <ttd-section mode="IMAGE" label="" :select_id="'nakes_auto'+(index+1)"
+                                name_input_type="NAKES" v-model="item.petugas" path_name="item.petugas"
+                                :stroke="item.petugas_stroke" path_stroke="item.petugas_stroke"
+                                @update-stroke="item.petugas_stroke = $event" @open-ttd-modal="openTTDModalHandler"
+                                disable_input="" />
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-primary" @click='add_data()' :disabled='data.length == 6'><i
+            class="fa fa-plus"></i> Tambah data</button>
+    <div class="form-group row">
+        <div class="table table-responsive">
+            <table class="table table-bordered">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <!--<td style="background-color:#6ebf6e;">Skor 1-4 (Risiko Ringan)</td>-->
+                        <td class="table-warning">Skor 1-4 (Risiko Ringan)</td>
+                        <td>Merekomendasikan penilaian MEOWS diulangi dalam 12 jam.</td>
+                        <td>Melanjutkan terus penilaian MEOWS atau seperti yang ditunjukkan oleh kondisi pasien.</td>
+                    </tr>
+                    <tr>
+                        <!--<td style="background-color:#f4fd63;">Skor 5-6 (Risiko Sedang)</td>-->
+                        <td style="background-color:#fd9929;">Skor 5-6 (Risiko Sedang)</td>
+                        <td>Merekomendasikan penilaian MEOWS diulangi dalam 30 menit.</td>
+                        <td>Beritahukan perawat/bidan. Melaporkan pada dokter jaga yang bertanggung jawab untuk melihat
+                            kondisi pasien. Memastikan dokter jaga atau dokter Spesialis (Sp.OG) sudah mengetahui
+                            kondisi pasien</td>
+                    </tr>
+                    <tr>
+                        <td class="table-danger">Skor 7 atau lebih (Risiko Tinggi)</td>
+                        <td>Merekomendasikan penilaian MEOWS diulang terus-menerus.</td>
+                        <td>Beritahukan perawat/bidan. Aktifkan Rapid Response Team (Obstetric). Beritahu dokter
+                            Spesialis Obsgyn untuk hadir. Memastikan dokter jaga atau dokter Spesialis (Sp.OG) sudah
+                            mengetahui kondisi pasien. Jika tidak ada respon oleh Tim dalam waktu 5 menit aktivasi <b
+                                style="color:#4dcaff;"><i>CODE BLUE</i></b>.</td>
+                    </tr>
+                    <!--<tr>-->
+                    <!--    <td style="background-color:#fd2626;">Skor &gt; 6</td>-->
+                    <!--    <td>Lakukan penilaian PEWS terus-menerus</td>-->
+                    <!--    <td>Segera beritahu perawat yang bertugas. Perawat inap melaporkan ke dokter jaga dan aktifkan Tim Reaksi Cepat Pediatrik. Perawat memanggil Tim Reaksi Cepat Pediatrik dan DPJP segera hadir. Jika tidak ada respon dalam waktu 5 menit panggil <b style="color:#4dcaff;"><i>CODE BLUE</i></b></td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td style="background-color:#4dcaff;">Henti Jantung atau Henti Napas</td>
+                        <td colspan="2">Lakukan RJP, aktivitas henti jantung respon Tim Henti Jantung segera, maksimal 5
+                            menit.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group row mt-5 text-center">
+        <div class="col-md-12">
+            <button type="button" v-on:click="saveDoc" class="btn btn-primary"><i class="fa fa-save"></i>
+                Simpan</button>
+            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden"><i
+                    class="fa fa-check-square-o"></i> Check Data</button>
+        </div>
+    </div>
+
+    <!-- START MODAL TTD -->
+    <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tandaTanganModalLabel">{{ tmp_modal_ttd.title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="row text-center d-block mb-2">{{ tmp_modal_ttd.label }}</div>
+                            <div class="row">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div style="width: 65%" class="d-flex justify-content-between">
+                                        <div>
+                                            <div style="display: inline; margin-right: 10px">
+                                                <input type="color" style="width: 30px"
+                                                    v-model="drawings.ttd_1.brushColor" />
+                                            </div>
+                                            <div style="display: inline; margin-right: 10px; margin-top: 5px">
+                                                <input type="range" min="1" max="20"
+                                                    v-model="drawings.ttd_1.brushSize" />
+                                                <span>{{ drawings.ttd_1.brushSize }}</span>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline">
+                                            <button type="button" @click="startDrawing('ttd_1')"
+                                                class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left" title="Drawing">
+                                                <i class="fa fa-paint-brush"></i>
+                                            </button>
+                                            <button type="button" title="Erasing" @click="startErasing('ttd_1')"
+                                                class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-eraser"></i>
+                                            </button>
+                                            <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
+                                                class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
+                                        style="border: 1px solid black; margin-right: 3px"></canvas>
+                                </div>
+                            </div>
+                            <div class="row mt-2 justify-content-center">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
+                                        class="d-flex justify-content-center">
+                                        <input :key="'input_text'" type="text" class="form-control"
+                                            v-model="tmp_modal_ttd.name" />
+                                    </div>
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
+                                    </div>
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
+                                        <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
+                                            style="width: 100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL TTD -->
+</form>

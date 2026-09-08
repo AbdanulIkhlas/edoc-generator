@@ -3,7 +3,7 @@
         "px_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
-            "data_usage": ["copy", "embeded"]
+            "data_usage": ["copy"]
         },
         "vital_sign_data": {
             "source_type": "ws",
@@ -39,21 +39,21 @@
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
             "data_usage": ["copy"]
-        }
-    },
-    "digital_signature": {
-        "ttd_dokter": {
-            "value_type": "path",
-            "json_path": "$.ttd.dokter_ttd",
-            "encrypt": false,
-            "data_arrangement": ["signature", "document_title", "patient_id", "readable_time", "hospital_name"]
         },
-        "ttd_perawat": {
-            "value_type": "path",
-            "json_path": "$.ttd.perawat_ttd",
-            "encrypt": false,
-            "data_arrangement": ["signature", "document_title", "patient_id", "readable_time", "hospital_name"]
+        "hasil_lab_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/laboratorium/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "hasil_radiologi_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/radiologi/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "operation_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/operation/<reg_number>",
+            "data_usage": ["copy"]
         }
-    },
-    "images_data": ["ttd_1", "ttd_2"]
+    }
 }
