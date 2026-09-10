@@ -3,8 +3,42 @@
 $params = json_decode($argv[1]);
 
 $base_url = $argv[2]; // Base_url
-$title = "Odontogram V2";
+$title = "Odontogram";
 $static_label = json_decode($argv[3]);
+
+function tgl_indo($tanggal)
+{
+    if (empty($tanggal) || $tanggal === '0000-00-00') {
+        return '';
+    }
+
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    $timestamp = strtotime($tanggal);
+
+    if ($timestamp === false) {
+        return '';
+    }
+
+    $hari = date('j', $timestamp);   // tanpa leading zero
+    $bulan_ke = date('n', $timestamp);
+    $tahun = date('Y', $timestamp);
+
+    return $hari . ' ' . $bulan[$bulan_ke] . ' ' . $tahun;
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +66,7 @@ $static_label = json_decode($argv[3]);
     }
 
     body {
-        font: 14pt times new roman;
+        font: 11pt times new roman;
         size: f4;
         padding-bottom: 10px;
     }
@@ -42,12 +76,9 @@ $static_label = json_decode($argv[3]);
         border-collapse: collapse;
     }
 
-    th td {
-        width: 30px;
-    }
-
     td {
-        height: 25px;
+        vertical-align: top;
+        padding: 2px;
     }
 
     .table-bordered,
@@ -66,301 +97,238 @@ $static_label = json_decode($argv[3]);
     }
 
     .img-logo {
-        width: 250px;
-        height: 70px;
+        width: 70px;
+        height: auto;
     }
 
-    .vertical-text {
-        padding: 0;
-        margin: 0;
-        writing-mode: tb-rl;
-        filter: flipv fliph;
-        -webkit-transform: rotate(90deg);
-        white-space: nowrap;
-        text-orientation: mixed;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle;
-    }
-    
-    .txt-vertical-1 {
-				transform: translate(-40%, -50%) rotate(-90deg);
-				-webkit-transform: translate(-40%, -50%) rotate(-90deg);
-				position: absolute;
-		}
-
-		.txt-vertical-2 {
-				transform: translate(-50%, -50%) rotate(-90deg);
-				-webkit-transform: translate(-50%, -50%) rotate(-90deg);
-				position: absolute;
-		}
-
-		.textbottomup {
-				transform: rotate(180deg);
-				writing-mode: vertical-rl;
-				text-align: center;
-		}
-
-    .tanda-tangan {
-        width: 100px;
-        height: 100px;
-    }
-
-    .text {
-        padding: 4px 0px;
-    }
-
-    .td-default {
-        border: 1px solid black;
-        padding: 0.5em 1em;
-    }
-
-    .td-borderless {
-        border: 1px solid none;
-        padding: 1em 1em;
-    }
-
-    .flex {
-        display: table;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .flex-text-start {
-        display: table-cell;
-        ;
-        text-align: right;
-        text-wrap: nowrap;
-        white-space: nowrap;
-    }
-
-    .flex-text-end {
-        display: table-cell;
-        ;
-        text-align: left;
-        text-wrap: nowrap;
-        white-space: nowrap;
-        white-space: nowrap;
-    }
-
-    .flex-text {
-        display: table-cell;
-        ;
-        text-align: center;
-        text-wrap: nowrap;
-    }
-
-    .flex-blank {
-        display: table-cell;
-        text-align: center;
-    }
-
-    .flex-dotted {
-        display: table-cell;
-        border-bottom: 2px dotted black;
-        text-align: center;
-    }
-
-    .flex-solid {
-        display: table-cell;
-        border-bottom: 2px solid black;
-        text-align: center;
-    }
-
-    .rectangle {
-        display: inline-block;
-        margin-right: 1em;
-        border: 1px solid black;
-        width: 11px;
-        height: 11px;
-    }
-
-    .flex-container {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        list-style: none;
-        -ms-box-orient: horizontal;
-        -webkit-box-pack: left;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -moz-flex;
-        display: -webkit-flex;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: stretch;
-    }
-
-    .flex-item {
-        -webkit-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    }
-
-    .flex-solid {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 1px solid black;
-    }
-
-    .flex-dotted {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        border-bottom: 2px dotted black;
-    }
-
-    .flex-blank {
-        display: -webkit-box;
-        -webkit-box-pack: justify;
-        flex: 1;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-    }
-
-    .w100 {
-        width: 100%;
-    }
-
-    .w80 {
-        width: 80%;
-    }
-
-    .w70 {
-        width: 70%;
-    }
-
-    .w65 {
-        width: 65%;
-    }
-
-    .w60 {
-        width: 60%;
-    }
-
-    .w55 {
-        width: 55%;
-    }
-
-    .w50 {
-        width: 50%;
-    }
-
-    .w45 {
-        width: 45%;
-    }
-
-    .w40 {
-        width: 40%;
-    }
-
-    .w35 {
-        width: 35%;
-    }
-
-    .w30 {
-        width: 30%;
-    }
-
-    .w25 {
-        width: 25%;
-    }
-
-    .w20 {
-        width: 20%;
-    }
-
-    .w15 {
-        width: 15%;
-    }
-
-    .w10 {
-        width: 10%
-    }
-
-    .w5 {
-        width: 5%
-    }
-
-    .w3 {
-        width: 3%
-    }
-
-    .w1 {
-        width: 1%
-    }
-    
     .ttd-img {
-				width: 200px;
-        height: 120px;
-        object-fit: contain; /* atau contain tergantung kebutuhan */
+        width: 150px;
+        height: 80px;
+        object-fit: contain;
     }
 
-    .circle {
-        display: inline-block;
-        border: 2px solid black;
-        border-radius: 50%;
-        text-align: center;
-        font-weight: bold;
-        padding: 5px;
-    }
-    
     .pagebreak {
         min-height: 1px;
         page-break-before: always;
     }
-    
-    /* BARIS INI AKAN MENCEGAH TABEL TERPOTONG */
+
     .pagebreak-avoid {
         page-break-inside: avoid;
+    }
+
+    .main-outer-table {
+        width: 100%;
+        page-break-inside: auto;
     }
 </style>
 
 <body>
-    <table border="0" >
+    <!-- KOP SURAT -->
+    <div style="padding-bottom: 15px;">
+        <table style="width: 100%;">
+            <tr>
+                <td width="15%" style="vertical-align: middle; text-align: center;">
+                    <img style="width: 75px;" src="<?= $base_url; ?>/images/rs/LogoRS.png">
+                </td>
+                <td width="40%" style="vertical-align: middle; padding-left: 5px;">
+                    <div style="font-size: 13pt; font-weight: bold; line-height: 1.2;">
+                        <?= $static_label->hospital_name ?? 'RS Farmagitechs'; ?>
+                    </div>
+                    <div style="font-size: 12pt; font-weight: bold; line-height: 1.2;">
+                        <?= $static_label->hospital_city ?? 'Yogyakarta'; ?>
+                    </div>
+                    <div style="font-size: 9.5pt; line-height: 1.2; margin-top: 3px;">
+                        <?= $static_label->hospital_address ?? 'Jl. Magelang Km.12, Sleman, Daerah Istimewa Yogyakarta'; ?>
+                    </div>
+                    <div style="font-size: 10pt; font-weight: bold; line-height: 1.2; margin-top: 2px;">
+                        <?= $static_label->hospital_regency ?? $static_label->hospital_city ?? 'Sleman'; ?>
+                    </div>
+                </td>
+                <td width="45%" style="vertical-align: middle;">
+                    <div style="border: 1px solid black; padding: 6px 10px; font-size: 10.5pt;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 36%;">No RM</td>
+                                <td style="width: 2%;">:</td>
+                                <td><?= $params->pasien->no_rm ?? ''; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Nama Pasien</td>
+                                <td>:</td>
+                                <td><?= $params->pasien->nama ?? ''; ?><?= !empty($params->pasien->kelamin) ? ' (' . (strtoupper($params->pasien->kelamin)[0] ?? '') . ')' : ''; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Lahir</td>
+                                <td>:</td>
+                                <td><?= !empty($params->pasien->tanggal_lahir) ? tgl_indo($params->pasien->tanggal_lahir) : ($params->pasien->tanggal_lahir_indo ?? ''); ?></td>
+                            </tr>
+                            <tr>
+                                <td>NIK</td>
+                                <td>:</td>
+                                <td><?= $params->pasien->nik ?? $params->external_link->px_data->no_identitas ?? ''; ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- TITLE -->
+    <div style="text-align: center; font-weight: bold; font-size: 14pt; margin: 10px 0 15px 0;">
+        ODONTOGRAM
+    </div>
+
+    <!-- DATA IDENTITAS PASIEN -->
+    <table class="table-bordered" style="width: 100%; margin-bottom: 15px;">
         <tr>
-            <td align="center">TEST ODONTOGRAM V2</td>
+            <td style="padding: 6px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top; padding-right: 15px;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 32%;">Nama</td>
+                                    <td style="width: 3%;">:</td>
+                                    <td><?= $params->pasien->nama ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Kelamin</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->kelamin ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->alamat ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Pekerjaan</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->pekerjaan ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Pendidikan</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->pendidikan ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Agama</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->agama ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Ruang</td>
+                                    <td>:</td>
+                                    <td><?= !empty($params->pasien->bangsal) ? $params->pasien->bangsal . ' - Ruang ' . ($params->pasien->ruang ?? '') . ' (' . ($params->pasien->kelas ?? '') . ')' : ($params->pasien->ruang ?? ''); ?></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 50%; vertical-align: top; padding-left: 15px; border-left: 1px solid #ccc;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 36%;">No RM</td>
+                                    <td style="width: 3%;">:</td>
+                                    <td><?= $params->pasien->no_rm ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Lahir</td>
+                                    <td>:</td>
+                                    <td><?= !empty($params->pasien->tanggal_lahir) ? tgl_indo($params->pasien->tanggal_lahir) : ($params->pasien->tanggal_lahir_indo ?? ''); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Tempat Lahir</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->tempat_lahir ?? ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Umur</td>
+                                    <td>:</td>
+                                    <td><?= !empty($params->pasien->umur) ? $params->pasien->umur . ' Tahun' : ''; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Masuk</td>
+                                    <td>:</td>
+                                    <td><?= !empty($params->pasien->tanggal_masuk) ? tgl_indo($params->pasien->tanggal_masuk) : ($params->pasien->tanggal_masuk_indo ?? ''); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Jam Masuk</td>
+                                    <td>:</td>
+                                    <td><?= $params->pasien->jam_masuk ?? ''; ?></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
     </table>
-    <br />
-    <table border="0" >
+
+    <!-- KETERANGAN ODONTOGRAM -->
+    <table border="0" style="width: 100%; margin-top: 10px;">
         <tr>
-            <td align="left">NOTE: di dokumen aslinya nanti ada keterangan yang mirip sperrti dokumen, tetapi layout dan gambar keterangan menyesuaikan, yang di bawah hanya keterangan sementara</td>
-        </tr>
-        
-    </table>
-    <br />
-    <table border="0">
-        <tr>
-            <td>Keterangan : </td>
+            <td style="font-weight: bold;">Keterangan :</td>
         </tr>
     </table>
-    <table class="table-bordered">
+    <table class="table-bordered" style="width: 100%;">
         <tr>
             <td align="center">
                 <img 
                     src="<?= $base_url; ?>/images/keterangan_odontogram.png" 
-                    style="width:100%; height:auto; object-fit:contain;"
+                    style="width: 100%; height: auto; object-fit: contain;"
                 >
             </td>
         </tr>
     </table>
+
     <br />
-    <table class="table-bordered">
+
+    <!-- ODONTOGRAM RESULT STROKE -->
+    <table class="table-bordered" style="width: 100%;">
         <tr>
             <td align="center">
                 <?php if (!empty($params->odontogram_stroke)) : ?>
                     <img 
                         src="<?= $params->odontogram_stroke ?>" 
-                        style="width:100%; height:auto; object-fit:contain;"
+                        style="width: 100%; height: auto; object-fit: contain;"
                     >
                 <?php endif; ?>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <!-- TANDA TANGAN SECTION -->
+    <table border="0" style="width: 100%; margin-top: 15px; page-break-inside: avoid;">
+        <tr>
+            <td style="width: 50%;"></td>
+            <td style="width: 50%; text-align: center;">
+                <?= $params->ttd_data->kota ?? $static_label->hospital_city ?? ''; ?>, <?= !empty($params->ttd_data->tanggal) ? tgl_indo($params->ttd_data->tanggal) : ($params->ttd_data->tanggal_indo ?? ''); ?> <?= !empty($params->ttd_data->jam) ? 'Jam ' . $params->ttd_data->jam : ''; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 10px;">
+                Perawat
+                <div style="min-height: 80px; margin: 5px 0;">
+                    <?php if (!empty($params->ttd_data->perawat_stroke)) : ?>
+                        <img src="<?= $params->ttd_data->perawat_stroke ?>" class="ttd-img">
+                    <?php else : ?>
+                        <div style="height: 80px;"></div>
+                    <?php endif; ?>
+                </div>
+                ( <?= $params->ttd_data->perawat ?? '........................................'; ?> )
+            </td>
+            <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 10px;">
+                Dokter
+                <div style="min-height: 80px; margin: 5px 0;">
+                    <?php if (!empty($params->ttd_data->dokter_stroke)) : ?>
+                        <img src="<?= $params->ttd_data->dokter_stroke ?>" class="ttd-img">
+                    <?php else : ?>
+                        <div style="height: 80px;"></div>
+                    <?php endif; ?>
+                </div>
+                ( <?= $params->ttd_data->dokter ?? '........................................'; ?> )
             </td>
         </tr>
     </table>
