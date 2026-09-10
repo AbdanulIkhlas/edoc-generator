@@ -1,95 +1,312 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Generated schema for Root",
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
     "pasien": {
       "type": "object",
       "properties": {
-        "nama": {
+        "nama_pasien": {
           "type": "string"
         },
         "no_rm": {
           "type": "string"
         },
-        "tanggal_lahir": {
+        "tgl_lahir": {
           "type": "string"
         },
-        "tanggal_lahir_indo": {
-          "type": "string"
-        },
-        "kelamin": {
+        "tgl_lahir_indo": {
           "type": "string"
         },
         "alamat": {
           "type": "string"
-        },
-        "tempat_lahir": {
-          "type": "string"
-        },
-        "pekerjaan": {
-          "type": "string"
-        },
-        "pendidikan": {
-          "type": "string"
-        },
-        "agama": {
-          "type": "string"
-        },
-        "umur": {
-          "type": "string"
-        },
-        "ruang": {
-          "type": "string"
-        },
-        "bangsal": {
-          "type": "string"
-        },
-        "kelas": {
-          "type": "string"
-        },
-        "tanggal_masuk": {
-          "type": "string"
-        },
-        "tanggal_masuk_indo": {
-          "type": "string"
-        },
-        "jam_masuk": {
-          "type": "string"
         }
-      },
-      "required": []
+      }
     },
-    "ttd_data": {
+    "staf": {
       "type": "object",
       "properties": {
-        "kota": {
+        "dokter_operator": {
           "type": "string"
         },
-        "tanggal": {
+        "asisten_bedah_1": {
           "type": "string"
         },
-        "tanggal_indo": {
+        "asisten_bedah_2": {
           "type": "string"
         },
-        "jam": {
+        "perawat_instrumen": {
           "type": "string"
         },
-        "perawat": {
+        "perawat_sirkuler": {
           "type": "string"
         },
-        "perawat_stroke": {
+        "dokter_anestesi": {
           "type": "string"
         },
-        "dokter": {
+        "asisten_anestesi": {
           "type": "string"
         },
-        "dokter_stroke": {
+        "jenis_anestesi": {
           "type": "string"
         }
-      },
-      "required": []
+      }
+    },
+    "keterangan": {
+      "type": "object",
+      "properties": {
+        "jaringan_eksisi": {
+          "type": "string"
+        },
+        "dikirim_pato": {
+          "type": "string"
+        },
+        "dikirim_lab": {
+          "type": "string"
+        }
+      }
+    },
+    "waktu": {
+      "type": "object",
+      "properties": {
+        "tgl_bedah": {
+          "type": "string"
+        },
+        "tgl_bedah_indo": {
+          "type": "string"
+        },
+        "mulai_operasi": {
+          "type": "string"
+        },
+        "selesai_operasi": {
+          "type": "string"
+        },
+        "mulai_anestesi": {
+          "type": "string"
+        },
+        "selesai_anestesi": {
+          "type": "string"
+        }
+      }
+    },
+    "laporan": {
+      "type": "object",
+      "properties": {
+        "tindakan_pembedahan_isian": {
+          "type": "string"
+        },
+        "diagnosa_pra_isian": {
+          "type": "string"
+        },
+        "diagnosa_pasca_isian": {
+          "type": "string"
+        },
+        "diagnosa_pra": {
+          "type": "array",
+          "items": [{
+              "type": "object",
+              "properties": {
+                "icd_x": {
+                  "type": "string"
+                },
+                "nama_sebab_sakit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "icd_x": {
+                  "type": "string"
+                },
+                "nama_sebab_sakit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "icd_x": {
+                  "type": "string"
+                },
+                "nama_sebab_sakit": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "diagnosa_pra_bedah_gabungan": {
+          "type": "string"
+        },
+        "diagnosa_post": {
+          "type": "array",
+          "items": [{
+            "type": "object",
+            "properties": {
+              "icd_x": {
+                "type": "string"
+              },
+              "nama_sebab_sakit": {
+                "type": "string"
+              }
+            }
+          }]
+        },
+        "diagnosa_pasca_bedah_gabungan": {
+          "type": "string"
+        },
+        "tindakan_freetext": {
+          "type": "string"
+        },
+        "tindakan_list": {
+          "type": "array",
+          "items": [{
+            "type": "object",
+            "properties": {
+              "nama_layanan": {
+                "type": "string"
+              },
+              "icd_9_code": {
+                "type": "string"
+              },
+              "icd_9_name": {
+                "type": "string"
+              }
+            }
+          }]
+        },
+        "tindakan_gabungan": {
+          "type": "string"
+        },
+        "kualifikasi_1": {
+          "type": "object",
+          "properties": {
+            "bersih": {
+              "type": "boolean"
+            },
+            "bersih_tercemar": {
+              "type": "boolean"
+            },
+            "tercemar": {
+              "type": "boolean"
+            },
+            "kotor": {
+              "type": "boolean"
+            }
+          }
+        },
+        "jenis_sedasi": {
+          "type": "object",
+          "properties": {
+            "ringan": {
+              "type": "boolean"
+            },
+            "moderat": {
+              "type": "boolean"
+            },
+            "dalam": {
+              "type": "boolean"
+            }
+          }
+        },
+        "kualifikasi_2": {
+          "type": "object",
+          "properties": {
+            "emergency": {
+              "type": "boolean"
+            },
+            "elektif": {
+              "type": "boolean"
+            },
+            "poliklinik": {
+              "type": "boolean"
+            },
+            "besar": {
+              "type": "boolean"
+            },
+            "sedang": {
+              "type": "boolean"
+            },
+            "kecil": {
+              "type": "boolean"
+            },
+            "canggih": {
+              "type": "boolean"
+            },
+            "lain": {
+              "type": "boolean"
+            },
+            "lain_isi": {
+              "type": "string"
+            }
+          }
+        },
+        "jenis_anestesi": {
+          "type": "object",
+          "properties": {
+            "GA": {
+              "type": "object",
+              "properties": {
+                "ETT": {
+                  "type": "boolean"
+                },
+                "LMA": {
+                  "type": "boolean"
+                },
+                "FIMA": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "Regional": {
+              "type": "object",
+              "properties": {
+                "Spinal": {
+                  "type": "boolean"
+                },
+                "Epidurasi": {
+                  "type": "boolean"
+                },
+                "CSE": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "pendarahan": {
+          "type": "string"
+        },
+        "komplikasi": {
+          "type": "string"
+        },
+        "implan": {
+          "type": "string"
+        },
+        "kode": {
+          "type": "string"
+        }
+      }
+    },
+    "laporan_operasi": {
+      "type": "string"
+    },
+    "laporan_pasca": {
+      "type": "string"
+    },
+    "tgl": {
+      "type": "string"
+    },
+    "tgl_indo": {
+      "type": "string"
+    },
+    "ttd_dokter": {
+      "type": "string"
+    },
+    "ttd_dokter_stroke": {
+      "type": "string"
     }
-  },
-  "required": []
+  }
 }

@@ -3,24 +3,44 @@
         "px_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
-            "data_usage": [
-                "copy",
-                "embeded"
-            ]
+            "data_usage": ["copy", "embeded"]
         },
-        "inpatient_information": {
+        "vital_sign_data": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
-            "data_usage": [
-                "copy"
-            ]
+            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign/<reg_number>",
+            "data_usage": ["copy"]
         },
         "dokter_dpjp_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "operation_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/operation/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "diagnosa_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
             "data_usage": [
                 "copy"
             ]
+        },
+        "tindakan_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/action_patient/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        }
+    },
+    "digital_signature": {
+        "doctor_sign": {
+            "value_type": "path",
+            "json_path": "$.ttd_dokter",
+            "encrypt": true,
+            "data_arrangement": ["time", "patient_id", "document_code", "signature"]
         }
     }
 }
