@@ -1,137 +1,124 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "",
-            "no_rm": "",
-            "kelamin": "",
-            "tgl_lahir": "",
-            "tgl_lahir_indo": "9 Agustus 2003",
-            "alamat": ""
+            "nama": "Garga",
+            "no_rm": "876754",
+            "tanggal_lahir": "2000-08-08",
+            "tanggal_lahir_indo": "8 Agustus 2000",
+            "kelamin": "Laki-laki",
+            "alamat": "Sleman",
+            "tempat_lahir": "Bandung",
+            "pekerjaan": "Influencer",
+            "pendidikan": "Diplomat",
+            "agama": "Islam",
+            "umur": "35",
+            "ruang": "Kelas",
+            "bangsal": "bangsal",
+            "kelas": "10 MIPA 2",
+            "tanggal_masuk": "2000-08-08",
+            "tanggal_masuk_indo": "8 Agustus 2000",
+            "jam_masuk": "20:00"
         },
-        "data": [
-            {
-                "hari": "12",
-                "tanggal": "1212-12-28",
-                "tanggal_indo": "28 Desember 1212",
-                "sistole": 23,
-                "diastole": 24,
-                "hr": 23,
-                "tp": 23,
-                "nafas": 23,
-                "kemih": "okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity",
-                "muntah": "okelahh kalau begity okelahh kalau begityokelahh kalau begity okelahh kalau begity okelahh kalau begity",
-                "defekasi": "okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity"
-            },
-            {
-                "hari": "12",
-                "tanggal": "1212-12-28",
-                "tanggal_indo": "28 Desember 1212",
-                "sistole": 23,
-                "diastole": 24,
-                "hr": 23,
-                "tp": 23,
-                "nafas": 23,
-                "kemih": "okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity",
-                "muntah": "okelahh kalau begity okelahh kalau begityokelahh kalau begity okelahh kalau begity okelahh kalau begity",
-                "defekasi": "okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity okelahh kalau begity"
-            }
-        ],
-        "kesadaran": "",
-        "bb": 0,
-        "tb": 0,
-        "peroral": "",
-        "parenteral": "",
-        "pemeriksaan_fisik": "",
-        "lab": "",
-        "khusus": "",
+        "ttd_data": {
+            "kota": "Labuhanhaji",
+            "tanggal": "2000-08-08",
+            "tanggal_indo": "8 Agustus 2000",
+            "jam": "20:00",
+            "perawat": "Sunarni",
+            "perawat_stroke": "",
+            "dokter": "dr. Sunarno",
+            "dokter_stroke": ""
+        },
+        "odontogram_stroke": "",
+        "odontogram_json_state": "",
         "external_link": {
             "px_data": {
                 "no_rm": "00000001",
-                "nama": "YATI PURBA NN",
+                "nama": "HANA AMIRA NN",
                 "kelamin": "P",
                 "tanggal_lahir": "1985-10-24",
-                "alamat": "Alamat diganti",
+                "alamat": "Jln. Magelang, Pantai Timur",
                 "tempat_lahir": "Kuningan",
                 "pekerjaan": "Wiraswasta",
                 "agama": "Islam",
                 "pendidikan": "SMA",
                 "status_perkawinan": "Belum Kawin",
-                "no_identitas": "12341231231",
+                "no_identitas": "1234",
                 "kelurahan": "14 ILIR",
                 "kecamatan": "ILIR TIMUR",
                 "kabupaten": "Palembang",
                 "provinsi": "SUMATERA SELATAN",
                 "telp": "085647387654",
-                "email": "yati@gmail.com",
+                "email": "hana@gmail.com",
                 "nama_ibu": "Ani",
                 "nama_ayah": "Budi",
                 "gol_darah": "A"
             },
-            "vital_sign_data": {
-                "tensi": {
-                    "sistole": 120,
-                    "diastole": 80
-                },
-                "nadi": 15,
-                "suhu": 36,
-                "nafas": 50,
-                "tinggi_badan": 178,
-                "berat_badan": 68,
-                "keluhan_utama": "Sakit Perut",
-                "anamnesis": "-",
-                "pemeriksaan_fisik": "-"
+            "inpatient_information": {
+                "no_register": "2305010009",
+                "id_pasien": "000151",
+                "id_pendaftaran": 323,
+                "id_layanan_pendaftaran": 396,
+                "id_bangsal": 22,
+                "nama_bangsal": "Yudhistira (Neurologi)",
+                "id_kelas": 1,
+                "nama_kelas": "III",
+                "no_ruang": "1",
+                "nomor_bed": "12",
+                "titipan": "Tidak",
+                "id_bangsal_titipan": 0,
+                "nama_bangsal_titipan": "",
+                "id_kelas_titipan": 0,
+                "nama_kelas_titipan": "",
+                "waktu_masuk": "2023-05-01 20:41:38",
+                "waktu_keluar": "2023-05-01 20:43:46"
             },
-            "hasil_lab_data": [
-                {
-                    "no_register": "2212120001",
-                    "id_pasien": "00000006",
-                    "id_pendaftaran": 11,
-                    "id_layanan_pendaftaran": 15,
-                    "id_detail_laboratorium": 2,
-                    "nama_layanan": "Albumin",
-                    "hasil_laboratorium": [
-                        {
-                            "item_laboratorium": "Albumin",
-                            "abnormal": "Tidak",
-                            "nama_satuan": "g/dL"
-                        }
-                    ]
-                },
-                {
-                    "no_register": "2212120001",
-                    "id_pasien": "00000006",
-                    "id_pendaftaran": 11,
-                    "id_layanan_pendaftaran": 15,
-                    "id_detail_laboratorium": 2,
-                    "nama_layanan": "Rudi",
-                    "hasil_laboratorium": [
-                        {
-                            "item_laboratorium": "Gora",
-                            "abnormal": "Tidak",
-                            "nama_satuan": "g/dL"
-                        }
-                    ]
-                }
-            ]
+            "dokter_dpjp_data": {
+                "no_register": "2212120001",
+                "id_pasien": "00000006",
+                "id_pendaftaran": 11,
+                "id_layanan_pendaftaran": 16,
+                "id_dokter_dpjp": 37,
+                "nama_dokter_dpjp": "dr. Subarjo Wibowo",
+                "id_spesialis": 2,
+                "nama_spesialis": "Umum",
+                "id_profesi": 1,
+                "nama_profesi": "Dokter",
+                "ttd_image": "000002_682b2a74c336d.png"
+            }
         }
     },
     "default": {
         "pasien": {
             "nama": "",
             "no_rm": "",
+            "tanggal_lahir": "",
+            "tanggal_lahir_indo": "",
             "kelamin": "",
-            "tgl_lahir": "",
-            "tgl_lahir_indo": "",
-            "alamat": ""
+            "alamat": "",
+            "tempat_lahir": "",
+            "pekerjaan": "",
+            "pendidikan": "",
+            "agama": "",
+            "umur": "",
+            "ruang": "",
+            "bangsal": "",
+            "kelas": "",
+            "tanggal_masuk": "",
+            "tanggal_masuk_indo": "",
+            "jam_masuk": ""
         },
-        "data": [],
-        "kesadaran": "",
-        "bb": 0,
-        "tb": 0,
-        "peroral": "",
-        "parenteral": "",
-        "pemeriksaan_fisik": "",
-        "lab": "",
-        "khusus": ""
+        "ttd_data": {
+            "kota": "Yogyakarta",
+            "tanggal": "",
+            "tanggal_indo": "",
+            "jam": "",
+            "perawat": "",
+            "perawat_stroke": "",
+            "dokter": "",
+            "dokter_stroke": ""
+        },
+        "odontogram_stroke": "",
+        "odontogram_json_state": ""
     }
 }

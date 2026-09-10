@@ -1,91 +1,385 @@
-<script type="text/javascript">
-    /*
-        Data sample ada di variable EMRDATA.init
-    */
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+    integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.9.0/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    // Global variable here
+    const URL_IMAGE_SEVER_LOCAL = "http://192.168.20.10:1201/";  // Sesuaikan
+    const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
+    const IP_WG = "11.11.17.4"; // Sesuaikan
 
-    var imageListData = [];
+    // Vue components here
+    Vue.component("ttd-section", {
+        props: {
+            mode: String,
+            drawer_name: String,
+            label: String,
+            value: String,
+            path_name: String,
+            stroke: String,
+            path_stroke: String,
+            name_input_type: String,
+            select_id: String,
+        },
+        mounted() {
+            $(`#${this.select_id}`).on("select2:select", (e) => {
+                const selected = e.params.data;
+
+                if (selected) {
+                    const url = selected.ttd_image ? this.getImageUrl() + selected.ttd_image : "";
+                    this.onChangeTTD(url);
+                }
+            });
+
+            $(`#${this.select_id}`).on("select2:clearing", (e) => {
+                this.localValue = "";
+                this.updateStrokeBaru("");
+            });
+
+            setSelect2(`#${this.select_id}`, this.value, this.value);
+        },
+        methods: {
+            getImageUrl() {
+                return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+            },
+            showImageUrl(url) {
+                if (!url || typeof url !== "string" || url.trim() === "") {
+                    console.warn("URL tidak valid atau kosong. Mengembalikan string kosong.");
+                    return "";
+                }
+
+                try {
+                    // 2. Gunakan objek URL untuk mendapatkan pathname
+                    const urlObject = new URL(url);
+                    const pathname = urlObject.pathname.startsWith("/")
+                        ? urlObject.pathname.substring(1)
+                        : urlObject.pathname;
+                    const result = this.getImageUrl() + pathname;
+                    return result;
+                } catch (e) {
+                    console.error("Gagal memproses URL:", e);
+                    // Mengembalikan URL asli jika terjadi kesalahan
+                    return url;
+                }
+            },
+            handleOpenTTDModal({ path_stroke, path_name, mode, label, name_input_type }) {
+                this.$emit("open-ttd-modal", {
+                    path_stroke,
+                    path_name,
+                    label,
+                    name_input_type,
+                    mode_ttd: mode,
+                });
+            },
+            onChangeTTD(url = "") {
+                if (this.mode === "IMAGE" && this.name_input_type === "TEXT") return;
+
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(() => {
+                    if (this.localValue) {
+                        let stroke = "";
+
+                        if (this.mode === "QRCODE") {
+                            stroke = generatorQr(this.localValue);
+                        } else if (this.mode === "IMAGE") {
+                            stroke = url;
+                        } else {
+                            return;
+                        }
+
+                        this.updateStrokeBaru(stroke);
+                    } else {
+                        this.updateStrokeBaru("");
+                    }
+                }, 500); // delay 500 ms
+            },
+            updateStrokeBaru(url) {
+                // Memberi tahu parent untuk update stroke
+                this.$emit("update-stroke", url);
+            },
+        },
+        computed: {
+            localValue: {
+                get() {
+                    return this.value;
+                },
+                set(val) {
+                    this.$emit("input", val);
+                },
+            },
+        },
+        template: `
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center" style="height:40px">
+                <p class="mb-0">{{ label }}</p>
+            </div>
+
+            <div class="col-md-12 text-center mb-2">
+                <img v-if="mode === 'IMAGE'" :src="showImageUrl(stroke)" alt="TTD Image" class="ttd-img" onerror="this.src=''" />
+                <img v-else :src="stroke" alt="TTD Image" class="ttd-img" onerror="this.src='" />
+            </div>
+
+            <div v-if="mode === 'CANVAS'" class="col-md-12 text-center">
+                <p class="mb-0">{{ localValue }}</p>
+            </div>
+
+            <div v-if="mode === 'IMAGE' || mode === 'QRCODE' || mode === ''" class="col-md-12 text-center" style="height:23px">
+    		    </div>
+
+            <div class="col-md-12 text-center" v-if="mode === 'CANVAS'">
+                <button style="min-width: 230px;" type="button"
+                class="btn"
+                :class="{
+                    'bg-success text-white': (stroke === '' && localValue === ''),
+                    'bg-warning text-black': (stroke !== '' || localValue !== '')
+                }"
+                data-toggle="modal"
+                data-target="#tandaTanganModal"
+                @click="handleOpenTTDModal( { path_stroke, path_name, mode, label, name_input_type } )">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                {{ stroke === '' && localValue === '' ? 'Tambah' : 'Edit' }} Tanda Tangan
+                </button>
+            </div>
+
+            <div class="col-md-12 text-center" v-if="mode !== 'CANVAS'">
+                <input v-if="name_input_type === 'TEXT'" type="text" class="form-control" v-model="localValue" @input="onChangeTTD" />
+                <!-- Jika mode bukan CANVAS, tampilkan input select (auto complete) -->
+                <select v-if="name_input_type !== 'TEXT'" class="form-control" :id="select_id" style="width: 100%;"></select>
+            </div>
+        </div>
+    </div>
+</div>
+`,
+    });
+
+    // Config function here
+    function configDokter1(data) {
+        return {
+            element: "#dokter_auto1",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            allowClear: true,
+            query_params: {
+                status: "",
+                spesialisasi: "",
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.ttd_data.dokter;
+                    data.ttd_data.dokter = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function configNakes1(data) {
+        return {
+            element: "#nakes_auto1",
+            url: "/api/emr/autocomplete?source_name=nakes",
+            allowClear: true,
+            query_params: {
+                status: "",
+                id_profesi_nakes: "",
+            },
+
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.ttd_data.perawat;
+                    data.ttd_data.perawat = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function configRuang(data) {
+        return {
+            element: "#ruang_auto",
+            url: "/api/emr/autocomplete?source_name=ruang",
+            markup_template: function (repo) {
+                return `<b>${repo.nama_bangsal}</b> - Ruang ${repo.nama_ruang}  <small>(${repo.nama_kelas})</small>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+
+                // Previous Code : Bug when edit doc
+                // data.pasien.ruang = repo.nama
+                var data_test = {
+                    nama_bangsal: repo.nama_bangsal || data.pasien.bangsal,
+                    nama_ruang: repo.nama_ruang || data.pasien.ruang,
+                    nama_kelas: repo.nama_kelas || data.pasien.kelas,
+                }; // res = repo.nama ;
+
+                data.pasien.bangsal = data_test.nama_bangsal;
+                data.pasien.ruang = data_test.nama_ruang;
+                data.pasien.kelas = data_test.nama_kelas;
+
+                return `${data_test.nama_bangsal} - Ruang ${data_test.nama_ruang} - ${data_test.nama_kelas}`;
+            },
+        };
+    }
+
+    function configTTDModalDokter(data) {
+        return {
+            element: "#dokter_ttd_modal_auto",
+            url: "/api/emr/autocomplete?source_name=dokter",
+            // biar bisa ngetik dan search di modal
+            dropdownParent: "#tandaTanganModal",
+            allowClear: true,
+            query_params: {
+                status: "",
+                spesialisasi: "",
+            },
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.tmp_modal_ttd.name;
+                    data.tmp_modal_ttd.name = res;
+                }
+
+                return res;
+            },
+        };
+    }
+
+    function configTTDModalNakes(data) {
+        return {
+            element: "#nakes_ttd_modal_auto",
+            url: "/api/emr/autocomplete?source_name=nakes",
+            // biar bisa ngetik dan search di modal
+            dropdownParent: "#tandaTanganModal",
+            allowClear: true,
+            query_params: {
+                status: "",
+                id_profesi_nakes: "",
+            },
+
+            markup_template: function (repo) {
+                return `<b>${repo.nama}</b>`;
+            },
+            selection_template: function (repo) {
+                // tulis format string untuk label autocomplete
+                var res = "";
+                if (repo.id != "") {
+                    res = repo.nama || data.tmp_modal_ttd.name;
+                    data.tmp_modal_ttd.name = res;
+                }
+
+                return res;
+            },
+        };
+    }
 
     function init_doc(doc_id, data, operation) {
-        const DATA_TMP = {
-            "hari": "",
-            "tanggal": "",
-            "tanggal_indo": "",
-            "sistole": 0,
-            "diastole": 0,
-            "hr": 0,
-            "tp": 0,
-            "nafas": 0,
-            "kemih": "",
-            "muntah": "",
-            "defekasi": ""
-        }
-        data.data_tmp = DATA_TMP;
+        // Temporary state or variable here
+        data.drawings = {
+            ttd_1: { brushSize: 2, brushColor: "#000000", isDrawing: false, isErasing: false, lastX: 0, lastY: 0 },
+        };
 
-        const DATA_EDIT = {
-            "hari": "",
-            "tanggal": "",
-            "tanggal_indo": "",
-            "sistole": 0,
-            "diastole": 0,
-            "hr": 0,
-            "tp": 0,
-            "nafas": 0,
-            "kemih": "",
-            "muntah": "",
-            "defekasi": ""
-        }
-        data.data_edit = DATA_EDIT;
-
-
+        data.tmp_modal_ttd = {
+            name: "",
+            title: "",
+            label: "",
+            mode: "",
+            mode_ttd: "",
+            path_name: "",
+            path_stroke: "",
+            name_input_type: "",
+        };
 
         var app = new Vue({
-            el: '#formadd',
+            el: "#formadd",
             data: data,
             mounted: function () {
-                this.init()
-            },
-            computed: {
-                isEmpty() {
-                    if (this.data_tmp.hari == "" || this.data_tmp.tanggal == "" || this.data_tmp.sistole == "" || this.data_tmp.diastole == "") {
-                        return true
+                this.init();
+
+                // Handler khusus untuk Odontogram
+                const iframe = document.getElementById('odontogram_frame');
+
+                // Event listener ketika iframe selesai dimuat
+                iframe.onload = () => {
+                    // Cek apakah ini mode edit dan apakah ada data state tersimpan
+                    if (operation === "edit" && data.odontogram_json_state) {
+                        try {
+                            const savedGeometry = JSON.parse(data.odontogram_json_state);
+                            const iframeWindow = iframe.contentWindow;
+
+                            // Input data kembali ke canvas
+                            if (iframeWindow && iframeWindow.$) {
+                                //  delay untuk memastikan script internal iframe siap
+                                setTimeout(() => {
+                                    iframeWindow.$("#odontogram").odontogram('setGeometry', savedGeometry);
+                                    console.log("Odontogram state restored successfully.");
+                                }, 500);
+                            }
+                        } catch (e) {
+                            console.error("Gagal restore data odontogram", e);
+                        }
                     }
-                    else {
-                        return false
-                    }
-                }
+                };
             },
             methods: {
                 init: function () {
-                    if (operation === 'add') {
+                    // Autocomplete function here
+                    autocomplete(configRuang(data));
+                    autocomplete(configDokter1(data));
+                    autocomplete(configNakes1(data));
+                    this.setupSignature(data);
+
+                    if (operation === "add") {
                         init_doc_add(data);
                     }
-
-                    if (operation === 'edit') {
+                    if (operation === "edit") {
                         init_doc_edit(data);
                     }
-
-                    //alert(JSON.stringify(EMRDATA.init));
-                    this.loadChart15Min()
                 },
                 saveDoc: function () {
+                    // this.convertImageOdonto().then(() => {
+                    //     // lanjut proses lain kalau perlu
+                    // });
 
-                    delete data.index
-                    var test_img = {
-                        'image_key': 'test_image',
-                        'image': this.cetakChart() //panggil fungsi yang sudah kita buat tadi
+                    // Ambil data odontogram sebelum save
+                    const odontoResult = this.getOdontogramData();
+
+                    if (odontoResult) {
+                        // Masukkan ke dalam objek data yang akan dikirim ke API
+                        // Pastikan di database kamu ada kolom untuk menampung JSON text ini
+                        data.odontogram_json_state = odontoResult.json;
+                        data.odontogram_stroke = odontoResult.image; // Ganti base64 lama
                     }
-                    imageListData.push(test_img);
+
+                    console.log("data.odontogram_stroke : ", data.odontogram_stroke)
+
 
                     var json = {
-                        'document_history_list_id': doc_id, /* built in variable from edoc */
-                        'patient_id': EMRDATA.patient_id,
-                        'reg_number': EMRDATA.reg_number,
-                        'document': EMRDATA.document_code,
-                        'document_title': EMRDATA.document_name,
-                        'label': EMRDATA.label || "",
-                        'note': EMRDATA.note || "",
-                        'data': sanitizeData(data, "`"),
-                        'images_data': imageListData
+                        document_history_list_id: doc_id /* built in variable from edoc */,
+                        patient_id: EMRDATA.patient_id,
+                        reg_number: EMRDATA.reg_number,
+                        document: EMRDATA.document_code,
+                        document_title: EMRDATA.document_name,
+                        label: "Poliklinik",
+                        note: "",
+                        data: data,
                     };
 
                     /* built in function from edoc */
@@ -96,8 +390,9 @@
                     preview_emr_data(data);
                 },
                 onChDateDynamic: function (dateData, jsonPath) {
-                    let obj = this
-                    jsonPathSplit = jsonPath.split('.');
+                    // @change="onChDateDynamic($event, 'penatalaksanaan.tanggal_indo')">
+                    let obj = this;
+                    jsonPathSplit = jsonPath.split(".");
                     for (i = 0; i < jsonPathSplit.length - 1; i++) {
                         obj = obj[jsonPathSplit[i]];
                     }
@@ -107,254 +402,353 @@
                         obj[jsonPathSplit[i]] = "";
                     }
                 },
-                addRow: function (event) {
-                    this.data.push(this.data_tmp)
-                    this.loadChart15Min()
-                    // setSelect2($('#nakes_auto'), "", "")
-                    this.data_tmp = {
-                        "hari": "",
-                        "tanggal": "",
-                        "tanggal_indo": "",
-                        "sistole": 0,
-                        "diastole": 0,
-                        "hr": 0,
-                        "tp": 0,
-                        "nafas": 0,
-                        "kemih": "",
-                        "muntah": "",
-                        "defekasi": ""
-                    }
-                },
-                delRow: function (i) {
-                    if (i > -1) {
-                        this.data.splice(i, 1)
-                        this.loadChart15Min()
-                    }
-                },
-                editRow: function (i) {
-                    let key = i
-                    this.loadChart15Min()
-                    // setSelect2($('#nakes_auto_edit'), this.data_fisik.reproduksi.data[i].penolong, "")
-                    this.data_edit = {
-                        "key": key,
-                        "hari": this.data[i].hari,
-                        "tanggal": this.data[i].tanggal,
-                        "tanggal_indo": this.data[i].tanggal_indo,
-                        "sistole": this.data[i].sistole,
-                        "diastole": this.data[i].diastole,
-                        "hr": this.data[i].hr,
-                        "tp": this.data[i].tp,
-                        "nafas": this.data[i].nafas,
-                        "kemih": this.data[i].kemih,
-                        "muntah": this.data[i].muntah,
-                        "defekasi": this.data[i].defekasi
-                    }
-                },
-                finishEdit: function (event) {
+                setupSignature: function (data) {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                    // Start setup Coretan Canvas
+                    const canvas1 = this.$refs["ttd_1"];
+                    this.addCanvasListeners("ttd_1", canvas1);
+                    // End setup Coraten Canvas
 
-                    let i = this.data_edit.key
-                    this.data[i] = {
-                        "hari": this.data_edit.hari,
-                        "tanggal": this.data_edit.tanggal,
-                        "tanggal_indo": this.data_edit.tanggal_indo,
-                        "sistole": this.data_edit.sistole,
-                        "diastole": this.data_edit.diastole,
-                        "hr": this.data_edit.hr,
-                        "tp": this.data_edit.tp,
-                        "nafas": this.data_edit.nafas,
-                        "kemih": this.data_edit.kemih,
-                        "muntah": this.data_edit.muntah,
-                        "defekasi": this.data_edit.defekasi
-                    }
-                    // setSelect2($('#nakes_auto'), "", "")
-                    this.loadChart15Min()
-                    this.data_edit = {
-                        "hari": "",
-                        "tanggal": "",
-                        "tanggal_indo": "",
-                        "sistole": 0,
-                        "diastole": 0,
-                        "hr": 0,
-                        "tp": 0,
-                        "nafas": 0,
-                        "kemih": "",
-                        "muntah": "",
-                        "defekasi": ""
-                    }
-                },
-                cetakChart: function () {
-                    var s = new XMLSerializer().serializeToString(document.getElementById("container-highchart2").getElementsByTagName('svg')[0])
-                    var encodedData = unescape(encodeURIComponent(s));
-                    var base64 = btoa(encodedData);
+                    // Start setup autocomplete ketika mode ttd canvas
+                    $("#tandaTanganModal").on("shown.bs.modal", () => {
+                        autocomplete(configTTDModalDokter(data));
+                        autocomplete(configTTDModalNakes(data));
+                        setSelect2("#dokter_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
+                        setSelect2("#nakes_ttd_modal_auto", data.tmp_modal_ttd.name, data.tmp_modal_ttd.name);
 
-                    return base64
-                },
+                        $("#dokter_ttd_modal_auto").on("select2:clearing", (e) => {
+                            this.tmp_modal_ttd.name = "";
+                            this.tmp_modal_ttd.stroke = "";
+                        });
 
-                loadChart15Min: function () {
-                    const sistole = this.data.map(ttv => ttv.sistole)
-                    const diastole = this.data.map(ttv => ttv.diastole)
-                    const hr = this.data.map(ttv => ttv.hr)
-                    const tp = this.data.map(ttv => ttv.tp)
-                    const nafas = this.data.map(ttv => ttv.nafas)
-                    const tanggal = this.data.map(ttv => ttv.tanggal)
-                    // console.log(rr)
-                    // const suhu = this.sesudah_anestesia.ttv.map( ttv => ttv.suhu)
-                    const chart = Highcharts.chart('container-highchart2', {
-                        chart: {
-                            type: 'spline',
-                        },
-                        title: {
-                            text: 'TTV',
-                            align: 'left'
-                        },
-
-                        yAxis: {
-                            title: {
-                                text: 'Value'
-                            },
-                            min: 0,
-                            tickInterval: 20,
-                            max: 180,
-                        },
-
-                        xAxis: {
-                            title: {
-                                text: 'Waktu'
-                            },
-                            categories: tanggal,
-                            // min: 6,
-                            // max: 24, //480
-                            label: {
-                                padding: 1000
-                            }
-                        },
-
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'middle'
-                        },
-
-                        plotOptions: {
-                            series: {
-                                label: {
-                                    connectorAllowed: false
-                                },
-                                pointStart: 0
-                            }
-                        },
-
-                        series: [
-                            {
-                                name: 'Sistole',
-                                data: sistole,
-                                pointInterval: 5,
-                                dataLabels: {
-                                    enabled: true,
-                                    rotation: 0,
-                                    color: '#000000',
-                                    align: 'center',
-                                    y: -5, // 10 pixels down from the top
-                                    style: {
-                                        fontSize: '12px',
-                                        fontFamily: 'helvetica, arial, sans-serif',
-                                        textShadow: false,
-                                        fontWeight: 'bold'
-                                    }
-                                }
-
-                            },
-                            {
-                                name: 'Diastole',
-                                data: diastole,
-                                pointInterval: 5,
-                                dataLabels: {
-                                    enabled: true,
-                                    rotation: 0,
-                                    color: '#000000',
-                                    align: 'center',
-                                    y: -5, // 10 pixels down from the top
-                                    style: {
-                                        fontSize: '12px',
-                                        fontFamily: 'helvetica, arial, sans-serif',
-                                        textShadow: false,
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            {
-                                name: 'HR',
-                                data: hr,
-                                pointInterval: 5,
-                                dataLabels: {
-                                    enabled: true,
-                                    rotation: 0,
-                                    color: '#000000',
-                                    align: 'center',
-                                    y: -5, // 10 pixels down from the top
-                                    style: {
-                                        fontSize: '12px',
-                                        fontFamily: 'helvetica, arial, sans-serif',
-                                        textShadow: false,
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            {
-                                name: 'TP',
-                                data: tp,
-                                pointInterval: 5,
-                                dataLabels: {
-                                    enabled: true,
-                                    rotation: 0,
-                                    color: '#000000',
-                                    align: 'center',
-                                    y: -5, // 10 pixels down from the top
-                                    style: {
-                                        fontSize: '12px',
-                                        fontFamily: 'helvetica, arial, sans-serif',
-                                        textShadow: false,
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            {
-                                name: 'Nafas',
-                                data: nafas,
-                                pointInterval: 5,
-                                dataLabels: {
-                                    enabled: true,
-                                    rotation: 0,
-                                    color: '#000000',
-                                    align: 'center',
-                                    y: -5, // 10 pixels down from the top
-                                    style: {
-                                        fontSize: '12px',
-                                        fontFamily: 'helvetica, arial, sans-serif',
-                                        textShadow: false,
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            }
-                        ]
-
+                        $("#nakes_ttd_modal_auto").on("select2:clearing", (e) => {
+                            this.tmp_modal_ttd.name = "";
+                            this.tmp_modal_ttd.stroke = "";
+                        });
                     });
-                }
-            }
+                    // End setup autocomplete ketika mode ttd canvas
+                },
+                addCanvasListeners(name, canvas) {
+                    canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("mouseup", () => this.stopDraw(name));
+                    canvas.addEventListener("mouseout", () => this.stopDraw(name));
+                    canvas.addEventListener("touchstart", (e) => this.startDraw(e, name));
+                    canvas.addEventListener("touchmove", (e) => this.moveDraw(e, name));
+                    canvas.addEventListener("touchend", () => this.stopDraw(name));
+                },
+                getCoordinates(event, canvas) {
+                    const rect = canvas.getBoundingClientRect();
+                    if (event.touches) {
+                        return { x: event.touches[0].clientX - rect.left, y: event.touches[0].clientY - rect.top };
+                    }
+                    return { x: event.offsetX, y: event.offsetY };
+                },
+                startDraw(event, name) {
+                    event.preventDefault();
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    drawing.isDrawing = true;
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                moveDraw(event, name) {
+                    const canvas = this.$refs[name];
+                    const drawing = this.drawings[name];
+                    if (!drawing.isDrawing) return;
+                    event.preventDefault();
+                    const ctx = canvas.getContext("2d");
+                    ctx.lineWidth = drawing.brushSize;
+                    ctx.strokeStyle = drawing.isErasing ? "rgba(255, 255, 255, 1)" : drawing.brushColor;
+                    ctx.globalCompositeOperation = drawing.isErasing ? "destination-out" : "source-over";
+                    ctx.lineJoin = "round";
+                    ctx.lineCap = "round";
+
+                    const { x, y } = this.getCoordinates(event, canvas);
+                    ctx.beginPath();
+                    ctx.moveTo(drawing.lastX, drawing.lastY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    drawing.lastX = x;
+                    drawing.lastY = y;
+                },
+                stopDraw(name) {
+                    this.drawings[name].isDrawing = false;
+                },
+                startDrawing(name) {
+                    this.drawings[name].isErasing = false;
+                },
+                startErasing(name) {
+                    this.drawings[name].isErasing = true;
+                },
+                clearCanvas(name, showConfirm = true) {
+                    if (showConfirm) {
+                        Swal.fire({
+                            title: "Apa kamu yakin?",
+                            text: "Anda tidak akan dapat mengembalikan ini!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Ya, hapus!",
+                        }).then((result) => {
+                            if (result.isConfirmed || result.value) {
+                                setByPath(this, this.tmp_modal_ttd.path_stroke, "");
+                                const canvas = this.$refs[name];
+                                const ctx = canvas.getContext("2d");
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Coretan Anda telah dihapus",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                });
+                            }
+                        });
+                    } else {
+                        const canvas = this.$refs[name];
+                        const ctx = canvas.getContext("2d");
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+                },
+                saveAsImage({ name, path_name, path_stroke, isReturn = false }) {
+                    if (this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        if (isReturn) return generatorQr(this.drawer_ttd[name].name);
+                        else setByPath(this, path_stroke, generatorQr(getByPath(this, path_name)));
+                    } else if (this.tmp_modal_ttd.mode_ttd === "CANVAS") {
+                        const scaleFactor = 1; // Faktor skala, bisa diatur sesuai kebutuhan
+                        const drawingCanvas = this.$refs[name];
+
+                        // Buat canvas baru untuk menampung hasil
+                        const resizedCanvas = document.createElement("canvas");
+                        resizedCanvas.width = drawingCanvas.width * scaleFactor;
+                        resizedCanvas.height = drawingCanvas.height * scaleFactor;
+
+                        const resizedCtx = resizedCanvas.getContext("2d");
+
+                        // Skalakan gambar latar belakang dan coretan ke canvas yang lebih kecil
+                        resizedCtx.drawImage(drawingCanvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+                        // Konversi hasilnya menjadi PNG base64
+                        const resizedBase64 = resizedCanvas.toDataURL("image/png");
+
+                        // Menyimpan hasil base64 ke array `drawings`
+                        if (isReturn) return resizedBase64;
+                        else setByPath(this, path_stroke, resizedBase64);
+                    }
+                },
+                // Fungsi untuk memuat gambar dari base64 ke canvas
+                loadBase64Image(base64 = null) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+                    const drawingCtx = drawingCanvas.getContext("2d");
+
+                    const drawingImage = new Image();
+                    drawingImage.src = base64; // Muat gambar dari base64 di array drawings
+
+                    drawingImage.onload = () => {
+                        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                        drawingCtx.drawImage(drawingImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+                    };
+                },
+                openTTDModalHandler: function ({
+                    path_name = "",
+                    path_stroke = "",
+                    mode_ttd = "",
+                    label = "Penandatangan",
+                    name_input_type = "TEXT",
+                }) {
+                    this.clearCanvas("ttd_1", false);
+                    this.tmp_modal_ttd.name = "";
+                    const stroke = getByPath(this, path_stroke);
+                    this.tmp_modal_ttd.name = getByPath(this, path_name);
+                    this.tmp_modal_ttd.name_input_type = name_input_type;
+                    this.tmp_modal_ttd.label = label;
+                    this.tmp_modal_ttd.path_name = path_name;
+                    this.tmp_modal_ttd.path_stroke = path_stroke;
+                    this.tmp_modal_ttd.mode_ttd = mode_ttd;
+
+                    if (stroke || this.tmp_modal_ttd.name) this.tmp_modal_ttd.mode = "edit";
+                    else this.tmp_modal_ttd.mode = "add";
+
+                    if (this.tmp_modal_ttd.mode === "add") {
+                        this.tmp_modal_ttd.title = "Tambah Tanda Tangan";
+                    } else if (this.tmp_modal_ttd.mode === "edit") {
+                        setSelect2("#dokter_ttd_modal_auto", this.tmp_modal_ttd.name, this.tmp_modal_ttd.name);
+                        this.tmp_modal_ttd.title = "Edit Tanda Tangan";
+                        this.loadBase64Image(getByPath(this, path_stroke));
+                    }
+                },
+                saveTTDHandler: function (isAutoComplete = false) {
+                    const drawingCanvas = this.$refs["ttd_1"];
+
+                    setByPath(this, this.tmp_modal_ttd.path_name, this.tmp_modal_ttd.name);
+
+                    if (!isCanvasBlank(drawingCanvas) || this.tmp_modal_ttd.mode_ttd === "QRCODE") {
+                        this.saveAsImage({
+                            name: "ttd_1",
+                            path_name: this.tmp_modal_ttd.path_name,
+                            path_stroke: this.tmp_modal_ttd.path_stroke,
+                        });
+                    }
+
+                    this.tmp_modal_ttd = {
+                        name: "",
+                        title: "",
+                        label: "",
+                        mode: "",
+                        mode_ttd: "",
+                        path_name: "",
+                        path_stroke: "",
+                        name_input_type: "",
+                    };
+                },
+                // convertImageOdonto :function() {
+                //     const iframe = document.getElementById('odontogram_frame');
+
+                //     return html2canvas(iframe.contentDocument.body, { useCORS: true })
+                //         .then(canvas => {
+                //             const dataUrl = canvas.toDataURL();
+                //             const base64 = dataUrl.replace("data:image/png;base64,", "");
+
+                //             this.odontogram_stroke = "data:image/png;base64" + base64;
+
+                //             return base64;
+                //         })
+                //         .catch(error => {
+                //             console.error("Error capturing iframe content:", error);
+                //             return null;
+                //         });
+                // },
+                // Mengambil Data & Gambar dari Iframe secara bersamaan
+                getOdontogramData: function () {
+                    const iframe = document.getElementById('odontogram_frame');
+                    const iframeWindow = iframe.contentWindow;
+
+                    // Pastikan plugin odontogram sudah ter-load di iframe
+                    if (iframeWindow && iframeWindow.$ && iframeWindow.$("#odontogram").data('odontogram')) {
+                        const odontoInstance = iframeWindow.$("#odontogram").data('odontogram');
+
+                        // 1. Ambil State Data (JSON) untuk diedit nanti
+                        // Kita perlu clone object agar tidak referensi sirkular (opsional tapi aman)
+                        const geometryData = JSON.parse(JSON.stringify(odontoInstance.geometry));
+
+                        // 2. Ambil Gambar (Base64) untuk report/tampilan
+                        // Menggunakan native function canvas toDataURL lebih cepat drpd html2canvas
+                        const imageData = odontoInstance.getDataURL();
+
+                        return {
+                            json: JSON.stringify(geometryData), // Simpan sebagai string JSON
+                            image: imageData
+                        };
+                    } else {
+                        console.warn("Odontogram instance not found in iframe");
+                        return null;
+                    }
+                },
+            },
         });
     }
 
+    function init_doc_add(data) {
+        // Call bridging function here
+        setupAuto(data);
+        bridgingDokterDPJP(data);
+        bridgingPatientData(data);
+        bridgingInpatientInformation(data);
+    }
+
+    function init_doc_edit(data) {
+        // Call bridging function here
+        bridgingPatientData(data);
+        bridgingInpatientInformation(data, "edit");
+    }
+
+    // Bridging function here
+    function setupAuto(data) {
+        // Sesuaikan data disini
+        data.ttd_data.jam = timeNow().time; // Jam sekarang
+        data.ttd_data.tanggal = timeNow().date; // Tanggal sekarang
+        data.ttd_data.tanggal_indo = dateParse(new Date(timeNow().date)); // Tanggal sekarang Indo
+    }
+
+    function bridgingPatientData(data) {
+        const ext_patient = data.external_link.px_data;
+
+        // sesuaikan dengan kebutuhan dokumen
+        data.pasien.nama = ext_patient.nama || "";
+        data.pasien.no_rm = ext_patient.no_rm || "";
+        data.pasien.alamat = ext_patient.alamat || "";
+        data.pasien.tempat_lahir = ext_patient.tempat_lahir || "";
+        data.pasien.pekerjaan = ext_patient.pekerjaan || "";
+        data.pasien.agama = ext_patient.agama || "";
+        data.pasien.pendidikan = ext_patient.pendidikan || "";
+        data.pasien.tanggal_lahir = ext_patient.tanggal_lahir || "";
+        data.pasien.tanggal_lahir_indo = dateParse(new Date(ext_patient.tanggal_lahir || "")); // tanggal lahir indo
+        data.pasien.kelamin = showKelamin(ext_patient.kelamin);
+        data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
+    }
+
+    function bridgingDokterDPJP(data) {
+        const dpjp = data.external_link?.dokter_dpjp_data?.nama_dokter_dpjp || "";
+        data.ttd_data.dokter = dpjp;
+        setSelect2($("#dokter_auto1"), dpjp, dpjp);
+
+        // Jika TTD dokter menggunakan Image
+        // const ttd_image = data.external_link?.dokter_dpjp_data?.ttd_image;
+        // data.ttd_data.dokter_stroke = ttd_image ? getUrlHandler() + ttd_image : "";
+
+        // Jika TTD dokter menggunakan QR Code
+        setTimeout(() => {
+            data.ttd_data.dokter_stroke = generatorQr(dpjp);
+        }, 1000);
+    }
+
+    function bridgingInpatientInformation(data, operation = "add") {
+        if (operation === "edit") {
+            // Bridging ruangan
+            setSelect2($("#ruang_auto"), data.pasien.ruang, data.pasien.ruang);
+        } else {
+            // Bridging ruangan
+            const ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.pasien.ruang = data.external_link.inpatient_information.no_ruang || "";
+            data.pasien.bangsal = data.external_link.inpatient_information.nama_bangsal || "";
+            data.pasien.kelas = data.external_link.inpatient_information.nama_kelas || "";
+            setSelect2($("#ruang_auto"), ruang, ruang);
+
+            // Bridging waktu masuk
+            data.pasien.tanggal_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).date;
+            data.pasien.tanggal_masuk_indo = dateTimeParse(
+                data.external_link.inpatient_information.waktu_masuk
+            ).dateWithMonthName;
+            data.pasien.jam_masuk = dateTimeParse(data.external_link.inpatient_information.waktu_masuk).time;
+        }
+    }
+
+    // Custom and another function here
     function dateParse(date) {
-        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
-            "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        const monthNames = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember",
+        ];
         let dateInput = date;
         const yyyy = dateInput.getFullYear();
         let mm = dateInput.getMonth() + 1; // Months start at 0!
         let dd = dateInput.getDate();
         let month = monthNames[mm - 1];
 
-        if (dd < 10) dd = '0' + dd;
-        if (mm < 10) mm = '0' + mm;
+        if (dd < 10) dd = "0" + dd;
+        if (mm < 10) mm = "0" + mm;
 
         // dateInput = `${yyyy}-${mm}-${dd}`;
         let dateDisplay = `${dd} ${month} ${yyyy}`;
@@ -362,2069 +756,375 @@
         return dateDisplay;
     }
 
-    function init_doc_add(data) {
-        const ext_px_data = data.external_link.px_data
-        data.pasien.nama = ext_px_data.nama
-        data.pasien.no_rm = ext_px_data.no_rm
-        data.pasien.kelamin = ext_px_data.kelamin
-        data.pasien.tgl_lahir = ext_px_data.tanggal_lahir
-        data.pasien.tgl_lahir_indo = dateParse(new Date(ext_px_data.tanggal_lahir))
-        console.log(data.pasien.tgl_lahir_indo);
-        data.pasien.alamat = ext_px_data.alamat
+    function dateTimeParse(dateString) {
+        // Mengubah string menjadi objek Date
+        let dateInput = new Date(dateString);
 
-        const vital_data = data.external_link.vital_sign_data
-        data.bb = vital_data.berat_badan
-        data.tb = vital_data.tinggi_badan
+        // Mendapatkan bagian tanggal
+        const yyyy = dateInput.getFullYear();
+        let mm = dateInput.getMonth() + 1; // Bulan dimulai dari 0, jadi tambahkan 1
+        let dd = dateInput.getDate();
 
-        //hasil lab
-        var hasil_lab = data.external_link.hasil_lab_data?.map(obj => obj.hasil_laboratorium?.map(el => {
-            const container = {};
-            container.hasil = ` (${el.item_laboratorium} : ${el.hasil || ""} ${el.nama_satuan || ""},  Abnormal : ${el.abnormal || "-"}, catatan : ${el.catatan || "-"} )`
+        // Daftar nama bulan
+        const monthNames = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember",
+        ];
 
-            return container
-        }));
+        // Menambahkan leading zero jika diperlukan
+        if (dd < 10) dd = "0" + dd;
+        if (mm < 10) mm = "0" + mm; // Menambahkan leading zero untuk bulan jika kurang dari 10
 
-        if (hasil_lab != null) {
-            const hasil_lab_view_raw = hasil_lab?.map(val => val.map(vul => vul.hasil))
-            var div = document.createElement("div");
-            div.innerHTML = hasil_lab_view_raw.toString();
-            var hasil_lab_view = div.textContent || div.innerText || "";
+        // Format tanggal biasa (yyyy-mm-dd)
+        let dateDisplay = `${yyyy}-${mm}-${dd}`;
 
-            data.lab = hasil_lab_view
-        } else {
-            data.lab = ""
-        }
+        // Format tanggal dengan nama bulan (dd NamaBulan yyyy)
+        let dateWithMonthName = `${dd} ${monthNames[mm - 1]} ${yyyy}`; // Indeks bulan di array dimulai dari 0
+
+        // Mendapatkan bagian waktu
+        let hours = dateInput.getHours();
+        let minutes = dateInput.getMinutes();
+
+        // Menambahkan leading zero jika diperlukan untuk waktu
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+
+        // Format waktu dalam format 24 jam (hh:mm)
+        let timeDisplay = `${hours}:${minutes}`;
+
+        // Mengembalikan objek dengan tanggal, waktu, dan tanggal dengan nama bulan
+        return { date: dateDisplay, time: timeDisplay, dateWithMonthName: dateWithMonthName };
     }
 
-    function init_doc_edit(data) {
+    function generatorQr(el) {
+        let elgenerateqr = document.createElement("div");
+        elgenerateqr.id = "elgenerateqr";
 
+        let objqrcode = new QRCode(elgenerateqr, el);
+        return elgenerateqr.querySelector("canvas").toDataURL();
     }
 
-    function sanitizeData(data, replaceChar = ' ') {
-        if (typeof data === 'string') {
-            return data.replace(/'/g, replaceChar);
-        } else if (Array.isArray(data)) {
-            return data.map(item => sanitizeData(item, replaceChar));
-        } else if (typeof data === 'object' && data !== null) {
-            const sanitizedObject = {};
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    sanitizedObject[key] = sanitizeData(data[key], replaceChar);
-                }
+    function getByPath(obj, path) {
+        return path
+            .replace(/\[(\d+)\]/g, ".$1") // Ubah [0] jadi .0
+            .split(".") // Pisahkan dengan titik
+            .reduce((acc, part) => acc && acc[part], obj);
+    }
+
+    function setByPath(obj, path, value) {
+        const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
+        let current = obj;
+
+        for (let i = 0; i < parts.length - 1; i++) {
+            const part = parts[i];
+            if (!(part in current)) {
+                // otomatis buat objek/array baru jika belum ada
+                current[part] = isNaN(Number(parts[i + 1])) ? {} : [];
             }
-            return sanitizedObject;
-        } else {
-            return data;
+            current = current[part];
         }
+
+        current[parts[parts.length - 1]] = value;
     }
 
+    function isCanvasBlank(canvas) {
+        const context = canvas.getContext("2d");
+        const pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
 
+        return !pixelBuffer.some((color) => color !== 0);
+    }
+
+    function getUrlHandler() {
+        return window.location.hostname === IP_WG ? URL_IMAGE_SEVER_WG : URL_IMAGE_SEVER_LOCAL;
+    }
+
+    function showKelamin(code) {
+        return code === "P" ? "Perempuan" : code === "L" ? "Laki-laki" : "Jenis kelamin tidak dikenal";
+    }
 </script>
 <style>
-    .form-control {
-        border-radius: 5px !important;
-        padding: 0 10px !important;
-        font-size: 13px;
+    /* Custom style here */
+    .garis {
+        height: 1px;
+        border-width: 0;
+        color: gray;
+        background-color: gray;
+        margin-block: 1.5rem;
     }
 
-    textarea.form-control {
-        min-height: 60px;
+    .garis-tebal {
+        height: 1px;
+        border-width: 2px;
+        color: black;
+        background-color: gray;
+        margin-block: 1.5rem;
+    }
+
+    table th {
+        text-align: center;
+    }
+
+    table tbody td {
+        vertical-align: middle !important;
+    }
+
+    .ttd-img {
+        width: 150px;
+        height: 100px;
+        object-fit: contain;
+        /* atau contain tergantung kebutuhan */
+        border: 1px solid #ccc;
+    }
+
+    /* Style untuk indentitas pasien */
+    .patient-card {
+        /* border-left: 5px solid #007bff; */
+    }
+
+    .data-label {
+        font-size: 0.8rem;
+        color: black;
+        /* Warna abu-abu untuk label */
+        text-transform: uppercase;
+        margin-bottom: 0;
+        line-height: 1;
+        padding-left: 0.2em;
+        font-weight: bold;
+    }
+
+    .data-value {
+        font-weight: 500;
+        color: #343a40;
+        line-height: 1.2;
+        width: 100%;
+        border: none;
+    }
+
+    .main-name {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #007bff;
+        /* Biru untuk Nama */
+    }
+
+    .main-rm {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #dc3545;
+        /* Merah untuk No RM */
     }
 </style>
 <form id="formadd" class="form-label-left input_mask col-md-12">
-    <h6 class="text-center mt-4"><b>GRAFIK TTV</b></h6>
-    <div class="col-md-12 ml-2">
-        <!-- identitas pasien -->
-        <div class="form-group row mt-3">
-            <label for="pasien_nama" class="col-md-2 col-form-label">Nama</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control-plaintext font-italic" id="pasien_nama" v-model="pasien.nama"
-                    readonly>
-            </div>
-            <label for="pasien_no_rm" class="col-md-2 col-form-label">No RM</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control-plaintext font-italic" id="pasien_no_rm" v-model="pasien.no_rm"
-                    readonly>
-            </div>
+    <div class="row my-4">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <h4 class="text-center"><b>ODONTOGRAM</b></h4>
         </div>
-        <div class="form-group row">
-            <label for="pasien_tgl_lahir" class="col-md-2 col-form-label">Tanggal Lahir</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control-plaintext font-italic" id="pasien_tgl_lahir"
-                    v-model="pasien.tgl_lahir_indo" readonly @change="onChDateDynamic($event, 'pasien.tgl_lahir_indo')">
-            </div>
-            <label for="kelamin_l" class="col-md-2 col-form-label">Jenis Kelamin</label>
-            <div class="col-md-4 mt-2">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pasien_kelamin" id="pasien_kelamin_l" value="L"
-                        v-model="pasien.kelamin">
-                    <label class="form-check-label font-italic" for="pasien_kelamin_l">Laki-laki</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pasien_kelamin" id="pasien_kelamin_p" value="P"
-                        v-model="pasien.kelamin">
-                    <label class="form-check-label font-italic" for="pasien_kelamin_p">Perempuan </label>
-                </div>
-            </div>
-        </div>
-        <!-- identitas pasien -->
     </div>
-    <div class="col-md-12">
-        <b class="col-md-12 row">Silahkan isi form berikut !</b>
-        <div class="form-group row col-md-6">
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="hari_tmp">Hari ke</label>
-                <input type="text" class="form-control col-md-8" id="hari_tmp" v-model="data_tmp.hari">
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="jam_tmp">Jam</label>
-                <input type="time" class="form-control col-md-8" id="jam_tmp" v-model="data_tmp.jam">
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="sistole">TD</label>
-                <input type="number" id="sistole" class="col-md-3 form-control" v-model.number="data_tmp.sistole" min=0>
-                <label class="form-label col-md-1" for="diastole">/</label>
-                <input type="number" id="diastole" class="col-md-3 form-control" v-model.number="data_tmp.diastole"
-                    min=0>
-                <label class="form-label col-md-1" for="diastole">mmHg</label>
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="hr_tmp">HR</label>
-                <input type="number" class="form-control col-md-4" id="hr_tmp" v-model.number="data_tmp.hr" min=0>
-                <label class="form-label col-md-4" for="hr_tmp">x/Menit</label>
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="kemih_tmp">Kemih</label>
-                <textarea class="form-control col-md-8" id="kemih_tmp" v-model="data_tmp.kemih" rows="3"></textarea>
-            </div>
-        </div>
 
-        <div class="form-group row col-md-6">
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="tgl_tmp">Tanggal</label>
-                <input type="date" class="form-control col-md-8" id="tgl_tmp" v-model="data_tmp.tanggal"
-                    @change="onChDateDynamic($event, 'data_tmp.tanggal_indo')">
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="nafas_tmp">Pernafasan</label>
-                <input type="number" class="form-control col-md-4" id="nafas_tmp" v-model.number="data_tmp.nafas" min=0>
-                <label class="form-label col-md-4" for="nafas_tmp">x/Menit</label>
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="tp_tmp">TP</label>
-                <input type="number" class="form-control col-md-4" id="tp_tmp" v-model.number="data_tmp.tp" min=0>
-                <label class="form-label col-md-4" for="tp_tmp">x/Menit</label>
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="muntah_tmp">Muntah</label>
-                <textarea class="form-control col-md-8" id="muntah_tmp" v-model="data_tmp.muntah" rows="3"></textarea>
-            </div>
-            <div class="form-group row col-md-12">
-                <label class="form-label col-md-4" for="defekasi_tmp">Defekasi</label>
-                <textarea class="form-control col-md-8" id="defekasi_tmp" v-model="data_tmp.defekasi"
-                    rows="3"></textarea>
-            </div>
+    <!-- Pasien Info Data -->
+    <div class="card patient-card shadow-sm" id="pasien-info">
+        <div class="card-header bg-light">
+            <h5 class="mb-0 text-dark">Data Identitas Pasien</h5>
         </div>
-    </div>
-    <div class="form-group row col-md-12 align-items-center justify-content-center">
-        <center>
-            <button type="button" class="btn btn-sm btn-primary" @click='addRow($event)'><i class="fa fa-plus"></i>
-                Simpan data</button><br />
-            <small class="text-danger" v-show="isEmpty"><b>Data Wajib diisi!!!</b></small>
-        </center>
-    </div>
-    <div class="form-group row col-md-12">
-        <div class="col-md-12">
-            <figure class="highcharts-figure">
-                <div id="container-highchart2"></div>
-            </figure>
-        </div>
-    </div>
-    <div class="form-group row col-md-12">
-        <div class="table">
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th rowspan=2>Hari ke</th>
-                        <th rowspan=2>Tanggal</th>
-                        <th rowspan=2>Jam</th>
-                        <th colspan=4>TTV</th>
-                        <th rowspan=2>Kemih</th>
-                        <th rowspan=2>Muntah</th>
-                        <th rowspan=2>Defekasi</th>
-                        <th rowspan=2>Aksi</th>
-                    </tr>
-                    <tr>
-                        <th>TD</th>
-                        <th>HR</th>
-                        <th>TP</th>
-                        <th>Nafas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for='(item,key) in data' :key='key' class="text-center">
-                        <td>{{item.hari}}</td>
-                        <td>{{item.tanggal_indo}}</td>
-                        <td>{{item.jam}}</td>
-                        <td>{{item.sistole}} / {{item.diastole}}</td>
-                        <td>{{item.hr}}</td>
-                        <td>{{item.tp}}</td>
-                        <td>{{item.nafas}}</td>
-                        <td>{{item.kemih}}</td>
-                        <td>{{item.muntah}}</td>
-                        <td>{{item.defekasi}}</td>
-                        <td>
-                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                data-target=".bd-example-modal-lg" @click='editRow(key)'><i
-                                    class="fa fa-pencil"></i></button>
-                            <button type='button' class='btn btn-primary btn-sm' @click='delRow(key)'><i
-                                    class="fa fa-trash-o"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="form-group row col-md-12">
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_edit"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Ubah data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 border-right">
+                    <div class="mb-3">
+                        <p class="data-label">Nama</p>
+                        <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group row col-md-6">
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="hari_edit">Hari ke</label>
-                                <input type="text" class="form-control col-md-8" id="hari_edit"
-                                    v-model="data_edit.hari">
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="jam_edit">Jam</label>
-                                <input type="time" class="form-control col-md-8" id="jam_edit" v-model="data_edit.jam">
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-2" for="sistole_edit">TD</label>
-                                <input type="number" id="sistole_edit" class="col-md-3 form-control"
-                                    v-model.number="data_edit.sistole" min=0>
-                                <label class="form-label col-md-2" for="diastole_edit">/</label>
-                                <input type="number" id="diastole_edit" class="col-md-3 form-control"
-                                    v-model.number="data_edit.diastole" min=0>
-                                <label class="form-label col-md-1" for="diastole_edit">mmHg</label>
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="hr_edit">HR</label>
-                                <input type="number" class="form-control col-md-4" id="hr_edit"
-                                    v-model.number="data_edit.hr" min=0>
-                                <label class="form-label col-md-4" for="hr_edit">x/Menit</label>
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="kemih_edit">Kemih</label>
-                                <textarea class="form-control col-md-8" id="kemih_edit" v-model="data_edit.kemih"
-                                    rows="3"></textarea>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <p class="data-label">Kelamin</p>
+                        <input id="pasien_kelamin" type="text" class="data-value" v-model="pasien.kelamin" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Alamat</p>
+                        <input id="pasien_alamat" type="text" class="data-value" v-model="pasien.alamat" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Pekerjaan</p>
+                        <input id="pasien_pekerjaan" type="text" class="data-value" v-model="pasien.pekerjaan" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Pendidikan</p>
+                        <input id="pasien_pendidikan" type="text" class="data-value" v-model="pasien.pendidikan" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Agama</p>
+                        <input id="pasien_agama" type="text" class="data-value" v-model="pasien.agama" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Ruang</p>
+                        <select class="form-control" id="ruang_auto" name="ruang_tmp" style="width: 100%"></select>
+                    </div>
+                </div>
 
-                        <div class="form-group row col-md-6">
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="tgl_edit">Tanggal</label>
-                                <input type="date" class="form-control col-md-8" id="tgl_edit"
-                                    v-model="data_edit.tanggal"
-                                    @change="onChDateDynamic($event, 'data_edit.tanggal_indo')">
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="nafas_edit">Pernafasan</label>
-                                <input type="number" class="form-control col-md-4" id="nafas_edit"
-                                    v-model.number="data_edit.nafas" min=0>
-                                <label class="form-label col-md-4" for="nafas_tmp">x/Menit</label>
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="tp_edit">TP</label>
-                                <input type="number" class="form-control col-md-4" id="tp_edit"
-                                    v-model.number="data_edit.tp" min=0>
-                                <label class="form-label col-md-4" for="tp_edit">x/Menit</label>
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="muntah_edit">Muntah</label>
-                                <textarea class="form-control col-md-8" id="muntah_edit" v-model="data_edit.muntah"
-                                    rows="3"></textarea>
-                            </div>
-                            <div class="form-group row col-md-12">
-                                <label class="form-label col-md-4" for="defekasi_edit">Defekasi</label>
-                                <textarea class="form-control col-md-8" id="defekasi_edit" v-model="data_edit.defekasi"
-                                    rows="3"></textarea>
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="data-label">No RM</p>
+                        <input id="pasien_no_rm" type="text" class="data-value" v-model="pasien.no_rm" />
                     </div>
-                    <div class="modal-footer">
-                        <label class="" style="float:right; color: red;"><b>*Form Data Wajib diisi!</b></label>
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batalkan</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-sm btn-success" style="float:right;"
-                            @click='finishEdit($event)'><i class="fa fa-pencil"></i> Simpan data</button><br><br>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Lahir</p>
+                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
+                            v-model="pasien.tanggal_lahir"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tempat Lahir</p>
+                        <input id="pasien_tempat_lahir" type="text" class="data-value" v-model="pasien.tempat_lahir" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Umur</p>
+                        <input id="pasien_umur" type="text" class="data-value" v-model="pasien.umur" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Tanggal Masuk</p>
+                        <input id="pasien_tanggal_masuk_indo" type="date" class="data-value"
+                            v-model="pasien.tanggal_masuk"
+                            @change="onChDateDynamic($event, 'pasien.tanggal_masuk_indo')" />
+                    </div>
+                    <div class="mb-3">
+                        <p class="data-label">Jam Masuk</p>
+                        <input id="pasien_jam_masuk" type="time" class="data-value" v-model="pasien.jam_masuk" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Pasien Info Data -->
 
-    <div class="form-group row col-md-12">
-        <div class="form-group row col-md-12">
-            <label class="form-label col-md-2" for="bb">BB</label>
-            <input type="number" class="form-control col-md-2" id="bb" v-model.number=bb min=0>
-            <label class="form-label col-md-2" for="bb">Kg</label>
+    <hr style="height: 2px; border-width: 0; color: gray; background-color: gray; margin-block: 1.5rem" />
 
-            <label class="form-label col-md-2" for="tb">TB</label>
-            <input type="number" class="form-control col-md-2" id="tb" v-model.number=tb min=0>
-            <label class="form-label col-md-2" for="tb">Cm</label>
-        </div>
-
-        <div class="form-group row col-md-12">
-            <label class="form-label col-md-2" for="peroral">Peroral</label>
-            <input type="texr" class="form-control col-md-4" id="peroral" v-model="peroral">
-
-            <label class="form-label col-md-2" for="parenteral">Parenteral</label>
-            <input type="texr" class="form-control col-md-4" id="parenteral" v-model="parenteral">
-        </div>
-
-        <div class="form-group row col-md-12">
-            <label class="form-label col-md-2" for="kesadaran">Kesadaran</label>
-            <textarea class="form-control col-md-4" id="kesadaran" v-model="kesadaran" rows="3"></textarea>
-
-            <label class="form-label col-md-2" for="pemeriksaan_fisik">Pemeriksaan Fisik</label>
-            <textarea class="form-control col-md-4" id="pemeriksaan_fisik" v-model="pemeriksaan_fisik"
-                rows="3"></textarea>
-        </div>
-
-        <div class="form-group row col-md-12">
-            <label class="form-label col-md-2" for="lab">Laboratorium</label>
-            <textarea class="form-control col-md-10" id="lab" v-model="lab" rows="3"></textarea>
-
-            <label class="form-label col-md-2 mt-2" for="khusus">Khusus lain</label>
-            <textarea class="form-control col-md-10 mt-2" id="khusus" v-model="khusus" rows="3"></textarea>
+    <div class="row mt-5 justify-content-end">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="input-group col-md-12 mt-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Tanggal</span>
+                    </div>
+                    <input id="drawer_ttd_tanggal" type="date" class="form-control" v-model="ttd_data.tanggal"
+                        @change="onChDateDynamic($event, 'ttd_data.tanggal_indo')" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Jam</span>
+                    </div>
+                    <input id="drawer_ttd_jam" type="time" class="form-control" v-model="ttd_data.jam" />
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row mt-3 pl-4">
-        <!--<div class="col-md-12">-->
-        <!--    <table border="1" width="100%">-->
-        <!--        <tr class="text-center">-->
-        <!--            <td colspan="31" width="100%"><h6><strong>Grafik TVV</strong></h6></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Hari Ke</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Tanggal</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td colspan="3" class="text-left">Jam</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--            <td>6</td>-->
-        <!--            <td>12</td>-->
-        <!--            <td>18</td>-->
-        <!--            <td>24</td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>TD</td>-->
-        <!--            <td>HR</td>-->
-        <!--            <td>TP</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>300</td>-->
-        <!--            <td>180</td>-->
-        <!--            <td>42</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>250</td>-->
-        <!--            <td>160</td>-->
-        <!--            <td>41</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>200</td>-->
-        <!--            <td>140</td>-->
-        <!--            <td>40</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>150</td>-->
-        <!--            <td>120</td>-->
-        <!--            <td>39</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>100</td>-->
-        <!--            <td>100</td>-->
-        <!--            <td>38</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>50</td>-->
-        <!--            <td>80</td>-->
-        <!--            <td>37</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td>0</td>-->
-        <!--            <td>60</td>-->
-        <!--            <td>36</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td></td>-->
-        <!--            <td>40</td>-->
-        <!--            <td>35</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td style="height: 3vh;"></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td>34</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Pernafasan</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Kesadaran</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">BB dan TB</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Peroral</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Parenteral</td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td colspan="3" class="text-left">Kemih</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td colspan="3" class="text-left">Muntah</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr class="text-center">-->
-        <!--            <td colspan="3" class="text-left">Defekasi</td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td colspan="3">Pemeriksaan <br> Fisik <br> Lab <br> Khusus lain </td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--            <td colspan="4"></td>-->
-        <!--        </tr>-->
-        <!--    </table>-->
-        <!--    <br><br>-->
-        <!--    ket: -->
-        <!--    <div class="row">-->
-        <!--        <div class="col-md-2">v : tekanan sistole</div>-->
-        <!--        <div class="col-md-3">^ : tekanan diastole</div>-->
-        <!--        <div class="col-md-2">o : nadi</div>-->
-        <!--        <div class="col-md-2">x : suhu</div>-->
-        <!--    </div>-->
-        <!--    atau:-->
-        <!--    <div class="row">-->
-        <!--        <div class="col-md-2">Hitam (TD)</div>-->
-        <!--        <div class="col-md-3">Merah (N)</div>-->
-        <!--        <div class="col-md-2">Biru (Suhu)</div>-->
-        <!--    </div>-->
-        <!--</div>-->
-    </div>
+
+    <hr style="border: 1px solid" color="#e8e6e6">
+    <h6 class="text-center mt-2"><b> ODONTOGRAM</b></h6>
+
+    <iframe id="odontogram_frame" style="height:1000px; width:100%;" src="/page/odontogram_v2"></iframe>
+
+    <hr style="border: 1px solid" color="#e8e6e6">
+
     <div class="form-group row mt-5 text-center">
         <div class="col-md-12">
-            <button type="button" v-on:click="saveDoc" class="btn btn-primary"><i class="fa fa-save"></i>
-                Simpan</button>
-            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden"><i
-                    class="fa fa-check-square-o"></i> Check Data</button>
+            <button type="button" v-on:click="saveDoc" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                Simpan
+            </button>
+            <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden">
+                <i class="fa fa-check-square-o"></i>
+                Check Data
+            </button>
         </div>
     </div>
+
+    <!-- START MODAL TTD -->
+    <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tandaTanganModalLabel">{{ tmp_modal_ttd.title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="row text-center d-block mb-2">{{ tmp_modal_ttd.label }}</div>
+                            <div class="row">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div style="width: 65%" class="d-flex justify-content-between">
+                                        <div>
+                                            <div style="display: inline; margin-right: 10px">
+                                                <input type="color" style="width: 30px"
+                                                    v-model="drawings.ttd_1.brushColor" />
+                                            </div>
+                                            <div style="display: inline; margin-right: 10px; margin-top: 5px">
+                                                <input type="range" min="1" max="20"
+                                                    v-model="drawings.ttd_1.brushSize" />
+                                                <span>{{ drawings.ttd_1.brushSize }}</span>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline">
+                                            <button type="button" @click="startDrawing('ttd_1')"
+                                                class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left" title="Drawing">
+                                                <i class="fa fa-paint-brush"></i>
+                                            </button>
+                                            <button type="button" title="Erasing" @click="startErasing('ttd_1')"
+                                                class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-eraser"></i>
+                                            </button>
+                                            <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
+                                                class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
+                                        style="border: 1px solid black; margin-right: 3px"></canvas>
+                                </div>
+                            </div>
+                            <div class="row mt-2 justify-content-center">
+                                <div class="col-md-12 p-0 d-flex justify-content-center">
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
+                                        class="d-flex justify-content-center">
+                                        <input :key="'input_text'" type="text" class="form-control"
+                                            v-model="tmp_modal_ttd.name" />
+                                    </div>
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%"></select>
+                                    </div>
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
+                                        <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
+                                            style="width: 100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveTTDHandler(true)">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL TTD -->
 </form>
