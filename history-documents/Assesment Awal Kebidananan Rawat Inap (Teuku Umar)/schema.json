@@ -1,0 +1,3397 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "title": "Root Schema",
+    "type": "object",
+    "default": {},
+    "properties": {
+        "pasien": {
+            "title": "The pasien Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "nama": {
+                    "title": "The nama Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "no_rm": {
+                    "title": "The no_rm Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kelamin": {
+                    "title": "The kelamin Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tanggal_lahir": {
+                    "title": "The tanggal_lahir Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tanggal_lahir_indo": {
+                    "title": "The tanggal_lahir_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "nama": "",
+                "no_rm": "",
+                "kelamin": "",
+                "tanggal_lahir": "",
+                "tanggal_lahir_indo": ""
+            }]
+        },
+        "anamnesis": {
+            "title": "The anamnesis Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "tiba_tanggal": {
+                    "title": "The tiba_tanggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tiba_tanggal_indo": {
+                    "title": "The tiba_tanggal_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tiba_pukul": {
+                    "title": "The tiba_pukul Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "asesmen_tanggal": {
+                    "title": "The asesmen_tanggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "asesmen_tanggal_indo": {
+                    "title": "The asesmen_tanggal_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "asesmen_pukul": {
+                    "title": "The asesmen_pukul Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "cara_masuk": {
+                    "title": "The cara_masuk Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_cara_masuk": {
+                    "title": "The isi_cara_masuk Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "asal_masuk": {
+                    "title": "The asal_masuk Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_asal_masuk": {
+                    "title": "The isi_asal_masuk Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "tiba_tanggal": "",
+                "tiba_tanggal_indo": "",
+                "tiba_pukul": "",
+                "asesmen_tanggal": "",
+                "asesmen_tanggal_indo": "",
+                "asesmen_pukul": "",
+                "cara_masuk": "",
+                "isi_cara_masuk": "",
+                "asal_masuk": "",
+                "isi_asal_masuk": ""
+            }]
+        },
+        "kebidanan": {
+            "title": "The kebidanan Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "g": {
+                    "title": "The g Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "p": {
+                    "title": "The p Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "a": {
+                    "title": "The a Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "hpht": {
+                    "title": "The hpht Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "hpht_indo": {
+                    "title": "The hpht_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "taksiran_partus": {
+                    "title": "The taksiran_partus Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "anc": {
+                    "title": "The anc Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "gerakan_janin": {
+                    "title": "The gerakan_janin Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "bb": {
+                    "title": "The bb Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "tb": {
+                    "title": "The tb Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        80
+                    ]
+                },
+                "goldar": {
+                    "title": "The goldar Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "bbsebelum": {
+                    "title": "The bbsebelum Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "tidak_ditimbang": {
+                    "title": "The tidak_ditimbang Schema",
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        true
+                    ]
+                },
+                "masalah_kehamilan": {
+                    "title": "The masalah_kehamilan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "keluhan_utama": {
+                    "title": "The keluhan_utama Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "g": "",
+                "p": "",
+                "a": "",
+                "hpht": "",
+                "hpht_indo": "",
+                "taksiran_partus": "",
+                "anc": "",
+                "gerakan_janin": "",
+                "bb": 0,
+                "tb": 80,
+                "goldar": "",
+                "bbsebelum": 0,
+                "tidak_ditimbang": true,
+                "masalah_kehamilan": "",
+                "keluhan_utama": ""
+            }]
+        },
+        "riwayat": {
+            "title": "The riwayat Schema",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "A Schema",
+                "type": "object",
+                "default": {},
+                "properties": {
+                    "tanggal": {
+                        "title": "The tanggal Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "2021-08-29"
+                        ]
+                    },
+                    "tanggal_indo": {
+                        "title": "The tanggal_indo Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "tempat": {
+                        "title": "The tempat Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "usia": {
+                        "title": "The usia Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "jenis": {
+                        "title": "The jenis Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "penolong": {
+                        "title": "The penolong Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "penyulit": {
+                        "title": "The penyulit Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "jk": {
+                        "title": "The jk Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "bb": {
+                        "title": "The bb Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "pb": {
+                        "title": "The pb Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "keadaan": {
+                        "title": "The keadaan Schema",
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    }
+                },
+                "examples": [{
+                    "tanggal": "2021-08-29",
+                    "tanggal_indo": "",
+                    "tempat": "",
+                    "usia": "",
+                    "jenis": "",
+                    "penolong": "",
+                    "penyulit": "",
+                    "jk": "",
+                    "bb": "",
+                    "pb": "",
+                    "keadaan": ""
+                }]
+            },
+            "examples": [
+                [{
+                    "tanggal": "2021-08-29",
+                    "tanggal_indo": "",
+                    "tempat": "",
+                    "usia": "",
+                    "jenis": "",
+                    "penolong": "",
+                    "penyulit": "",
+                    "jk": "",
+                    "bb": "",
+                    "pb": "",
+                    "keadaan": ""
+                }]
+            ]
+        },
+        "kesehatan": {
+            "title": "The kesehatan Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "merokok": {
+                    "title": "The merokok Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_merokok": {
+                    "title": "The isi_merokok Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "alkohol": {
+                    "title": "The alkohol Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "obat": {
+                    "title": "The obat Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_obat": {
+                    "title": "The isi_obat Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "makan": {
+                    "title": "The makan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_makan": {
+                    "title": "The isi_makan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "senam": {
+                    "title": "The senam Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "berkemih": {
+                    "title": "The berkemih Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "penyakit": {
+                    "title": "The penyakit Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "operasi": {
+                    "title": "The operasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_operasi": {
+                    "title": "The isi_operasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "merokok": "",
+                "isi_merokok": "",
+                "alkohol": "",
+                "obat": "",
+                "isi_obat": "",
+                "makan": "",
+                "isi_makan": "",
+                "senam": "",
+                "berkemih": "",
+                "penyakit": "",
+                "operasi": "",
+                "isi_operasi": ""
+            }]
+        },
+        "nyeri": {
+            "title": "The nyeri Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "nyeri": {
+                    "title": "The nyeri Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "mempengaruhi": {
+                    "title": "The mempengaruhi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "nyeri": "",
+                "mempengaruhi": ""
+            }]
+        },
+        "risiko": {
+            "title": "The risiko Schema",
+            "type": "string",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "fungsional": {
+            "title": "The fungsional Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "aktivitas": {
+                    "title": "The aktivitas Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "aktivitas2": {
+                    "title": "The aktivitas2 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "berjalan": {
+                    "title": "The berjalan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "patah_tulang": {
+                    "title": "The patah_tulang Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "lain": {
+                    "title": "The lain Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ambulasi": {
+                    "title": "The ambulasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ekstremitas_atas": {
+                    "title": "The ekstremitas_atas Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "Lemah"
+                    ]
+                },
+                "ekstremitas_bawah": {
+                    "title": "The ekstremitas_bawah Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_ekstremitas_bawah": {
+                    "title": "The isi_ekstremitas_bawah Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "menggenggam": {
+                    "title": "The menggenggam Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_menggenggam": {
+                    "title": "The isi_menggenggam Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "koordinasi": {
+                    "title": "The koordinasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_koordinasi": {
+                    "title": "The isi_koordinasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "gangguan_fungsi": {
+                    "title": "The gangguan_fungsi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "aktivitas": "",
+                "aktivitas2": "",
+                "berjalan": "",
+                "patah_tulang": "",
+                "lain": "",
+                "ambulasi": "",
+                "ekstremitas_atas": "Lemah",
+                "ekstremitas_bawah": "",
+                "isi_ekstremitas_bawah": "",
+                "menggenggam": "",
+                "isi_menggenggam": "",
+                "koordinasi": "",
+                "isi_koordinasi": "",
+                "gangguan_fungsi": ""
+            }]
+        },
+        "kognitif": {
+            "title": "The kognitif Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "kehamilan": {
+                    "title": "The kehamilan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "informasi": {
+                    "title": "The informasi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "kehamilan": "",
+                "informasi": ""
+            }]
+        },
+        "psikologis": {
+            "title": "The psikologis Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "status": {
+                    "title": "The status Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "Lain-lain"
+                    ]
+                },
+                "isi_status": {
+                    "title": "The isi_status Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "iooiuoiuo uoiuiouoiuio uoiuiouiouioui uiouoiuiuoiuio uiouiouiou iouiouiu oiuoi uoi uio uoi uoiu"
+                    ]
+                },
+                "diharapkan": {
+                    "title": "The diharapkan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "status": "Lain-lain",
+                "isi_status": "iooiuoiuo uoiuiouoiuio uoiuiouiouioui uiouoiuiuoiuio uiouiouiou iouiouiu oiuoi uoi uio uoi uoiu",
+                "diharapkan": ""
+            }]
+        },
+        "sosial": {
+            "title": "The sosial Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "tinggal": {
+                    "title": "The tinggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "Suami"
+                    ]
+                },
+                "isi_tinggal": {
+                    "title": "The isi_tinggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "membantu": {
+                    "title": "The membantu Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "tinggal": "Suami",
+                "isi_tinggal": "",
+                "membantu": ""
+            }]
+        },
+        "spiritual": {
+            "title": "The spiritual Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "beribadah": {
+                    "title": "The beribadah Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "pelayanan": {
+                    "title": "The pelayanan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_pelayanan": {
+                    "title": "The isi_pelayanan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "rohani": {
+                    "title": "The rohani Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kesehatan": {
+                    "title": "The kesehatan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "Ya"
+                    ]
+                },
+                "isi_kesehatan": {
+                    "title": "The isi_kesehatan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "tesoioi"
+                    ]
+                }
+            },
+            "examples": [{
+                "beribadah": "",
+                "pelayanan": "",
+                "isi_pelayanan": "",
+                "rohani": "",
+                "kesehatan": "Ya",
+                "isi_kesehatan": "tesoioi"
+            }]
+        },
+        "pemeriksaan": {
+            "title": "The pemeriksaan Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "keadaan_umum": {
+                    "title": "The keadaan_umum Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kesadaran": {
+                    "title": "The kesadaran Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "sistole": {
+                    "title": "The sistole Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "diastole": {
+                    "title": "The diastole Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "nadi": {
+                    "title": "The nadi Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "nafas": {
+                    "title": "The nafas Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "suhu": {
+                    "title": "The suhu Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "konjungtiva": {
+                    "title": "The konjungtiva Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "sklera": {
+                    "title": "The sklera Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "puting": {
+                    "title": "The puting Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "colostrum": {
+                    "title": "The colostrum Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "luka": {
+                    "title": "The luka Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "massa": {
+                    "title": "The massa Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "leopold1": {
+                    "title": "The leopold1 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "leopold2": {
+                    "title": "The leopold2 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "leopold3": {
+                    "title": "The leopold3 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "leopold4": {
+                    "title": "The leopold4 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "djj": {
+                    "title": "The djj Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "reguler": {
+                    "title": "The reguler Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "his": {
+                    "title": "The his Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "periksa_dalam": {
+                    "title": "The periksa_dalam Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ekstremitas_atas": {
+                    "title": "The ekstremitas_atas Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "keadaan_umum": "",
+                "kesadaran": "",
+                "sistole": 0,
+                "diastole": 0,
+                "nadi": 0,
+                "nafas": 0,
+                "suhu": 0,
+                "konjungtiva": "",
+                "sklera": "",
+                "puting": "",
+                "colostrum": "",
+                "luka": "",
+                "massa": "",
+                "leopold1": "",
+                "leopold2": "",
+                "leopold3": "",
+                "leopold4": "",
+                "djj": "",
+                "reguler": "",
+                "his": "",
+                "periksa_dalam": "",
+                "ekstremitas_atas": ""
+            }]
+        },
+        "masalah_kebidanan": {
+            "title": "The masalah_kebidanan Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "no1": {
+                    "title": "The no1 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "gravida": {
+                            "title": "The gravida Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": "",
+                        "gravida": ""
+                    }]
+                },
+                "no2": {
+                    "title": "The no2 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no3": {
+                    "title": "The no3 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no4": {
+                    "title": "The no4 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no5": {
+                    "title": "The no5 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no6": {
+                    "title": "The no6 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no7": {
+                    "title": "The no7 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no8": {
+                    "title": "The no8 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no9": {
+                    "title": "The no9 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no10": {
+                    "title": "The no10 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no11": {
+                    "title": "The no11 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "g": {
+                            "title": "The g Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "lain": {
+                            "title": "The lain Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "g": "",
+                        "p": "",
+                        "a": "",
+                        "lain": ""
+                    }]
+                }
+            },
+            "examples": [{
+                "no1": {
+                    "g": "",
+                    "p": "",
+                    "a": "",
+                    "gravida": ""
+                },
+                "no2": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no3": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no4": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no5": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no6": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no7": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no8": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no9": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no10": {
+                    "g": "",
+                    "p": "",
+                    "a": ""
+                },
+                "no11": {
+                    "g": "",
+                    "p": "",
+                    "a": "",
+                    "lain": ""
+                }
+            }]
+        },
+        "persalinan": {
+            "title": "The persalinan Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "kala1": {
+                    "title": "The kala1 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "tanggal": {
+                            "title": "The tanggal Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "title": "The tanggal_indo Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "pukul": {
+                            "title": "The pukul Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "partogram": {
+                            "title": "The partogram Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "penatalaksaan": {
+                            "title": "The penatalaksaan Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "",
+                        "tanggal_indo": "",
+                        "pukul": "",
+                        "partogram": "",
+                        "penatalaksaan": ""
+                    }]
+                },
+                "kala2": {
+                    "title": "The kala2 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "tanggal": {
+                            "title": "The tanggal Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "title": "The tanggal_indo Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "pukul": {
+                            "title": "The pukul Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "cara_persalinan": {
+                            "title": "The cara_persalinan Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "lama": {
+                            "title": "The lama Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "gawat_janin": {
+                            "title": "The gawat_janin Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "o2": {
+                            "title": "The o2 Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "distosi": {
+                            "title": "The distosi Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_distosi": {
+                            "title": "The isi_distosi Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "",
+                        "tanggal_indo": "",
+                        "pukul": "",
+                        "cara_persalinan": "",
+                        "lama": "",
+                        "gawat_janin": "",
+                        "o2": 0,
+                        "distosi": "",
+                        "isi_distosi": ""
+                    }]
+                },
+                "bayi_baru_lahir": {
+                    "title": "The bayi_baru_lahir Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "jam": {
+                            "title": "The jam Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "kelamin": {
+                            "title": "The kelamin Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "as": {
+                            "title": "The as Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "bb": {
+                            "title": "The bb Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "pb": {
+                            "title": "The pb Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "lk": {
+                            "title": "The lk Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "ld": {
+                            "title": "The ld Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "lp": {
+                            "title": "The lp Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "anus": {
+                            "title": "The anus Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "cacat": {
+                            "title": "The cacat Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "resusitasi": {
+                            "title": "The resusitasi Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "penatalaksanaa": {
+                            "title": "The penatalaksanaa Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "o2": {
+                            "title": "The o2 Schema",
+                            "type": ["number", "integer", "string"],
+                            "default": 0,
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "menyususi_dini": {
+                            "title": "The menyususi_dini Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_menyusui_diri": {
+                            "title": "The isi_menyusui_diri Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "jam": "",
+                        "kelamin": "",
+                        "as": "",
+                        "bb": 0,
+                        "pb": 0,
+                        "lk": 0,
+                        "ld": 0,
+                        "lp": 0,
+                        "anus": "",
+                        "cacat": "",
+                        "resusitasi": "",
+                        "penatalaksanaa": "",
+                        "o2": 0,
+                        "menyususi_dini": "",
+                        "isi_menyusui_diri": ""
+                    }]
+                },
+                "kala3": {
+                    "title": "The kala3 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "tanggal": {
+                            "title": "The tanggal Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "title": "The tanggal_indo Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "7 agustus 2023"
+                            ]
+                        },
+                        "pukul": {
+                            "title": "The pukul Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "lama": {
+                            "title": "The lama Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "perdarahan": {
+                            "title": "The perdarahan Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "oksitosin": {
+                            "title": "The oksitosin Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_oksitosin": {
+                            "title": "The isi_oksitosin Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "tali_pusat": {
+                            "title": "The tali_pusat Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_tali_pusat": {
+                            "title": "The isi_tali_pusat Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "uteri": {
+                            "title": "The uteri Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_uteri": {
+                            "title": "The isi_uteri Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "plasenta_lahir": {
+                            "title": "The plasenta_lahir Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi_plasenta_lahir": {
+                            "title": "The isi_plasenta_lahir Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "plasentas_lahir2": {
+                            "title": "The plasentas_lahir2 Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "kontraksi": {
+                            "title": "The kontraksi Schema",
+                            "type": "object",
+                            "default": {},
+                            "properties": {
+                                "value": {
+                                    "title": "The value Schema",
+                                    "type": "boolean",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "isi": {
+                                    "title": "The isi Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "isi": ""
+                            }]
+                        },
+                        "kompresi": {
+                            "title": "The kompresi Schema",
+                            "type": "object",
+                            "default": {},
+                            "properties": {
+                                "value": {
+                                    "title": "The value Schema",
+                                    "type": "boolean",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "isi": {
+                                    "title": "The isi Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "isi": ""
+                            }]
+                        },
+                        "penatalaksanaan": {
+                            "title": "The penatalaksanaan Schema",
+                            "type": "object",
+                            "default": {},
+                            "properties": {
+                                "value": {
+                                    "title": "The value Schema",
+                                    "type": "boolean",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "isi": {
+                                    "title": "The isi Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "isi": ""
+                            }]
+                        },
+                        "parineum": {
+                            "title": "The parineum Schema",
+                            "type": "object",
+                            "default": {},
+                            "properties": {
+                                "isi": {
+                                    "title": "The isi Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                },
+                                "grade": {
+                                    "title": "The grade Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                },
+                                "lain": {
+                                    "title": "The lain Schema",
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        ""
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "isi": "",
+                                "grade": "",
+                                "lain": ""
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "",
+                        "tanggal_indo": "7 agustus 2023",
+                        "pukul": "",
+                        "lama": "",
+                        "perdarahan": "",
+                        "oksitosin": "",
+                        "isi_oksitosin": "",
+                        "tali_pusat": "",
+                        "isi_tali_pusat": "",
+                        "uteri": "",
+                        "isi_uteri": "",
+                        "plasenta_lahir": "",
+                        "isi_plasenta_lahir": "",
+                        "plasentas_lahir2": "",
+                        "kontraksi": {
+                            "value": true,
+                            "isi": ""
+                        },
+                        "kompresi": {
+                            "value": true,
+                            "isi": ""
+                        },
+                        "penatalaksanaan": {
+                            "value": true,
+                            "isi": ""
+                        },
+                        "parineum": {
+                            "isi": "",
+                            "grade": "",
+                            "lain": ""
+                        }
+                    }]
+                },
+                "kala4": {
+                    "title": "The kala4 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "jam1": {
+                            "title": "The jam1 Schema",
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "title": "A Schema",
+                                "type": "object",
+                                "properties": {
+                                    "sistole": {
+                                        "title": "The sistole Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            12
+                                        ]
+                                    },
+                                    "diastole": {
+                                        "title": "The diastole Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            12
+                                        ]
+                                    },
+                                    "suhu": {
+                                        "title": "The suhu Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            12
+                                        ]
+                                    },
+                                    "nadi": {
+                                        "title": "The nadi Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            12
+                                        ]
+                                    },
+                                    "nafas": {
+                                        "title": "The nafas Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            12
+                                        ]
+                                    },
+                                    "tfu": {
+                                        "title": "The tfu Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "oioi"
+                                        ]
+                                    },
+                                    "kontraksi": {
+                                        "title": "The kontraksi Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "oioio"
+                                        ]
+                                    },
+                                    "perdarahan": {
+                                        "title": "The perdarahan Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "oioioi"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "sistole": 12,
+                                    "diastole": 12,
+                                    "suhu": 12,
+                                    "nadi": 12,
+                                    "nafas": 12,
+                                    "tfu": "oioi",
+                                    "kontraksi": "oioio",
+                                    "perdarahan": "oioioi"
+                                },
+                                {
+                                    "sistole": 12,
+                                    "diastole": 12,
+                                    "suhu": 12,
+                                    "nadi": 12,
+                                    "nafas": 12,
+                                    "tfu": "oioi",
+                                    "kontraksi": "oioio",
+                                    "perdarahan": "oioioi"
+                                }]
+                            },
+                            "examples": [
+                                [{
+                                    "sistole": 12,
+                                    "diastole": 12,
+                                    "suhu": 12,
+                                    "nadi": 12,
+                                    "nafas": 12,
+                                    "tfu": "oioi",
+                                    "kontraksi": "oioio",
+                                    "perdarahan": "oioioi"
+                                },
+                                {
+                                    "sistole": 12,
+                                    "diastole": 12,
+                                    "suhu": 12,
+                                    "nadi": 12,
+                                    "nafas": 12,
+                                    "tfu": "oioi",
+                                    "kontraksi": "oioio",
+                                    "perdarahan": "oioioi"
+                                }]
+                            ]
+                        },
+                        "jam2": {
+                            "title": "The jam2 Schema",
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "title": "A Schema",
+                                "type": "object",
+                                "properties": {
+                                    "sistole": {
+                                        "title": "The sistole Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            13
+                                        ]
+                                    },
+                                    "diastole": {
+                                        "title": "The diastole Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            13
+                                        ]
+                                    },
+                                    "suhu": {
+                                        "title": "The suhu Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            13
+                                        ]
+                                    },
+                                    "nadi": {
+                                        "title": "The nadi Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            13
+                                        ]
+                                    },
+                                    "nafas": {
+                                        "title": "The nafas Schema",
+                                        "type": ["number", "integer", "string"],
+                                        "examples": [
+                                            13
+                                        ]
+                                    },
+                                    "tfu": {
+                                        "title": "The tfu Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "lklklk"
+                                        ]
+                                    },
+                                    "kontraksi": {
+                                        "title": "The kontraksi Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "klklklk"
+                                        ]
+                                    },
+                                    "perdarahan": {
+                                        "title": "The perdarahan Schema",
+                                        "type": "string",
+                                        "examples": [
+                                            "lklklkkllklklkpoo-"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "sistole": 13,
+                                    "diastole": 13,
+                                    "suhu": 13,
+                                    "nadi": 13,
+                                    "nafas": 13,
+                                    "tfu": "lklklk",
+                                    "kontraksi": "klklklk",
+                                    "perdarahan": "lklklkkllklklkpoo-"
+                                },
+                                {
+                                    "sistole": 13,
+                                    "diastole": 13,
+                                    "suhu": 13,
+                                    "nadi": 13,
+                                    "nafas": 13,
+                                    "tfu": "lklklk",
+                                    "kontraksi": "klklklk",
+                                    "perdarahan": "lklklkkllklklkpoo-"
+                                }]
+                            },
+                            "examples": [
+                                [{
+                                    "sistole": 13,
+                                    "diastole": 13,
+                                    "suhu": 13,
+                                    "nadi": 13,
+                                    "nafas": 13,
+                                    "tfu": "lklklk",
+                                    "kontraksi": "klklklk",
+                                    "perdarahan": "lklklkkllklklkpoo-"
+                                },
+                                {
+                                    "sistole": 13,
+                                    "diastole": 13,
+                                    "suhu": 13,
+                                    "nadi": 13,
+                                    "nafas": 13,
+                                    "tfu": "lklklk",
+                                    "kontraksi": "klklklk",
+                                    "perdarahan": "lklklkkllklklkpoo-"
+                                }]
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "jam1": [{
+                            "sistole": 12,
+                            "diastole": 12,
+                            "suhu": 12,
+                            "nadi": 12,
+                            "nafas": 12,
+                            "tfu": "oioi",
+                            "kontraksi": "oioio",
+                            "perdarahan": "oioioi"
+                        },
+                        {
+                            "sistole": 12,
+                            "diastole": 12,
+                            "suhu": 12,
+                            "nadi": 12,
+                            "nafas": 12,
+                            "tfu": "oioi",
+                            "kontraksi": "oioio",
+                            "perdarahan": "oioioi"
+                        }],
+                        "jam2": [{
+                            "sistole": 13,
+                            "diastole": 13,
+                            "suhu": 13,
+                            "nadi": 13,
+                            "nafas": 13,
+                            "tfu": "lklklk",
+                            "kontraksi": "klklklk",
+                            "perdarahan": "lklklkkllklklkpoo-"
+                        },
+                        {
+                            "sistole": 13,
+                            "diastole": 13,
+                            "suhu": 13,
+                            "nadi": 13,
+                            "nafas": 13,
+                            "tfu": "lklklk",
+                            "kontraksi": "klklklk",
+                            "perdarahan": "lklklkkllklklkpoo-"
+                        }]
+                    }]
+                },
+                "tanggal": {
+                    "title": "The tanggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tanggal_indo": {
+                    "title": "The tanggal_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "pukul": {
+                    "title": "The pukul Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "bidan": {
+                    "title": "The bidan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "kala1": {
+                    "tanggal": "",
+                    "tanggal_indo": "",
+                    "pukul": "",
+                    "partogram": "",
+                    "penatalaksaan": ""
+                },
+                "kala2": {
+                    "tanggal": "",
+                    "tanggal_indo": "",
+                    "pukul": "",
+                    "cara_persalinan": "",
+                    "lama": "",
+                    "gawat_janin": "",
+                    "o2": 0,
+                    "distosi": "",
+                    "isi_distosi": ""
+                },
+                "bayi_baru_lahir": {
+                    "jam": "",
+                    "kelamin": "",
+                    "as": "",
+                    "bb": 0,
+                    "pb": 0,
+                    "lk": 0,
+                    "ld": 0,
+                    "lp": 0,
+                    "anus": "",
+                    "cacat": "",
+                    "resusitasi": "",
+                    "penatalaksanaa": "",
+                    "o2": 0,
+                    "menyususi_dini": "",
+                    "isi_menyusui_diri": ""
+                },
+                "kala3": {
+                    "tanggal": "",
+                    "tanggal_indo": "7 agustus 2023",
+                    "pukul": "",
+                    "lama": "",
+                    "perdarahan": "",
+                    "oksitosin": "",
+                    "isi_oksitosin": "",
+                    "tali_pusat": "",
+                    "isi_tali_pusat": "",
+                    "uteri": "",
+                    "isi_uteri": "",
+                    "plasenta_lahir": "",
+                    "isi_plasenta_lahir": "",
+                    "plasentas_lahir2": "",
+                    "kontraksi": {
+                        "value": true,
+                        "isi": ""
+                    },
+                    "kompresi": {
+                        "value": true,
+                        "isi": ""
+                    },
+                    "penatalaksanaan": {
+                        "value": true,
+                        "isi": ""
+                    },
+                    "parineum": {
+                        "isi": "",
+                        "grade": "",
+                        "lain": ""
+                    }
+                },
+                "kala4": {
+                    "jam1": [{
+                        "sistole": 12,
+                        "diastole": 12,
+                        "suhu": 12,
+                        "nadi": 12,
+                        "nafas": 12,
+                        "tfu": "oioi",
+                        "kontraksi": "oioio",
+                        "perdarahan": "oioioi"
+                    },
+                    {
+                        "sistole": 12,
+                        "diastole": 12,
+                        "suhu": 12,
+                        "nadi": 12,
+                        "nafas": 12,
+                        "tfu": "oioi",
+                        "kontraksi": "oioio",
+                        "perdarahan": "oioioi"
+                    }],
+                    "jam2": [{
+                        "sistole": 13,
+                        "diastole": 13,
+                        "suhu": 13,
+                        "nadi": 13,
+                        "nafas": 13,
+                        "tfu": "lklklk",
+                        "kontraksi": "klklklk",
+                        "perdarahan": "lklklkkllklklkpoo-"
+                    },
+                    {
+                        "sistole": 13,
+                        "diastole": 13,
+                        "suhu": 13,
+                        "nadi": 13,
+                        "nafas": 13,
+                        "tfu": "lklklk",
+                        "kontraksi": "klklklk",
+                        "perdarahan": "lklklkkllklklkpoo-"
+                    }]
+                },
+                "tanggal": "",
+                "tanggal_indo": "",
+                "pukul": "",
+                "bidan": ""
+            }]
+        },
+        "pemeriksaan_post": {
+            "title": "The pemeriksaan_post Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "tanggal": {
+                    "title": "The tanggal Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tanggal_indo": {
+                    "title": "The tanggal_indo Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "pukul": {
+                    "title": "The pukul Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "keadaan_umum": {
+                    "title": "The keadaan_umum Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kesadaran": {
+                    "title": "The kesadaran Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "sistole": {
+                    "title": "The sistole Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "diastole": {
+                    "title": "The diastole Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "nadi": {
+                    "title": "The nadi Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "nafas": {
+                    "title": "The nafas Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "suhu": {
+                    "title": "The suhu Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "konjungtiva": {
+                    "title": "The konjungtiva Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "sklera": {
+                    "title": "The sklera Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "asi": {
+                    "title": "The asi Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "fundus": {
+                    "title": "The fundus Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "bekas_op": {
+                    "title": "The bekas_op Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "jumlah": {
+                    "title": "The jumlah Schema",
+                    "type": ["number", "integer", "string"],
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "warna": {
+                    "title": "The warna Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "bau": {
+                    "title": "The bau Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "perineum": {
+                    "title": "The perineum Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_perineum": {
+                    "title": "The isi_perineum Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kemih": {
+                    "title": "The kemih Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ekstremitas_bawah": {
+                    "title": "The ekstremitas_bawah Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_ekstremitas_bawah": {
+                    "title": "The isi_ekstremitas_bawah Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "penunjang": {
+                    "title": "The penunjang Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "isi_penunjang": {
+                    "title": "The isi_penunjang Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "lab": {
+                    "title": "The lab Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "rad": {
+                    "title": "The rad Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "fis": {
+                    "title": "The fis Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "tanggal": "",
+                "tanggal_indo": "",
+                "pukul": "",
+                "keadaan_umum": "",
+                "kesadaran": "",
+                "sistole": 0,
+                "diastole": 0,
+                "nadi": 0,
+                "nafas": 0,
+                "suhu": 0,
+                "konjungtiva": "",
+                "sklera": "",
+                "asi": "",
+                "fundus": 0,
+                "bekas_op": "",
+                "jumlah": 0,
+                "warna": "",
+                "bau": "",
+                "perineum": "",
+                "isi_perineum": "",
+                "kemih": "",
+                "ekstremitas_bawah": "",
+                "isi_ekstremitas_bawah": "",
+                "penunjang": "",
+                "isi_penunjang": "",
+                "lab": "",
+                "rad": "",
+                "fis": ""
+            }]
+        },
+        "masalah_post": {
+            "title": "The masalah_post Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "no1": {
+                    "title": "The no1 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi": {
+                            "title": "The isi Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "p": "",
+                        "a": "",
+                        "isi": ""
+                    }]
+                },
+                "no2": {
+                    "title": "The no2 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "isi": {
+                            "title": "The isi Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "p": "",
+                        "a": "",
+                        "isi": ""
+                    }]
+                },
+                "no3": {
+                    "title": "The no3 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no4": {
+                    "title": "The no4 Schema",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "p": {
+                            "title": "The p Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "a": {
+                            "title": "The a Schema",
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "p": "",
+                        "a": ""
+                    }]
+                },
+                "no5": {
+                    "title": "The no5 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "no1": {
+                    "p": "",
+                    "a": "",
+                    "isi": ""
+                },
+                "no2": {
+                    "p": "",
+                    "a": "",
+                    "isi": ""
+                },
+                "no3": {
+                    "p": "",
+                    "a": ""
+                },
+                "no4": {
+                    "p": "",
+                    "a": ""
+                },
+                "no5": ""
+            }]
+        },
+        "tanggal": {
+            "title": "The tanggal Schema",
+            "type": "string",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "tanggal_indo": {
+            "title": "The tanggal_indo Schema",
+            "type": "string",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "pukul": {
+            "title": "The pukul Schema",
+            "type": "string",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "bidan": {
+            "title": "The bidan Schema",
+            "type": "string",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "digital_signature": {
+            "title": "The digital_signature Schema",
+            "type": "object",
+            "default": {},
+            "properties": {
+                "ttd_bidan": {
+                    "title": "The ttd_bidan Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ttd_bidan2": {
+                    "title": "The ttd_bidan2 Schema",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "ttd_bidan": "",
+                "ttd_bidan2": ""
+            }]
+        }
+    },
+    "examples": [{
+        "pasien": {
+            "nama": "",
+            "no_rm": "",
+            "kelamin": "",
+            "tanggal_lahir": "",
+            "tanggal_lahir_indo": ""
+        },
+        "anamnesis": {
+            "tiba_tanggal": "",
+            "tiba_tanggal_indo": "",
+            "tiba_pukul": "",
+            "asesmen_tanggal": "",
+            "asesmen_tanggal_indo": "",
+            "asesmen_pukul": "",
+            "cara_masuk": "",
+            "isi_cara_masuk": "",
+            "asal_masuk": "",
+            "isi_asal_masuk": ""
+        },
+        "kebidanan": {
+            "g": "",
+            "p": "",
+            "a": "",
+            "hpht": "",
+            "hpht_indo": "",
+            "taksiran_partus": "",
+            "anc": "",
+            "gerakan_janin": "",
+            "bb": 0,
+            "tb": 80,
+            "goldar": "",
+            "bbsebelum": 0,
+            "tidak_ditimbang": true,
+            "masalah_kehamilan": "",
+            "keluhan_utama": ""
+        },
+        "riwayat": [{
+            "tanggal": "2021-08-29",
+            "tanggal_indo": "",
+            "tempat": "",
+            "usia": "",
+            "jenis": "",
+            "penolong": "",
+            "penyulit": "",
+            "jk": "",
+            "bb": "",
+            "pb": "",
+            "keadaan": ""
+        }],
+        "kesehatan": {
+            "merokok": "",
+            "isi_merokok": "",
+            "alkohol": "",
+            "obat": "",
+            "isi_obat": "",
+            "makan": "",
+            "isi_makan": "",
+            "senam": "",
+            "berkemih": "",
+            "penyakit": "",
+            "operasi": "",
+            "isi_operasi": ""
+        },
+        "nyeri": {
+            "nyeri": "",
+            "mempengaruhi": ""
+        },
+        "risiko": "",
+        "fungsional": {
+            "aktivitas": "",
+            "aktivitas2": "",
+            "berjalan": "",
+            "patah_tulang": "",
+            "lain": "",
+            "ambulasi": "",
+            "ekstremitas_atas": "Lemah",
+            "ekstremitas_bawah": "",
+            "isi_ekstremitas_bawah": "",
+            "menggenggam": "",
+            "isi_menggenggam": "",
+            "koordinasi": "",
+            "isi_koordinasi": "",
+            "gangguan_fungsi": ""
+        },
+        "kognitif": {
+            "kehamilan": "",
+            "informasi": ""
+        },
+        "psikologis": {
+            "status": "Lain-lain",
+            "isi_status": "iooiuoiuo uoiuiouoiuio uoiuiouiouioui uiouoiuiuoiuio uiouiouiou iouiouiu oiuoi uoi uio uoi uoiu",
+            "diharapkan": ""
+        },
+        "sosial": {
+            "tinggal": "Suami",
+            "isi_tinggal": "",
+            "membantu": ""
+        },
+        "spiritual": {
+            "beribadah": "",
+            "pelayanan": "",
+            "isi_pelayanan": "",
+            "rohani": "",
+            "kesehatan": "Ya",
+            "isi_kesehatan": "tesoioi"
+        },
+        "pemeriksaan": {
+            "keadaan_umum": "",
+            "kesadaran": "",
+            "sistole": 0,
+            "diastole": 0,
+            "nadi": 0,
+            "nafas": 0,
+            "suhu": 0,
+            "konjungtiva": "",
+            "sklera": "",
+            "puting": "",
+            "colostrum": "",
+            "luka": "",
+            "massa": "",
+            "leopold1": "",
+            "leopold2": "",
+            "leopold3": "",
+            "leopold4": "",
+            "djj": "",
+            "reguler": "",
+            "his": "",
+            "periksa_dalam": "",
+            "ekstremitas_atas": ""
+        },
+        "masalah_kebidanan": {
+            "no1": {
+                "g": "",
+                "p": "",
+                "a": "",
+                "gravida": ""
+            },
+            "no2": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no3": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no4": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no5": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no6": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no7": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no8": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no9": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no10": {
+                "g": "",
+                "p": "",
+                "a": ""
+            },
+            "no11": {
+                "g": "",
+                "p": "",
+                "a": "",
+                "lain": ""
+            }
+        },
+        "persalinan": {
+            "kala1": {
+                "tanggal": "",
+                "tanggal_indo": "",
+                "pukul": "",
+                "partogram": "",
+                "penatalaksaan": ""
+            },
+            "kala2": {
+                "tanggal": "",
+                "tanggal_indo": "",
+                "pukul": "",
+                "cara_persalinan": "",
+                "lama": "",
+                "gawat_janin": "",
+                "o2": 0,
+                "distosi": "",
+                "isi_distosi": ""
+            },
+            "bayi_baru_lahir": {
+                "jam": "",
+                "kelamin": "",
+                "as": "",
+                "bb": 0,
+                "pb": 0,
+                "lk": 0,
+                "ld": 0,
+                "lp": 0,
+                "anus": "",
+                "cacat": "",
+                "resusitasi": "",
+                "penatalaksanaa": "",
+                "o2": 0,
+                "menyususi_dini": "",
+                "isi_menyusui_diri": ""
+            },
+            "kala3": {
+                "tanggal": "",
+                "tanggal_indo": "7 agustus 2023",
+                "pukul": "",
+                "lama": "",
+                "perdarahan": "",
+                "oksitosin": "",
+                "isi_oksitosin": "",
+                "tali_pusat": "",
+                "isi_tali_pusat": "",
+                "uteri": "",
+                "isi_uteri": "",
+                "plasenta_lahir": "",
+                "isi_plasenta_lahir": "",
+                "plasentas_lahir2": "",
+                "kontraksi": {
+                    "value": true,
+                    "isi": ""
+                },
+                "kompresi": {
+                    "value": true,
+                    "isi": ""
+                },
+                "penatalaksanaan": {
+                    "value": true,
+                    "isi": ""
+                },
+                "parineum": {
+                    "isi": "",
+                    "grade": "",
+                    "lain": ""
+                }
+            },
+            "kala4": {
+                "jam1": [{
+                    "sistole": 12,
+                    "diastole": 12,
+                    "suhu": 12,
+                    "nadi": 12,
+                    "nafas": 12,
+                    "tfu": "oioi",
+                    "kontraksi": "oioio",
+                    "perdarahan": "oioioi"
+                },
+                {
+                    "sistole": 12,
+                    "diastole": 12,
+                    "suhu": 12,
+                    "nadi": 12,
+                    "nafas": 12,
+                    "tfu": "oioi",
+                    "kontraksi": "oioio",
+                    "perdarahan": "oioioi"
+                }],
+                "jam2": [{
+                    "sistole": 13,
+                    "diastole": 13,
+                    "suhu": 13,
+                    "nadi": 13,
+                    "nafas": 13,
+                    "tfu": "lklklk",
+                    "kontraksi": "klklklk",
+                    "perdarahan": "lklklkkllklklkpoo-"
+                },
+                {
+                    "sistole": 13,
+                    "diastole": 13,
+                    "suhu": 13,
+                    "nadi": 13,
+                    "nafas": 13,
+                    "tfu": "lklklk",
+                    "kontraksi": "klklklk",
+                    "perdarahan": "lklklkkllklklkpoo-"
+                }]
+            },
+            "tanggal": "",
+            "tanggal_indo": "",
+            "pukul": "",
+            "bidan": ""
+        },
+        "pemeriksaan_post": {
+            "tanggal": "",
+            "tanggal_indo": "",
+            "pukul": "",
+            "keadaan_umum": "",
+            "kesadaran": "",
+            "sistole": 0,
+            "diastole": 0,
+            "nadi": 0,
+            "nafas": 0,
+            "suhu": 0,
+            "konjungtiva": "",
+            "sklera": "",
+            "asi": "",
+            "fundus": 0,
+            "bekas_op": "",
+            "jumlah": 0,
+            "warna": "",
+            "bau": "",
+            "perineum": "",
+            "isi_perineum": "",
+            "kemih": "",
+            "ekstremitas_bawah": "",
+            "isi_ekstremitas_bawah": "",
+            "penunjang": "",
+            "isi_penunjang": "",
+            "lab": "",
+            "rad": "",
+            "fis": ""
+        },
+        "masalah_post": {
+            "no1": {
+                "p": "",
+                "a": "",
+                "isi": ""
+            },
+            "no2": {
+                "p": "",
+                "a": "",
+                "isi": ""
+            },
+            "no3": {
+                "p": "",
+                "a": ""
+            },
+            "no4": {
+                "p": "",
+                "a": ""
+            },
+            "no5": ""
+        },
+        "tanggal": "",
+        "tanggal_indo": "",
+        "pukul": "",
+        "bidan": "",
+        "digital_signature": {
+            "ttd_bidan": "",
+            "ttd_bidan2": ""
+        }
+    }]
+}
