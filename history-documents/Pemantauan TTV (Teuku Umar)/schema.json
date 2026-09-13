@@ -1,0 +1,328 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "pasien",
+        "data",
+        "kesadaran",
+        "bb",
+        "tb",
+        "peroral",
+        "parenteral",
+        "pemeriksaan_fisik",
+        "lab",
+        "khusus"
+    ],
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "default": {},
+            "title": "The pasien Schema",
+            "required": [
+                "nama",
+                "no_rm",
+                "kelamin",
+                "tgl_lahir",
+                "tgl_lahir_indo",
+                "alamat"
+            ],
+            "properties": {
+                "nama": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The nama Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "no_rm": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The no_rm Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "kelamin": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The kelamin Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tgl_lahir": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tgl_lahir Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "tgl_lahir_indo": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tgl_lahir_indo Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "alamat": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The alamat Schema",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "nama": "",
+                "no_rm": "",
+                "kelamin": "",
+                "tgl_lahir": "",
+                "tgl_lahir_indo": "",
+                "alamat": ""
+            }]
+        },
+        "data": {
+            "type": "array",
+            "default": [],
+            "title": "The data Schema",
+            "items": {
+                "type": "object",
+                "default": {},
+                "title": "A Schema",
+                "required": [
+                    "hari",
+                    "tanggal",
+                    "tanggal_indo",
+                    "sistole",
+                    "diastole",
+                    "hr",
+                    "tp",
+                    "nafas",
+                    "kemih",
+                    "muntah",
+                    "defekasi"
+                ],
+                "properties": {
+                    "hari": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The hari Schema",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "tanggal": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The tanggal Schema",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "tanggal_indo": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The tanggal_indo Schema",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "sistole": {
+                        "type": "integer",
+                        "default": 0,
+                        "title": "The sistole Schema",
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "diastole": {
+                        "type": "integer",
+                        "default": 0,
+                        "title": "The diastole Schema",
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "hr": {
+                        "type": "integer",
+                        "default": 0,
+                        "title": "The hr Schema",
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "tp": {
+                        "type": "integer",
+                        "default": 0,
+                        "title": "The tp Schema",
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "nafas": {
+                        "type": "integer",
+                        "default": 0,
+                        "title": "The nafas Schema",
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "kemih": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The kemih Schema",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "muntah": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The muntah Schema",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "defekasi": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The defekasi Schema",
+                        "examples": [
+                            ""
+                        ]
+                    }
+                },
+                "examples": [{
+                    "hari": "",
+                    "tanggal": "",
+                    "tanggal_indo": "",
+                    "sistole": 0,
+                    "diastole": 0,
+                    "hr": 0,
+                    "tp": 0,
+                    "nafas": 0,
+                    "kemih": "",
+                    "muntah": "",
+                    "defekasi": ""
+                }]
+            },
+            "examples": [
+                [{
+                    "hari": "",
+                    "tanggal": "",
+                    "tanggal_indo": "",
+                    "sistole": 0,
+                    "diastole": 0,
+                    "hr": 0,
+                    "tp": 0,
+                    "nafas": 0,
+                    "kemih": "",
+                    "muntah": "",
+                    "defekasi": ""
+                }]
+            ]
+        },
+        "kesadaran": {
+            "type": "string",
+            "default": "",
+            "title": "The kesadaran Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "bb": {
+            "type": "integer",
+            "default": 0,
+            "title": "The bb Schema",
+            "examples": [
+                0
+            ]
+        },
+        "tb": {
+            "type": "integer",
+            "default": 0,
+            "title": "The tb Schema",
+            "examples": [
+                0
+            ]
+        },
+        "peroral": {
+            "type": "string",
+            "default": "",
+            "title": "The peroral Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "parenteral": {
+            "type": "string",
+            "default": "",
+            "title": "The parenteral Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "pemeriksaan_fisik": {
+            "type": "string",
+            "default": "",
+            "title": "The pemeriksaan_fisik Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "lab": {
+            "type": "string",
+            "default": "",
+            "title": "The lab Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "khusus": {
+            "type": "string",
+            "default": "",
+            "title": "The khusus Schema",
+            "examples": [
+                ""
+            ]
+        }
+    },
+    "examples": [{
+        "pasien": {
+            "nama": "",
+            "no_rm": "",
+            "kelamin": "",
+            "tgl_lahir": "",
+            "tgl_lahir_indo": "",
+            "alamat": ""
+        },
+        "data": [{
+            "hari": "",
+            "tanggal": "",
+            "tanggal_indo": "",
+            "sistole": 0,
+            "diastole": 0,
+            "hr": 0,
+            "tp": 0,
+            "nafas": 0,
+            "kemih": "",
+            "muntah": "",
+            "defekasi": ""
+        }],
+        "kesadaran": "",
+        "bb": 0,
+        "tb": 0,
+        "peroral": "",
+        "parenteral": "",
+        "pemeriksaan_fisik": "",
+        "lab": "",
+        "khusus": ""
+    }]
+}

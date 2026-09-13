@@ -1,0 +1,20 @@
+{
+    "external_link": {
+        "px_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
+            "data_usage": ["copy", "embeded"]
+        },
+        "vital_sign_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "hasil_lab_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/laboratorium/<reg_number>",
+            "data_usage": ["copy"]
+        }
+    },
+    "images_data": ["test_image"]
+}
