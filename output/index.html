@@ -6,6 +6,14 @@
     const URL_IMAGE_SEVER_WG = "http://12.12.1.140:1201/";
     const IP_WG = "12.12.1.140";
 
+    const allowed_edit_usernames = [
+        "drarnita",
+        "vera",
+        "adefebriana",
+        "isna",
+        "nofa"
+    ]
+
     Vue.component("ttd-section", {
         props: {
             mode: String,
@@ -2926,9 +2934,12 @@
                 checkUsernameLogin: function (username) {
                     if (this.user_session_data.username == username) {
                         return true
-                    } else {
-                        return false
                     }
+                    // Cek apakah user login termasuk dalam daftar yang diizinkan edit semua data
+                    if (allowed_edit_usernames && allowed_edit_usernames.includes(this.user_session_data.username)) {
+                        return true
+                    }
+                    return false
                 }
             },
         });
