@@ -3,84 +3,72 @@
         "px_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
-            "data_usage": ["copy", "embeded"]
+            "data_usage": [
+                "copy",
+                "embeded"
+            ]
         },
         "vital_sign_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/patient_vital_sign/<reg_number>",
-            "data_usage": ["copy"]
+            "data_usage": [
+                "copy"
+            ]
         },
-        "vital_sign_list_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign_list/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "inpatient_information": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "patient_information": {
+        "patient_info_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "dokter_dpjp_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_lab_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/laboratorium/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_lab_list_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/laboratorium_list/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_rad_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/radiologi/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_rad_list_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/radiologi_list/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_fis_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/fisioterapi/<reg_number>",
-            "data_usage": ["copy"]
-        },
-        "hasil_fis_list_data": {
-            "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/fisioterapi_list/<reg_number>",
-            "data_usage": ["copy"]
+            "data_usage": [
+                "copy"
+            ]
         },
         "diagnosa_data": {
             "source_type": "ws",
             "source": "[simrs]/e_doc_api/visitation/diagnosa/<reg_number>",
-            "data_usage": ["copy"]
+            "data_usage": [
+                "copy"
+            ]
         },
-        "tindakan_data": {
+        "diagnosa_list": {
             "source_type": "ws",
-            "source": "[simrs]/e_doc_api/visitation/action_patient/<reg_number>",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_list/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "dokter_dpjp_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "adime_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/adime/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "inpatient_information": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "diagnosa_keperawatan_list": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa_keperawatan/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        },
+        "diet_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diet/<reg_number>",
             "data_usage": ["copy"]
         }
     },
-    "digital_signature": {
-        "ttd_bidan": {
-            "value_type": "path",
-            "json_path": "$.persalinan.bidan",
-            "encrypt": true
-        },
-        "ttd_bidan2": {
-            "value_type": "path",
-            "json_path": "$.bidan",
-            "encrypt": true
-        }
-    }
+    "session": true
 }
