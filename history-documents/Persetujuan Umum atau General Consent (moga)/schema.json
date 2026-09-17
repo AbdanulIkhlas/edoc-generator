@@ -1,0 +1,191 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Generated schema for Root",
+    "type": "object",
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "properties": {
+                "no_rm": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "no_rm",
+                "nama",
+                "tanggal_lahir",
+                "tanggal_lahir_indo",
+                "alamat"
+            ]
+        },
+        "wali": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string"
+                },
+                "alamat": {
+                    "type": "string"
+                },
+                "no_telp": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "nama",
+                "tanggal_lahir",
+                "tanggal_lahir_indo",
+                "alamat",
+                "no_telp"
+            ]
+        },
+        "pelepasan_informasi": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "nomor": {
+                        "type": "string"
+                    },
+                    "nama": {
+                        "type": "string"
+                    },
+                    "hubungan": {
+                        "type": "string"
+                    },
+                    "telepon": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "nomor",
+                    "nama",
+                    "hubungan",
+                    "telepon"
+                ]
+            }
+        },
+        "kebutuhan_pendamping": {
+            "type": "object",
+            "properties": {
+                "ya": {
+                    "type": "boolean"
+                },
+                "oleh": {
+                    "type": "string"
+                },
+                "tidak": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "ya",
+                "oleh",
+                "tidak"
+            ]
+        },
+        "kebutuhan_privasi": {
+            "type": "object",
+            "properties": {
+                "satu": {
+                    "type": "object",
+                    "properties": {
+                        "persetujuan": {
+                            "type": "string"
+                        },
+                        "keterangan": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "persetujuan",
+                        "keterangan"
+                    ]
+                },
+                "dua": {
+                    "type": "object",
+                    "properties": {
+                        "persetujuan": {
+                            "type": "string"
+                        },
+                        "keterangan": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "persetujuan",
+                        "keterangan"
+                    ]
+                }
+            },
+            "required": [
+                "satu",
+                "dua"
+            ]
+        },
+        "hubungan": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "nama": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "nama",
+                    "status"
+                ]
+            }
+        },
+        "penjagaan": {
+            "type": "boolean"
+        },
+        "tanggal_surat": {
+            "type": "string"
+        },
+        "tanggal_surat_indo": {
+            "type": "string"
+        },
+        "ttd_petugas": {
+            "type": "string"
+        },
+        "ttd_wali": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "pasien",
+        "wali",
+        "pelepasan_informasi",
+        "kebutuhan_pendamping",
+        "kebutuhan_privasi",
+        "hubungan",
+        "penjagaan",
+        "tanggal_surat",
+        "tanggal_surat_indo",
+        "ttd_petugas",
+        "ttd_wali"
+    ]
+}

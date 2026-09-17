@@ -1,0 +1,27 @@
+{
+    "external_link": {
+        "px_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
+            "data_usage": ["copy", "embeded"]
+        },
+        "patient_info_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
+            "data_usage": ["copy"]
+        }
+    },
+    "digital_signature": {
+        "ttd_petugas": {
+            "value_type": "path",
+            "json_path": "$.ttd_petugas",
+            "encrypt": true
+        },
+        "ttd_wali": {
+            "value_type": "path",
+            "json_path": "$.ttd_wali",
+            "encrypt": true
+        }
+    },
+    "internal_link": {}
+}
