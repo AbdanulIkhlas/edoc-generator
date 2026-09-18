@@ -26,7 +26,7 @@ if (empty($bina_rohani) || !is_array($bina_rohani)) {
     }
 } else {
     // Cast elements to object for easier property access
-    $bina_rohani = array_map(function($item) {
+    $bina_rohani = array_map(function ($item) {
         return (object)$item;
     }, $bina_rohani);
 }
@@ -108,24 +108,24 @@ if (empty($bina_rohani) || !is_array($bina_rohani)) {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     .txt-vertical-1 {
-				transform: translate(-40%, -50%) rotate(-90deg);
-				-webkit-transform: translate(-40%, -50%) rotate(-90deg);
-				position: absolute;
-		}
+        transform: translate(-40%, -50%) rotate(-90deg);
+        -webkit-transform: translate(-40%, -50%) rotate(-90deg);
+        position: absolute;
+    }
 
-		.txt-vertical-2 {
-				transform: translate(-50%, -50%) rotate(-90deg);
-				-webkit-transform: translate(-50%, -50%) rotate(-90deg);
-				position: absolute;
-		}
+    .txt-vertical-2 {
+        transform: translate(-50%, -50%) rotate(-90deg);
+        -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+        position: absolute;
+    }
 
-		.textbottomup {
-				transform: rotate(180deg);
-				writing-mode: vertical-rl;
-				text-align: center;
-		}
+    .textbottomup {
+        transform: rotate(180deg);
+        writing-mode: vertical-rl;
+        text-align: center;
+    }
 
     .tanda-tangan {
         width: 100px;
@@ -321,11 +321,12 @@ if (empty($bina_rohani) || !is_array($bina_rohani)) {
     .w1 {
         width: 1%
     }
-    
+
     .ttd-img {
-				width: 200px;
+        width: 200px;
         height: 120px;
-        object-fit: contain; /* atau contain tergantung kebutuhan */
+        object-fit: contain;
+        /* atau contain tergantung kebutuhan */
     }
 
     .circle {
@@ -336,12 +337,12 @@ if (empty($bina_rohani) || !is_array($bina_rohani)) {
         font-weight: bold;
         padding: 5px;
     }
-    
+
     .pagebreak {
         min-height: 1px;
         page-break-before: always;
     }
-    
+
     /* BARIS INI AKAN MENCEGAH TABEL TERPOTONG */
     .pagebreak-avoid {
         page-break-inside: avoid;
@@ -413,123 +414,123 @@ if (empty($bina_rohani) || !is_array($bina_rohani)) {
         </thead>
         <tbody>
             <?php foreach ($bina_rohani as $index => $row): ?>
-            <tr>
-                <!-- Column 1: Tanggal & Jam -->
-                <td style="text-align: center; vertical-align: middle; padding: 6px; border: 1px solid black;">
-                    <?php if (!empty($row->tanggal_indo)): ?>
-                        <?= htmlspecialchars($row->tanggal_indo) ?>
-                    <?php endif; ?>
-                    <?php if (!empty($row->jam)): ?>
-                        <br><?= htmlspecialchars($row->jam) ?>
-                    <?php endif; ?>
-                </td>
-                <!-- Column 2: Masalah Rohani -->
-                <td style="padding: 6px; vertical-align: top; border: 1px solid black;">
-                    <?php if ($index === 0): ?>
-                        Pasien Baru (anak, dewasa melahirkan)
-                    <?php elseif ($index === 1): ?>
-                        Pre op & post
-                    <?php elseif ($index === 2): ?>
-                        Psycosomatis
-                    <?php elseif ($index === 3): ?>
-                        Pasien Terminal
-                    <?php elseif ($index === 4): ?>
-                        Pasien IWR
-                    <?php elseif ($index === 5): ?>
-                        Pemulasaran jenazah
-                    <?php elseif ($index === 6): ?>
-                        Pasien non muslim
-                    <?php endif; ?>
-                </td>
-                <!-- Column 3: Tindakan -->
-                <td style="padding: 6px; vertical-align: top; border: 1px solid black;">
-                    <?php if ($index === 0): ?>
-                        Menyampaikan ke pasien & keluarga untuk<br>
-                        a. Bersabar<br>
-                        b. Tawakal<br>
-                        c. Ikhlas<br>
-                        d. Menunjukkan arah kiblat<br>
-                        e. Tayamum<br>
-                        f. Sholat<br>
-                        g. Do'a bersama-sama<br>
-                        h. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 1): ?>
-                        Menyampaikan ke pasien & keluarga untuk :<br>
-                        a. Bersabar<br>
-                        b. Tawakal<br>
-                        c. Ikhlas<br>
-                        d. Do'a sebelum Operasi<br>
-                        e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 2): ?>
-                        Menyampaikan ke pasien & keluarga untuk :<br>
-                        a. Bersabar<br>
-                        b. Tawakal<br>
-                        c. Ikhlas<br>
-                        d. Doa bersama - sama<br>
-                        e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 3): ?>
-                        Menyampaikan ke pasien & Keluarga untuk:<br>
-                        a. Bersabar<br>
-                        b. Tawakal<br>
-                        c. Ikhlas<br>
-                        d. Do'a bersama - sama<br>
-                        e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 4): ?>
-                        Memotivasi pasien untuk :<br>
-                        a. Bersabar<br>
-                        b. Tawakal<br>
-                        c. Ikhlas<br>
-                        d. Talqina & di do'akan<br>
-                        e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 5): ?>
-                        a. Menghubungi Tim<br>
-                        b. Menyiapkan tempat<br>
-                        c. Memandikan, mengkafani, menyolatkan<br>
-                        d. Menyerahkan jenazah ke keluarga<br>
-                        e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php elseif ($index === 6): ?>
-                        Menyampaikan ke pasien & keluarga untuk :<br>
-                        a. Bersabar<br>
-                        b. Ikhlas<br>
-                        c. Berdo'a menurut agama dan keyakinan<br>
-                        d. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
-                    <?php endif; ?>
-                </td>
-                <!-- Column 4: Pasien / Keluarga Signature -->
-                <td style="padding: 0; border: 1px solid black; vertical-align: bottom; width: 17%;">
-                    <table style="width: 100%; border: none; border-collapse: collapse; margin: 0; padding: 0; height: 75px;">
-                        <tr>
-                            <td style="border: none; text-align: center; vertical-align: bottom; height: 50px; padding: 2px;">
-                                <?php if (!empty($row->pasien_stroke)): ?>
-                                    <img src="<?= htmlspecialchars($row->pasien_stroke) ?>" style="max-height: 45px; max-width: 100px; object-fit: contain; vertical-align: bottom;" />
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border: none; text-align: center; vertical-align: top; height: 25px; padding: 2px; font-weight: normal; font-size: 9pt;">
-                                <?= htmlspecialchars($row->nama_pasien_keluarga ?? '') ?>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <!-- Column 5: Petugas Signature -->
-                <td style="padding: 0; border: 1px solid black; vertical-align: bottom; width: 18%;">
-                    <table style="width: 100%; border: none; border-collapse: collapse; margin: 0; padding: 0; height: 75px;">
-                        <tr>
-                            <td style="border: none; text-align: center; vertical-align: bottom; height: 50px; padding: 2px;">
-                                <?php if (!empty($row->petugas_stroke)): ?>
-                                    <img src="<?= htmlspecialchars($row->petugas_stroke) ?>" style="max-height: 45px; max-width: 100px; object-fit: contain; vertical-align: bottom;" />
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border: none; text-align: center; vertical-align: top; height: 25px; padding: 2px; font-weight: normal; font-size: 9pt;">
-                                <?= htmlspecialchars($row->nama_petugas ?? '') ?>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                <tr>
+                    <!-- Column 1: Tanggal & Jam -->
+                    <td style="text-align: center; vertical-align: middle; padding: 6px; border: 1px solid black;">
+                        <?php if (!empty($row->tanggal_indo)): ?>
+                            <?= htmlspecialchars($row->tanggal_indo) ?>
+                        <?php endif; ?>
+                        <?php if (!empty($row->jam)): ?>
+                            <br><?= htmlspecialchars($row->jam) ?>
+                        <?php endif; ?>
+                    </td>
+                    <!-- Column 2: Masalah Rohani -->
+                    <td style="padding: 6px; vertical-align: top; border: 1px solid black;">
+                        <?php if ($index === 0): ?>
+                            Pasien Baru (anak, dewasa melahirkan)
+                        <?php elseif ($index === 1): ?>
+                            Pre op & post
+                        <?php elseif ($index === 2): ?>
+                            Psycosomatis
+                        <?php elseif ($index === 3): ?>
+                            Pasien Terminal
+                        <?php elseif ($index === 4): ?>
+                            Pasien IWR
+                        <?php elseif ($index === 5): ?>
+                            Pemulasaran jenazah
+                        <?php elseif ($index === 6): ?>
+                            Pasien non muslim
+                        <?php endif; ?>
+                    </td>
+                    <!-- Column 3: Tindakan -->
+                    <td style="padding: 6px; vertical-align: top; border: 1px solid black;">
+                        <?php if ($index === 0): ?>
+                            Menyampaikan ke pasien & keluarga untuk<br>
+                            a. Bersabar<br>
+                            b. Tawakal<br>
+                            c. Ikhlas<br>
+                            d. Menunjukkan arah kiblat<br>
+                            e. Tayamum<br>
+                            f. Sholat<br>
+                            g. Do'a bersama-sama<br>
+                            h. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 1): ?>
+                            Menyampaikan ke pasien & keluarga untuk :<br>
+                            a. Bersabar<br>
+                            b. Tawakal<br>
+                            c. Ikhlas<br>
+                            d. Do'a sebelum Operasi<br>
+                            e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 2): ?>
+                            Menyampaikan ke pasien & keluarga untuk :<br>
+                            a. Bersabar<br>
+                            b. Tawakal<br>
+                            c. Ikhlas<br>
+                            d. Doa bersama - sama<br>
+                            e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 3): ?>
+                            Menyampaikan ke pasien & Keluarga untuk:<br>
+                            a. Bersabar<br>
+                            b. Tawakal<br>
+                            c. Ikhlas<br>
+                            d. Do'a bersama - sama<br>
+                            e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 4): ?>
+                            Memotivasi pasien untuk :<br>
+                            a. Bersabar<br>
+                            b. Tawakal<br>
+                            c. Ikhlas<br>
+                            d. Talqina & di do'akan<br>
+                            e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 5): ?>
+                            a. Menghubungi Tim<br>
+                            b. Menyiapkan tempat<br>
+                            c. Memandikan, mengkafani, menyolatkan<br>
+                            d. Menyerahkan jenazah ke keluarga<br>
+                            e. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php elseif ($index === 6): ?>
+                            Menyampaikan ke pasien & keluarga untuk :<br>
+                            a. Bersabar<br>
+                            b. Ikhlas<br>
+                            c. Berdo'a menurut agama dan keyakinan<br>
+                            d. <?= htmlspecialchars($row->tindakan_detail ?? '') ?>
+                        <?php endif; ?>
+                    </td>
+                    <!-- Column 4: Pasien / Keluarga Signature -->
+                    <td style="padding: 0; border: 1px solid black; vertical-align: bottom; width: 17%;">
+                        <table style="width: 100%; border: none; border-collapse: collapse; margin: 0; padding: 0; height: 75px;">
+                            <tr>
+                                <td style="border: none; text-align: center; vertical-align: bottom; height: 50px; padding: 2px;">
+                                    <?php if (!empty($row->pasien_stroke)): ?>
+                                        <img src="<?= htmlspecialchars($row->pasien_stroke) ?>" style="max-height: 100px; width: auto; object-fit: contain; vertical-align: bottom;" />
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; text-align: center; vertical-align: top; height: 25px; padding: 2px; font-weight: normal; font-size: 9pt;">
+                                    <?= htmlspecialchars($row->nama_pasien_keluarga ?? '') ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!-- Column 5: Petugas Signature -->
+                    <td style="padding: 0; border: 1px solid black; vertical-align: bottom; width: 18%;">
+                        <table style="width: 100%; border: none; border-collapse: collapse; margin: 0; padding: 0; height: 75px;">
+                            <tr>
+                                <td style="border: none; text-align: center; vertical-align: bottom; height: 50px; padding: 2px;">
+                                    <?php if (!empty($row->petugas_stroke)): ?>
+                                        <img src="<?= htmlspecialchars($row->petugas_stroke) ?>" style="max-height: 45px; max-width: 100px; object-fit: contain; vertical-align: bottom;" />
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; text-align: center; vertical-align: top; height: 25px; padding: 2px; font-weight: normal; font-size: 9pt;">
+                                    <?= htmlspecialchars($row->nama_petugas ?? '') ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>

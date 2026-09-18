@@ -41,7 +41,7 @@ const data = {
         },
         "external_link": {
             "px_data": {
-                "no_rm": "00000001",
+                "no_rm": "00007659",
                 "nama": "HANA AMIRA NN",
                 "kelamin": "P",
                 "tanggal_lahir": "1985-10-24",

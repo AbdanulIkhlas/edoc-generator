@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "pasien": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string"
+        },
+        "no_rm": {
+          "type": "string"
+        },
+        "tanggal_lahir": {
+          "type": "string"
+        },
+        "tanggal_lahir_indo": {
+          "type": "string"
+        },
+        "kelamin": {
+          "type": "string"
+        },
+        "alamat": {
+          "type": "string"
+        },
+        "tempat_lahir": {
+          "type": "string"
+        },
+        "pekerjaan": {
+          "type": "string"
+        },
+        "pendidikan": {
+          "type": "string"
+        },
+        "agama": {
+          "type": "string"
+        },
+        "umur": {
+          "type": "string"
+        },
+        "ruang": {
+          "type": "string"
+        },
+        "bangsal": {
+          "type": "string"
+        },
+        "kelas": {
+          "type": "string"
+        },
+        "tanggal_masuk": {
+          "type": "string"
+        },
+        "tanggal_masuk_indo": {
+          "type": "string"
+        }
+      },
+      "required": []
+    },
+    "bina_rohani": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tanggal": {
+            "type": "string"
+          },
+          "tanggal_indo": {
+            "type": "string"
+          },
+          "jam": {
+            "type": "string"
+          },
+          "tindakan_detail": {
+            "type": "string"
+          },
+          "nama_pasien_keluarga": {
+            "type": "string"
+          },
+          "pasien_stroke": {
+            "type": "string"
+          },
+          "nama_petugas": {
+            "type": "string"
+          },
+          "petugas_stroke": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    "catatan": {
+      "type": "string"
+    },
+    "ttd_data": {
+      "type": "object",
+      "properties": {
+        "kota": {
+          "type": "string"
+        },
+        "tanggal": {
+          "type": "string"
+        },
+        "tanggal_indo": {
+          "type": "string"
+        },
+        "jam": {
+          "type": "string"
+        },
+        "perawat": {
+          "type": "string"
+        },
+        "perawat_stroke": {
+          "type": "string"
+        },
+        "dokter": {
+          "type": "string"
+        },
+        "dokter_stroke": {
+          "type": "string"
+        },
+        "pasien_stroke": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "required": []
+}

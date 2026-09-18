@@ -31,18 +31,15 @@
 
 <body>
     <!-- === START CONTAINER CODE === -->
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"
     integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-></script>
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" charset="utf-8">
     // Global variable here
     const URL_IMAGE_SEVER_LOCAL = "http://192.168.0.201:1201/";  // Sesuaikan
     const URL_IMAGE_SEVER_WG = "http://11.11.17.2:1201/"; // Sesuaikan
     const IP_WG = "11.11.17.4"; // Sesuaikan
-    
+
     //   const URL_IMAGE_SEVER_LOCAL = "http://192.168.1.90:1201/";
     //         const URL_IMAGE_SEVER_WG = "http://12.12.1.140:1201/";
     //         const IP_WG = "12.12.1.140";
@@ -300,7 +297,7 @@
             markup_template: function (repo) {
                 return `<b>${repo.nama_bangsal}</b> - Ruang ${repo.nama_ruang}  <small>(${repo.nama_kelas})</small>`;
             },
-            allowClear:true,
+            allowClear: true,
             selection_template: function (repo) {
                 // tulis format string untuk label autocomplete
 
@@ -428,10 +425,10 @@
             data: data,
             mounted: function () {
                 this.init();
-                
-                 this.$nextTick(() => {
-								      document.querySelectorAll("textarea").forEach(autoGrow);
-								  });
+
+                this.$nextTick(() => {
+                    document.querySelectorAll("textarea").forEach(autoGrow);
+                });
             },
             methods: {
                 init: function () {
@@ -439,7 +436,7 @@
                     autocomplete(configRuang(data));
                     autocomplete(configDokter1(data));
                     autocomplete(configNakes1(data));
-                    
+
                     // Initialize select2 for each row of petugas
                     for (let i = 0; i < 7; i++) {
                         autocomplete({
@@ -477,7 +474,7 @@
                     }
 
                     this.setupSignature(data);
-                    
+
                     $('#ruang_auto').on('select2:clearing', function (e) {
                         data.pasien.bangsal = "";
                         data.pasien.ruang = "";
@@ -528,15 +525,15 @@
                     // Start setup Coretan Canvas
                     // const canvas1 = this.$refs["ttd_1"];
                     // this.addCanvasListeners("ttd_1", canvas1);
-                    
+
                     this.$nextTick(() => {
                         const canvas1 = this.$refs["ttd_1"];
-                
+
                         if (!canvas1) {
                             console.warn("[setupSignature] canvas ttd_1 tidak ditemukan");
                             return;
                         }
-                
+
                         this.addCanvasListeners("ttd_1", canvas1);
                     });
                     // End setup Coraten Canvas
@@ -561,11 +558,11 @@
                     // End setup autocomplete ketika mode ttd canvas
                 },
                 addCanvasListeners(name, canvas) {
-		                if (!canvas) {
+                    if (!canvas) {
                         console.warn(`[addCanvasListeners] canvas ${name} undefined`);
                         return;
                     }
-                    
+
                     canvas.addEventListener("mousedown", (e) => this.startDraw(e, name));
                     canvas.addEventListener("mousemove", (e) => this.moveDraw(e, name));
                     canvas.addEventListener("mouseup", () => this.stopDraw(name));
@@ -741,12 +738,39 @@
                     };
                 },
             },
+            watch: {
+                bina_rohani: {
+                    handler: function (newVal) {
+                        const patientName = data.external_link.px_data.nama || "";
+                        for (let i = 0; i < newVal.length; i++) {
+                            if (newVal[i].tanggal) {
+                                // Jika tanggal diisi, assign nama pasien dan ttd image
+                                if (!newVal[i].nama_pasien_keluarga) {
+                                    this.$set(newVal[i], 'nama_pasien_keluarga', patientName);
+                                }
+                                if (!newVal[i].pasien_stroke) {
+                                    this.$set(newVal[i], 'pasien_stroke', getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime());
+                                }
+                            } else {
+                                // Jika tanggal dikosongkan, hapus nama dan ttd image
+                                if (newVal[i].pasien_stroke) {
+                                    this.$set(newVal[i], 'pasien_stroke', '');
+                                }
+                                if (newVal[i].nama_pasien_keluarga) {
+                                    this.$set(newVal[i], 'nama_pasien_keluarga', '');
+                                }
+                            }
+                        }
+                    },
+                    deep: true,
+                },
+            },
         });
     }
 
     function init_doc_add(data) {
         // Call bridging function here
-         executeAllSafely([
+        executeAllSafely([
             {
                 label: "Setup Auto",
                 functionName: setupAuto,
@@ -834,20 +858,8 @@
             if (!data.pasien.kelamin) data.pasien.kelamin = showKelamin(ext_patient.kelamin);
             if (!data.pasien.umur) data.pasien.umur = getAge(ext_patient.tanggal_lahir).toString() || "";
         }
-        // Jembatan nama penanggung jawab dan ttd image pasien ke nama pasien/keluarga bina rohani
-        const ext_patient_info = data.external_link.patient_info_data || {};
-        const default_family_name = ext_patient_info.nama_pjwb || ext_patient_info.nama_pjwb_finansial || ext_patient.nama || "";
         const patient_signature = getUrlHandler() + `patient/${data.external_link.px_data.no_rm}.png?t=` + new Date().getTime();
-        
-        for (let i = 0; i < 7; i++) {
-            if (!data.bina_rohani[i].nama_pasien_keluarga) {
-                data.bina_rohani[i].nama_pasien_keluarga = default_family_name;
-            }
-            if (!data.bina_rohani[i].pasien_stroke) {
-                data.bina_rohani[i].pasien_stroke = patient_signature;
-            }
-        }
-        
+
         // untuk tanda tangan pasien image
         data.ttd_data.pasien_stroke = patient_signature;
     }
@@ -945,7 +957,7 @@
             return null;
         }
     }
-    
+
     function dateParse(date) {
         const monthNames = [
             "Januari",
@@ -1071,38 +1083,38 @@
     function showKelamin(code) {
         return code === "P" ? "Perempuan" : code === "L" ? "Laki-laki" : "Jenis kelamin tidak dikenal";
     }
-    
+
     // Global autogrow mechanism for textareas
-	  function autoGrow(element) {
-	      // Set base height (setara dengan +/- 3 baris) agar tidak terlalu menciut
-	      element.style.height = "75px"; 
-	      // Sesuaikan tinggi dengan scrollHeight
-	      element.style.height = (element.scrollHeight + 2) + "px";
-	  }
-	
-	  document.addEventListener("input", function(e) {
-	      if (e.target.tagName.toLowerCase() === "textarea") {
-	          autoGrow(e.target);
-	      }
-	  });
-	  
-	  function sanitizeData(data, replaceChar = ' ') {
-		    if (typeof data === 'string') {
-		        return data.replace(/'/g, replaceChar);
-		    } else if (Array.isArray(data)) {
-		        return data.map(item => sanitizeData(item, replaceChar));
-		    } else if (typeof data === 'object' && data !== null) {
-		        const sanitizedObject = {};
-		        for (const key in data) {
-		            if (data.hasOwnProperty(key)) {
-		                sanitizedObject[key] = sanitizeData(data[key], replaceChar);
-		            }
-		        }
-		        return sanitizedObject;
-		    } else {
-		        return data;
-		    }
-		}
+    function autoGrow(element) {
+        // Set base height (setara dengan +/- 3 baris) agar tidak terlalu menciut
+        element.style.height = "75px";
+        // Sesuaikan tinggi dengan scrollHeight
+        element.style.height = (element.scrollHeight + 2) + "px";
+    }
+
+    document.addEventListener("input", function (e) {
+        if (e.target.tagName.toLowerCase() === "textarea") {
+            autoGrow(e.target);
+        }
+    });
+
+    function sanitizeData(data, replaceChar = ' ') {
+        if (typeof data === 'string') {
+            return data.replace(/'/g, replaceChar);
+        } else if (Array.isArray(data)) {
+            return data.map(item => sanitizeData(item, replaceChar));
+        } else if (typeof data === 'object' && data !== null) {
+            const sanitizedObject = {};
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    sanitizedObject[key] = sanitizeData(data[key], replaceChar);
+                }
+            }
+            return sanitizedObject;
+        } else {
+            return data;
+        }
+    }
 </script>
 <style>
     /* Custom style here */
@@ -1154,6 +1166,7 @@
     .patient-card {
         /* border-left: 5px solid #007bff; */
     }
+
     .data-label {
         font-size: 0.8rem;
         color: black;
@@ -1162,8 +1175,9 @@
         margin-bottom: 0;
         line-height: 1;
         padding-left: 0.2em;
-        font-weight : bold;
+        font-weight: bold;
     }
+
     .data-value {
         font-weight: 500;
         color: #343a40;
@@ -1171,16 +1185,21 @@
         width: 100%;
         border: none;
     }
+
     .main-name {
         font-size: 1.25rem;
         font-weight: bold;
-        color: #007bff; /* Biru untuk Nama */
+        color: #007bff;
+        /* Biru untuk Nama */
     }
+
     .main-rm {
         font-size: 1.25rem;
         font-weight: bold;
-        color: #dc3545; /* Merah untuk No RM */
+        color: #dc3545;
+        /* Merah untuk No RM */
     }
+
     /* CSS untuk Floating Navigation */
     .floating-nav-container {
         position: fixed;
@@ -1200,7 +1219,8 @@
     }
 
     .floating-nav-container::before {
-        content: "NAVIGASI"; /* Teks yang akan ditampilkan */
+        content: "NAVIGASI";
+        /* Teks yang akan ditampilkan */
         color: white;
         font-weight: bold;
         font-size: 12px;
@@ -1235,7 +1255,8 @@
 
     .floating-nav-container:hover .nav-list,
     .nav-list.show {
-        max-width: 300px; /* Lebar menu saat muncul */
+        max-width: 300px;
+        /* Lebar menu saat muncul */
         padding: 0 15px 0 10px;
     }
 
@@ -1279,7 +1300,7 @@
                         <p class="data-label">Nama</p>
                         <input id="pasien_nama" type="text" class="data-value" v-model="pasien.nama" />
                     </div>
-                    
+
                 </div>
 
                 <div class="col-md-6">
@@ -1289,20 +1310,16 @@
                     </div>
                     <div class="mb-3">
                         <p class="data-label">Tanggal Lahir</p>
-                        <input
-                            id="pasien_tanggal_lahir_indo"
-                            type="date"
-                            class="data-value"
+                        <input id="pasien_tanggal_lahir_indo" type="date" class="data-value"
                             v-model="pasien.tanggal_lahir"
-                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')"
-                        />
+                            @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Pasien Info Data -->
-    
+
     <!-- Tabel -->
     <div class="card patient-card shadow-sm mb-4" id="tabel-fbr">
         <div class="card-header bg-light">
@@ -1313,18 +1330,24 @@
                 <table class="table table-bordered text-dark mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th style="width: 15%; font-weight: bold; text-align: center; vertical-align: middle;">Tgl/bln/Th<br>Jam</th>
-                            <th style="width: 15%; font-weight: bold; text-align: center; vertical-align: middle;">Masalah Rohani</th>
-                            <th style="width: 35%; font-weight: bold; text-align: center; vertical-align: middle;">Tindakan</th>
-                            <th style="width: 17%; font-weight: bold; text-align: center; vertical-align: middle;">Nama dan Tandatangan Pasien / Keluarga</th>
-                            <th style="width: 18%; font-weight: bold; text-align: center; vertical-align: middle;">Nama dan Tandatangan Petugas</th>
+                            <th style="width: 15%; font-weight: bold; text-align: center; vertical-align: middle;">
+                                Tgl/bln/Th<br>Jam</th>
+                            <th style="width: 15%; font-weight: bold; text-align: center; vertical-align: middle;">
+                                Masalah Rohani</th>
+                            <th style="width: 35%; font-weight: bold; text-align: center; vertical-align: middle;">
+                                Tindakan</th>
+                            <th style="width: 17%; font-weight: bold; text-align: center; vertical-align: middle;">Nama
+                                dan Tandatangan Pasien / Keluarga</th>
+                            <th style="width: 18%; font-weight: bold; text-align: center; vertical-align: middle;">Nama
+                                dan Tandatangan Petugas</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(row, index) in bina_rohani" :key="index">
                             <td class="p-2">
                                 <div class="mb-2">
-                                    <input type="date" class="form-control form-control-sm" v-model="row.tanggal" @change="onChDateDynamic($event, 'bina_rohani.' + index + '.tanggal_indo')" />
+                                    <input type="date" class="form-control form-control-sm" v-model="row.tanggal"
+                                        @change="onChDateDynamic($event, 'bina_rohani.' + index + '.tanggal_indo')" />
                                 </div>
                                 <div>
                                     <input type="time" class="form-control form-control-sm" v-model="row.jam" />
@@ -1350,7 +1373,9 @@
                                     e. Tayamum<br>
                                     f. Sholat<br>
                                     g. Do'a bersama-sama<br>
-                                    h. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    h. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 2 Tindakan -->
                                 <div v-else-if="index === 1">
@@ -1359,7 +1384,9 @@
                                     b. Tawakal<br>
                                     c. Ikhlas<br>
                                     d. Do'a sebelum Operasi<br>
-                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 3 Tindakan -->
                                 <div v-else-if="index === 2">
@@ -1368,7 +1395,9 @@
                                     b. Tawakal<br>
                                     c. Ikhlas<br>
                                     d. Doa bersama - sama<br>
-                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 4 Tindakan -->
                                 <div v-else-if="index === 3">
@@ -1377,7 +1406,9 @@
                                     b. Tawakal<br>
                                     c. Ikhlas<br>
                                     d. Do'a bersama - sama<br>
-                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 5 Tindakan -->
                                 <div v-else-if="index === 4">
@@ -1386,7 +1417,9 @@
                                     b. Tawakal<br>
                                     c. Ikhlas<br>
                                     d. Talqina & di do'akan<br>
-                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 6 Tindakan -->
                                 <div v-else-if="index === 5">
@@ -1394,7 +1427,9 @@
                                     b. Menyiapkan tempat<br>
                                     c. Memandikan, mengkafani, menyolatkan<br>
                                     d. Menyerahkan jenazah ke keluarga<br>
-                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    e. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                                 <!-- Row 7 Tindakan -->
                                 <div v-else-if="index === 6">
@@ -1402,37 +1437,27 @@
                                     a. Bersabar<br>
                                     b. Ikhlas<br>
                                     c. Berdo'a menurut agama dan keyakinan<br>
-                                    d. <input type="text" class="form-control form-control-sm d-inline-block mt-1" style="width: auto; min-width: 120px;" v-model="row.tindakan_detail" placeholder="lainnya..." />
+                                    d. <input type="text" class="form-control form-control-sm d-inline-block mt-1"
+                                        style="width: auto; min-width: 120px;" v-model="row.tindakan_detail"
+                                        placeholder="lainnya..." />
                                 </div>
                             </td>
                             <!-- Column 4: Pasien / Keluarga Signature -->
                             <td class="p-2 text-center" style="vertical-align: top;">
-                                <ttd-section
-                                    mode="IMAGE"
-                                    label="Pasien / Keluarga"
-                                    name_input_type="TEXT"
+                                <ttd-section mode="IMAGE" label="Pasien / Keluarga" name_input_type="TEXT"
                                     v-model="row.nama_pasien_keluarga"
                                     :path_name="'bina_rohani.' + index + '.nama_pasien_keluarga'"
-                                    :stroke="row.pasien_stroke"
-                                    :path_stroke="'bina_rohani.' + index + '.pasien_stroke'"
-                                    @update-stroke="row.pasien_stroke = $event"
-                                    @open-ttd-modal="openTTDModalHandler"
-                                />
+                                    :stroke="row.pasien_stroke" :path_stroke="'bina_rohani.' + index + '.pasien_stroke'"
+                                    @update-stroke="row.pasien_stroke = $event" @open-ttd-modal="openTTDModalHandler" />
                             </td>
                             <!-- Column 5: Petugas Signature -->
                             <td class="p-2 text-center" style="vertical-align: top;">
-                                <ttd-section
-                                    mode="IMAGE"
-                                    label="Petugas"
-                                    name_input_type="NAKES"
-                                    :select_id="'nakes_auto_' + index"
-                                    v-model="row.nama_petugas"
-                                    :path_name="'bina_rohani.' + index + '.nama_petugas'"
-                                    :stroke="row.petugas_stroke"
+                                <ttd-section mode="IMAGE" label="Petugas" name_input_type="NAKES"
+                                    :select_id="'nakes_auto_' + index" v-model="row.nama_petugas"
+                                    :path_name="'bina_rohani.' + index + '.nama_petugas'" :stroke="row.petugas_stroke"
                                     :path_stroke="'bina_rohani.' + index + '.petugas_stroke'"
                                     @update-stroke="row.petugas_stroke = $event"
-                                    @open-ttd-modal="openTTDModalHandler"
-                                />
+                                    @open-ttd-modal="openTTDModalHandler" />
                             </td>
                         </tr>
                     </tbody>
@@ -1451,7 +1476,8 @@
             <div class="form-group row mb-0">
                 <label class="col-12 col-form-label text-dark font-weight-bold">Catatan :</label>
                 <div class="col-12">
-                    <textarea class="form-control" rows="3" v-model="catatan" placeholder="Tulis catatan di sini..."></textarea>
+                    <textarea class="form-control" rows="3" v-model="catatan"
+                        placeholder="Tulis catatan di sini..."></textarea>
                 </div>
             </div>
         </div>
@@ -1472,15 +1498,8 @@
     </div>
 
     <!-- START MODAL TTD -->
-    <div
-        class="modal fade"
-        id="tandaTanganModal"
-        data-backdrop="static"
-        data-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="tandaTanganModalLabel"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="tandaTanganModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="tandaTanganModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1498,95 +1517,57 @@
                                     <div style="width: 65%" class="d-flex justify-content-between">
                                         <div>
                                             <div style="display: inline; margin-right: 10px">
-                                                <input
-                                                    type="color"
-                                                    style="width: 30px"
-                                                    v-model="drawings.ttd_1.brushColor"
-                                                />
+                                                <input type="color" style="width: 30px"
+                                                    v-model="drawings.ttd_1.brushColor" />
                                             </div>
                                             <div style="display: inline; margin-right: 10px; margin-top: 5px">
-                                                <input
-                                                    type="range"
-                                                    min="1"
-                                                    max="20"
-                                                    v-model="drawings.ttd_1.brushSize"
-                                                />
+                                                <input type="range" min="1" max="20"
+                                                    v-model="drawings.ttd_1.brushSize" />
                                                 <span>{{ drawings.ttd_1.brushSize }}</span>
                                             </div>
                                         </div>
                                         <div style="display: inline">
-                                            <button
-                                                type="button"
-                                                @click="startDrawing('ttd_1')"
-                                                class="btn btn-outline-info btn-sm"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="left"
-                                                title="Drawing"
-                                            >
+                                            <button type="button" @click="startDrawing('ttd_1')"
+                                                class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left" title="Drawing">
                                                 <i class="fa fa-paint-brush"></i>
                                             </button>
-                                            <button
-                                                type="button"
-                                                title="Erasing"
-                                                @click="startErasing('ttd_1')"
-                                                class="btn btn-outline-secondary btn-sm"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="left"
-                                            >
+                                            <button type="button" title="Erasing" @click="startErasing('ttd_1')"
+                                                class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
                                                 <i class="fa fa-eraser"></i>
                                             </button>
-                                            <button
-                                                type="button"
-                                                title="Clear All"
-                                                @click="clearCanvas('ttd_1')"
-                                                class="btn btn-outline-danger btn-sm"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="left"
-                                            >
+                                            <button type="button" title="Clear All" @click="clearCanvas('ttd_1')"
+                                                class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                                data-bs-placement="left">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center">
-                                    <canvas
-                                        ref="ttd_1"
-                                        id="ttd_1"
-                                        width="180"
-                                        height="100"
-                                        style="border: 1px solid black; margin-right: 3px"
-                                    ></canvas>
+                                    <canvas ref="ttd_1" id="ttd_1" width="180" height="100"
+                                        style="border: 1px solid black; margin-right: 3px"></canvas>
                                 </div>
                             </div>
                             <div class="row mt-2 justify-content-center">
                                 <div class="col-md-12 p-0 d-flex justify-content-center">
-                                    <div
-                                        v-if="tmp_modal_ttd.name_input_type === 'TEXT'"
-                                        style="width: 65%"
-                                        class="d-flex justify-content-center"
-                                    >
-                                        <input
-                                            :key="'input_text'"
-                                            type="text"
-                                            class="form-control"
-                                            v-model="tmp_modal_ttd.name"
-                                        />
+                                    <div v-if="tmp_modal_ttd.name_input_type === 'TEXT'" style="width: 65%"
+                                        class="d-flex justify-content-center">
+                                        <input :key="'input_text'" type="text" class="form-control"
+                                            v-model="tmp_modal_ttd.name" />
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'DOKTER'" style="width: 65%">
-                                        <select
-                                            :key="'input_dokter'"
-                                            class="form-control"
-                                            id="dokter_ttd_modal_auto"
-                                            style="width: 100%"
-                                        ><option value=""></option></select>
+                                        <select :key="'input_dokter'" class="form-control" id="dokter_ttd_modal_auto"
+                                            style="width: 100%">
+                                            <option value=""></option>
+                                        </select>
                                     </div>
                                     <div v-if="tmp_modal_ttd.name_input_type === 'NAKES'" style="width: 65%">
-                                        <select
-                                            :key="'input_nakes'"
-                                            class="form-control"
-                                            id="nakes_ttd_modal_auto"
-                                            style="width: 100%"
-                                        ><option value=""></option></select>
+                                        <select :key="'input_nakes'" class="form-control" id="nakes_ttd_modal_auto"
+                                            style="width: 100%">
+                                            <option value=""></option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
