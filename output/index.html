@@ -589,13 +589,14 @@
                 },
                 watch:{
                     "perencanaan_edukasi.hak_pasien.sasaran": function() {
+                        console.log("data.external_link.patient_info_data : ", data.external_link.patient_info_data)
                         if(this.perencanaan_edukasi.hak_pasien.sasaran == "pasien") {
                             this.perencanaan_edukasi.hak_pasien.pasien = data.external_link.px_data.nama
                             setTimeout(() => {
                                 this.perencanaan_edukasi.hak_pasien.pasien_stroke = generatorQr(this.perencanaan_edukasi.hak_pasien.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.hak_pasien.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.hak_pasien.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.hak_pasien.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.hak_pasien.pasien_stroke = generatorQr(this.perencanaan_edukasi.hak_pasien.pasien);
                             }, 500);
@@ -608,7 +609,7 @@
                                 this.perencanaan_edukasi.diagnosa_penyebab.pasien_stroke = generatorQr(this.perencanaan_edukasi.diagnosa_penyebab.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.diagnosa_penyebab.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.diagnosa_penyebab.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.diagnosa_penyebab.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.diagnosa_penyebab.pasien_stroke = generatorQr(this.perencanaan_edukasi.diagnosa_penyebab.pasien);
                             }, 500);
@@ -621,7 +622,7 @@
                                 this.perencanaan_edukasi.obat.pasien_stroke = generatorQr(this.perencanaan_edukasi.obat.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.obat.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.obat.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.obat.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.obat.pasien_stroke = generatorQr(this.perencanaan_edukasi.obat.pasien);
                             }, 500);
@@ -634,7 +635,7 @@
                                 this.perencanaan_edukasi.diet.pasien_stroke = generatorQr(this.perencanaan_edukasi.diet.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.diet.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.diet.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.diet.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.diet.pasien_stroke = generatorQr(this.perencanaan_edukasi.diet.pasien);
                             }, 500);
@@ -647,7 +648,7 @@
                                 this.perencanaan_edukasi.rehabilitasi_medik.pasien_stroke = generatorQr(this.perencanaan_edukasi.rehabilitasi_medik.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.rehabilitasi_medik.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.rehabilitasi_medik.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.rehabilitasi_medik.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.rehabilitasi_medik.pasien_stroke = generatorQr(this.perencanaan_edukasi.rehabilitasi_medik.pasien);
                             }, 500);
@@ -660,7 +661,7 @@
                                 this.perencanaan_edukasi.manajemen_nyeri.pasien_stroke = generatorQr(this.perencanaan_edukasi.manajemen_nyeri.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.manajemen_nyeri.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.manajemen_nyeri.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.manajemen_nyeri.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.manajemen_nyeri.pasien_stroke = generatorQr(this.perencanaan_edukasi.manajemen_nyeri.pasien);
                             }, 500);
@@ -673,7 +674,7 @@
                                 this.perencanaan_edukasi.pencegahan_infeksi.pasien_stroke = generatorQr(this.perencanaan_edukasi.pencegahan_infeksi.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.pencegahan_infeksi.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.pencegahan_infeksi.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.pencegahan_infeksi.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.pencegahan_infeksi.pasien_stroke = generatorQr(this.perencanaan_edukasi.pencegahan_infeksi.pasien);
                             }, 500);
@@ -686,7 +687,7 @@
                                 this.perencanaan_edukasi.edukasi_pasien.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_pasien.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.edukasi_pasien.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.edukasi_pasien.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.edukasi_pasien.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.edukasi_pasien.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_pasien.pasien);
                             }, 500);
@@ -699,7 +700,7 @@
                                 this.perencanaan_edukasi.edukasi_kolaboratif.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_kolaboratif.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.edukasi_kolaboratif.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.edukasi_kolaboratif.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.edukasi_kolaboratif.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.edukasi_kolaboratif.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_kolaboratif.pasien);
                             }, 500);
@@ -712,7 +713,7 @@
                                 this.perencanaan_edukasi.edukasi_pilihan.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_pilihan.pasien);
                             }, 500);
                         }else if(this.perencanaan_edukasi.edukasi_pilihan.sasaran == "keluarga") {
-                            this.perencanaan_edukasi.edukasi_pilihan.pasien = data.external_link.patient_info_data.nama_pjwb
+                            this.perencanaan_edukasi.edukasi_pilihan.pasien = data.external_link.patient_info_data.nama_pjwb ?? "";
                             setTimeout(() => {
                                 this.perencanaan_edukasi.edukasi_pilihan.pasien_stroke = generatorQr(this.perencanaan_edukasi.edukasi_pilihan.pasien);
                             }, 500);

@@ -1,0 +1,16 @@
+{
+    "external_link": {
+        "px_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
+            "data_usage": ["copy", "embeded"]
+        },
+        "patient_info_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
+            "data_usage": [
+                "copy"
+            ]
+        }
+    }
+}

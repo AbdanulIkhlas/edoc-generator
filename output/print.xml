@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AAKGD" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8a7584b-7fe8-4f58-8769-07b94b9e34c7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Blank_A4_1.jrdax"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -4386,7 +4386,7 @@
 				</staticText>
 			</frame>
 		</band>
-		<band height="502">
+		<band height="760">
 			<frame>
 				<reportElement positionType="Float" x="0" y="0" width="555" height="17" uuid="736bbbc7-da02-41a7-ac8d-d57308fce28e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -4603,7 +4603,7 @@ Evaluasi]]></text>
 				</frame>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="60" width="555" height="17" uuid="1e3984ce-ac39-4892-9e0c-c4c1e36541b2">
+				<reportElement positionType="Float" x="0" y="60" width="555" height="100" uuid="1e3984ce-ac39-4892-9e0c-c4c1e36541b2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4616,7 +4616,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="17" uuid="b3ed44b2-470a-46a0-8567-5bd21afcad84">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="b3ed44b2-470a-46a0-8567-5bd21afcad84">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4629,7 +4629,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="6a591b11-6c39-403e-8fc0-bf4ed7821e54">
+						<reportElement x="0" y="1" width="94" height="16" uuid="6a591b11-6c39-403e-8fc0-bf4ed7821e54">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4640,14 +4640,14 @@ Evaluasi]]></text>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
+						<textElement textAlignment="Center" verticalAlignment="Top">
 							<font size="10" isBold="false"/>
 						</textElement>
 						<text><![CDATA[Perawat]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="17" uuid="b6d1ad2d-e856-4d44-b4ad-081d8246ca84">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="b6d1ad2d-e856-4d44-b4ad-081d8246ca84">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4659,7 +4659,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="17" uuid="ba996739-525f-479f-807c-94e41d48ccb2">
+						<reportElement x="1" y="0" width="63" height="80" uuid="ba996739-525f-479f-807c-94e41d48ccb2">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4677,7 +4677,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="17" uuid="e763078f-7afa-495f-9f4c-93ca2d16aea7">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="e763078f-7afa-495f-9f4c-93ca2d16aea7">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4705,9 +4705,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{hakPasien_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="decd172b-8163-4875-98b3-feab9ece01f5">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{hak_pasien_pasien_stroke} == null || $F{hak_pasien_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{hak_pasien_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{hak_pasien_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{hak_pasien_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="52a53681-ce78-4373-ae18-c0aaf0439b30">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{hak_pasien_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="17" uuid="274222cc-5c95-47ae-a0d6-d50b1bca5703">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="274222cc-5c95-47ae-a0d6-d50b1bca5703">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4737,7 +4770,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="17" uuid="d45d473d-1541-4ab2-845d-a948d85a3357">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="d45d473d-1541-4ab2-845d-a948d85a3357">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4783,7 +4816,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{hakPasien_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="17" uuid="bc91ee85-c59f-4507-8283-4c90a5d8d3e6">
+					<reportElement x="14" y="0" width="141" height="20" uuid="bc91ee85-c59f-4507-8283-4c90a5d8d3e6">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4801,85 +4834,7 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="397" width="555" height="105" uuid="fa18e495-9afd-4260-888d-dd468d0bf7e0">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="279" height="105" uuid="e082a827-6ce5-42f3-89b2-2d5eba756576">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<staticText>
-						<reportElement positionType="Float" x="6" y="0" width="264" height="17" uuid="95b58fb7-1d8d-494d-97ff-6ab61d551ecc">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						</reportElement>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="10"/>
-						</textElement>
-						<text><![CDATA[Petugas]]></text>
-					</staticText>
-					<textField textAdjust="StretchHeight">
-						<reportElement positionType="Float" x="6" y="88" width="264" height="17" uuid="11bb7307-4b7b-4fe3-9074-1a56dde61aa7">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.x" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="10"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{petugas}]]></textFieldExpression>
-					</textField>
-					<componentElement>
-						<reportElement x="104" y="21" width="67" height="67" uuid="04af6b1a-bba2-4b0d-8b52-0999e04cb17f">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{petugas}!=null &&!"".equals($F{petugas})]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{petugas}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
-				</frame>
-				<staticText>
-					<reportElement positionType="Float" x="286" y="0" width="264" height="17" uuid="04ef713f-0ed8-47f7-b144-a12242c573ab">
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
-					</textElement>
-					<text><![CDATA[Pasien/ Keluarga]]></text>
-				</staticText>
-				<textField textAdjust="StretchHeight">
-					<reportElement positionType="Float" x="286" y="88" width="264" height="17" uuid="15d014f8-d04a-46ea-9acc-4253ae96e54c">
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{pasien_keluarga}]]></textFieldExpression>
-				</textField>
-			</frame>
-			<frame>
-				<reportElement positionType="Float" x="0" y="77" width="555" height="30" uuid="3c96a277-f81b-4354-a0bd-100675bd05b9">
+				<reportElement positionType="Float" x="0" y="160" width="555" height="100" uuid="3c96a277-f81b-4354-a0bd-100675bd05b9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4892,7 +4847,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="30" uuid="e11c17e1-6b59-490e-bdf9-7899c91778e4">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="e11c17e1-6b59-490e-bdf9-7899c91778e4">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4922,7 +4877,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="30" uuid="b782fc07-c013-452e-8aed-daf74690974e">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="b782fc07-c013-452e-8aed-daf74690974e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4935,7 +4890,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="30" uuid="b9ac4205-4612-41d1-9e03-bf0762280a8b">
+						<reportElement x="1" y="0" width="63" height="80" uuid="b9ac4205-4612-41d1-9e03-bf0762280a8b">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4953,7 +4908,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="30" uuid="b532194f-ae0f-4ab2-a650-ff47199f4bf7">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="b532194f-ae0f-4ab2-a650-ff47199f4bf7">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4966,7 +4921,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="30" uuid="0d96d760-9783-419d-a107-e79216cb7cb9">
+						<reportElement x="1" y="0" width="88" height="20" uuid="0d96d760-9783-419d-a107-e79216cb7cb9">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -4982,9 +4937,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{diagnosa_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="d197894c-5456-40d8-bed3-626efaa3f073">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{diagnosa_penyebab_pasien_stroke} == null || $F{diagnosa_penyebab_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{diagnosa_penyebab_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{diagnosa_penyebab_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{diagnosa_penyebab_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="9eaade79-3192-4034-85b3-5304b520a076">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diagnosa_penyebab_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="30" uuid="31494f13-f2c1-446f-ac03-b063ff47396a">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="31494f13-f2c1-446f-ac03-b063ff47396a">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5015,7 +5003,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="30" uuid="c4160132-f647-42ad-869f-be9360825efe">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="c4160132-f647-42ad-869f-be9360825efe">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5079,11 +5067,11 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="107" width="555" height="17" uuid="681267f9-4989-4b09-af72-b239cbd45b88">
+				<reportElement positionType="Float" x="0" y="260" width="555" height="100" uuid="681267f9-4989-4b09-af72-b239cbd45b88">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -5092,7 +5080,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="17" uuid="f0a5816e-0fa8-4e00-8ed7-05cd832e9e3f">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="f0a5816e-0fa8-4e00-8ed7-05cd832e9e3f">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5123,7 +5111,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="17" uuid="179db096-3193-4713-a9a9-6af27127275e">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="179db096-3193-4713-a9a9-6af27127275e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5136,7 +5124,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="17" uuid="62fbbf8e-b57b-49c3-ad61-bab865d5aa13">
+						<reportElement x="1" y="0" width="63" height="80" uuid="62fbbf8e-b57b-49c3-ad61-bab865d5aa13">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5154,7 +5142,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="17" uuid="63eb19e7-3c68-4d8e-b6a2-d797abec55cf">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="63eb19e7-3c68-4d8e-b6a2-d797abec55cf">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5182,9 +5170,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{obat_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="5a932cfc-7394-4ca6-a385-11cb91d20332">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{obat_pasien_stroke} == null || $F{obat_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{obat_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{obat_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{obat_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="d2dddb70-0461-4dfc-95f2-76d41c7adbf2">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{obat_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="17" uuid="b016397d-b6f7-4b3e-bac8-c4e82f99e8b9">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="b016397d-b6f7-4b3e-bac8-c4e82f99e8b9">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5214,7 +5235,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="17" uuid="6cc39876-39b2-4bb1-a80c-e20155355f92">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="6cc39876-39b2-4bb1-a80c-e20155355f92">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5278,7 +5299,7 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="124" width="555" height="30" uuid="c1f0a74a-14d7-4539-9574-2db938ad9b94">
+				<reportElement positionType="Float" x="0" y="460" width="555" height="100" uuid="086dfa88-22af-4ed3-8263-7af37acb8e4a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -5291,207 +5312,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="30" uuid="b38859f0-41c7-4103-9772-cce6979cfaa2">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="2ee00882-f76c-4a7a-a98b-80870db5c4a4">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<text><![CDATA[Gizi]]></text>
-					</staticText>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="30" uuid="a3a038be-2c01-4305-b379-7fbfee5f39ed">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="30" uuid="3d8f5de8-246f-4f92-aaf0-91dfe35150d2">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{diet_tanggal_indo_1}+"/"+$F{diet_jam}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="30" uuid="0b5fb770-917a-4c7c-9a9a-f4bb9200ace4">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="30" uuid="cb79d707-9f16-4f91-8c8e-af5068fc0f70">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{diet_sasaran_1}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="30" uuid="7ed48694-8e3f-48ca-af89-4c7f5a3e4f58">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="30" uuid="d5fa69b7-7338-4b83-bf96-741cdc215b2f">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{diet_cara_edukasi}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="30" uuid="ed3c178c-c0a3-4dba-91b2-4532659e0d23">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="30" uuid="376b2f35-48a1-42b3-87df-ace5e24bd423">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{diet_metode_evaluasi}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="5034939b-151a-41d0-afbc-b01af2297923">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{diet_value_1}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="14" y="0" width="141" height="30" uuid="a2de456b-6e55-4166-9833-425c08ee339b">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					</reportElement>
-					<box topPadding="3" leftPadding="4" bottomPadding="0" rightPadding="0">
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Diet dan nutrisi yang memadai]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement positionType="Float" x="0" y="154" width="555" height="17" uuid="81367e86-3096-4694-b6b3-f5ad73fa3819">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="17" uuid="55552db0-0ffa-418f-90d2-97bf9673a735">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="509a5b6d-d8bf-4d15-b2f0-f1d9a4469882">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5504,206 +5325,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="7522cdb1-883f-40c8-9401-3dc106ffefbb">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<text><![CDATA[Terapis]]></text>
-					</staticText>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="17" uuid="f17cb6f4-f650-4ebc-8cb6-9dbe9d5a1706">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="17" uuid="45071cbc-e3bb-47ce-9b94-5aec57ffb3cd">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{rehab_tanggal_indo_1}+"/"+$F{rehab_jam}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="17" uuid="7758f49c-ba49-4060-aedb-02e1d465cd1f">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="17" uuid="6d83a358-ac3f-49c5-84bd-08028599deb1">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{rehabMedik_sasaran}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="17" uuid="73a4c517-62e8-4b1f-9b15-d05cd4a28a32">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="17" uuid="1dbf0317-6dd2-4d7b-a821-411e77c45388">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{rehabMedik_cara_edukasi}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="17" uuid="131e3e68-5aa8-45fa-828c-473f4ca17be1">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="17" uuid="73821f75-78b0-4230-8cb2-79e70be3160d">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						</reportElement>
-						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font size="10" isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{rehabMedik_metode_evaluasi}]]></textFieldExpression>
-					</textField>
-				</frame>
-				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="f5f140d0-7b7f-4d11-b85a-784254c52010">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{rehabMedik_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="14" y="0" width="141" height="17" uuid="87d45e42-6109-4729-b2f3-c92ede2cb5e0">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box topPadding="0" leftPadding="4" bottomPadding="0" rightPadding="0">
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Rehabilitasi medik]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement positionType="Float" x="0" y="171" width="555" height="17" uuid="969a2d38-e71d-42d9-a700-7ef93f4bc6a1">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="17" uuid="37deda76-f3ce-415e-92b6-f2fb98cbfee3">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="c0a663bd-6783-46dd-8293-82fef2989f2d">
+						<reportElement x="0" y="0" width="94" height="17" uuid="1de3eb3c-0143-4eb1-ad9e-0e7cc7ca1f3a">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5721,7 +5343,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="17" uuid="7272837e-4e97-4b67-9a82-920bb9ff5131">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="7f88a9f9-da90-4731-b759-d918d2b7594a">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5734,7 +5356,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="17" uuid="d4837414-3550-4dfd-a67c-cfa09bdb5d00">
+						<reportElement x="1" y="0" width="63" height="17" uuid="d2b581cf-8608-4514-8168-6d4d7591499f">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5752,7 +5374,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="17" uuid="e3697aff-7e83-47b1-a02c-d763b50e8eda">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="4d2efaae-2b80-4bf7-b502-abbf3a7a658e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5764,7 +5386,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="17" uuid="29eb1870-5432-4b52-8e8c-ec3f0ce495c3">
+						<reportElement x="1" y="0" width="88" height="17" uuid="d9247736-ff2e-4926-b99f-6bb43a248ba4">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5780,9 +5402,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{nyeri_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="85acb52e-edec-4e3c-9c65-8e2d0c9985da">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{manajemen_nyeri_pasien_stroke} == null || $F{manajemen_nyeri_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{manajemen_nyeri_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{manajemen_nyeri_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{manajemen_nyeri_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="0997c50c-e7d4-4b0c-a756-5227bbd807c8">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{manajemen_nyeri_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="17" uuid="35688f5a-c430-4beb-8eb6-f6eb0a4d464a">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="a0aaee70-73ad-4770-b861-a46219cd6665">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5794,7 +5449,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="17" uuid="0ea8e3ad-40bc-46d0-b1b3-11a844be6148">
+						<reportElement x="1" y="0" width="75" height="17" uuid="57642378-3092-4a5f-a365-599ca61ceb11">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5812,7 +5467,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="17" uuid="dddb0346-8b62-45c3-99b2-d4e83c195f00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="fb66c0ac-b2dd-4ba5-952d-314a2172d47b">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5824,7 +5479,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="17" uuid="7f768c82-2fa9-4432-829b-2d0f0624443a">
+						<reportElement x="1" y="0" width="74" height="17" uuid="f629ecaf-5861-4f17-8b6d-df32fdd09b6e">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5842,7 +5497,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="616e8ed3-be43-4572-a906-f77e426b0f2d">
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="03e57606-1e3e-4a21-af20-c19ed303758d">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -5858,7 +5513,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{nyeri_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="17" uuid="a4dc2db2-bf2b-4105-995d-7a2815e23409">
+					<reportElement x="14" y="0" width="141" height="17" uuid="df9ba7b8-f9d5-4bdf-a59c-77045a2fa7eb">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -5876,7 +5531,7 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="188" width="555" height="30" uuid="c21e76bd-2f7f-4376-964c-c433b59d932a">
+				<reportElement positionType="Float" x="0" y="360" width="555" height="100" uuid="48d7d779-55df-4272-832d-a15c8f764fe6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -5889,7 +5544,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="30" uuid="b7bb3086-3840-4c0d-8a59-3ec99186691c">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="85ed2f97-ecf2-4c05-a4b9-b6454a3e296e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5901,7 +5556,472 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="7ec8ef46-f283-442d-be2e-81d9d0278690">
+						<reportElement x="0" y="0" width="94" height="17" uuid="1955c134-8e7d-46d2-bb2c-b9d99f5a79d8">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<text><![CDATA[Gizi]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="8d753fbc-e8fb-48f2-9c5d-5bbaeb03139a">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="63" height="80" uuid="5f9f889f-3c29-4b7b-b3b2-0785f3c496e5">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diet_tanggal_indo_1}+"/"+$F{diet_jam}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="3f8d1455-8081-4dae-a547-190971e36dde">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="88" height="16" uuid="de756b2c-da11-4aaa-ab5f-187b3b064a3b">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diet_sasaran_1}]]></textFieldExpression>
+					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="b2601201-933e-41a7-9b99-f8ee223a04ca">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{diet_pasien_stroke} == null || $F{diet_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{diet_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{diet_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{diet_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="a6ebb341-544b-4c9f-b27b-417e8b0d611a">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diet_pasien}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="990932cd-daa2-4d89-b794-59b19d367118">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="75" height="30" uuid="05f6e9be-d0a6-4776-8bda-9763f7f3d47a">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diet_cara_edukasi}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="b87e2678-b9fb-4854-99a7-701b4db22001">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="74" height="30" uuid="fe243cad-3acc-409d-a280-0d1a1294f8ec">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{diet_metode_evaluasi}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField>
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="e0a99a6a-5457-4889-aae5-6f22880c0097">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diet_value_1}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="0" width="141" height="30" uuid="676d05f9-3a9d-4201-b2c9-a01c6f96d1b9">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box topPadding="3" leftPadding="4" bottomPadding="0" rightPadding="0">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Diet dan nutrisi yang memadai]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="0" y="560" width="555" height="100" uuid="53324b47-a26d-498e-9a2a-84b88e24886b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="09618921-5dc5-4eef-811a-4f3cf001f2d1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="94" height="17" uuid="2d040567-562f-4916-ba35-829c563cf3fc">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<text><![CDATA[Terapis]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="6d94d74d-b90a-4aa9-8872-e2def184d4b4">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="63" height="80" uuid="f861b0ee-67fc-4491-80f5-0e8328cff025">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rehab_tanggal_indo_1}+"/"+$F{rehab_jam}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="e9d0b082-372f-422b-9bdf-d7e6117bd2e1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="88" height="17" uuid="a3080eb5-61ce-4558-8273-d123b3a7b179">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rehabMedik_sasaran}]]></textFieldExpression>
+					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="cbfc846f-9cf3-464b-a040-5b3f54056402">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{rehabilitasi_medik_pasien_stroke} == null || $F{rehabilitasi_medik_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{rehabilitasi_medik_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{rehabilitasi_medik_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{rehabilitasi_medik_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="66e24dec-2323-4f58-9266-a6c63ab324d9">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rehabilitasi_medik_pasien}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="cee55432-a3fd-4d15-8d09-344fff97471a">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="75" height="17" uuid="c476dd11-09e6-4f13-a434-7feca2258e77">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rehabMedik_cara_edukasi}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="568d3503-1330-4a64-b903-c84a5a97dc68">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="1" y="0" width="74" height="17" uuid="07e49d9f-bca3-4875-9bde-c66b9e694002">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rehabMedik_metode_evaluasi}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField>
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="36fef4ce-6f0f-40bd-9357-cd258de1516c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{rehabMedik_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="0" width="141" height="17" uuid="d641e989-c6c7-46c3-b046-7642c98a28de">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box topPadding="0" leftPadding="4" bottomPadding="0" rightPadding="0">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Rehabilitasi medik]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="0" y="660" width="555" height="100" uuid="69871e85-220d-4602-a607-22436367fe17">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="d005b6e8-6f68-4508-842d-696355ca9b0f">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="94" height="17" uuid="f79bc549-aef0-475b-bcda-a93ab94dc6de">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5919,7 +6039,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="30" uuid="483e8fe7-6285-4bce-a0ed-b72446164c00">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="94839f24-c8b9-4034-b916-f2e7b5ca2273">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5932,7 +6052,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="30" uuid="d9207a5d-8437-4b14-b1b7-2ad9a6b81bea">
+						<reportElement x="1" y="0" width="63" height="30" uuid="904d0074-d6e4-42e3-8f80-d2be7fc6fdfb">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5950,7 +6070,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="30" uuid="189863e8-337c-4f28-9959-7167334a52ef">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="6cb9d487-3255-4e5b-9d50-fc59611a09f6">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5963,7 +6083,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="30" uuid="1456c69b-299e-465e-8c79-6f072486ab0b">
+						<reportElement x="1" y="0" width="88" height="17" uuid="df922367-962b-47b4-b55e-b8d48a41151f">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5979,9 +6099,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{infeksi_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="a9118900-c1e2-4a33-a6ce-1a5c5f37f91f">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{pencegahan_infeksi_pasien_stroke} == null || $F{pencegahan_infeksi_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{pencegahan_infeksi_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{pencegahan_infeksi_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{pencegahan_infeksi_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="aa92bc1d-45ea-4dd4-b9c7-330779344599">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{pencegahan_infeksi_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="30" uuid="34e3a12b-5192-4364-bd2e-e5b20d6383cc">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="0f7834f9-c81e-48f1-bb7f-ca18473ee347">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -5994,7 +6147,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="30" uuid="2cb720fa-30bc-4e91-9b24-871d505dd276">
+						<reportElement x="1" y="0" width="75" height="30" uuid="a3921a3a-d9d2-412e-b16c-2ff59e1d655b">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6012,7 +6165,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="30" uuid="42d85fdf-b465-4237-bac0-a086c095ebfa">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="523cd5b4-24ae-406f-96ce-72978a4cbabd">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6025,7 +6178,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="30" uuid="1421942c-7fbf-4333-a724-e35329800535">
+						<reportElement x="1" y="0" width="74" height="30" uuid="0c3ae03f-27d0-4148-84c6-d33a3b613497">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6043,7 +6196,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="d7f7650c-f39f-46f1-a5dd-9e8568d353e1">
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="8ad357ad-2748-4d32-bc0c-a10564754ccf">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -6059,7 +6212,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{infeksi_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="30" uuid="ecd89860-8ffe-43b9-874e-ee0dab907b83">
+					<reportElement x="14" y="0" width="141" height="30" uuid="23bf6556-dac0-4ceb-baa6-2a8b23c262fe">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -6075,8 +6228,112 @@ Evaluasi]]></text>
 					<text><![CDATA[Pencegahan dan pengendalian infeksi]]></text>
 				</staticText>
 			</frame>
+		</band>
+		<band height="436">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<frame>
-				<reportElement positionType="Float" x="0" y="218" width="555" height="43" uuid="dd528f76-f424-4ffe-8c05-f1f4318b4a44">
+				<reportElement positionType="Float" x="0" y="321" width="555" height="105" uuid="f8985025-2048-42e0-9cab-b5d99c4302fd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<frame>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="279" height="105" uuid="dd7ad589-6414-46bc-8023-eab2545ac19f">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<staticText>
+						<reportElement positionType="Float" x="6" y="0" width="264" height="17" uuid="f75dd172-cf37-4490-8b0c-3230f61e78de">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="10"/>
+						</textElement>
+						<text><![CDATA[Petugas]]></text>
+					</staticText>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="6" y="88" width="264" height="17" uuid="9b05ff6c-1431-46f7-863e-7df5c411af8b">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="10"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{petugas}]]></textFieldExpression>
+					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="95" y="30" width="91" height="50" uuid="fdff8afd-cabd-4d8d-add9-9ee87142a660">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{petugas_stroke} == null || $F{petugas_stroke}.trim().isEmpty())
+? null
+: (
+    $F{petugas_stroke}.startsWith("http")
+    ? new java.net.URL($F{petugas_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{petugas_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+				</frame>
+				<staticText>
+					<reportElement positionType="Float" x="286" y="0" width="264" height="17" uuid="8a05e27b-67d5-4ccd-bc24-25e942d1eb87">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Pasien/ Keluarga]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement positionType="Float" x="286" y="88" width="264" height="17" uuid="6fec2164-dcd5-4420-b4cc-f005b5322a76">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pasien_keluarga}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+					<reportElement positionType="Float" x="369" y="29" width="91" height="50" uuid="a179744f-b33d-4e98-afdc-41f87b44791b">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[($F{pasien_keluarga_stroke} == null || $F{pasien_keluarga_stroke}.trim().isEmpty())
+? null
+: (
+    $F{pasien_keluarga_stroke}.startsWith("http")
+    ? new java.net.URL($F{pasien_keluarga_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{pasien_keluarga_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="100" uuid="39a7fdc1-fef6-4817-9517-e6b8daaf9c4b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -6089,7 +6346,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="43" uuid="a9a1580e-523d-415d-8a90-7c11a559af3d">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="5f518744-f7c0-4993-8cac-3437b0cdeaad">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6102,7 +6359,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="3145a9f1-e72b-473c-8ac6-b9d9865f0559">
+						<reportElement x="0" y="0" width="94" height="17" uuid="c4f2207c-f648-4624-ac78-4c4fdfb82ef7">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6120,7 +6377,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="43" uuid="d588f39b-0360-42e7-bffd-f6cab2b2f1a9">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="13a0bf1e-d165-4800-b278-23b1973d85b9">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6132,7 +6389,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="43" uuid="883099d1-4c53-4830-8ed1-ddb4c3812838">
+						<reportElement x="1" y="0" width="63" height="43" uuid="68fdaea9-386f-4a81-9113-f6b8de113557">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6150,7 +6407,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="43" uuid="328e04e9-3a0b-4040-8cfb-a7be16da1771">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="fdb0ef36-c130-4d14-883d-ce700a261a67">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6162,7 +6419,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="43" uuid="4b718b48-3e70-4572-80df-dc664ae5b34b">
+						<reportElement x="1" y="0" width="88" height="20" uuid="d925afe9-70fb-4cd7-99d9-648ba140949c">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6178,9 +6435,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{edukasiPasien_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="b9415ba3-8daf-48ba-96be-ea297522335c">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{edukasi_pasien_pasien_stroke} == null || $F{edukasi_pasien_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{edukasi_pasien_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{edukasi_pasien_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{edukasi_pasien_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="657d3a8b-abe4-4729-96d9-114a90393f4b">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{edukasi_pasien_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="43" uuid="ffbaf0c3-423e-4542-9a2f-70cd12efae15">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="22390e0d-f076-42c9-b6ea-4d59ebad7896">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6193,7 +6483,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="43" uuid="41c20908-1cf2-45a5-9328-71940f6805c8">
+						<reportElement x="1" y="0" width="75" height="43" uuid="46e0024f-b175-4a88-affa-31f9594fd830">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6211,7 +6501,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="43" uuid="d2896836-3d62-42c5-a0ad-e119067ed730">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="6a119245-00af-499a-bce2-61baa538701d">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6223,7 +6513,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="43" uuid="56bf57e2-940d-4db4-83c7-caedd94f8a93">
+						<reportElement x="1" y="0" width="74" height="43" uuid="bd8e2704-7d3e-4d69-ae0c-9ecbc2355d7e">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6241,7 +6531,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="fa6fe0bc-d30b-4390-af9c-afc54dafc8fe">
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="576a54d9-3581-466d-87c4-fca1caab6825">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -6257,7 +6547,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{edukasiPasien_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="43" uuid="cf9c7b8d-e838-4974-adf7-0eda08415da1">
+					<reportElement x="14" y="0" width="141" height="43" uuid="a970bfcb-3383-4ecd-9d87-fec53c2676e1">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -6275,7 +6565,7 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="261" width="555" height="43" uuid="ca66f515-28b5-4e8e-9df2-6ddbae68fa2b">
+				<reportElement positionType="Float" x="0" y="100" width="555" height="100" uuid="d1368f02-a186-44d1-bfde-967da1893234">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -6288,7 +6578,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="43" uuid="6602d233-0420-465d-be34-05a33695f95d">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="64751f9e-4978-47e1-9879-06157b492708">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6301,7 +6591,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="91a5c03b-0a1e-4b2e-86c6-16ea560a3653">
+						<reportElement x="0" y="0" width="94" height="17" uuid="442adde9-723b-4ee7-89d8-b6349a594861">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6319,7 +6609,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="43" uuid="018d9de9-e545-48c6-90a3-10f588c6c990">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="b16481a5-f56a-4be9-8956-d17ef12c7a5d">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6331,7 +6621,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="43" uuid="dd6e855a-3d1e-468d-9b7b-79ae2842eef4">
+						<reportElement x="1" y="0" width="63" height="43" uuid="327a17be-52a8-4ea8-9fd7-9844c3a28432">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6349,7 +6639,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="43" uuid="c8d8e462-e181-4473-8870-01dcb835ed64">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="9e1db960-0d85-4bf7-a21f-e73b0aa90c94">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6361,7 +6651,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="43" uuid="3b465e62-f93a-4b56-b7bf-21f8c6d294be">
+						<reportElement x="1" y="0" width="88" height="17" uuid="0b0bbdde-4dd5-4eb2-9cdd-0a48be1ace9b">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6377,9 +6667,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{kolaboratif_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="ca52d3f8-3e88-4200-9289-ebf1102d477f">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{edukasi_kolaboratif_pasien_stroke} == null || $F{edukasi_kolaboratif_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{edukasi_kolaboratif_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{edukasi_kolaboratif_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{edukasi_kolaboratif_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="cc411ac3-2122-4ae5-b4e4-60fcd0983d0a">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{edukasi_kolaboratif_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="43" uuid="06b1140e-c4ae-4923-a981-8864481dda5f">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="46a5e0a3-e347-4dec-ba13-2084abc51349">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6392,7 +6715,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="43" uuid="da6c997f-9ea0-4006-86f7-647f4141c914">
+						<reportElement x="1" y="0" width="75" height="43" uuid="e6b87276-298f-4629-973d-7695c33bb3ac">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6410,7 +6733,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="43" uuid="a968e4a6-2a14-4c1c-8ddf-6959aaf49488">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="da524d2d-2ee6-49ed-882a-034ff1d2c7c5">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6422,7 +6745,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="43" uuid="f4d7b744-9071-4a0a-8a89-affefeacc17b">
+						<reportElement x="1" y="0" width="74" height="43" uuid="3e5bcfe3-2187-475f-bc06-84ab6590ee90">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6440,7 +6763,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="924a7fdf-1ac3-4fbb-b15d-a23389015eec">
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="197fe356-69fa-41b4-b184-ef1857598b18">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -6456,7 +6779,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{kolaboratif_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="43" uuid="eea85acd-29a2-456a-8e98-86010b5049b4">
+					<reportElement x="14" y="0" width="141" height="43" uuid="05d14624-0e73-4832-9664-f99d7c56921e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -6474,7 +6797,7 @@ Evaluasi]]></text>
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement positionType="Float" x="0" y="304" width="555" height="43" uuid="aa42658b-9044-47c1-a441-fc11507986d9">
+				<reportElement positionType="Float" x="0" y="200" width="555" height="100" uuid="b915c669-83cd-402c-88f4-233eaaab0001">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -6487,7 +6810,7 @@ Evaluasi]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="43" uuid="75969945-3751-445d-bb78-15778b08e73e">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="94" height="100" uuid="cc9c14fb-f629-401a-8a8f-453d869a3759">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6500,7 +6823,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<staticText>
-						<reportElement x="0" y="0" width="94" height="17" uuid="51cc0aba-4ab7-4194-8034-3c7e0194dfb1">
+						<reportElement x="0" y="0" width="94" height="17" uuid="0a4516fb-3c1d-4668-803f-568e46f93cac">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6518,7 +6841,7 @@ Evaluasi]]></text>
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="43" uuid="f42a5124-30de-4c7c-9e8b-6cfd23e97d56">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="249" y="0" width="64" height="100" uuid="a6c6605b-e35a-4efd-889a-8ec61ea1f9f8">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6530,7 +6853,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="63" height="43" uuid="964940c0-e266-42dd-aa22-c27f040bd48b">
+						<reportElement x="1" y="0" width="63" height="43" uuid="b6b310d5-b8aa-42a7-b587-6e08e6a35e2a">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6548,7 +6871,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="43" uuid="a660a5d6-6b98-477e-8131-28be160a1e44">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="313" y="0" width="91" height="100" uuid="aed47c55-fb63-4444-a5c8-d252c999af0b">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6560,7 +6883,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="88" height="43" uuid="a3ba0068-19e2-4b39-aabb-844bc4122279">
+						<reportElement x="1" y="0" width="88" height="17" uuid="d5e33d84-4af9-4d94-87d9-99c80e19e9de">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6576,9 +6899,42 @@ Evaluasi]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{pilihan_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="0" y="23" width="91" height="50" uuid="58081798-e901-476c-ba6c-504738cf7664">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{edukasi_pilihan_pasien_stroke} == null || $F{edukasi_pilihan_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{edukasi_pilihan_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{edukasi_pilihan_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{edukasi_pilihan_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<textField textAdjust="StretchHeight">
+						<reportElement positionType="Float" x="0" y="80" width="91" height="17" uuid="70e0a160-1e96-45c3-9577-bcc2589e6cbf">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box topPadding="3" leftPadding="0" bottomPadding="0" rightPadding="0">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font size="10" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{edukasi_pilihan_pasien}]]></textFieldExpression>
+					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="43" uuid="88bc33a1-8eb8-4b5a-909c-1e613cf945df">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="404" y="0" width="76" height="100" uuid="80e1fabb-86eb-4391-8d59-dfed41891269">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6591,7 +6947,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="75" height="43" uuid="e3cf2ccb-f273-49b2-a1d6-6d740c17d934">
+						<reportElement x="1" y="0" width="75" height="43" uuid="a4568d3c-ba73-4771-bf5e-82039ef435f5">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6609,7 +6965,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="43" uuid="d370161e-465d-4c16-b57b-1f4b416a8499">
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="100" uuid="92fd5a48-2c71-482e-8e20-bb33835e28ac">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6621,7 +6977,7 @@ Evaluasi]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="1" y="0" width="74" height="43" uuid="34f01699-7574-42c5-8849-b17b986adb32">
+						<reportElement x="1" y="0" width="74" height="43" uuid="cc7a7c54-a6b5-4965-96e3-35a3b39328ec">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -6639,7 +6995,7 @@ Evaluasi]]></text>
 					</textField>
 				</frame>
 				<textField>
-					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="766c6e4a-5ab3-4ecd-bdd5-1f9a2bd93d9a">
+					<reportElement positionType="Float" x="3" y="3" width="11" height="11" uuid="e7b4ef7b-22ff-4e34-93ea-26b19cda553b">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -6655,7 +7011,7 @@ Evaluasi]]></text>
 					<textFieldExpression><![CDATA[$F{pilihan_value}.equalsIgnoreCase("true")?"V":" "]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="0" width="141" height="43" uuid="c400b031-3a62-4997-b6f6-42d0c9b721eb">
+					<reportElement x="14" y="0" width="141" height="43" uuid="49366438-56c0-4719-b8f3-375d8d2779e7">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -7496,15 +7852,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{petugas_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="80" width="66" height="66" uuid="0e5d257a-2883-40f6-9e55-98267d2728af">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{petugas_pemberi_info}!=null &&!"".equals($F{petugas_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="88" width="61" height="50" uuid="f199e188-e5e3-45bc-a034-7c1538295bf1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{petugas_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{petugas_pemberi_info_stroke} == null || $F{petugas_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{petugas_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{petugas_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{petugas_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="172" uuid="9975626c-8ee6-41b1-a69f-f93468dbfe31">
@@ -7530,6 +7893,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{petugas_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="4" y="89" width="67" height="50" uuid="50444225-88c4-4e02-a4ba-9efb8e5e3ec8">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{petugas_sasaran_stroke} == null || $F{petugas_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{petugas_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{petugas_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{petugas_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="163" uuid="c268590f-c5a3-401e-b53e-675a023d89c4">
@@ -8699,15 +9078,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{perawat_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="80" width="66" height="66" uuid="f1aa1e8a-52e8-4143-92d4-5693bf9f43e2">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{perawat_pemberi_info}!=null &&!"".equals($F{perawat_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="88" width="61" height="50" uuid="bb09f924-e1d2-4725-a49e-edb72caa5cbb">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{perawat_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{perawat_pemberi_info_stroke} == null || $F{perawat_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{perawat_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{perawat_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{perawat_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="491" uuid="76c7005e-444d-491c-8ce4-f45274cf3ef9">
@@ -8733,6 +9119,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{perawat_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="88" width="61" height="50" uuid="7b9c6303-dfbb-44ac-8699-f747ac69e576">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{perawat_sasaran_stroke} == null || $F{perawat_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{perawat_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{perawat_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{perawat_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="163" uuid="7be0e6b4-d626-4b1e-84dd-64e3142f8834">
@@ -9243,15 +9645,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{dpjp_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="cea4c048-f242-4d5f-b341-dfc3d4d1b5ef">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{dpjp_pemberi_info}!=null &&!"".equals($F{dpjp_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="78" width="61" height="50" uuid="064200f4-beed-45cb-a32e-0afbcc50b69b">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{dpjp_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{dpjp_pemberi_info_stroke} == null || $F{dpjp_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{dpjp_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{dpjp_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{dpjp_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="137" uuid="e615eb26-c2f2-4b31-9342-1c24631b3848">
@@ -9267,7 +9676,7 @@ Keluarga
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement positionType="Float" x="0" y="2" width="75" height="78" uuid="4d0b1ebc-964f-43ce-b876-5f01e7849e1e">
+						<reportElement positionType="Float" x="0" y="2" width="75" height="70" uuid="4d0b1ebc-964f-43ce-b876-5f01e7849e1e">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -9277,6 +9686,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{dpjp_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="79" width="61" height="50" uuid="7590b494-10c9-4ec1-8d52-c975b9ed0ab3">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{dpjp_sasaran_stroke} == null || $F{dpjp_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{dpjp_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{dpjp_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{dpjp_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="65955b19-2976-4bb8-9630-7182b7aff1e1">
@@ -10115,15 +10540,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{gizi_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="834bbe17-b105-4d90-870f-f41047259270">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{gizi_pemberi_info}!=null &&!"".equals($F{gizi_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="92" width="61" height="50" uuid="80beee12-aed5-4af0-aebc-20287a5ca0d3">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{gizi_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{gizi_pemberi_info_stroke} == null || $F{gizi_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{gizi_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{gizi_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{gizi_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="280" uuid="d60e169c-2b66-4892-a23a-b5c1c4a4310f">
@@ -10149,6 +10581,22 @@ Keluarga
 						</textElement>
 						<textFieldExpression><![CDATA[$F{gizi_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="92" width="61" height="50" uuid="0521671a-fd78-468c-aa09-45fc3e21c39c">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{gizi_sasaran_stroke} == null || $F{gizi_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{gizi_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{gizi_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{gizi_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="9e8612aa-0530-4a1a-b387-43463643677d">
@@ -10790,15 +11238,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{apoteker_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="9b59f6b3-0671-4585-b19d-7f8bb5d2b39f">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{apoteker_pemberi_info}!=null &&!"".equals($F{apoteker_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="92" width="61" height="50" uuid="90432172-ca01-413b-a2d2-ed3609d2eb63">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{apoteker_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{apoteker_pemberi_info_stroke} == null || $F{apoteker_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{apoteker_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{apoteker_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{apoteker_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="205" uuid="5a425ccd-d9f6-46a8-b296-d2eeee755c72">
@@ -10824,6 +11279,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{apoteker_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="92" width="61" height="50" uuid="fc69a38e-8743-43ba-9eee-5c587ee7f868">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{apoteker_sasaran_stroke} == null || $F{apoteker_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{apoteker_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{apoteker_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{apoteker_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="111" uuid="4e860601-c4a7-4864-88c8-57d24c3d03e0">
@@ -11332,15 +11803,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{pemberi_info_1}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="99dda7e6-51cb-4f9a-81c0-c92831df6b35">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{pemberi_info_1}!=null &&!"".equals($F{pemberi_info_1})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="78" width="61" height="50" uuid="a8660521-ba9e-47a5-9e08-9a7253078ab6">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{dpjp_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{pemberi_info_1_stroke} == null || $F{pemberi_info_1_stroke}.trim().isEmpty())
+? null
+: (
+    $F{pemberi_info_1_stroke}.startsWith("http")
+    ? new java.net.URL($F{pemberi_info_1_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{pemberi_info_1_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="137" uuid="30df6c14-6f54-4beb-a86d-f94b6296e718">
@@ -11356,7 +11834,7 @@ obat bebas, serta suplemen atau makanan]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement positionType="Float" x="0" y="2" width="75" height="78" uuid="05fccb82-53be-45f5-a128-7c76887de764">
+						<reportElement positionType="Float" x="0" y="2" width="75" height="70" uuid="05fccb82-53be-45f5-a128-7c76887de764">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -11366,6 +11844,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{sasaran_1}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="79" width="61" height="50" uuid="321cec7f-45e1-4930-80c1-e7ba49303afe">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{sasaran_1_stroke} == null || $F{sasaran_1_stroke}.trim().isEmpty())
+? null
+: (
+    $F{sasaran_1_stroke}.startsWith("http")
+    ? new java.net.URL($F{sasaran_1_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{sasaran_1_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="89f7ceb8-dc18-4f13-ac94-3876a3a8a770">
@@ -11803,15 +12297,6 @@ obat bebas, serta suplemen atau makanan]]></text>
 						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="cd3c1689-b8c1-4d44-a67e-2e80fc43533c">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{fisio_pemberi_info}!=null &&!"".equals($F{fisio_pemberi_info})]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{fisio_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
 					<textField textAdjust="StretchHeight">
 						<reportElement positionType="Float" x="0" y="2" width="70" height="69" uuid="30a2c25e-2d97-4430-bdbd-5ca9630037c1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -11823,6 +12308,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fisio_pemberi_info}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="82" width="61" height="50" uuid="e2f046b8-3fe9-49f2-b20c-15f827bfd3e6">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{fisio_pemberi_info_stroke} == null || $F{fisio_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{fisio_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{fisio_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{fisio_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="137" uuid="bce829c2-093c-4632-ad88-2f5eb9378648">
@@ -11838,7 +12339,7 @@ obat bebas, serta suplemen atau makanan]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement positionType="Float" x="0" y="2" width="75" height="78" uuid="8480d2d5-ad39-405b-9aef-c1c7c67667f7">
+						<reportElement positionType="Float" x="0" y="2" width="75" height="68" uuid="8480d2d5-ad39-405b-9aef-c1c7c67667f7">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -11848,6 +12349,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{fisio_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="8" y="82" width="61" height="50" uuid="4697c5a7-fbd7-4876-a66d-331cea7670e2">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{fisio_sasaran_stroke} == null || $F{fisio_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{fisio_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{fisio_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{fisio_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="d4311e20-2692-46e1-99f7-1f202aba0223">
@@ -12345,15 +12862,6 @@ obat bebas, serta suplemen atau makanan]]></text>
 						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="f710cebe-01ad-4a65-b483-7070d58e2807">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{rohani_pemberi_info}!=null &&!"".equals($F{rohani_pemberi_info})]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{rohani_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
 					<textField textAdjust="StretchHeight">
 						<reportElement positionType="Float" x="0" y="2" width="70" height="69" uuid="e55a279a-910a-4d73-acbc-5a2ba7336047">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -12365,6 +12873,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{rohani_pemberi_info}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="88" width="61" height="50" uuid="025471ab-66ee-450b-b84f-105b3e453314">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{rohani_pemberi_info_stroke} == null || $F{rohani_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{rohani_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{rohani_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{rohani_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="190" uuid="3d6263d7-edb4-4ce1-a098-75d41889b49c">
@@ -12390,6 +12914,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{rohani_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="8" y="88" width="61" height="50" uuid="d5828477-f51f-4ca3-9efe-1280cc0962c9">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{rohani_sasaran_stroke} == null || $F{rohani_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{rohani_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{rohani_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{rohani_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="6ac2cd0a-911f-414d-bf1f-5fcb86640801">
@@ -12785,15 +13325,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="63" width="66" height="66" uuid="4526b38c-0f20-4a72-ba64-811936b2f5cb">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{pemberi_info}!=null &&!"".equals($F{pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="6" y="71" width="61" height="50" uuid="e6f6ccdc-3a39-44ff-a27b-21ad8acca179">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{pemberi_info_stroke} == null || $F{pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="130" uuid="3ad3e0dc-5f24-4ed4-aee6-a36f4a61c6fe">
@@ -12809,7 +13356,7 @@ obat bebas, serta suplemen atau makanan]]></text>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField textAdjust="StretchHeight">
-						<reportElement positionType="Float" x="0" y="2" width="75" height="78" uuid="6e3fba02-be27-4b75-842a-ad7586da298e">
+						<reportElement positionType="Float" x="0" y="2" width="75" height="62" uuid="6e3fba02-be27-4b75-842a-ad7586da298e">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -12819,6 +13366,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="6" y="71" width="61" height="50" uuid="fb4f63b3-61e1-4090-8608-d6ff07bb75e9">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{sasaran_stroke} == null || $F{sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="7d84efa5-c3f0-4cdf-8969-a8175f50d1b3">
@@ -13331,15 +13894,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{radio_pemberi_info}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement x="3" y="71" width="66" height="66" uuid="8e2179e9-57af-4fd6-baac-aa6f12faf6a2">
-							<property name="com.jaspersoft.studio.unit.y" value="px"/>
-							<printWhenExpression><![CDATA[$F{radio_pemberi_info}!=null &&!"".equals($F{radio_pemberi_info})]]></printWhenExpression>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="5" y="92" width="61" height="50" uuid="67a74038-afe6-418f-b3f5-940c342fdae8">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{radio_pemberi_info}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
+						<imageExpression><![CDATA[($F{radio_pemberi_info_stroke} == null || $F{radio_pemberi_info_stroke}.trim().isEmpty())
+? null
+: (
+    $F{radio_pemberi_info_stroke}.startsWith("http")
+    ? new java.net.URL($F{radio_pemberi_info_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{radio_pemberi_info_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<frame>
 					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="480" y="0" width="75" height="150" uuid="75f70c90-2903-4d36-a802-1b2b8379a5db">
@@ -13365,6 +13935,22 @@ obat bebas, serta suplemen atau makanan]]></text>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{radio_sasaran}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="9" y="92" width="61" height="50" uuid="50789963-b6e7-4d42-922a-ac124b210270">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[($F{radio_sasaran_stroke} == null || $F{radio_sasaran_stroke}.trim().isEmpty())
+? null
+: (
+    $F{radio_sasaran_stroke}.startsWith("http")
+    ? new java.net.URL($F{radio_sasaran_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{radio_sasaran_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<textField textAdjust="StretchHeight">
 					<reportElement positionType="Float" x="0" y="4" width="40" height="126" uuid="82860430-a6f0-4e59-ac13-dc852645f1c8">

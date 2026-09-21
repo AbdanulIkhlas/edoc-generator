@@ -1,0 +1,4411 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "pasien",
+        "kebutuhan_edukasi",
+        "perencanaan_edukasi",
+        "edukasi_ygdiberikan"
+    ],
+    "properties": {
+        "pasien": {
+            "type": "object",
+            "default": {},
+            "title": "The pasien Schema",
+            "required": [
+                "no_rm",
+                "nama",
+                "tanggal_lahir",
+                "tanggal_lahir_indo",
+                "alamat",
+                "kelamin"
+            ],
+            "properties": {
+                "no_rm": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The no_rm Schema",
+                    "examples": [
+                        "00000001"
+                    ]
+                },
+                "nama": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The nama Schema",
+                    "examples": [
+                        "Shafira Bulan"
+                    ]
+                },
+                "tanggal_lahir": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tanggal_lahir Schema",
+                    "examples": [
+                        "1999-08-04"
+                    ]
+                },
+                "tanggal_lahir_indo": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tanggal_lahir_indo Schema",
+                    "examples": [
+                        "04 Agustus 1998"
+                    ]
+                },
+                "alamat": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The alamat Schema",
+                    "examples": [
+                        "Krandegan, rt 1/3"
+                    ]
+                },
+                "kelamin": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The kelamin Schema",
+                    "examples": [
+                        "P"
+                    ]
+                }
+            },
+            "examples": [{
+                "no_rm": "00000001",
+                "nama": "Shafira Bulan",
+                "tanggal_lahir": "1999-08-04",
+                "tanggal_lahir_indo": "04 Agustus 1998",
+                "alamat": "Krandegan, rt 1/3",
+                "kelamin": "P"
+            }]
+        },
+        "kebutuhan_edukasi": {
+            "type": "object",
+            "default": {},
+            "title": "The kebutuhan_edukasi Schema",
+            "required": [
+                "agama",
+                "nilai_keyakinan",
+                "bicara",
+                "bahasa",
+                "perlu_penerjemah",
+                "bahasa_isyarat",
+                "cara_belajar",
+                "pendidikan",
+                "hambatan",
+                "kebutuhan_edukasi"
+            ],
+            "properties": {
+                "agama": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The agama Schema",
+                    "required": [
+                        "value",
+                        "isian"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value Schema",
+                            "examples": [
+                                "islam"
+                            ]
+                        },
+                        "isian": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isian Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": "islam",
+                        "isian": ""
+                    }]
+                },
+                "nilai_keyakinan": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The nilai_keyakinan Schema",
+                    "examples": [
+                        "mencintai allah dengan sepenuh hati jiwa raga"
+                    ]
+                },
+                "bicara": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The bicara Schema",
+                    "required": [
+                        "value",
+                        "sejak"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value Schema",
+                            "examples": [
+                                "normal"
+                            ]
+                        },
+                        "sejak": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sejak Schema",
+                            "examples": [
+                                "10 tahu yang lalu"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": "normal",
+                        "sejak": "10 tahu yang lalu"
+                    }]
+                },
+                "bahasa": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The bahasa Schema",
+                    "required": [
+                        "indonesia",
+                        "inggris",
+                        "daerah",
+                        "lain"
+                    ],
+                    "properties": {
+                        "indonesia": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The indonesia Schema",
+                            "required": [
+                                "value",
+                                "a_p"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "a_p": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The a_p Schema",
+                                    "examples": [
+                                        "pasif"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "a_p": "pasif"
+                            }]
+                        },
+                        "inggris": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The inggris Schema",
+                            "required": [
+                                "value",
+                                "a_p"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "a_p": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The a_p Schema",
+                                    "examples": [
+                                        "aktif"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "a_p": "aktif"
+                            }]
+                        },
+                        "daerah": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The daerah Schema",
+                            "required": [
+                                "value",
+                                "sebutkan",
+                                "a_p"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "sebutkan": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sebutkan Schema",
+                                    "examples": [
+                                        "batak"
+                                    ]
+                                },
+                                "a_p": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The a_p Schema",
+                                    "examples": [
+                                        "aktif"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": true,
+                                "sebutkan": "batak",
+                                "a_p": "aktif"
+                            }]
+                        },
+                        "lain": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The lain Schema",
+                            "required": [
+                                "value",
+                                "sebutkan",
+                                "a_p"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "sebutkan": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sebutkan Schema",
+                                    "examples": [
+                                        ""
+                                    ]
+                                },
+                                "a_p": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The a_p Schema",
+                                    "examples": [
+                                        "pasif"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": false,
+                                "sebutkan": "",
+                                "a_p": "pasif"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "indonesia": {
+                            "value": true,
+                            "a_p": "pasif"
+                        },
+                        "inggris": {
+                            "value": true,
+                            "a_p": "aktif"
+                        },
+                        "daerah": {
+                            "value": true,
+                            "sebutkan": "batak",
+                            "a_p": "aktif"
+                        },
+                        "lain": {
+                            "value": false,
+                            "sebutkan": "",
+                            "a_p": "pasif"
+                        }
+                    }]
+                },
+                "perlu_penerjemah": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The perlu_penerjemah Schema",
+                    "required": [
+                        "value",
+                        "jika_ya"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value Schema",
+                            "examples": [
+                                "ya"
+                            ]
+                        },
+                        "jika_ya": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jika_ya Schema",
+                            "examples": [
+                                "Arab saudi"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": "ya",
+                        "jika_ya": "Arab saudi"
+                    }]
+                },
+                "bahasa_isyarat": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The bahasa_isyarat Schema",
+                    "examples": [
+                        "tidak"
+                    ]
+                },
+                "cara_belajar": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The cara_belajar Schema",
+                    "required": [
+                        "menulis",
+                        "gambar",
+                        "diskusi",
+                        "demo"
+                    ],
+                    "properties": {
+                        "menulis": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The menulis Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "gambar": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The gambar Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "diskusi": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The diskusi Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "demo": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The demo Schema",
+                            "examples": [
+                                true
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "menulis": true,
+                        "gambar": true,
+                        "diskusi": false,
+                        "demo": true
+                    }]
+                },
+                "pendidikan": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pendidikan Schema",
+                    "examples": [
+                        "SD"
+                    ]
+                },
+                "hambatan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The hambatan Schema",
+                    "required": [
+                        "value",
+                        "jika_ada"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value Schema",
+                            "examples": [
+                                "ya"
+                            ]
+                        },
+                        "jika_ada": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The jika_ada Schema",
+                            "required": [
+                                "penglihatan",
+                                "pendengaran",
+                                "emosi",
+                                "motifasi",
+                                "beban_tgjwb",
+                                "ekonomi",
+                                "berfikir",
+                                "pendidikan",
+                                "kultur",
+                                "agama",
+                                "lain",
+                                "isian_lain"
+                            ],
+                            "properties": {
+                                "penglihatan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penglihatan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pendengaran": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pendengaran Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "emosi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The emosi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "motifasi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The motifasi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "beban_tgjwb": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The beban_tgjwb Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "ekonomi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The ekonomi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "berfikir": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The berfikir Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pendidikan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pendidikan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "kultur": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The kultur Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "agama": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The agama Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "lain": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The lain Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "isian_lain": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The isian_lain Schema",
+                                    "examples": [
+                                        "restu orang tua"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "penglihatan": true,
+                                "pendengaran": true,
+                                "emosi": false,
+                                "motifasi": false,
+                                "beban_tgjwb": true,
+                                "ekonomi": false,
+                                "berfikir": true,
+                                "pendidikan": true,
+                                "kultur": false,
+                                "agama": true,
+                                "lain": true,
+                                "isian_lain": "restu orang tua"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "value": "ya",
+                        "jika_ada": {
+                            "penglihatan": true,
+                            "pendengaran": true,
+                            "emosi": false,
+                            "motifasi": false,
+                            "beban_tgjwb": true,
+                            "ekonomi": false,
+                            "berfikir": true,
+                            "pendidikan": true,
+                            "kultur": false,
+                            "agama": true,
+                            "lain": true,
+                            "isian_lain": "restu orang tua"
+                        }
+                    }]
+                },
+                "kebutuhan_edukasi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The kebutuhan_edukasi Schema",
+                    "required": [
+                        "hak_kewajiban_pasien",
+                        "diagnosa_penyebab",
+                        "obat_didapat",
+                        "gangguan_peralatan",
+                        "diet_nutrisi",
+                        "rehab_medik",
+                        "manajemen_nyeri",
+                        "pencegahan_infeksi",
+                        "edukasi_pelatihan",
+                        "edukasi_kolaboratif",
+                        "edukasi_nilai",
+                        "lain",
+                        "isian_lain2"
+                    ],
+                    "properties": {
+                        "hak_kewajiban_pasien": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The hak_kewajiban_pasien Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "diagnosa_penyebab": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The diagnosa_penyebab Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "obat_didapat": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The obat_didapat Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "gangguan_peralatan": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The gangguan_peralatan Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "diet_nutrisi": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The diet_nutrisi Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "rehab_medik": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The rehab_medik Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "manajemen_nyeri": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The manajemen_nyeri Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "pencegahan_infeksi": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The pencegahan_infeksi Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "edukasi_pelatihan": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The edukasi_pelatihan Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "edukasi_kolaboratif": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The edukasi_kolaboratif Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "edukasi_nilai": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The edukasi_nilai Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "lain": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The lain Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "isian_lain2": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isian_lain2 Schema",
+                            "examples": [
+                                "manajemen waktu"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "hak_kewajiban_pasien": true,
+                        "diagnosa_penyebab": false,
+                        "obat_didapat": true,
+                        "gangguan_peralatan": true,
+                        "diet_nutrisi": false,
+                        "rehab_medik": true,
+                        "manajemen_nyeri": true,
+                        "pencegahan_infeksi": false,
+                        "edukasi_pelatihan": false,
+                        "edukasi_kolaboratif": true,
+                        "edukasi_nilai": true,
+                        "lain": true,
+                        "isian_lain2": "manajemen waktu"
+                    }]
+                }
+            },
+            "examples": [{
+                "agama": {
+                    "value": "islam",
+                    "isian": ""
+                },
+                "nilai_keyakinan": "mencintai allah dengan sepenuh hati jiwa raga",
+                "bicara": {
+                    "value": "normal",
+                    "sejak": "10 tahu yang lalu"
+                },
+                "bahasa": {
+                    "indonesia": {
+                        "value": true,
+                        "a_p": "pasif"
+                    },
+                    "inggris": {
+                        "value": true,
+                        "a_p": "aktif"
+                    },
+                    "daerah": {
+                        "value": true,
+                        "sebutkan": "batak",
+                        "a_p": "aktif"
+                    },
+                    "lain": {
+                        "value": false,
+                        "sebutkan": "",
+                        "a_p": "pasif"
+                    }
+                },
+                "perlu_penerjemah": {
+                    "value": "ya",
+                    "jika_ya": "Arab saudi"
+                },
+                "bahasa_isyarat": "tidak",
+                "cara_belajar": {
+                    "menulis": true,
+                    "gambar": true,
+                    "diskusi": false,
+                    "demo": true
+                },
+                "pendidikan": "SD",
+                "hambatan": {
+                    "value": "ya",
+                    "jika_ada": {
+                        "penglihatan": true,
+                        "pendengaran": true,
+                        "emosi": false,
+                        "motifasi": false,
+                        "beban_tgjwb": true,
+                        "ekonomi": false,
+                        "berfikir": true,
+                        "pendidikan": true,
+                        "kultur": false,
+                        "agama": true,
+                        "lain": true,
+                        "isian_lain": "restu orang tua"
+                    }
+                },
+                "kebutuhan_edukasi": {
+                    "hak_kewajiban_pasien": true,
+                    "diagnosa_penyebab": false,
+                    "obat_didapat": true,
+                    "gangguan_peralatan": true,
+                    "diet_nutrisi": false,
+                    "rehab_medik": true,
+                    "manajemen_nyeri": true,
+                    "pencegahan_infeksi": false,
+                    "edukasi_pelatihan": false,
+                    "edukasi_kolaboratif": true,
+                    "edukasi_nilai": true,
+                    "lain": true,
+                    "isian_lain2": "manajemen waktu"
+                }
+            }]
+        },
+        "perencanaan_edukasi": {
+            "type": "object",
+            "default": {},
+            "title": "The perencanaan_edukasi Schema",
+            "required": [
+                "hak_pasien",
+                "diagnosa_penyebab",
+                "obat",
+                "diet",
+                "rehabilitasi_medik",
+                "manajemen_nyeri",
+                "pencegahan_infeksi",
+                "edukasi_pasien",
+                "edukasi_kolaboratif",
+                "edukasi_pilihan",
+                "petugas",
+                "pasien_keluarga"
+            ],
+            "properties": {
+                "hak_pasien": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The hak_pasien Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": true,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "diagnosa_penyebab": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The diagnosa_penyebab Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "obat": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The obat Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "diet": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The diet Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": true,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "rehabilitasi_medik": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The rehabilitasi_medik Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "manajemen_nyeri": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The manajemen_nyeri Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "pencegahan_infeksi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The pencegahan_infeksi Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "edukasi_pasien": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The edukasi_pasien Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "edukasi_kolaboratif": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The edukasi_kolaboratif Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "edukasi_pilihan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The edukasi_pilihan Schema",
+                    "required": [
+                        "value",
+                        "tanggal",
+                        "tanggal_indo",
+                        "jam",
+                        "sasaran",
+                        "cara_edukasi",
+                        "metode_evaluasi"
+                    ],
+                    "properties": {
+                        "value": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The value Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-08-16"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "16 Agustus 2023"
+                            ]
+                        },
+                        "jam": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The jam Schema",
+                            "examples": [
+                                "10:56"
+                            ]
+                        },
+                        "sasaran": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sasaran Schema",
+                            "examples": [
+                                "pasien"
+                            ]
+                        },
+                        "cara_edukasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The cara_edukasi Schema",
+                            "examples": [
+                                "demo"
+                            ]
+                        },
+                        "metode_evaluasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode_evaluasi Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "value": false,
+                        "tanggal": "2023-08-16",
+                        "tanggal_indo": "16 Agustus 2023",
+                        "jam": "10:56",
+                        "sasaran": "pasien",
+                        "cara_edukasi": "demo",
+                        "metode_evaluasi": ""
+                    }]
+                },
+                "petugas": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The petugas Schema",
+                    "examples": [
+                        "Layla Ibu Haryati"
+                    ]
+                },
+                "pasien_keluarga": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pasien_keluarga Schema",
+                    "examples": [
+                        "bundahara"
+                    ]
+                }
+            },
+            "examples": [{
+                "hak_pasien": {
+                    "value": true,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "diagnosa_penyebab": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "obat": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "diet": {
+                    "value": true,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "rehabilitasi_medik": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "manajemen_nyeri": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "pencegahan_infeksi": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "edukasi_pasien": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "edukasi_kolaboratif": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "edukasi_pilihan": {
+                    "value": false,
+                    "tanggal": "2023-08-16",
+                    "tanggal_indo": "16 Agustus 2023",
+                    "jam": "10:56",
+                    "sasaran": "pasien",
+                    "cara_edukasi": "demo",
+                    "metode_evaluasi": ""
+                },
+                "petugas": "Layla Ibu Haryati",
+                "pasien_keluarga": "bundahara"
+            }]
+        },
+        "edukasi_ygdiberikan": {
+            "type": "object",
+            "default": {},
+            "title": "The edukasi_ygdiberikan Schema",
+            "required": [
+                "petugas_pendaftaran",
+                "perawat_bidan",
+                "dpjp",
+                "ahli_gizi",
+                "apoteker",
+                "fisioterapi",
+                "radiologi",
+                "kerohanian",
+                "info_lain"
+            ],
+            "properties": {
+                "petugas_pendaftaran": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The petugas_pendaftaran Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "hpk",
+                                "kartu_tunggu",
+                                "persetujuan_umum",
+                                "estimasi_biaya",
+                                "pelayanan_ditawarkan",
+                                "hasil_pelayanan",
+                                "asuransi",
+                                "jam_kunjung",
+                                "tatatertib"
+                            ],
+                            "properties": {
+                                "hpk": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The hpk Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "kartu_tunggu": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The kartu_tunggu Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "persetujuan_umum": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The persetujuan_umum Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "estimasi_biaya": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The estimasi_biaya Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pelayanan_ditawarkan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pelayanan_ditawarkan Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "hasil_pelayanan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The hasil_pelayanan Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "asuransi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The asuransi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "jam_kunjung": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The jam_kunjung Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "tatatertib": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The tatatertib Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "hpk": true,
+                                "kartu_tunggu": false,
+                                "persetujuan_umum": true,
+                                "estimasi_biaya": true,
+                                "pelayanan_ditawarkan": false,
+                                "hasil_pelayanan": false,
+                                "asuransi": true,
+                                "jam_kunjung": true,
+                                "tatatertib": false
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak paham"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "hpk": true,
+                            "kartu_tunggu": false,
+                            "persetujuan_umum": true,
+                            "estimasi_biaya": true,
+                            "pelayanan_ditawarkan": false,
+                            "hasil_pelayanan": false,
+                            "asuransi": true,
+                            "jam_kunjung": true,
+                            "tatatertib": false
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak paham",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "perawat_bidan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The perawat_bidan Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "orientasi_ruang",
+                                "penggunaan_alat",
+                                "perawat_jaga",
+                                "pencegahan_infeksi",
+                                "edukasi_pemakaian",
+                                "edukasi_resiko",
+                                "perawatan_luka",
+                                "manajemen_nyeri",
+                                "perawatan_payudara",
+                                "tali_pusar",
+                                "penahanan_pasien",
+                                "pengelolaan_pasien",
+                                "penjelasan_instruksi",
+                                "jam_kebersihan",
+                                "buang_sampah",
+                                "larangan_merokok",
+                                "edukasi_imd",
+                                "edukasi_pmk",
+                                "asi_ekslusif",
+                                "cara_menyusui",
+                                "bahaya_bbl",
+                                "bahaya_nifas",
+                                "informasi_pa",
+                                "pasien_terminal",
+                                "menggunakan_alat",
+                                "edukasi_pemulangan_komplek"
+                            ],
+                            "properties": {
+                                "orientasi_ruang": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The orientasi_ruang Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "penggunaan_alat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penggunaan_alat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "perawat_jaga": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The perawat_jaga Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "pencegahan_infeksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pencegahan_infeksi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "edukasi_pemakaian": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_pemakaian Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "edukasi_resiko": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_resiko Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "perawatan_luka": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The perawatan_luka Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "manajemen_nyeri": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The manajemen_nyeri Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "perawatan_payudara": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The perawatan_payudara Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "tali_pusar": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The tali_pusar Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "penahanan_pasien": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penahanan_pasien Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pengelolaan_pasien": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pengelolaan_pasien Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "penjelasan_instruksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penjelasan_instruksi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "jam_kebersihan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The jam_kebersihan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "buang_sampah": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The buang_sampah Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "larangan_merokok": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The larangan_merokok Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "edukasi_imd": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_imd Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "edukasi_pmk": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_pmk Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "asi_ekslusif": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The asi_ekslusif Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "cara_menyusui": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The cara_menyusui Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "bahaya_bbl": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The bahaya_bbl Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "bahaya_nifas": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The bahaya_nifas Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "informasi_pa": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The informasi_pa Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "pasien_terminal": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pasien_terminal Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "menggunakan_alat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The menggunakan_alat Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "edukasi_pemulangan_komplek": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_pemulangan_komplek Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "orientasi_ruang": false,
+                                "penggunaan_alat": true,
+                                "perawat_jaga": false,
+                                "pencegahan_infeksi": true,
+                                "edukasi_pemakaian": false,
+                                "edukasi_resiko": false,
+                                "perawatan_luka": true,
+                                "manajemen_nyeri": true,
+                                "perawatan_payudara": true,
+                                "tali_pusar": false,
+                                "penahanan_pasien": true,
+                                "pengelolaan_pasien": true,
+                                "penjelasan_instruksi": false,
+                                "jam_kebersihan": true,
+                                "buang_sampah": true,
+                                "larangan_merokok": false,
+                                "edukasi_imd": false,
+                                "edukasi_pmk": false,
+                                "asi_ekslusif": true,
+                                "cara_menyusui": true,
+                                "bahaya_bbl": false,
+                                "bahaya_nifas": false,
+                                "informasi_pa": false,
+                                "pasien_terminal": true,
+                                "menggunakan_alat": false,
+                                "edukasi_pemulangan_komplek": false
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "orientasi_ruang": false,
+                            "penggunaan_alat": true,
+                            "perawat_jaga": false,
+                            "pencegahan_infeksi": true,
+                            "edukasi_pemakaian": false,
+                            "edukasi_resiko": false,
+                            "perawatan_luka": true,
+                            "manajemen_nyeri": true,
+                            "perawatan_payudara": true,
+                            "tali_pusar": false,
+                            "penahanan_pasien": true,
+                            "pengelolaan_pasien": true,
+                            "penjelasan_instruksi": false,
+                            "jam_kebersihan": true,
+                            "buang_sampah": true,
+                            "larangan_merokok": false,
+                            "edukasi_imd": false,
+                            "edukasi_pmk": false,
+                            "asi_ekslusif": true,
+                            "cara_menyusui": true,
+                            "bahaya_bbl": false,
+                            "bahaya_nifas": false,
+                            "informasi_pa": false,
+                            "pasien_terminal": true,
+                            "menggunakan_alat": false,
+                            "edukasi_pemulangan_komplek": false
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "dpjp": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The dpjp Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "diagnosa_gejala",
+                                "rencana_pelayanan",
+                                "hasil_pelayanan",
+                                "rencana_pulang",
+                                "pemberian_analgetik",
+                                "penjelasan_instruksi"
+                            ],
+                            "properties": {
+                                "diagnosa_gejala": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The diagnosa_gejala Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "rencana_pelayanan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rencana_pelayanan Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "hasil_pelayanan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The hasil_pelayanan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "rencana_pulang": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rencana_pulang Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pemberian_analgetik": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pemberian_analgetik Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "penjelasan_instruksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penjelasan_instruksi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "diagnosa_gejala": false,
+                                "rencana_pelayanan": false,
+                                "hasil_pelayanan": true,
+                                "rencana_pulang": true,
+                                "pemberian_analgetik": false,
+                                "penjelasan_instruksi": false
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "diagnosa_gejala": false,
+                            "rencana_pelayanan": false,
+                            "hasil_pelayanan": true,
+                            "rencana_pulang": true,
+                            "pemberian_analgetik": false,
+                            "penjelasan_instruksi": false
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "ahli_gizi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The ahli_gizi Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "dm",
+                                "rendah_protein",
+                                "rendah_purin",
+                                "edukasi_diet",
+                                "lambung",
+                                "hemodialisa",
+                                "gizi_seimbang",
+                                "rendah_garam",
+                                "rendah_lemak",
+                                "jantung",
+                                "makanan_luar_rs",
+                                "tktp",
+                                "rendah_serat",
+                                "rendah_oksalat",
+                                "penjelasan_instruksi",
+                                "lain",
+                                "isian_lain"
+                            ],
+                            "properties": {
+                                "dm": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The dm Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "rendah_protein": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_protein Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "rendah_purin": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_purin Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "edukasi_diet": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_diet Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "lambung": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The lambung Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "hemodialisa": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The hemodialisa Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "gizi_seimbang": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The gizi_seimbang Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "rendah_garam": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_garam Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "rendah_lemak": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_lemak Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "jantung": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The jantung Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "makanan_luar_rs": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The makanan_luar_rs Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "tktp": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The tktp Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "rendah_serat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_serat Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "rendah_oksalat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rendah_oksalat Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "penjelasan_instruksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penjelasan_instruksi Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "lain": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The lain Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "isian_lain": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The isian_lain Schema",
+                                    "examples": [
+                                        "isian lain-lainnya"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "dm": true,
+                                "rendah_protein": true,
+                                "rendah_purin": true,
+                                "edukasi_diet": true,
+                                "lambung": false,
+                                "hemodialisa": false,
+                                "gizi_seimbang": false,
+                                "rendah_garam": false,
+                                "rendah_lemak": true,
+                                "jantung": true,
+                                "makanan_luar_rs": true,
+                                "tktp": true,
+                                "rendah_serat": false,
+                                "rendah_oksalat": false,
+                                "penjelasan_instruksi": false,
+                                "lain": false,
+                                "isian_lain": "isian lain-lainnya"
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "dm": true,
+                            "rendah_protein": true,
+                            "rendah_purin": true,
+                            "edukasi_diet": true,
+                            "lambung": false,
+                            "hemodialisa": false,
+                            "gizi_seimbang": false,
+                            "rendah_garam": false,
+                            "rendah_lemak": true,
+                            "jantung": true,
+                            "makanan_luar_rs": true,
+                            "tktp": true,
+                            "rendah_serat": false,
+                            "rendah_oksalat": false,
+                            "penjelasan_instruksi": false,
+                            "lain": false,
+                            "isian_lain": "isian lain-lainnya"
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "apoteker": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The apoteker Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "nama_obat",
+                                "aturan_pakai",
+                                "efek_samping",
+                                "rute_dosis",
+                                "tepat_pasien",
+                                "dokumentasi",
+                                "penggunaan_obat",
+                                "potensi_interaksi",
+                                "penjelasan_instruksi",
+                                "lain",
+                                "isian_lain"
+                            ],
+                            "properties": {
+                                "nama_obat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The nama_obat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "aturan_pakai": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The aturan_pakai Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "efek_samping": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The efek_samping Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "rute_dosis": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The rute_dosis Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "tepat_pasien": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The tepat_pasien Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "dokumentasi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The dokumentasi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "penggunaan_obat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penggunaan_obat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "potensi_interaksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The potensi_interaksi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "penjelasan_instruksi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penjelasan_instruksi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "lain": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The lain Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "isian_lain": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The isian_lain Schema",
+                                    "examples": [
+                                        "sarangianimyeonnalwihaekillmesoftly"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "nama_obat": true,
+                                "aturan_pakai": true,
+                                "efek_samping": true,
+                                "rute_dosis": true,
+                                "tepat_pasien": true,
+                                "dokumentasi": true,
+                                "penggunaan_obat": true,
+                                "potensi_interaksi": true,
+                                "penjelasan_instruksi": true,
+                                "lain": true,
+                                "isian_lain": "sarangianimyeonnalwihaekillmesoftly"
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "nama_obat": true,
+                            "aturan_pakai": true,
+                            "efek_samping": true,
+                            "rute_dosis": true,
+                            "tepat_pasien": true,
+                            "dokumentasi": true,
+                            "penggunaan_obat": true,
+                            "potensi_interaksi": true,
+                            "penjelasan_instruksi": true,
+                            "lain": true,
+                            "isian_lain": "sarangianimyeonnalwihaekillmesoftly"
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "fisioterapi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The fisioterapi Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "check_value_satu",
+                        "check_value_dua",
+                        "value_satu",
+                        "value_dua",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "langkah_fisioterapi",
+                                "informasi_alat",
+                                "cara_rakit",
+                                "tindak_lanjut"
+                            ],
+                            "properties": {
+                                "langkah_fisioterapi": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The langkah_fisioterapi Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "informasi_alat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The informasi_alat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "cara_rakit": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The cara_rakit Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "tindak_lanjut": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The tindak_lanjut Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "langkah_fisioterapi": true,
+                                "informasi_alat": true,
+                                "cara_rakit": true,
+                                "tindak_lanjut": true
+                            }]
+                        },
+                        "check_value_satu": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The check_value_satu Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "check_value_dua": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The check_value_dua Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "value_satu": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value_satu Schema",
+                            "examples": [
+                                "ingat jaga"
+                            ]
+                        },
+                        "value_dua": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value_dua Schema",
+                            "examples": [
+                                "diri masing2"
+                            ]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "langkah_fisioterapi": true,
+                            "informasi_alat": true,
+                            "cara_rakit": true,
+                            "tindak_lanjut": true
+                        },
+                        "check_value_satu": true,
+                        "check_value_dua": false,
+                        "value_satu": "ingat jaga",
+                        "value_dua": "diri masing2",
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "radiologi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The radiologi Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "check_value_satu",
+                        "check_value_dua",
+                        "value_satu",
+                        "value_dua",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "dosis_pemeriksaan",
+                                "pemeriksaan_alat"
+                            ],
+                            "properties": {
+                                "dosis_pemeriksaan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The dosis_pemeriksaan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "pemeriksaan_alat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The pemeriksaan_alat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "dosis_pemeriksaan": true,
+                                "pemeriksaan_alat": true
+                            }]
+                        },
+                        "check_value_satu": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The check_value_satu Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "check_value_dua": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The check_value_dua Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "value_satu": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value_satu Schema",
+                            "examples": [
+                                "iya iya"
+                            ]
+                        },
+                        "value_dua": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The value_dua Schema",
+                            "examples": [
+                                "no no"
+                            ]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "dosis_pemeriksaan": true,
+                            "pemeriksaan_alat": true
+                        },
+                        "check_value_satu": true,
+                        "check_value_dua": false,
+                        "value_satu": "iya iya",
+                        "value_dua": "no no",
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "kerohanian": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The kerohanian Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "mengajarkan_doa",
+                                "mengajarkan_sholat",
+                                "melatih_wudhu",
+                                "mendampingi_pasien",
+                                "edukasi_sesuai_nilai",
+                                "edukasi_kolaboratif"
+                            ],
+                            "properties": {
+                                "mengajarkan_doa": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The mengajarkan_doa Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "mengajarkan_sholat": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The mengajarkan_sholat Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "melatih_wudhu": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The melatih_wudhu Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "mendampingi_pasien": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The mendampingi_pasien Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "edukasi_sesuai_nilai": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_sesuai_nilai Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "edukasi_kolaboratif": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The edukasi_kolaboratif Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "mengajarkan_doa": true,
+                                "mengajarkan_sholat": true,
+                                "melatih_wudhu": true,
+                                "mendampingi_pasien": true,
+                                "edukasi_sesuai_nilai": true,
+                                "edukasi_kolaboratif": true
+                            }]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "mengajarkan_doa": true,
+                            "mengajarkan_sholat": true,
+                            "melatih_wudhu": true,
+                            "mendampingi_pasien": true,
+                            "edukasi_sesuai_nilai": true,
+                            "edukasi_kolaboratif": true
+                        },
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                },
+                "info_lain": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The info_lain Schema",
+                    "required": [
+                        "tanggal",
+                        "tanggal_indo",
+                        "value",
+                        "value_lain",
+                        "metode",
+                        "media",
+                        "verif",
+                        "ttd"
+                    ],
+                    "properties": {
+                        "tanggal": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal Schema",
+                            "examples": [
+                                "2023-04-17"
+                            ]
+                        },
+                        "tanggal_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_indo Schema",
+                            "examples": [
+                                "17 Mei 2023"
+                            ]
+                        },
+                        "value": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The value Schema",
+                            "required": [
+                                "penundaan_layanan"
+                            ],
+                            "properties": {
+                                "penundaan_layanan": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The penundaan_layanan Schema",
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "penundaan_layanan": true
+                            }]
+                        },
+                        "value_lain": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The value_lain Schema",
+                            "items": {
+                                "type": "object",
+                                "default": {},
+                                "title": "A Schema",
+                                "required": [
+                                    "result"
+                                ],
+                                "properties": {
+                                    "result": {
+                                        "type": "string",
+                                        "default": "",
+                                        "title": "The result Schema",
+                                        "examples": [
+                                            "hijau daun"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "result": "hijau daun"
+                                }]
+                            },
+                            "examples": [
+                                [{
+                                    "result": "hijau daun"
+                                }]
+                            ]
+                        },
+                        "metode": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The metode Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "media": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The media Schema",
+                            "examples": [
+                                "zoom"
+                            ]
+                        },
+                        "verif": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The verif Schema",
+                            "examples": [
+                                "tidak memahami"
+                            ]
+                        },
+                        "ttd": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ttd Schema",
+                            "required": [
+                                "pemberi_info",
+                                "sasaran"
+                            ],
+                            "properties": {
+                                "pemberi_info": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pemberi_info Schema",
+                                    "examples": [
+                                        "dr. milanta"
+                                    ]
+                                },
+                                "sasaran": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The sasaran Schema",
+                                    "examples": [
+                                        "mahalani"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pemberi_info": "dr. milanta",
+                                "sasaran": "mahalani"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "tanggal": "2023-04-17",
+                        "tanggal_indo": "17 Mei 2023",
+                        "value": {
+                            "penundaan_layanan": true
+                        },
+                        "value_lain": [{
+                            "result": "hijau daun"
+                        }],
+                        "metode": "",
+                        "media": "zoom",
+                        "verif": "tidak memahami",
+                        "ttd": {
+                            "pemberi_info": "dr. milanta",
+                            "sasaran": "mahalani"
+                        }
+                    }]
+                }
+            },
+            "examples": [{
+                "petugas_pendaftaran": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "hpk": true,
+                        "kartu_tunggu": false,
+                        "persetujuan_umum": true,
+                        "estimasi_biaya": true,
+                        "pelayanan_ditawarkan": false,
+                        "hasil_pelayanan": false,
+                        "asuransi": true,
+                        "jam_kunjung": true,
+                        "tatatertib": false
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak paham",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "perawat_bidan": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "orientasi_ruang": false,
+                        "penggunaan_alat": true,
+                        "perawat_jaga": false,
+                        "pencegahan_infeksi": true,
+                        "edukasi_pemakaian": false,
+                        "edukasi_resiko": false,
+                        "perawatan_luka": true,
+                        "manajemen_nyeri": true,
+                        "perawatan_payudara": true,
+                        "tali_pusar": false,
+                        "penahanan_pasien": true,
+                        "pengelolaan_pasien": true,
+                        "penjelasan_instruksi": false,
+                        "jam_kebersihan": true,
+                        "buang_sampah": true,
+                        "larangan_merokok": false,
+                        "edukasi_imd": false,
+                        "edukasi_pmk": false,
+                        "asi_ekslusif": true,
+                        "cara_menyusui": true,
+                        "bahaya_bbl": false,
+                        "bahaya_nifas": false,
+                        "informasi_pa": false,
+                        "pasien_terminal": true,
+                        "menggunakan_alat": false,
+                        "edukasi_pemulangan_komplek": false
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "dpjp": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "diagnosa_gejala": false,
+                        "rencana_pelayanan": false,
+                        "hasil_pelayanan": true,
+                        "rencana_pulang": true,
+                        "pemberian_analgetik": false,
+                        "penjelasan_instruksi": false
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "ahli_gizi": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "dm": true,
+                        "rendah_protein": true,
+                        "rendah_purin": true,
+                        "edukasi_diet": true,
+                        "lambung": false,
+                        "hemodialisa": false,
+                        "gizi_seimbang": false,
+                        "rendah_garam": false,
+                        "rendah_lemak": true,
+                        "jantung": true,
+                        "makanan_luar_rs": true,
+                        "tktp": true,
+                        "rendah_serat": false,
+                        "rendah_oksalat": false,
+                        "penjelasan_instruksi": false,
+                        "lain": false,
+                        "isian_lain": "isian lain-lainnya"
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "apoteker": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "nama_obat": true,
+                        "aturan_pakai": true,
+                        "efek_samping": true,
+                        "rute_dosis": true,
+                        "tepat_pasien": true,
+                        "dokumentasi": true,
+                        "penggunaan_obat": true,
+                        "potensi_interaksi": true,
+                        "penjelasan_instruksi": true,
+                        "lain": true,
+                        "isian_lain": "sarangianimyeonnalwihaekillmesoftly"
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "fisioterapi": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "langkah_fisioterapi": true,
+                        "informasi_alat": true,
+                        "cara_rakit": true,
+                        "tindak_lanjut": true
+                    },
+                    "check_value_satu": true,
+                    "check_value_dua": false,
+                    "value_satu": "ingat jaga",
+                    "value_dua": "diri masing2",
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "radiologi": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "dosis_pemeriksaan": true,
+                        "pemeriksaan_alat": true
+                    },
+                    "check_value_satu": true,
+                    "check_value_dua": false,
+                    "value_satu": "iya iya",
+                    "value_dua": "no no",
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "kerohanian": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "mengajarkan_doa": true,
+                        "mengajarkan_sholat": true,
+                        "melatih_wudhu": true,
+                        "mendampingi_pasien": true,
+                        "edukasi_sesuai_nilai": true,
+                        "edukasi_kolaboratif": true
+                    },
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                },
+                "info_lain": {
+                    "tanggal": "2023-04-17",
+                    "tanggal_indo": "17 Mei 2023",
+                    "value": {
+                        "penundaan_layanan": true
+                    },
+                    "value_lain": [{
+                        "result": "hijau daun"
+                    }],
+                    "metode": "",
+                    "media": "zoom",
+                    "verif": "tidak memahami",
+                    "ttd": {
+                        "pemberi_info": "dr. milanta",
+                        "sasaran": "mahalani"
+                    }
+                }
+            }]
+        }
+    },
+    "examples": [{
+        "pasien": {
+            "no_rm": "00000001",
+            "nama": "Shafira Bulan",
+            "tanggal_lahir": "1999-08-04",
+            "tanggal_lahir_indo": "04 Agustus 1998",
+            "alamat": "Krandegan, rt 1/3",
+            "kelamin": "P"
+        },
+        "kebutuhan_edukasi": {
+            "agama": {
+                "value": "islam",
+                "isian": ""
+            },
+            "nilai_keyakinan": "mencintai allah dengan sepenuh hati jiwa raga",
+            "bicara": {
+                "value": "normal",
+                "sejak": "10 tahu yang lalu"
+            },
+            "bahasa": {
+                "indonesia": {
+                    "value": true,
+                    "a_p": "pasif"
+                },
+                "inggris": {
+                    "value": true,
+                    "a_p": "aktif"
+                },
+                "daerah": {
+                    "value": true,
+                    "sebutkan": "batak",
+                    "a_p": "aktif"
+                },
+                "lain": {
+                    "value": false,
+                    "sebutkan": "",
+                    "a_p": "pasif"
+                }
+            },
+            "perlu_penerjemah": {
+                "value": "ya",
+                "jika_ya": "Arab saudi"
+            },
+            "bahasa_isyarat": "tidak",
+            "cara_belajar": {
+                "menulis": true,
+                "gambar": true,
+                "diskusi": false,
+                "demo": true
+            },
+            "pendidikan": "SD",
+            "hambatan": {
+                "value": "ya",
+                "jika_ada": {
+                    "penglihatan": true,
+                    "pendengaran": true,
+                    "emosi": false,
+                    "motifasi": false,
+                    "beban_tgjwb": true,
+                    "ekonomi": false,
+                    "berfikir": true,
+                    "pendidikan": true,
+                    "kultur": false,
+                    "agama": true,
+                    "lain": true,
+                    "isian_lain": "restu orang tua"
+                }
+            },
+            "kebutuhan_edukasi": {
+                "hak_kewajiban_pasien": true,
+                "diagnosa_penyebab": false,
+                "obat_didapat": true,
+                "gangguan_peralatan": true,
+                "diet_nutrisi": false,
+                "rehab_medik": true,
+                "manajemen_nyeri": true,
+                "pencegahan_infeksi": false,
+                "edukasi_pelatihan": false,
+                "edukasi_kolaboratif": true,
+                "edukasi_nilai": true,
+                "lain": true,
+                "isian_lain2": "manajemen waktu"
+            }
+        },
+        "perencanaan_edukasi": {
+            "hak_pasien": {
+                "value": true,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "diagnosa_penyebab": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "obat": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "diet": {
+                "value": true,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "rehabilitasi_medik": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "manajemen_nyeri": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "pencegahan_infeksi": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "edukasi_pasien": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "edukasi_kolaboratif": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "edukasi_pilihan": {
+                "value": false,
+                "tanggal": "2023-08-16",
+                "tanggal_indo": "16 Agustus 2023",
+                "jam": "10:56",
+                "sasaran": "pasien",
+                "cara_edukasi": "demo",
+                "metode_evaluasi": ""
+            },
+            "petugas": "Layla Ibu Haryati",
+            "pasien_keluarga": "bundahara"
+        },
+        "edukasi_ygdiberikan": {
+            "petugas_pendaftaran": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "hpk": true,
+                    "kartu_tunggu": false,
+                    "persetujuan_umum": true,
+                    "estimasi_biaya": true,
+                    "pelayanan_ditawarkan": false,
+                    "hasil_pelayanan": false,
+                    "asuransi": true,
+                    "jam_kunjung": true,
+                    "tatatertib": false
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak paham",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "perawat_bidan": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "orientasi_ruang": false,
+                    "penggunaan_alat": true,
+                    "perawat_jaga": false,
+                    "pencegahan_infeksi": true,
+                    "edukasi_pemakaian": false,
+                    "edukasi_resiko": false,
+                    "perawatan_luka": true,
+                    "manajemen_nyeri": true,
+                    "perawatan_payudara": true,
+                    "tali_pusar": false,
+                    "penahanan_pasien": true,
+                    "pengelolaan_pasien": true,
+                    "penjelasan_instruksi": false,
+                    "jam_kebersihan": true,
+                    "buang_sampah": true,
+                    "larangan_merokok": false,
+                    "edukasi_imd": false,
+                    "edukasi_pmk": false,
+                    "asi_ekslusif": true,
+                    "cara_menyusui": true,
+                    "bahaya_bbl": false,
+                    "bahaya_nifas": false,
+                    "informasi_pa": false,
+                    "pasien_terminal": true,
+                    "menggunakan_alat": false,
+                    "edukasi_pemulangan_komplek": false
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "dpjp": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "diagnosa_gejala": false,
+                    "rencana_pelayanan": false,
+                    "hasil_pelayanan": true,
+                    "rencana_pulang": true,
+                    "pemberian_analgetik": false,
+                    "penjelasan_instruksi": false
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "ahli_gizi": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "dm": true,
+                    "rendah_protein": true,
+                    "rendah_purin": true,
+                    "edukasi_diet": true,
+                    "lambung": false,
+                    "hemodialisa": false,
+                    "gizi_seimbang": false,
+                    "rendah_garam": false,
+                    "rendah_lemak": true,
+                    "jantung": true,
+                    "makanan_luar_rs": true,
+                    "tktp": true,
+                    "rendah_serat": false,
+                    "rendah_oksalat": false,
+                    "penjelasan_instruksi": false,
+                    "lain": false,
+                    "isian_lain": "isian lain-lainnya"
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "apoteker": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "nama_obat": true,
+                    "aturan_pakai": true,
+                    "efek_samping": true,
+                    "rute_dosis": true,
+                    "tepat_pasien": true,
+                    "dokumentasi": true,
+                    "penggunaan_obat": true,
+                    "potensi_interaksi": true,
+                    "penjelasan_instruksi": true,
+                    "lain": true,
+                    "isian_lain": "sarangianimyeonnalwihaekillmesoftly"
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "fisioterapi": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "langkah_fisioterapi": true,
+                    "informasi_alat": true,
+                    "cara_rakit": true,
+                    "tindak_lanjut": true
+                },
+                "check_value_satu": true,
+                "check_value_dua": false,
+                "value_satu": "ingat jaga",
+                "value_dua": "diri masing2",
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "radiologi": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "dosis_pemeriksaan": true,
+                    "pemeriksaan_alat": true
+                },
+                "check_value_satu": true,
+                "check_value_dua": false,
+                "value_satu": "iya iya",
+                "value_dua": "no no",
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "kerohanian": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "mengajarkan_doa": true,
+                    "mengajarkan_sholat": true,
+                    "melatih_wudhu": true,
+                    "mendampingi_pasien": true,
+                    "edukasi_sesuai_nilai": true,
+                    "edukasi_kolaboratif": true
+                },
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            },
+            "info_lain": {
+                "tanggal": "2023-04-17",
+                "tanggal_indo": "17 Mei 2023",
+                "value": {
+                    "penundaan_layanan": true
+                },
+                "value_lain": [{
+                    "result": "hijau daun"
+                }],
+                "metode": "",
+                "media": "zoom",
+                "verif": "tidak memahami",
+                "ttd": {
+                    "pemberi_info": "dr. milanta",
+                    "sasaran": "mahalani"
+                }
+            }
+        }
+    }]
+}
