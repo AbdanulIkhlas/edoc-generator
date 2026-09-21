@@ -67,8 +67,11 @@ const data = {
             }
         },
         "ttd_dokter": "James",
+        "ttd_dokter_stroke": "",
         "ttd_nakes_3": "",
+        "ttd_nakes_3_stroke": "",
         "ttd_pasien": "Howlet",
+        "ttd_pasien_stroke": "",
         "ttd_wali": "wali",
         "persetujuan_tindakan_kedokteran": {
             "yang_bertandatangan": {
@@ -97,14 +100,17 @@ const data = {
             "jam": "06:00",
             "saksi_1": {
                 "nama": "Henry",
+                "stroke": "",
                 "hubungan_keluarga": "Sahabat"
             },
             "saksi_2": {
                 "nama": "Norman",
+                "stroke": "",
                 "perawat": "May"
             },
             "menyatakan": {
                 "nama": "Rommy",
+                "stroke": "",
                 "status": {
                     "pilihan": "Wali",
                     "wali": "Saudara"
@@ -273,8 +279,11 @@ const data = {
             }
         },
         "ttd_dokter": "",
+        "ttd_dokter_stroke": "",
         "ttd_nakes_3": "",
+        "ttd_nakes_3_stroke": "",
         "ttd_pasien": "",
+        "ttd_pasien_stroke": "",
         "ttd_wali": "",
         "persetujuan_tindakan_kedokteran": {
             "yang_bertandatangan": {
@@ -303,14 +312,17 @@ const data = {
             "jam": "",
             "saksi_1": {
                 "nama": "",
+                "stroke": "",
                 "hubungan_keluarga": ""
             },
             "saksi_2": {
                 "nama": "",
+                "stroke": "",
                 "perawat": ""
             },
             "menyatakan": {
                 "nama": "",
+                "stroke": "",
                 "status": {
                     "pilihan": "",
                     "wali": ""

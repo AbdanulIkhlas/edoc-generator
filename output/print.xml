@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffc51592-ac5a-42dd-b568-1eb2f887bf86">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adapter/informed_consent.jrdax"/>
 	<parameter name="server_address" class="java.lang.String">
@@ -143,13 +143,25 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd_dokter"/>
 		<fieldDescription><![CDATA[ttd_dokter]]></fieldDescription>
 	</field>
+	<field name="ttd_dokter_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd_dokter_stroke"/>
+		<fieldDescription><![CDATA[ttd_dokter_stroke]]></fieldDescription>
+	</field>
 	<field name="ttd_nakes_3" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd_nakes_3"/>
 		<fieldDescription><![CDATA[ttd_nakes_3]]></fieldDescription>
 	</field>
+	<field name="ttd_nakes_3_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd_nakes_3_stroke"/>
+		<fieldDescription><![CDATA[ttd_nakes_3_stroke]]></fieldDescription>
+	</field>
 	<field name="ttd_pasien" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd_pasien"/>
 		<fieldDescription><![CDATA[ttd_pasien]]></fieldDescription>
+	</field>
+	<field name="ttd_pasien_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd_pasien_stroke"/>
+		<fieldDescription><![CDATA[ttd_pasien_stroke]]></fieldDescription>
 	</field>
 	<field name="ttd_wali" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd_wali"/>
@@ -227,6 +239,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_1.nama"/>
 		<fieldDescription><![CDATA[ttd.saksi_1.nama]]></fieldDescription>
 	</field>
+	<field name="nama_1_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_1.stroke"/>
+		<fieldDescription><![CDATA[ttd.saksi_1.stroke]]></fieldDescription>
+	</field>
 	<field name="hubungan_keluarga" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_1.hubungan_keluarga"/>
 		<fieldDescription><![CDATA[ttd.saksi_1.hubungan_keluarga]]></fieldDescription>
@@ -235,6 +251,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_2.nama"/>
 		<fieldDescription><![CDATA[ttd.saksi_2.nama]]></fieldDescription>
 	</field>
+	<field name="nama_2_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_2.stroke"/>
+		<fieldDescription><![CDATA[ttd.saksi_2.stroke]]></fieldDescription>
+	</field>
 	<field name="perawat" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.saksi_2.perawat"/>
 		<fieldDescription><![CDATA[ttd.saksi_2.perawat]]></fieldDescription>
@@ -242,6 +262,10 @@
 	<field name="nama_3" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.menyatakan.nama"/>
 		<fieldDescription><![CDATA[ttd.menyatakan.nama]]></fieldDescription>
+	</field>
+	<field name="nama_3_stroke" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="ttd.menyatakan.stroke"/>
+		<fieldDescription><![CDATA[ttd.menyatakan.stroke]]></fieldDescription>
 	</field>
 	<field name="pilihan_1" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="ttd.menyatakan.status.pilihan"/>
@@ -2028,16 +2052,6 @@
 						</textElement>
 						<text><![CDATA[Tanda Tangan]]></text>
 					</staticText>
-					<componentElement>
-						<reportElement positionType="Float" mode="Transparent" x="42" y="16" width="63" height="63" uuid="55f595cc-172f-4504-aec4-735c853b3b10">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<printWhenExpression><![CDATA[new Boolean($F{ttd_dokter} != "")]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{ttd_digital_pemberi}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
 					<textField textAdjust="StretchHeight">
 						<reportElement positionType="Float" x="0" y="78" width="145" height="16" uuid="d2ac59a1-3ca9-4db4-ad01-513789c8aa04">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2046,6 +2060,20 @@
 						<textElement textAlignment="Center" verticalAlignment="Top"/>
 						<textFieldExpression><![CDATA[$F{ttd_dokter}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="47" y="21" width="51" height="51" uuid="1d0f7505-ce02-471f-8303-f17a82b4d368"/>
+						<imageExpression><![CDATA[($F{ttd_dokter_stroke} == null || $F{ttd_dokter_stroke}.trim().isEmpty())
+? null
+: (
+    $F{ttd_dokter_stroke}.startsWith("http")
+    ? new java.net.URL($F{ttd_dokter_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{ttd_dokter_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 			</frame>
 			<textField textAdjust="StretchHeight">
@@ -2129,6 +2157,20 @@
 						<textElement textAlignment="Center" verticalAlignment="Top"/>
 						<textFieldExpression><![CDATA[$F{ttd_pasien}]]></textFieldExpression>
 					</textField>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="47" y="21" width="51" height="51" uuid="7566f398-c9c9-4be7-ad23-952ca83f8623"/>
+						<imageExpression><![CDATA[($F{ttd_pasien_stroke} == null || $F{ttd_pasien_stroke}.trim().isEmpty())
+? null
+: (
+    $F{ttd_pasien_stroke}.startsWith("http")
+    ? new java.net.URL($F{ttd_pasien_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{ttd_pasien_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<staticText>
 					<reportElement positionType="Float" x="0" y="94" width="555" height="26" uuid="2dc4f1f4-8c5a-4851-ad5a-480d807a30e1">
@@ -2513,24 +2555,6 @@
 						</textElement>
 						<textFieldExpression><![CDATA[$F{nama_1}]]></textFieldExpression>
 					</textField>
-					<componentElement>
-						<reportElement positionType="Float" x="276" y="76" width="138" height="77" uuid="ded8dd79-4bcd-4e8e-886a-474e64b81f7b">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<printWhenExpression><![CDATA[new Boolean($F{nama_2} != "")]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{ttd_perawat}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
-					<componentElement>
-						<reportElement positionType="Float" x="414" y="76" width="139" height="75" uuid="125be764-565c-4d5c-b52d-7531a9c2574b">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<printWhenExpression><![CDATA[new Boolean($F{ttd_nakes_3} != "")]]></printWhenExpression>
-						</reportElement>
-						<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-							<jr:codeExpression><![CDATA[$F{ttd_nakes_31}]]></jr:codeExpression>
-						</jr:QRCode>
-					</componentElement>
 					<textField textAdjust="StretchHeight">
 						<reportElement positionType="Float" x="414" y="152" width="141" height="16" uuid="dd04bdb6-d81a-4906-b363-44a83cabb2cb">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -2549,6 +2573,62 @@
 						<textElement textAlignment="Center" verticalAlignment="Middle"/>
 						<text><![CDATA[Dokter]]></text>
 					</staticText>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="39" y="90" width="51" height="51" uuid="29fbe456-1fb6-457a-9945-f41b9de52117"/>
+						<imageExpression><![CDATA[($F{nama_3_stroke} == null || $F{nama_3_stroke}.trim().isEmpty())
+? null
+: (
+    $F{nama_3_stroke}.startsWith("http")
+    ? new java.net.URL($F{nama_3_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{nama_3_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="183" y="90" width="51" height="51" uuid="e512d3d1-647b-4d49-bdb5-fd111a8570c9"/>
+						<imageExpression><![CDATA[($F{nama_1_stroke} == null || $F{nama_1_stroke}.trim().isEmpty())
+? null
+: (
+    $F{nama_1_stroke}.startsWith("http")
+    ? new java.net.URL($F{nama_1_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{nama_1_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="320" y="90" width="51" height="51" uuid="5e72673b-f105-41f5-914d-781a872eba1d"/>
+						<imageExpression><![CDATA[($F{nama_2_stroke} == null || $F{nama_2_stroke}.trim().isEmpty())
+? null
+: (
+    $F{nama_2_stroke}.startsWith("http")
+    ? new java.net.URL($F{nama_2_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{nama_2_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
+					<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement positionType="Float" x="460" y="90" width="51" height="51" uuid="0419bea8-0e15-4f00-9a82-b02bf771103b"/>
+						<imageExpression><![CDATA[($F{ttd_nakes_3_stroke} == null || $F{ttd_nakes_3_stroke}.trim().isEmpty())
+? null
+: (
+    $F{ttd_nakes_3_stroke}.startsWith("http")
+    ? new java.net.URL($F{ttd_nakes_3_stroke})  // kalau URL
+    : new java.io.ByteArrayInputStream(    // kalau base64
+          java.util.Base64.getDecoder().decode(
+              $F{ttd_nakes_3_stroke}.replaceFirst("^data:image/[^;]+;base64,", "")
+          )
+      )
+)]]></imageExpression>
+					</image>
 				</frame>
 				<staticText>
 					<reportElement positionType="Float" x="0" y="186" width="555" height="68" uuid="7b79a7ec-271f-4f77-84d2-6d373a7a3ce3">

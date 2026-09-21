@@ -1,0 +1,73 @@
+{
+    "external_link": {
+        "px_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/patient/get/<patient_id>/full",
+            "data_usage": ["copy", "embeded"]
+        },
+        "vital_sign_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_vital_sign/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "diagnosa_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/diagnosa/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "dokter_dpjp_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/doctor_dpjp/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "ruang_kelas_ranap_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/inpatient_information/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "tindakan_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/action_patient/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "obat_pulang_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/prescription/<reg_number>",
+            "data_usage": ["copy"]
+        },
+        "patient_information_data": {
+            "source_type": "ws",
+            "source": "[simrs]/e_doc_api/visitation/patient_information/<reg_number>",
+            "data_usage": ["copy"]
+        }
+    },
+    "digital_signature": {
+        "ttd_dokter": {
+            "value_type": "path",
+            "json_path": "$.pemberian_informasi.dokter_pelaksana",
+            "encrypt": true
+        },
+        "ttd_nakes_3": {
+            "value_type": "path",
+            "json_path": "$.ttd_nakes_3",
+            "encrypt": true
+        },
+        "ttd_perawat": {
+            "value_type": "path",
+            "json_path": "$.ttd.saksi_2.nama",
+            "encrypt": true
+        },
+        "ttd_pemberi": {
+            "value_type": "path",
+            "json_path": "$.ttd_dokter",
+            "encrypt": true
+        },
+        "ttd_penerima": {
+            "value_type": "path",
+            "json_path": "$.ttd_pasien",
+            "encrypt": true
+        }
+
+    }
+
+}

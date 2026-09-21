@@ -1,0 +1,1122 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "header",
+        "pemberian_informasi",
+        "isian_diagnosa",
+        "diagnosa_utama",
+        "jenis_informasi",
+        "ttd_dokter",
+        "ttd_nakes_3",
+        "ttd_pasien",
+        "ttd_wali",
+        "persetujuan_tindakan_kedokteran",
+        "ttd"
+    ],
+    "properties": {
+        "header": {
+            "type": "object",
+            "default": {},
+            "title": "The header Schema",
+            "required": [
+                "ruang",
+                "jaminan",
+                "dpjp"
+            ],
+            "properties": {
+                "ruang": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The ruang Schema",
+                    "examples": [
+                        "IGD"
+                    ]
+                },
+                "jaminan": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The jaminan Schema",
+                    "examples": [
+                        "BPJS/I"
+                    ]
+                },
+                "dpjp": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The dpjp Schema",
+                    "examples": [
+                        "lorem"
+                    ]
+                }
+            },
+            "examples": [{
+                "ruang": "IGD",
+                "jaminan": "BPJS/I",
+                "dpjp": "lorem"
+            }]
+        },
+        "pemberian_informasi": {
+            "type": "object",
+            "default": {},
+            "title": "The pemberian_informasi Schema",
+            "required": [
+                "dokter_pelaksana",
+                "pemberi_informasi",
+                "penerima_informasi"
+            ],
+            "properties": {
+                "dokter_pelaksana": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The dokter_pelaksana Schema",
+                    "examples": [
+                        "Some name"
+                    ]
+                },
+                "pemberi_informasi": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pemberi_informasi Schema",
+                    "examples": [
+                        "Some diff name"
+                    ]
+                },
+                "penerima_informasi": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The penerima_informasi Schema",
+                    "examples": [
+                        "Some other name"
+                    ]
+                }
+            },
+            "examples": [{
+                "dokter_pelaksana": "Some name",
+                "pemberi_informasi": "Some diff name",
+                "penerima_informasi": "Some other name"
+            }]
+        },
+        "isian_diagnosa": {
+            "type": "string",
+            "default": "",
+            "title": "The isian_diagnosa Schema",
+            "examples": [
+                "Text area diagnosa"
+            ]
+        },
+        "diagnosa_utama": {
+            "type": "object",
+            "default": {},
+            "title": "The diagnosa_utama Schema",
+            "required": [
+                "icd_x",
+                "deskripsi"
+            ],
+            "properties": {
+                "icd_x": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The icd_x Schema",
+                    "examples": [
+                        "ASW"
+                    ]
+                },
+                "deskripsi": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The deskripsi Schema",
+                    "examples": [
+                        "Awww Sakit Weiii"
+                    ]
+                }
+            },
+            "examples": [{
+                "icd_x": "ASW",
+                "deskripsi": "Awww Sakit Weiii"
+            }]
+        },
+        "jenis_informasi": {
+            "type": "object",
+            "default": {},
+            "title": "The jenis_informasi Schema",
+            "required": [
+                "diagnosa",
+                "dasar_diagnosa",
+                "tindakan_kedokteran",
+                "indikasi_tindakan",
+                "tata_cara",
+                "tujuan",
+                "risiko",
+                "komplikasi",
+                "prognosis",
+                "alternatif",
+                "lain_lain",
+                "lain_lain_lain"
+            ],
+            "properties": {
+                "diagnosa": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The diagnosa Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchparse"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchparse",
+                        "tanda": "Ya"
+                    }]
+                },
+                "dasar_diagnosa": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The dasar_diagnosa Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchparse 2"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchparse 2",
+                        "tanda": "Ya"
+                    }]
+                },
+                "tindakan_kedokteran": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The tindakan_kedokteran Schema",
+                    "required": [
+                        "isi_informasi",
+                        "isi_informasi2",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 3"
+                            ]
+                        },
+                        "isi_informasi2": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi2 Schema",
+                            "examples": [
+                                "Catchpharse 3b"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Tidak"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 3",
+                        "isi_informasi2": "Catchpharse 3b",
+                        "tanda": "Tidak"
+                    }]
+                },
+                "indikasi_tindakan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The indikasi_tindakan Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 4"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 4",
+                        "tanda": "Ya"
+                    }]
+                },
+                "tata_cara": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The tata_cara Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 5"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 5",
+                        "tanda": "Ya"
+                    }]
+                },
+                "tujuan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The tujuan Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 6"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 6",
+                        "tanda": "Ya"
+                    }]
+                },
+                "risiko": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The risiko Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 7"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 7",
+                        "tanda": "Ya"
+                    }]
+                },
+                "komplikasi": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The komplikasi Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 8"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 8",
+                        "tanda": "Ya"
+                    }]
+                },
+                "prognosis": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The prognosis Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 9"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 9",
+                        "tanda": "Ya"
+                    }]
+                },
+                "alternatif": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The alternatif Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 10"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 10",
+                        "tanda": "Ya"
+                    }]
+                },
+                "lain_lain": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The lain_lain Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 11"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 11",
+                        "tanda": "Ya"
+                    }]
+                },
+                "lain_lain_lain": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The lain_lain_lain Schema",
+                    "required": [
+                        "isi_informasi",
+                        "tanda"
+                    ],
+                    "properties": {
+                        "isi_informasi": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The isi_informasi Schema",
+                            "examples": [
+                                "Catchpharse 12"
+                            ]
+                        },
+                        "tanda": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanda Schema",
+                            "examples": [
+                                "Ya"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "isi_informasi": "Catchpharse 12",
+                        "tanda": "Ya"
+                    }]
+                }
+            },
+            "examples": [{
+                "diagnosa": {
+                    "isi_informasi": "Catchparse",
+                    "tanda": "Ya"
+                },
+                "dasar_diagnosa": {
+                    "isi_informasi": "Catchparse 2",
+                    "tanda": "Ya"
+                },
+                "tindakan_kedokteran": {
+                    "isi_informasi": "Catchpharse 3",
+                    "isi_informasi2": "Catchpharse 3b",
+                    "tanda": "Tidak"
+                },
+                "indikasi_tindakan": {
+                    "isi_informasi": "Catchpharse 4",
+                    "tanda": "Ya"
+                },
+                "tata_cara": {
+                    "isi_informasi": "Catchpharse 5",
+                    "tanda": "Ya"
+                },
+                "tujuan": {
+                    "isi_informasi": "Catchpharse 6",
+                    "tanda": "Ya"
+                },
+                "risiko": {
+                    "isi_informasi": "Catchpharse 7",
+                    "tanda": "Ya"
+                },
+                "komplikasi": {
+                    "isi_informasi": "Catchpharse 8",
+                    "tanda": "Ya"
+                },
+                "prognosis": {
+                    "isi_informasi": "Catchpharse 9",
+                    "tanda": "Ya"
+                },
+                "alternatif": {
+                    "isi_informasi": "Catchpharse 10",
+                    "tanda": "Ya"
+                },
+                "lain_lain": {
+                    "isi_informasi": "Catchpharse 11",
+                    "tanda": "Ya"
+                },
+                "lain_lain_lain": {
+                    "isi_informasi": "Catchpharse 12",
+                    "tanda": "Ya"
+                }
+            }]
+        },
+        "ttd_dokter": {
+            "type": "string",
+            "default": "",
+            "title": "The ttd_dokter Schema",
+            "examples": [
+                "James"
+            ]
+        },
+        "ttd_nakes_3": {
+            "type": "string",
+            "default": "",
+            "title": "The ttd_nakes_3 Schema",
+            "examples": [
+                "James"
+            ]
+        },
+        "ttd_pasien": {
+            "type": "string",
+            "default": "",
+            "title": "The ttd_pasien Schema",
+            "examples": [
+                "Howlet"
+            ]
+        },
+        "ttd_wali": {
+            "type": "string",
+            "default": "",
+            "title": "The ttd_wali Schema",
+            "examples": [
+                "wali"
+            ]
+        },
+        "persetujuan_tindakan_kedokteran": {
+            "type": "object",
+            "default": {},
+            "title": "The persetujuan_tindakan_kedokteran Schema",
+            "required": [
+                "yang_bertandatangan",
+                "setuju_menolak",
+                "terhadap"
+            ],
+            "properties": {
+                "yang_bertandatangan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The yang_bertandatangan Schema",
+                    "required": [
+                        "nama",
+                        "tanggal_lahir",
+                        "tanggal_lahir_indo",
+                        "kelamin",
+                        "alamat",
+                        "umur"
+                    ],
+                    "properties": {
+                        "nama": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The nama Schema",
+                            "examples": [
+                                "Isolet"
+                            ]
+                        },
+                        "tanggal_lahir": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_lahir Schema",
+                            "examples": [
+                                "2000-08-26"
+                            ]
+                        },
+                        "tanggal_lahir_indo": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tanggal_lahir_indo Schema",
+                            "examples": [
+                                "26 Agustus 2000"
+                            ]
+                        },
+                        "kelamin": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The kelamin Schema",
+                            "examples": [
+                                "Perempuan"
+                            ]
+                        },
+                        "alamat": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The alamat Schema",
+                            "examples": [
+                                "Jurang"
+                            ]
+                        },
+                        "umur": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The umur Schema",
+                            "examples": [
+                                0
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "nama": "Isolet",
+                        "tanggal_lahir": "2000-08-26",
+                        "tanggal_lahir_indo": "26 Agustus 2000",
+                        "kelamin": "Perempuan",
+                        "alamat": "Jurang",
+                        "umur": 0
+                    }]
+                },
+                "setuju_menolak": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The setuju_menolak Schema",
+                    "examples": [
+                        "setuju"
+                    ]
+                },
+                "terhadap": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The terhadap Schema",
+                    "required": [
+                        "tindakan",
+                        "pilihan",
+                        "lain_lain",
+                        "bernama",
+                        "umur",
+                        "kelamin",
+                        "alamat"
+                    ],
+                    "properties": {
+                        "tindakan": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tindakan Schema",
+                            "examples": [
+                                "SC"
+                            ]
+                        },
+                        "pilihan": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The pilihan Schema",
+                            "examples": [
+                                "saya"
+                            ]
+                        },
+                        "lain_lain": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The lain_lain Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "bernama": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The bernama Schema",
+                            "examples": [
+                                "Balmora"
+                            ]
+                        },
+                        "umur": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The umur Schema",
+                            "examples": [
+                                21
+                            ]
+                        },
+                        "kelamin": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The kelamin Schema",
+                            "examples": [
+                                "Laki-laki"
+                            ]
+                        },
+                        "alamat": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The alamat Schema",
+                            "examples": [
+                                "Gunung"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "tindakan": "SC",
+                        "pilihan": "saya",
+                        "lain_lain": "",
+                        "bernama": "Balmora",
+                        "umur": 21,
+                        "kelamin": "Laki-laki",
+                        "alamat": "Gunung"
+                    }]
+                }
+            },
+            "examples": [{
+                "yang_bertandatangan": {
+                    "nama": "Isolet",
+                    "tanggal_lahir": "2000-08-26",
+                    "tanggal_lahir_indo": "26 Agustus 2000",
+                    "kelamin": "Perempuan",
+                    "alamat": "Jurang",
+                    "umur": 0
+                },
+                "setuju_menolak": "setuju",
+                "terhadap": {
+                    "tindakan": "SC",
+                    "pilihan": "saya",
+                    "lain_lain": "",
+                    "bernama": "Balmora",
+                    "umur": 21,
+                    "kelamin": "Laki-laki",
+                    "alamat": "Gunung"
+                }
+            }]
+        },
+        "ttd": {
+            "type": "object",
+            "default": {},
+            "title": "The ttd Schema",
+            "required": [
+                "kota",
+                "tanggal",
+                "tanggal_indo",
+                "jam",
+                "saksi_1",
+                "saksi_2",
+                "menyatakan"
+            ],
+            "properties": {
+                "kota": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The kota Schema",
+                    "examples": [
+                        "Banjarnegara"
+                    ]
+                },
+                "tanggal": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tanggal Schema",
+                    "examples": [
+                        "2021-11-01"
+                    ]
+                },
+                "tanggal_indo": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tanggal_indo Schema",
+                    "examples": [
+                        "01 November 2021"
+                    ]
+                },
+                "jam": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The jam Schema",
+                    "examples": [
+                        "06:00"
+                    ]
+                },
+                "saksi_1": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The saksi_1 Schema",
+                    "required": [
+                        "nama",
+                        "hubungan_keluarga"
+                    ],
+                    "properties": {
+                        "nama": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The nama Schema",
+                            "examples": [
+                                "Henry"
+                            ]
+                        },
+                        "hubungan_keluarga": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The hubungan_keluarga Schema",
+                            "examples": [
+                                "Sahabat"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "nama": "Henry",
+                        "hubungan_keluarga": "Sahabat"
+                    }]
+                },
+                "saksi_2": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The saksi_2 Schema",
+                    "required": [
+                        "nama",
+                        "perawat"
+                    ],
+                    "properties": {
+                        "nama": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The nama Schema",
+                            "examples": [
+                                "Norman"
+                            ]
+                        },
+                        "perawat": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The perawat Schema",
+                            "examples": [
+                                "May"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "nama": "Norman",
+                        "perawat": "May"
+                    }]
+                },
+                "menyatakan": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The menyatakan Schema",
+                    "required": [
+                        "nama",
+                        "status"
+                    ],
+                    "properties": {
+                        "nama": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The nama Schema",
+                            "examples": [
+                                "Rommy"
+                            ]
+                        },
+                        "status": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The status Schema",
+                            "required": [
+                                "pilihan",
+                                "wali"
+                            ],
+                            "properties": {
+                                "pilihan": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pilihan Schema",
+                                    "examples": [
+                                        "Wali"
+                                    ]
+                                },
+                                "wali": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The wali Schema",
+                                    "examples": [
+                                        "Saudara"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "pilihan": "Wali",
+                                "wali": "Saudara"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "nama": "Rommy",
+                        "status": {
+                            "pilihan": "Wali",
+                            "wali": "Saudara"
+                        }
+                    }]
+                }
+            },
+            "examples": [{
+                "kota": "Banjarnegara",
+                "tanggal": "2021-11-01",
+                "tanggal_indo": "01 November 2021",
+                "jam": "06:00",
+                "saksi_1": {
+                    "nama": "Henry",
+                    "hubungan_keluarga": "Sahabat"
+                },
+                "saksi_2": {
+                    "nama": "Norman",
+                    "perawat": "May"
+                },
+                "menyatakan": {
+                    "nama": "Rommy",
+                    "status": {
+                        "pilihan": "Wali",
+                        "wali": "Saudara"
+                    }
+                }
+            }]
+        }
+    },
+    "examples": [{
+        "header": {
+            "ruang": "IGD",
+            "jaminan": "BPJS/I",
+            "dpjp": "lorem"
+        },
+        "pemberian_informasi": {
+            "dokter_pelaksana": "Some name",
+            "pemberi_informasi": "Some diff name",
+            "penerima_informasi": "Some other name"
+        },
+        "isian_diagnosa": "Text area diagnosa",
+        "diagnosa_utama": {
+            "icd_x": "ASW",
+            "deskripsi": "Awww Sakit Weiii"
+        },
+        "jenis_informasi": {
+            "diagnosa": {
+                "isi_informasi": "Catchparse",
+                "tanda": "Ya"
+            },
+            "dasar_diagnosa": {
+                "isi_informasi": "Catchparse 2",
+                "tanda": "Ya"
+            },
+            "tindakan_kedokteran": {
+                "isi_informasi": "Catchpharse 3",
+                "isi_informasi2": "Catchpharse 3b",
+                "tanda": "Tidak"
+            },
+            "indikasi_tindakan": {
+                "isi_informasi": "Catchpharse 4",
+                "tanda": "Ya"
+            },
+            "tata_cara": {
+                "isi_informasi": "Catchpharse 5",
+                "tanda": "Ya"
+            },
+            "tujuan": {
+                "isi_informasi": "Catchpharse 6",
+                "tanda": "Ya"
+            },
+            "risiko": {
+                "isi_informasi": "Catchpharse 7",
+                "tanda": "Ya"
+            },
+            "komplikasi": {
+                "isi_informasi": "Catchpharse 8",
+                "tanda": "Ya"
+            },
+            "prognosis": {
+                "isi_informasi": "Catchpharse 9",
+                "tanda": "Ya"
+            },
+            "alternatif": {
+                "isi_informasi": "Catchpharse 10",
+                "tanda": "Ya"
+            },
+            "lain_lain": {
+                "isi_informasi": "Catchpharse 11",
+                "tanda": "Ya"
+            },
+            "lain_lain_lain": {
+                "isi_informasi": "Catchpharse 12",
+                "tanda": "Ya"
+            }
+        },
+        "ttd_dokter": "James",
+        "ttd_nakes_3": "",
+        "ttd_pasien": "Howlet",
+        "ttd_wali": "wali",
+        "persetujuan_tindakan_kedokteran": {
+            "yang_bertandatangan": {
+                "nama": "Isolet",
+                "tanggal_lahir": "2000-08-26",
+                "tanggal_lahir_indo": "26 Agustus 2000",
+                "kelamin": "Perempuan",
+                "alamat": "Jurang",
+                "umur": 0
+            },
+            "setuju_menolak": "setuju",
+            "terhadap": {
+                "tindakan": "SC",
+                "pilihan": "saya",
+                "lain_lain": "",
+                "bernama": "Balmora",
+                "umur": 21,
+                "kelamin": "Laki-laki",
+                "alamat": "Gunung"
+            }
+        },
+        "ttd": {
+            "kota": "Banjarnegara",
+            "tanggal": "2021-11-01",
+            "tanggal_indo": "01 November 2021",
+            "jam": "06:00",
+            "saksi_1": {
+                "nama": "Henry",
+                "hubungan_keluarga": "Sahabat"
+            },
+            "saksi_2": {
+                "nama": "Norman",
+                "perawat": "May"
+            },
+            "menyatakan": {
+                "nama": "Rommy",
+                "status": {
+                    "pilihan": "Wali",
+                    "wali": "Saudara"
+                }
+            }
+        }
+    }]
+}
