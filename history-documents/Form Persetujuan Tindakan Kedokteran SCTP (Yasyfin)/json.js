@@ -1,8 +1,8 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "YATI PURBA NN RAWRRAWR RAWR",
-            "no_rm": "00116356",
+            "nama": "TESTING RAWRRAWR RAWR",
+            "no_rm": "00116356awr124",
             "kelamin": "P",
             "tanggal_lahir": "1985-10-24",
             "tanggal_lahir_indo": "24 Oktober 1985"
