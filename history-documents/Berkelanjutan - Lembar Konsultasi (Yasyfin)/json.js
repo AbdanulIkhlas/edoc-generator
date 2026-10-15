@@ -1,7 +1,7 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "ICHA FELISA NILAM SARI AN",
+            "nama": "Testing raawr rawr",
             "no_rm": "00000001",
             "tanggal_lahir": "1985-10-24",
             "tanggal_lahir_indo": "24 Oktober 1985",
