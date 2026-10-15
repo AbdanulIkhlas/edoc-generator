@@ -1,12 +1,12 @@
 const data = {
     "sample": {
         "pasien": {
-            "nama": "HANA AMIRA NN",
+            "nama": "Testing rawr rawr rawr",
             "no_rm": "00000001",
             "tanggal_lahir": "1985-10-24",
             "tanggal_lahir_indo": "24 Oktober 1985",
             "kelamin": "Perempuan",
-            "alamat": "Jln. Magelang, Pantai Timur",
+            "alamat": "Jln. Magelang, Pantai Timur rawr",
             "tempat_lahir": "Kuningan",
             "pekerjaan": "Wiraswasta",
             "pendidikan": "SMA",
